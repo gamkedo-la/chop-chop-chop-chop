@@ -6,6 +6,11 @@ function playerClass() {
 	this.image = gamePics.playerImage;
 	this.width = this.image.width;
 	this.height = this.image.height;
+	const NORTH = "north";
+	const EAST = "east";
+	const WEST = "west";
+	const SOUTH = "south";
+	this.direction = WEST; // direction helps prioritze attack
 
 	/*this.setCollisionBox = function() {
 		this.collisionBox.topLeft = this.x + 
@@ -17,15 +22,19 @@ function playerClass() {
 
 		if (leftKeyHeld) {
 			movementX -= this.speed;
+			this.direction = WEST;
 		}
 		if (rightKeyHeld) {
 			movementX += this.speed;
+			this.direction = EAST;
 		}
 		if (upKeyHeld) {
 			movementY -= this.speed;
+			this.direction = NORTH;
 		}
 		if (downKeyHeld) {
 			movementY += this.speed;
+			this.direction = SOUTH;
 		}
 
 		var nextX = Math.round(this.x + movementX);
@@ -44,6 +53,18 @@ function playerClass() {
 			this.x = nextX;
 			this.y = nextY;
 		}
+
+		//console.log("player direction: " + this.direction);
+	}
+
+	this.chopTreesAroundPlayer = function() {
+		var arrayIndex = getTileIndexAtPixelCoord(this.x,this.y);
+		var tileLeft = worldGrid[arrayIndex - 1]; // 
+		var tileRight = worldGrid[arrayIndex + 1]; //
+		var tileUp = worldGrid[arrayIndex - worldCols]; //
+		var tileDown = worldGrid[arrayIndex + worldCols]; // checks in a + around player's location
+		//if (tileUp || tileRight || tileLeft || tileDown == ) 
+		
 	}
 
 	this.draw = function() {

@@ -1,6 +1,6 @@
 const TILE_W = TILE_H = 32;
 
-const TILE_EXTEND_COLLSION = -01;
+const TILE_EXTEND_TREE = -01;
 const TILE_NOTHING = 00;
 const TILE_TREE = 01;
 const TILE_FLOWER = 02;
@@ -19,7 +19,7 @@ worldGrid = allLevels[currentLevelIndex];
 
 function isTileTypeAnObstacle(tileType) {
   	switch (tileType) {
-  		case TILE_EXTEND_COLLSION: 
+  		case TILE_EXTEND_TREE: 
 		case TILE_TREE:
 	  		return true;
 	  		break;
@@ -40,7 +40,7 @@ function drawWorld() {
 			/*if( tileTypeHasTransparency(tileKindHere) ) {
 			canvasContext.drawImage(worldPics[TILE_NOTHING],drawTileX,drawTileY);
 			}*/
-			
+
 			if (isTileTypeAnObstacle(tileKindHere)) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING],drawTileX,drawTileY);
 				newObject = new objectClass(useImg,drawTileX,drawTileY,
@@ -92,7 +92,16 @@ function addTilesForCollisionBasedOnTileType(tileType,x,y) {
 	switch (tileType) {
 		case TILE_TREE:
 			var arrayIndex = getTileIndexAtPixelCoord(x,y)
-			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_COLLSION;
+			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_TREE;
+	  		break;
+  	}
+}
+
+function removeTilesForCollisionBasedOnTileType(tileType,x,y) {
+	switch (tileType) {
+		case TILE_TREE:
+			var arrayIndex = getTileIndexAtPixelCoord(x,y)
+			worldGrid[arrayIndex - worldCols] = TILE_NOTHING;
 	  		break;
   	}
 }

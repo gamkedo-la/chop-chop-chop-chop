@@ -8,11 +8,13 @@ const W_KEY = 87;
 const D_KEY = 68;
 const S_KEY = 83;
 
+const SPACEBAR = 32;
+
 var leftKeyHeld = false;
 var upKeyHeld = false;
 var downKeyHeld = false;
 var rightKeyHeld = false;
-var moving = false;
+var spacebarKeyHeld = false;
 
 function setupInput() {
     window.addEventListener("blur", windowOnBlur);
@@ -50,7 +52,10 @@ function keyPressed(evt) {
 		case DOWN_ARROW_KEY:
 		case S_KEY:
 			downKeyHeld = true;
-		break;
+			break;
+		case SPACEBAR:
+			player.chopTreesAroundPlayer();
+			break;
     }
 };
 
@@ -71,6 +76,8 @@ function keyReleased(evt) {
         case DOWN_ARROW_KEY:
 		case S_KEY:
             downKeyHeld = false;
+        /*case SPACEBAR:
+			spacebarKeyHeld = false;*/
             break;
-  }
+	}
 };
