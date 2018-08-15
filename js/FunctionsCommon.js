@@ -1,6 +1,6 @@
 //Functions Common
 
-function checkNumberRange(lowerNumber, numberToCheckIfInRange, higherNumber) {
+function checkIfNumberIsInRange(lowerNumber, numberToCheckIfInRange, higherNumber) {
 	return lowerNumber <= numberToCheckIfInRange && numberToCheckIfInRange <= higherNumber;
 }
 

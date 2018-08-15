@@ -3,6 +3,11 @@ const UP_ARROW_KEY = 38;
 const RIGHT_ARROW_KEY = 39;
 const DOWN_ARROW_KEY = 40;
 
+const A_KEY = 65;
+const W_KEY = 87;
+const D_KEY = 68;
+const S_KEY = 83;
+
 var leftKeyHeld = false;
 var upKeyHeld = false;
 var downKeyHeld = false;
@@ -31,32 +36,40 @@ function windowOnFocus() {
 function keyPressed(evt) {
     switch (evt.keyCode) {
         case LEFT_ARROW_KEY:
-            leftKeyHeld = true;
-            break;
-        case RIGHT_ARROW_KEY:
+        case A_KEY:
+			leftKeyHeld = true;
+			break;
+		case RIGHT_ARROW_KEY:
+		case D_KEY:
             rightKeyHeld = true;
-            break;
-        case UP_ARROW_KEY:
-            upKeyHeld = true;
-            break;
-        case DOWN_ARROW_KEY:
-            downKeyHeld = true;
-        break;
+			break;
+		case UP_ARROW_KEY:
+		case W_KEY:
+			upKeyHeld = true;
+			break;
+		case DOWN_ARROW_KEY:
+		case S_KEY:
+			downKeyHeld = true;
+		break;
     }
 };
 
 function keyReleased(evt) {
     switch (evt.keyCode) {
         case LEFT_ARROW_KEY:
+        case A_KEY:
             leftKeyHeld = false;
             break;
         case RIGHT_ARROW_KEY:
+		case D_KEY:
             rightKeyHeld = false;
             break;
         case UP_ARROW_KEY:
+		case W_KEY:
             upKeyHeld = false;
             break;
         case DOWN_ARROW_KEY:
+		case S_KEY:
             downKeyHeld = false;
             break;
   }

@@ -6,12 +6,14 @@ var worldPics = [];
 function loadImages() {
     var imageList = [
         //Game Pics (player, enemies, objects, effects, etc.)
-        {varName: "playerImage", theFile: "CCFrontImagePrototype3.png" },
+        {varName: "playerImage", theFile: "CCFrontImage.png" },
 
         //World Tile Pics
-        {worldType: TILE_NOTHING, theFile: "CCFrontImageOld.png" },
+        {worldType: TILE_EXTEND_COLLSION, theFile: "clear.png" },
+        {worldType: TILE_NOTHING, theFile: "nothing.png" },
         {worldType: TILE_TREE, theFile: "tree.png" },
-        {worldType: TILE_FLOWER, theFile: "flowers.png" }
+        {worldType: TILE_FLOWER, theFile: "flowers.png" },
+        {worldType: TILE_WEEDS, theFile: "weeds.png" }
     ];
 
     picsToLoad = imageList.length;

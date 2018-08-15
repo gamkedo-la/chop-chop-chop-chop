@@ -38,12 +38,13 @@ function update() {
 }
 
 function drawAll() {
-	drawRect(0, 0, canvas.width, canvas.height, "black");
+	cameraPan();
 	drawWorld();
 	player.draw();
 	for (var i = 0; i < objectList.length; i++) {
 		objectList[i].draw();
-   }
+	}
+	endCameraPan();
 }
 
 function moveAll() {
