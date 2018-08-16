@@ -10,11 +10,7 @@ function playerClass() {
 	const EAST = "east";
 	const WEST = "west";
 	const SOUTH = "south";
-	this.direction = WEST; // direction helps prioritze attack
-
-	/*this.setCollisionBox = function() {
-		this.collisionBox.topLeft = this.x + 
-	}*/
+	this.direction = WEST; // direction helps prioritize chop
 
 	this.move = function() {
 		var movementX = 0;
@@ -53,7 +49,6 @@ function playerClass() {
 			this.x = nextX;
 			this.y = nextY;
 		}
-
 		//console.log("player direction: " + this.direction);
 	}
 
@@ -63,8 +58,43 @@ function playerClass() {
 		var tileRight = worldGrid[arrayIndex + 1]; //
 		var tileUp = worldGrid[arrayIndex - worldCols]; //
 		var tileDown = worldGrid[arrayIndex + worldCols]; // checks in a + around player's location
-		//if (tileUp || tileRight || tileLeft || tileDown == ) 
-		
+		switch (this.direction) {
+			case NORTH: 
+			if (tileUp == TILE_TREE) { // remove tree above and extended tree tile above tree
+				worldGrid[arrayIndex - worldCols] = TILE_STUMP;
+				worldGrid[arrayIndex - (worldCols * 2)] = TILE_NOTHING;
+			} 
+			break;
+			case EAST:
+			if (tileRight == TILE_TREE) { // remove tree to the right and extended tile above tree
+				worldGrid[arrayIndex + 1] = TILE_STUMP;
+				worldGrid[arrayIndex + 1 - worldCols] = TILE_NOTHING;
+			} 
+			if (tileRight == TILE_EXTEND_TREE) { // remove extend tree tile to the right 
+												 // and tree below extend tree tile
+				worldGrid[arrayIndex + 1] = TILE_NOTHING;
+				worldGrid[arrayIndex + 1 + worldCols] = TILE_NOTHING;
+			} 
+			break;
+			case WEST:
+			if (tileLeft == TILE_TREE) { // remove tree to the left and extend tree tile above tree
+				worldGrid[arrayIndex - 1] = TILE_STUMP;
+				worldGrid[arrayIndex - 1 - worldCols] = TILE_NOTHING;
+			}
+			if (tileLeft == TILE_EXTEND_TREE) {	// remove extend tree tile to the left 
+												// and tree below extend tree tile
+				worldGrid[arrayIndex - 1] = TILE_NOTHING;
+				worldGrid[arrayIndex - 1 + worldCols] = TILE_NOTHING;
+			}
+			break;
+			case SOUTH:
+			if (tileDown == TILE_EXTEND_TREE) { // remove extend tree tile above 
+												// and tree below extend tree tile
+				worldGrid[arrayIndex + worldCols] = TILE_NOTHING;
+				worldGrid[arrayIndex + (worldCols * 2)] = TILE_STUMP;
+			}
+			break;
+		} // end of switch cases
 	}
 
 	this.draw = function() {

@@ -1,30 +1,21 @@
 const TILE_W = TILE_H = 32;
 
+const TILE_STUMP = -02
 const TILE_EXTEND_TREE = -01;
 const TILE_NOTHING = 00;
 const TILE_TREE = 01;
 const TILE_FLOWER = 02;
 const TILE_WEEDS = 03;
 
-var worldCols = 25; //
-var worldRows = 40; // both of these depend on level, these numbers are for level 1
+var allLevels = [levelOne];
+var currentLevelIndex = 0;
+
+var worldCols = allLevels[currentLevelIndex].columns; //
+var worldRows = allLevels[currentLevelIndex].rows; // both of these depend on level, these numbers are for level 1
 
 var worldGrid = [];
 
-var allLevels = [levelOne];
-
-var currentLevelIndex = 0;
-
-worldGrid = allLevels[currentLevelIndex];
-
-function isTileTypeAnObstacle(tileType) {
-  	switch (tileType) {
-  		case TILE_EXTEND_TREE: 
-		case TILE_TREE:
-	  		return true;
-	  		break;
-  	}
-}
+worldGrid = allLevels[currentLevelIndex].layout;
 
 function drawWorld() {
   	var arrayIndex = 0;
@@ -41,6 +32,13 @@ function drawWorld() {
 			canvasContext.drawImage(worldPics[TILE_NOTHING],drawTileX,drawTileY);
 			}*/
 
+			if (tileKindHere == TILE_STUMP) {
+				canvasContext.drawImage(worldPics[TILE_NOTHING],drawTileX,drawTileY);
+				newObject = new objectClass(useImg,drawTileX,drawTileY,
+											useImg.width, useImg.height,
+											tileKindHere);
+				objectList.push(newObject);
+			}
 			if (isTileTypeAnObstacle(tileKindHere)) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING],drawTileX,drawTileY);
 				newObject = new objectClass(useImg,drawTileX,drawTileY,
@@ -52,8 +50,9 @@ function drawWorld() {
 				canvasContext.drawImage(useImg,drawTileX,drawTileY);
 			}
 
-			// drawGridAndTypesOfTiles(arrayIndex, drawTileX, drawTileY);
-			// WARNING: Slows down game considerably
+			// drawTypesOfTiles(arrayIndex, drawTileX, drawTileY);
+			// drawGridOfTiles(drawTileX,drawTileY);
+			// WARNING: Slows down game considerably when both used
 			// uncomment to use 	
 			// helps visualize the tile grid 
 			// and gives info about what tile is where (use either arrayIndex or tileKindHere)	
@@ -88,6 +87,15 @@ function getTileIndexAtPixelCoord(x,y) {
 	return arrayIndex;
 }
 
+function isTileTypeAnObstacle(tileType) {
+  	switch (tileType) {
+  		case TILE_EXTEND_TREE: 
+		case TILE_TREE:
+	  		return true;
+	  		break;
+  	}
+}
+
 function addTilesForCollisionBasedOnTileType(tileType,x,y) {
 	switch (tileType) {
 		case TILE_TREE:
@@ -97,22 +105,25 @@ function addTilesForCollisionBasedOnTileType(tileType,x,y) {
   	}
 }
 
-function removeTilesForCollisionBasedOnTileType(tileType,x,y) {
+/*function removeTilesForCollisionBasedOnTileType(tileType,x,y) {
 	switch (tileType) {
 		case TILE_TREE:
 			var arrayIndex = getTileIndexAtPixelCoord(x,y)
 			worldGrid[arrayIndex - worldCols] = TILE_NOTHING;
 	  		break;
   	}
-}
+}*/
 
-function drawGridAndTypesOfTiles(tileType,x,y) {
+function drawTypesOfTiles(tileType,x,y) {
 	var textWidth = canvasContext.measureText(tileType).width;
 	var offsetYForTextHeight = 5;
 	colorText(tileType,
 			x + TILE_W/2 - textWidth/2,
 			y + TILE_H/2 + offsetYForTextHeight/2, 
 			"pink");
+}
+
+function drawGridOfTiles(x,y) {
 	canvasContext.lineWidth = 0.4;
 	canvasContext.strokeStyle = 'pink';
 	canvasContext.strokeRect(x, y, TILE_W, TILE_H);

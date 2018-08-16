@@ -39,11 +39,11 @@ function update() {
 
 function drawAll() {
 	cameraPan();
-	drawWorld();
-	player.draw();
+	drawWorld();	
 	for (var i = 0; i < objectList.length; i++) {
 		objectList[i].draw();
 	}
+	player.draw();
 	endCameraPan();
 }
 
