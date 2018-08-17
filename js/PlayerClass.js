@@ -73,7 +73,7 @@ function playerClass() {
 			if (tileRight == TILE_EXTEND_TREE) { // remove extend tree tile to the right 
 												 // and tree below extend tree tile
 				worldGrid[arrayIndex + 1] = TILE_NOTHING;
-				worldGrid[arrayIndex + 1 + worldCols] = TILE_NOTHING;
+				worldGrid[arrayIndex + 1 + worldCols] = TILE_STUMP;
 			} 
 			break;
 			case WEST:
@@ -84,7 +84,7 @@ function playerClass() {
 			if (tileLeft == TILE_EXTEND_TREE) {	// remove extend tree tile to the left 
 												// and tree below extend tree tile
 				worldGrid[arrayIndex - 1] = TILE_NOTHING;
-				worldGrid[arrayIndex - 1 + worldCols] = TILE_NOTHING;
+				worldGrid[arrayIndex - 1 + worldCols] = TILE_STUMP;
 			}
 			break;
 			case SOUTH:
