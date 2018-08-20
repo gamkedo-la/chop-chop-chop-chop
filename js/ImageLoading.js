@@ -6,15 +6,16 @@ var worldPics = [];
 function loadImages() {
     var imageList = [
         //Game Pics (player, enemies, objects, effects, etc.)
-        {varName: "playerImage", theFile: "CCFrontImage.png" },
+        { varName: "playerImage", theFile: "CCFrontImage.png" },
 
         //World Tile Pics
-        {worldType: TILE_EXTEND_TREE, theFile: "clear.png" },
-        {worldType: TILE_NOTHING, theFile: "nothing.png" },
-        {worldType: TILE_TREE, theFile: "tree.png" },
-        {worldType: TILE_STUMP, theFile: "stump.png" },
-        {worldType: TILE_FLOWER, theFile: "flowers.png" },
-        {worldType: TILE_WEEDS, theFile: "weeds.png" }
+        { worldType: TILE_EXTEND_TREE, theFile: "clear.png" },
+        { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" },
+        { worldType: TILE_NOTHING, theFile: "nothing.png" },
+        { worldType: TILE_TREE, theFile: "tree.png" },
+        { worldType: TILE_STUMP, theFile: "stump.png" },
+        { worldType: TILE_FLOWER, theFile: "flowers.png" },
+        { worldType: TILE_WEEDS, theFile: "weeds.png" }
     ];
 
     picsToLoad = imageList.length;
@@ -36,7 +37,7 @@ function beginLoadingImage(arrayIndex, fileName, isGamePic) {
     } else {
         worldPics[arrayIndex] = document.createElement("img");
         worldPics[arrayIndex].onload = countLoadedImageAndLaunchIfReady;
-        worldPics[arrayIndex].src = "images/"+ fileName;
+        worldPics[arrayIndex].src = "images/" + fileName;
     }
 };
 

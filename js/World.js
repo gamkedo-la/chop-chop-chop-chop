@@ -6,6 +6,7 @@ const TILE_NOTHING = 00;
 const TILE_TREE = 01;
 const TILE_FLOWER = 02;
 const TILE_WEEDS = 03;
+const TILE_EXTEND_COLLISION = -03; // FIXME does this value make sense? used in PlayerClass.js line 42
 
 var allLevels = [levelOne];
 var currentLevelIndex = 0;
@@ -18,12 +19,12 @@ var worldGrid = [];
 worldGrid = allLevels[currentLevelIndex].layout;
 
 function drawWorld() {
-  	var arrayIndex = 0;
-  	var drawTileX = 0;
+	var arrayIndex = 0;
+	var drawTileX = 0;
 	var drawTileY = 0;
 	objectList = [];
-	for(var eachRow=0;eachRow<worldRows;eachRow++) {
-		for(var eachCol=0;eachCol<worldCols;eachCol++) {
+	for (var eachRow = 0; eachRow < worldRows; eachRow++) {
+		for (var eachCol = 0; eachCol < worldCols; eachCol++) {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = worldGrid[arrayIndex];
 			var useImg = worldPics[tileKindHere];
@@ -33,21 +34,21 @@ function drawWorld() {
 			}*/
 
 			if (tileKindHere == TILE_STUMP) {
-				canvasContext.drawImage(worldPics[TILE_NOTHING],drawTileX,drawTileY);
-				newObject = new objectClass(useImg,drawTileX,drawTileY,
-											useImg.width, useImg.height,
-											tileKindHere);
+				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
+				newObject = new objectClass(useImg, drawTileX, drawTileY,
+					useImg.width, useImg.height,
+					tileKindHere);
 				objectList.push(newObject);
 			}
 			if (isTileTypeAnObstacle(tileKindHere)) {
-				canvasContext.drawImage(worldPics[TILE_NOTHING],drawTileX,drawTileY);
-				newObject = new objectClass(useImg,drawTileX,drawTileY,
-											useImg.width, useImg.height,
-											tileKindHere);
-				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX,drawTileY);
+				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
+				newObject = new objectClass(useImg, drawTileX, drawTileY,
+					useImg.width, useImg.height,
+					tileKindHere);
+				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX, drawTileY);
 				objectList.push(newObject);
 			} else {
-				canvasContext.drawImage(useImg,drawTileX,drawTileY);
+				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 			}
 
 			// drawTypesOfTiles(arrayIndex, drawTileX, drawTileY);
@@ -74,13 +75,13 @@ function rowColToArrayIndex(col, row) {
 	return col + worldCols * row;
 }
 
-function getTileTypeAtPixelCoord(x,y) {
+function getTileTypeAtPixelCoord(x, y) {
 	var arrayIndex = getTileIndexAtPixelCoord(x, y);
 	var tileKindHere = worldGrid[arrayIndex];
 	return tileKindHere;
 }
 
-function getTileIndexAtPixelCoord(x,y) {
+function getTileIndexAtPixelCoord(x, y) {
 	var colFromX = Math.floor(x / TILE_W);
 	var rowFromY = Math.floor(y / TILE_H);
 	var arrayIndex = rowColToArrayIndex(colFromX, rowFromY);
@@ -88,21 +89,21 @@ function getTileIndexAtPixelCoord(x,y) {
 }
 
 function isTileTypeAnObstacle(tileType) {
-  	switch (tileType) {
-  		case TILE_EXTEND_TREE: 
+	switch (tileType) {
+		case TILE_EXTEND_TREE:
 		case TILE_TREE:
-	  		return true;
-	  		break;
-  	}
+			return true;
+			break;
+	}
 }
 
-function addTilesForCollisionBasedOnTileType(tileType,x,y) {
+function addTilesForCollisionBasedOnTileType(tileType, x, y) {
 	switch (tileType) {
 		case TILE_TREE:
-			var arrayIndex = getTileIndexAtPixelCoord(x,y)
+			var arrayIndex = getTileIndexAtPixelCoord(x, y)
 			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_TREE;
-	  		break;
-  	}
+			break;
+	}
 }
 
 /*function removeTilesForCollisionBasedOnTileType(tileType,x,y) {
@@ -114,16 +115,16 @@ function addTilesForCollisionBasedOnTileType(tileType,x,y) {
   	}
 }*/
 
-function drawTypesOfTiles(tileType,x,y) {
+function drawTypesOfTiles(tileType, x, y) {
 	var textWidth = canvasContext.measureText(tileType).width;
 	var offsetYForTextHeight = 5;
 	colorText(tileType,
-			x + TILE_W/2 - textWidth/2,
-			y + TILE_H/2 + offsetYForTextHeight/2, 
-			"pink");
+		x + TILE_W / 2 - textWidth / 2,
+		y + TILE_H / 2 + offsetYForTextHeight / 2,
+		"pink");
 }
 
-function drawGridOfTiles(x,y) {
+function drawGridOfTiles(x, y) {
 	canvasContext.lineWidth = 0.4;
 	canvasContext.strokeStyle = 'pink';
 	canvasContext.strokeRect(x, y, TILE_W, TILE_H);
