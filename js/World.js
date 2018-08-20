@@ -71,23 +71,6 @@ function drawWorld() {
 	} // end of for each row
 } // end of drawWorld func
 
-function rowColToArrayIndex(col, row) {
-	return col + worldCols * row;
-}
-
-function getTileTypeAtPixelCoord(x, y) {
-	var arrayIndex = getTileIndexAtPixelCoord(x, y);
-	var tileKindHere = worldGrid[arrayIndex];
-	return tileKindHere;
-}
-
-function getTileIndexAtPixelCoord(x, y) {
-	var colFromX = Math.floor(x / TILE_W);
-	var rowFromY = Math.floor(y / TILE_H);
-	var arrayIndex = rowColToArrayIndex(colFromX, rowFromY);
-	return arrayIndex;
-}
-
 function isTileTypeAnObstacle(tileType) {
 	switch (tileType) {
 		case TILE_EXTEND_TREE:

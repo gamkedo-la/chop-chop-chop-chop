@@ -66,44 +66,60 @@ function playerClass() {
 		var tileRight = worldGrid[arrayIndex + 1]; //
 		var tileUp = worldGrid[arrayIndex - worldCols]; //
 		var tileDown = worldGrid[arrayIndex + worldCols]; // checks in a + around player's location
+
 		switch (this.direction) {
 			case NORTH: 
-			if (tileUp == TILE_TREE) { // remove tree above and extended tree tile above tree
-				worldGrid[arrayIndex - worldCols] = TILE_STUMP;
-				worldGrid[arrayIndex - (worldCols * 2)] = TILE_NOTHING;
-			} 
-			break;
+				if (tileUp == TILE_TREE) { // remove tree above and extended tree tile above tree
+					worldGrid[arrayIndex - worldCols] = TILE_STUMP;
+					worldGrid[arrayIndex - (worldCols * 2)] = TILE_NOTHING;
+					var treeXY = indexToCenteredXY(arrayIndex - worldCols);
+					spawnParticles('chop', treeXY.x, treeXY.y);
+				} 
+				break;
+
 			case EAST:
-			if (tileRight == TILE_TREE) { // remove tree to the right and extended tile above tree
-				worldGrid[arrayIndex + 1] = TILE_STUMP;
-				worldGrid[arrayIndex + 1 - worldCols] = TILE_NOTHING;
-			} 
-			if (tileRight == TILE_EXTEND_TREE) { // remove extend tree tile to the right 
-												 // and tree below extend tree tile
-				worldGrid[arrayIndex + 1] = TILE_NOTHING;
-				worldGrid[arrayIndex + 1 + worldCols] = TILE_STUMP;
-			} 
-			break;
+				if (tileRight == TILE_TREE) { // remove tree to the right and extended tile above tree
+					worldGrid[arrayIndex + 1] = TILE_STUMP;
+					worldGrid[arrayIndex + 1 - worldCols] = TILE_NOTHING;
+					var treeXY = indexToCenteredXY(arrayIndex + 1);
+					spawnParticles('chop', treeXY.x, treeXY.y);
+				} 
+				if (tileRight == TILE_EXTEND_TREE) { // remove extend tree tile to the right 
+													 // and tree below extend tree tile
+					worldGrid[arrayIndex + 1] = TILE_NOTHING;
+					worldGrid[arrayIndex + 1 + worldCols] = TILE_STUMP;
+					var treeXY = indexToCenteredXY(arrayIndex + 1);
+					spawnParticles('chop', treeXY.x, treeXY.y);
+				} 
+				break;
+
 			case WEST:
-			if (tileLeft == TILE_TREE) { // remove tree to the left and extend tree tile above tree
-				worldGrid[arrayIndex - 1] = TILE_STUMP;
-				worldGrid[arrayIndex - 1 - worldCols] = TILE_NOTHING;
-			}
-			if (tileLeft == TILE_EXTEND_TREE) {	// remove extend tree tile to the left 
-												// and tree below extend tree tile
-				worldGrid[arrayIndex - 1] = TILE_NOTHING;
-				worldGrid[arrayIndex - 1 + worldCols] = TILE_STUMP;
-			}
-			break;
+				if (tileLeft == TILE_TREE) { // remove tree to the left and extend tree tile above tree
+					worldGrid[arrayIndex - 1] = TILE_STUMP;
+					worldGrid[arrayIndex - 1 - worldCols] = TILE_NOTHING;
+					var treeXY = indexToCenteredXY(arrayIndex - 1);
+					spawnParticles('chop', treeXY.x, treeXY.y);
+				}
+				if (tileLeft == TILE_EXTEND_TREE) {	// remove extend tree tile to the left 
+													// and tree below extend tree tile
+					worldGrid[arrayIndex - 1] = TILE_NOTHING;
+					worldGrid[arrayIndex - 1 + worldCols] = TILE_STUMP;
+					var treeXY = indexToCenteredXY(arrayIndex - 1);
+					spawnParticles('chop', treeXY.x, treeXY.y);
+				}
+				break;
+
 			case SOUTH:
-			if (tileDown == TILE_EXTEND_TREE) { // remove extend tree tile above 
-												// and tree below extend tree tile
-				worldGrid[arrayIndex + worldCols] = TILE_NOTHING;
-				worldGrid[arrayIndex + (worldCols * 2)] = TILE_STUMP;
-			}
-			break;
+				if (tileDown == TILE_EXTEND_TREE) { // remove extend tree tile above 
+													// and tree below extend tree tile
+					worldGrid[arrayIndex + worldCols] = TILE_NOTHING;
+					worldGrid[arrayIndex + (worldCols * 2)] = TILE_STUMP;
+					var treeXY = indexToCenteredXY(arrayIndex + worldCols);
+					spawnParticles('chop', treeXY.x, treeXY.y);
+				}
+				break;
 		} // end of switch cases
-	}
+	} // end of chopTreesAroundPlayer
 
 	this.draw = function() {
 		canvasContext.drawImage(this.image,this.x - this.image.width/2,this.y - this.image.height/2);

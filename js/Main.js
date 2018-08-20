@@ -44,9 +44,11 @@ function drawAll() {
 		objectList[i].draw();
 	}
 	player.draw();
+	drawParticles();
 	endCameraPan();
 }
 
 function moveAll() {
 	player.move();
+	moveParticles();
 }
