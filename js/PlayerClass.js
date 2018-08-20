@@ -47,7 +47,7 @@ function playerClass() {
         var walkIntoTileType = getTileTypeAtPixelCoord(nextX, nextY);
 
         if (walkIntoTileType === undefined) {
-			walkIntoTileType = TILE_EXTEND_COLLISION;
+			walkIntoTileType = TILE_EXTEND_TREE;
 		}
 
 		if (isTileTypeAnObstacle(walkIntoTileType)) {

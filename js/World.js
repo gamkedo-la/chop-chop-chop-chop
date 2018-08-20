@@ -6,7 +6,6 @@ const TILE_NOTHING = 00;
 const TILE_TREE = 01;
 const TILE_FLOWER = 02;
 const TILE_WEEDS = 03;
-const TILE_EXTEND_COLLISION = -03; // FIXME does this value make sense? used in PlayerClass.js line 42
 
 var allLevels = [levelOne];
 var currentLevelIndex = 0;
