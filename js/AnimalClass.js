@@ -19,7 +19,7 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 	// some of these vars will depend on the animal type and will be fleshed out in inherited classes
 
 	this.draw = function() {
-		drawRect(this.x - this.width,this.y - this.height,this.width,this.height, "red");
+		drawRect(this.x - this.width, this.y - this.height,this.width,this.height, "red");
 		outlineCircle(this.x - this.width / 2,this.y - this.height / 2, this.detectionRadius, "green",1);
 		outlineCircle(this.centerX,this.centerY, this.homeRadius, "blue",1);
 		this.detectionRadiusTrigger();
@@ -32,6 +32,10 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 		if (this.playerDetected) {
 			var moveXTowardPlayer = this.x < player.x ? this.speed : -this.speed;
 			var moveYTowardPlayer = this.y < player.y ? this.speed : -this.speed;
+			 if (checkTileCollision(this.x,this.y,moveXTowardPlayer,moveYTowardPlayer)) {
+			 	moveXTowardPlayer = 0;
+			 	moveYTowardPlayer = 0;
+			 }
 			this.x += moveXTowardPlayer;
 			this.y += moveYTowardPlayer;
 		} else { // else wait
@@ -52,6 +56,10 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 				}
 				if (this.y <= this.home.y + closeToHome) {
 					moveYTowardHome = 0;
+				} // end of check if animal.y is home.y
+				if (checkTileCollision(this.x,this.y,moveXTowardHome,moveYTowardHome)) {
+					moveXTowardHome = 0;
+			 		moveYTowardHome = 0;
 				}
 				this.x += moveXTowardHome;
 				this.y += moveYTowardHome;
@@ -86,6 +94,30 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 		}
 	}
 } // end of animal class
+
+function checkTileCollision (x,y,movementX,movementY) {
+	var nextX = Math.round(x + movementX);
+    var nextY = Math.round(y + movementY);
+
+    if (nextX < 0 || nextX > worldCols * TILE_W) {
+    	return true;
+    }
+
+    if (nextY < 0 || nextY > worldRows * TILE_H) {
+    	return true;
+    }
+
+	var walkIntoTileType = getTileTypeAtPixelCoord(nextX, nextY);
+
+    if (walkIntoTileType === undefined) {
+		return true;
+	}
+
+	if (isTileTypeAnObstacle(walkIntoTileType)) {
+		//console.log("walkIntoTileType: " + walkIntoTileType);
+		return true;
+	}
+}
 
 function drawAllAnimals() {
 	for (var i = 0; i < animalList.length; i++) {
