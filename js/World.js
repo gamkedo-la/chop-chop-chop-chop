@@ -50,7 +50,7 @@ function drawWorld() {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
 				newAnimal = new animalClass(useImg, drawTileX, drawTileY,
 					useImg.width, useImg.height,
-					tileKindHere);
+					arrayIndex);
 				worldGrid[arrayIndex] = TILE_NOTHING;
 				animalList.push(newAnimal);
 			} else {

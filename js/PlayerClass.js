@@ -11,6 +11,12 @@ function playerClass() {
 	const WEST = "west";
 	const SOUTH = "south";
 	this.direction = WEST; // direction helps prioritize chop
+	this.AABB = {
+		topLeft: { x: this.x - this.width/4, y: this.y - this.height/2 },
+		topRight: { x: this.x + this.width/4, y: this.y - this.height/2 },
+		bottomRight: { x: this.x + this.width/4, y: this.y + this.height/2 },
+		bottomLeft: { x: this.x - this.width/4, y: this.y + this.height/2 },
+	}
 
 	this.move = function() {
 		var movementX = 0;
@@ -123,6 +129,9 @@ function playerClass() {
 
 	this.draw = function() {
 		canvasContext.drawImage(this.image,this.x - this.image.width/2,this.y - this.image.height/2);
-		drawRect(this.x,this.y, 3,3, "red");
+		drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");
+		canvasContext.lineWidth = 1;
+		canvasContext.strokeStyle = 'pink';
+		canvasContext.strokeRect(this.x - this.width/4, this.y - this.height/2, this.width/2, this.height);
 	}
 } // end of objectClass
