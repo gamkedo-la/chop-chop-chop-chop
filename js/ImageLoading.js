@@ -15,6 +15,7 @@ function loadImages() {
         { worldType: TILE_STUMP, theFile: "stump.png" },
         { worldType: TILE_FLOWER, theFile: "flowers.png" },
         { worldType: TILE_WEEDS, theFile: "weeds.png" },
+        { worldType: TILE_ROCK, theFile: "rock.png" },
         { worldType: TILE_ANIMAL, theFile: "clear.png" },
     ];
 

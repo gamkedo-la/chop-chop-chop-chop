@@ -6,7 +6,9 @@ const TILE_NOTHING = 00;
 const TILE_TREE = 01;
 const TILE_FLOWER = 02;
 const TILE_WEEDS = 03;
-const TILE_ANIMAL = 04; // This will need to be expanded out so that individual animals can be placed
+const TILE_ROCK = 04;
+
+const TILE_ANIMAL = 80; // This will need to be expanded out so that individual animals can be placed
 
 var allLevels = [levelOne];
 var currentLevelIndex = 0;

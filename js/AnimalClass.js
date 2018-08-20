@@ -9,12 +9,12 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 	this.centerX = this.x - this.width / 2;
 	this.centerY = this.y - this.height / 2;
 	this.speed = 3;
-	this.detectionRadius = this.width * 5;
+	this.detectionRadius = this.width * 6;
 	this.playerDetected = false;
 	this.waiting = false;
 	this.waitingTimer = 45; // frames
 	var waitingTimerFull = this.waitingTimer; // frames
-	this.homeRadius = this.detectionRadius * 3;
+	this.homeRadius = this.detectionRadius * 2.5;
 	this.home = indexToCenteredXY(arrayIndex); 
 	// some of these vars will depend on the animal type and will be fleshed out in inherited classes
 
