@@ -36,6 +36,14 @@ function playerClass() {
 		var nextX = Math.round(this.x + movementX);
         var nextY = Math.round(this.y + movementY);
 
+        if (nextX < 0 || nextX > worldCols * TILE_W) {
+        	nextX = this.x;
+        }
+
+        if (nextY < 0 || nextY > worldRows * TILE_H) {
+        	nextY = this.y;
+        }
+
         var walkIntoTileType = getTileTypeAtPixelCoord(nextX, nextY);
 
         if (walkIntoTileType === undefined) {

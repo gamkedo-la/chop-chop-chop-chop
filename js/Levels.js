@@ -44,3 +44,5 @@ var levelOne = {
 	columns: 25,
 	rows: 40
 }; 
+
+// When adding a level, make sure to add the level to the allLevels array in World.js
