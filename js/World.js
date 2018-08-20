@@ -1,11 +1,12 @@
 const TILE_W = TILE_H = 32;
 
 const TILE_STUMP = -02
-const TILE_EXTEND_TREE = -01;
+const TILE_EXTEND_COLLISION = -01;
 const TILE_NOTHING = 00;
 const TILE_TREE = 01;
 const TILE_FLOWER = 02;
 const TILE_WEEDS = 03;
+const TILE_ANIMAL = 04; // This will need to be expanded out so that individual animals can be placed
 
 var allLevels = [levelOne];
 var currentLevelIndex = 0;
@@ -32,20 +33,26 @@ function drawWorld() {
 			canvasContext.drawImage(worldPics[TILE_NOTHING],drawTileX,drawTileY);
 			}*/
 
-			if (tileKindHere == TILE_STUMP) {
+			if (tileKindHere === TILE_STUMP) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
 				newObject = new objectClass(useImg, drawTileX, drawTileY,
 					useImg.width, useImg.height,
 					tileKindHere);
 				objectList.push(newObject);
-			}
-			if (isTileTypeAnObstacle(tileKindHere)) {
+			} else if (isTileTypeAnObstacle(tileKindHere)) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
 				newObject = new objectClass(useImg, drawTileX, drawTileY,
 					useImg.width, useImg.height,
 					tileKindHere);
 				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX, drawTileY);
 				objectList.push(newObject);
+			} else if (isTileTypeAnAnimal(tileKindHere)) {
+				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
+				newAnimal = new animalClass(useImg, drawTileX, drawTileY,
+					useImg.width, useImg.height,
+					tileKindHere);
+				worldGrid[arrayIndex] = TILE_NOTHING;
+				animalList.push(newAnimal);
 			} else {
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 			}
@@ -72,8 +79,16 @@ function drawWorld() {
 
 function isTileTypeAnObstacle(tileType) {
 	switch (tileType) {
-		case TILE_EXTEND_TREE:
+		case TILE_EXTEND_COLLISION:
 		case TILE_TREE:
+			return true;
+			break;
+	}
+}
+
+function isTileTypeAnAnimal(tileType) {
+	switch (tileType) {
+		case TILE_ANIMAL:
 			return true;
 			break;
 	}
@@ -83,19 +98,10 @@ function addTilesForCollisionBasedOnTileType(tileType, x, y) {
 	switch (tileType) {
 		case TILE_TREE:
 			var arrayIndex = getTileIndexAtPixelCoord(x, y)
-			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_TREE;
+			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_COLLISION;
 			break;
 	}
 }
-
-/*function removeTilesForCollisionBasedOnTileType(tileType,x,y) {
-	switch (tileType) {
-		case TILE_TREE:
-			var arrayIndex = getTileIndexAtPixelCoord(x,y)
-			worldGrid[arrayIndex - worldCols] = TILE_NOTHING;
-	  		break;
-  	}
-}*/
 
 function drawTypesOfTiles(tileType, x, y) {
 	var textWidth = canvasContext.measureText(tileType).width;

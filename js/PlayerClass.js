@@ -47,7 +47,7 @@ function playerClass() {
         var walkIntoTileType = getTileTypeAtPixelCoord(nextX, nextY);
 
         if (walkIntoTileType === undefined) {
-			walkIntoTileType = TILE_EXTEND_TREE;
+			walkIntoTileType = TILE_EXTEND_COLLISION;
 		}
 
 		if (isTileTypeAnObstacle(walkIntoTileType)) {
@@ -84,7 +84,7 @@ function playerClass() {
 					var treeXY = indexToCenteredXY(arrayIndex + 1);
 					spawnParticles('chop', treeXY.x, treeXY.y);
 				} 
-				if (tileRight == TILE_EXTEND_TREE) { // remove extend tree tile to the right 
+				if (tileRight == TILE_EXTEND_COLLISION) { // remove extend tree tile to the right 
 													 // and tree below extend tree tile
 					worldGrid[arrayIndex + 1] = TILE_NOTHING;
 					worldGrid[arrayIndex + 1 + worldCols] = TILE_STUMP;
@@ -100,7 +100,7 @@ function playerClass() {
 					var treeXY = indexToCenteredXY(arrayIndex - 1);
 					spawnParticles('chop', treeXY.x, treeXY.y);
 				}
-				if (tileLeft == TILE_EXTEND_TREE) {	// remove extend tree tile to the left 
+				if (tileLeft == TILE_EXTEND_COLLISION) {	// remove extend tree tile to the left 
 													// and tree below extend tree tile
 					worldGrid[arrayIndex - 1] = TILE_NOTHING;
 					worldGrid[arrayIndex - 1 + worldCols] = TILE_STUMP;
@@ -110,7 +110,7 @@ function playerClass() {
 				break;
 
 			case SOUTH:
-				if (tileDown == TILE_EXTEND_TREE) { // remove extend tree tile above 
+				if (tileDown == TILE_EXTEND_COLLISION) { // remove extend tree tile above 
 													// and tree below extend tree tile
 					worldGrid[arrayIndex + worldCols] = TILE_NOTHING;
 					worldGrid[arrayIndex + (worldCols * 2)] = TILE_STUMP;

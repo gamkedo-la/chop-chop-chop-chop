@@ -40,9 +40,8 @@ function update() {
 function drawAll() {
 	cameraPan();
 	drawWorld();	
-	for (var i = 0; i < objectList.length; i++) {
-		objectList[i].draw();
-	}
+	drawAllObjects();
+	drawAllAnimals();
 	player.draw();
 	drawParticles();
 	endCameraPan();
@@ -50,5 +49,6 @@ function drawAll() {
 
 function moveAll() {
 	player.move();
+	moveAllAnimals();
 	moveParticles();
 }
