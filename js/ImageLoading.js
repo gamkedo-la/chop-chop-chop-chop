@@ -2,11 +2,13 @@ var picsToLoad = 0;
 
 var gamePics = [];
 var worldPics = [];
+var sprites = [];
 
 function loadImages() {
     var imageList = [
         //Game Pics (player, enemies, objects, effects, etc.)
         { varName: "playerImage", theFile: "CCFrontImage.png" },
+        { varName: "playerSideChopSheet", theFile: "player_chopping_horizontal.png" },
 
         //World Tile Pics
         { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" },

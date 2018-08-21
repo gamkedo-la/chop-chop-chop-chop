@@ -11,6 +11,9 @@ function playerClass() {
 	const WEST = "west";
 	const SOUTH = "south";
 	this.direction = WEST; // direction helps prioritize chop
+	this.state = {
+		still: false
+	};
 	this.AABB = {
 		topLeft: { x: this.x - this.width/4, y: this.y - this.height/2 },
 		topRight: { x: this.x + this.width/4, y: this.y - this.height/2 },
@@ -22,21 +25,25 @@ function playerClass() {
 		var movementX = 0;
         var movementY = 0;
 
-		if (leftKeyHeld) {
-			movementX -= this.speed;
-			this.direction = WEST;
-		}
-		if (rightKeyHeld) {
-			movementX += this.speed;
-			this.direction = EAST;
-		}
-		if (upKeyHeld) {
-			movementY -= this.speed;
-			this.direction = NORTH;
-		}
-		if (downKeyHeld) {
-			movementY += this.speed;
-			this.direction = SOUTH;
+        if (!this.state.still) {
+			if (leftKeyHeld) {
+				movementX -= this.speed;
+				this.direction = WEST;
+			}
+			if (rightKeyHeld) {
+				movementX += this.speed;
+				this.direction = EAST;
+			}
+			if (upKeyHeld) {
+				movementY -= this.speed;
+				this.direction = NORTH;
+			}
+			if (downKeyHeld) {
+				movementY += this.speed;
+				this.direction = SOUTH;
+			}
+		} else {
+			return;
 		}
 
 		var nextX = Math.round(this.x + movementX);
@@ -128,10 +135,17 @@ function playerClass() {
 	} // end of chopTreesAroundPlayer
 
 	this.draw = function() {
-		canvasContext.drawImage(this.image,this.x - this.image.width/2,this.y - this.image.height/2);
+		if (this.direction == EAST && spacebarKeyHeld) {
+			this.state.still = true;
+			playerSideChop.draw(this.x - (playerSideChop.spriteSheet.width / playerSideChop.animationFrames) / 2,
+								this.y - playerSideChop.spriteSheet.height / 2);
+		} else if (this.direction == WEST && spacebarKeyHeld) {
+			this.state.still = true;
+			playerSideChop.draw(this.x, this.y, true)
+		} else {
+			canvasContext.drawImage(this.image,this.x - this.image.width/2,this.y - this.image.height/2);
+		}
 		drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");
-		canvasContext.lineWidth = 1;
-		canvasContext.strokeStyle = 'pink';
-		canvasContext.strokeRect(this.x - this.width/4, this.y - this.height/2, this.width/2, this.height);
+
 	}
 } // end of objectClass

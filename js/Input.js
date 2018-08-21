@@ -55,6 +55,7 @@ function keyPressed(evt) {
 			break;
 		case SPACEBAR:
 			player.chopTreesAroundPlayer();
+			spacebarKeyHeld = true;
 			break;
     }
 };
@@ -76,8 +77,9 @@ function keyReleased(evt) {
         case DOWN_ARROW_KEY:
 		case S_KEY:
             downKeyHeld = false;
-        /*case SPACEBAR:
-			spacebarKeyHeld = false;*/
+        case SPACEBAR:
+			spacebarKeyHeld = false;
+			player.state.still = false;
             break;
 	}
 };

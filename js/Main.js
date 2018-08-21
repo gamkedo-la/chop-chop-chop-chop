@@ -21,6 +21,7 @@ window.onload = function () {
 	colorText("Loading. . .", canvas.width / 2, canvas.height / 2, "white", "30px Courier New", "center");
 	setupInput();
 	loadImages();
+	makeAnimatedSprites();
 };
 
 function loadingDoneSoStartGame() {

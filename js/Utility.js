@@ -1,3 +1,5 @@
+const DEGREES_TO_RADIANS = Math.PI / 180;
+
 function getRandomNumberBetweenMinMax(min, max) {
   return Math.random() * (max - min) + min;
 }
