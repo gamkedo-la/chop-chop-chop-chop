@@ -6,7 +6,8 @@ const TILE_NOTHING = 00;
 const TILE_TREE = 01;
 const TILE_FLOWER = 02;
 const TILE_WEEDS = 03;
-const TILE_ROCK = 04;
+const TILE_SMALL_ROCK = 04;
+const TILE_WATER = 05;
 
 const TILE_ANIMAL = 80; // This will need to be expanded out so that individual animals can be placed
 
@@ -31,17 +32,21 @@ function drawWorld() {
 			var tileKindHere = worldGrid[arrayIndex];
 			var useImg = worldPics[tileKindHere];
 
-			/*if( tileTypeHasTransparency(tileKindHere) ) {
-			canvasContext.drawImage(worldPics[TILE_NOTHING],drawTileX,drawTileY);
-			}*/
-
-			if (tileKindHere === TILE_STUMP) {
-				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
-				newObject = new objectClass(useImg, drawTileX, drawTileY,
-					useImg.width, useImg.height,
-					tileKindHere);
-				objectList.push(newObject);
-			} else if (isTileTypeAnObstacle(tileKindHere)) {
+			if (isTileTypeAnimated(tileKindHere)) {
+					var animatedTile = returnAnimatedTileSprites(tileKindHere);
+					if (animatedTile == waterTiles) {
+						// var forWhichRowToAnimate = 
+						// function toDeterminePosition(arrayIndex to use in 
+						// WorldGrid to check all 8 surrounding areas) 
+						// and return what kind of water to draw
+						// check PlayerClass.js ~line 76 for an example.
+					}
+					animatedTile.draw(drawTileX + TILE_W/2,drawTileY+TILE_H/2, 0, // TODO: 0 needs to be replaced by tileBasedNumber
+										false,false,
+										0,0,0,
+										1,false,1,1,
+										true); 
+			} else if (isTileTypeAnObject(tileKindHere)) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
 				newObject = new objectClass(useImg, drawTileX, drawTileY,
 					useImg.width, useImg.height,
@@ -68,7 +73,7 @@ function drawWorld() {
 
 			// add world tile effects
 			/*if (tileKindHere === TILE_WHATEVER) {
-			do the thing;
+				particles, emit objects, etc.;
 			}*/
 
 			drawTileX += TILE_W;
@@ -79,10 +84,36 @@ function drawWorld() {
 	} // end of for each row
 } // end of drawWorld func
 
-function isTileTypeAnObstacle(tileType) {
+function isTileTypeAnObject(tileType) {
 	switch (tileType) {
 		case TILE_EXTEND_COLLISION:
 		case TILE_TREE:
+		case TILE_STUMP:
+			return true;
+			break;
+	}
+}
+
+function isTileTypeCollidable(tileType) {
+	switch (tileType) {
+		case TILE_EXTEND_COLLISION:
+		case TILE_TREE:
+		case TILE_WATER:
+			return true;
+			break;
+	}
+}
+
+function returnAnimatedTileSprites(tileKindHere) {
+	switch (tileKindHere) {
+		case TILE_WATER:
+			return waterTiles; 
+	}
+}
+
+function isTileTypeAnimated(tileType) {
+	switch (tileType) {
+		case TILE_WATER:
 			return true;
 			break;
 	}
@@ -97,9 +128,9 @@ function isTileTypeAnAnimal(tileType) {
 }
 
 function addTilesForCollisionBasedOnTileType(tileType, x, y) {
+	var arrayIndex = getTileIndexAtPixelCoord(x, y)
 	switch (tileType) {
 		case TILE_TREE:
-			var arrayIndex = getTileIndexAtPixelCoord(x, y)
 			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_COLLISION;
 			break;
 	}

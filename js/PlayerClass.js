@@ -63,7 +63,7 @@ function playerClass() {
 			walkIntoTileType = TILE_EXTEND_COLLISION;
 		}
 
-		if (isTileTypeAnObstacle(walkIntoTileType)) {
+		if (isTileTypeCollidable(walkIntoTileType)) {
 			this.x = this.x;
 			this.y = this.y;
 		} else {
@@ -137,11 +137,10 @@ function playerClass() {
 	this.draw = function() {
 		if (this.direction == EAST && spacebarKeyHeld) {
 			this.state.still = true;
-			playerSideChop.draw(this.x - (playerSideChop.spriteSheet.width / playerSideChop.animationFrames) / 2,
-								this.y - playerSideChop.spriteSheet.height / 2);
+			playerSideChop.draw(this.x,this.y, 0);
 		} else if (this.direction == WEST && spacebarKeyHeld) {
 			this.state.still = true;
-			playerSideChop.draw(this.x, this.y, true)
+			playerSideChop.draw(this.x, this.y, 0,true)  
 		} else {
 			canvasContext.drawImage(this.image,this.x - this.image.width/2,this.y - this.image.height/2);
 		}

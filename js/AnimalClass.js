@@ -113,7 +113,7 @@ function checkTileCollision (x,y,movementX,movementY) {
 		return true;
 	}
 
-	if (isTileTypeAnObstacle(walkIntoTileType)) {
+	if (isTileTypeAnObject(walkIntoTileType)) {
 		//console.log("walkIntoTileType: " + walkIntoTileType);
 		return true;
 	}

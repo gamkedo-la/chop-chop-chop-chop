@@ -2,13 +2,13 @@ var picsToLoad = 0;
 
 var gamePics = [];
 var worldPics = [];
-var sprites = [];
 
 function loadImages() {
     var imageList = [
         //Game Pics (player, enemies, objects, effects, etc.)
         { varName: "playerImage", theFile: "CCFrontImage.png" },
         { varName: "playerSideChopSheet", theFile: "player_chopping_horizontal.png" },
+        { varName: "waterTilesSpritesheet", theFile: "water_spritesheet.png" },
 
         //World Tile Pics
         { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" },
@@ -17,8 +17,9 @@ function loadImages() {
         { worldType: TILE_STUMP, theFile: "stump.png" },
         { worldType: TILE_FLOWER, theFile: "flowers.png" },
         { worldType: TILE_WEEDS, theFile: "weeds.png" },
-        { worldType: TILE_ROCK, theFile: "rock.png" },
+        { worldType: TILE_SMALL_ROCK, theFile: "rock.png" },
         { worldType: TILE_ANIMAL, theFile: "clear.png" },
+        { worldType: TILE_WATER, theFile: "clear.png" },
     ];
 
     picsToLoad = imageList.length;

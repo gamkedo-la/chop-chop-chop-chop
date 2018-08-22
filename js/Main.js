@@ -35,6 +35,7 @@ function loadingDoneSoStartGame() {
 
 function update() {
     drawAll();
+    framesFromGameStart++
     moveAll();
 }
 
