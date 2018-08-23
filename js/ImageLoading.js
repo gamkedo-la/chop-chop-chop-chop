@@ -11,15 +11,20 @@ function loadImages() {
         { varName: "waterTilesSpritesheet", theFile: "water_spritesheet.png" },
 
         //World Tile Pics
-        { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" },
+        { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" }, // clear because it is an object
         { worldType: TILE_NOTHING, theFile: "nothing.png" },
         { worldType: TILE_TREE, theFile: "tree.png" },
         { worldType: TILE_STUMP, theFile: "stump.png" },
         { worldType: TILE_FLOWER, theFile: "flowers.png" },
         { worldType: TILE_WEEDS, theFile: "weeds.png" },
         { worldType: TILE_SMALL_ROCK, theFile: "rock.png" },
-        { worldType: TILE_ANIMAL, theFile: "clear.png" },
-        { worldType: TILE_WATER, theFile: "clear.png" },
+        { worldType: TILE_ANIMAL, theFile: "clear.png" }, // clear because it is an object
+        { worldType: TILE_WATER, theFile: "clear.png" }, // clear because it is animated
+        { worldType: TILE_MUSHROOM, theFile: "mushrooms.png" },
+        { worldType: TILE_LEAVES, theFile: "leaves.png" },
+        { worldType: TILE_PILE_OF_LEAVES, theFile: "pile_of_leaves.png" },
+        { worldType: TILE_PILE_OF_LEAVES_2, theFile: "pile_of_leaves_2.png" },
+        { worldType: TILE_PILE_OF_LEAVES_3, theFile: "pile_of_leaves_3.png" },
     ];
 
     picsToLoad = imageList.length;

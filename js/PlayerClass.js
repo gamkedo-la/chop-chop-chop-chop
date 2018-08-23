@@ -1,6 +1,6 @@
 function playerClass() {
 	this.x = SCREEN_W/2;
-	this.y = SCREEN_H/2;
+	this.y = SCREEN_H/2 + 100;
 	this.speed = 6;
 	var walkIntoTileType = TILE_TREE;
 	this.image = gamePics.playerImage;
@@ -137,10 +137,10 @@ function playerClass() {
 	this.draw = function() {
 		if (this.direction == EAST && spacebarKeyHeld) {
 			this.state.still = true;
-			playerSideChop.draw(this.x,this.y, 0);
+			playerSideChop.draw(this.x,this.y, 1);
 		} else if (this.direction == WEST && spacebarKeyHeld) {
 			this.state.still = true;
-			playerSideChop.draw(this.x, this.y, 0,true)  
+			playerSideChop.draw(this.x, this.y, 1,true)  
 		} else {
 			canvasContext.drawImage(this.image,this.x - this.image.width/2,this.y - this.image.height/2);
 		}

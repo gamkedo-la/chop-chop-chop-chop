@@ -8,6 +8,11 @@ const TILE_FLOWER = 02;
 const TILE_WEEDS = 03;
 const TILE_SMALL_ROCK = 04;
 const TILE_WATER = 05;
+const TILE_MUSHROOM = 06;
+const TILE_LEAVES = 07;
+const TILE_PILE_OF_LEAVES = 08;
+const TILE_PILE_OF_LEAVES_2 = 09;
+const TILE_PILE_OF_LEAVES_3 = 10;
 
 const TILE_ANIMAL = 80; // This will need to be expanded out so that individual animals can be placed
 
@@ -34,13 +39,11 @@ function drawWorld() {
 
 			if (isTileTypeAnimated(tileKindHere)) {
 					var animatedTile = returnAnimatedTileSprites(tileKindHere);
-					var fromWhichRowToAnimate = 0;
+					var fromWhichRowToAnimate = 1;
 					if (animatedTile.animationRowFrames > 1) {
 						if (animatedTile == waterTiles) {
-						// fromWhichRowToAnimate = determineTileSurroundings(arrayIndex);
-						// var fromWhichRowToAnimate = 
-						// function toDeterminePosition(arrayIndex to use in 
-						// WorldGrid to check all 8 surrounding areas) 
+						fromWhichRowToAnimate = determineWaterTileSurroundings(arrayIndex);
+						// arrayIndex in WorldGrid to check all 4/8 surrounding areas) 
 						// and return what kind of water to draw
 						// check PlayerClass.js ~line 76 for an example.
 						}
@@ -68,7 +71,7 @@ function drawWorld() {
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 			}
 
-			// drawTypesOfTiles(arrayIndex, drawTileX, drawTileY);
+			// drawTypesOfTiles(tileKindHere, drawTileX, drawTileY);
 			// drawGridOfTiles(drawTileX,drawTileY);
 			// WARNING: Slows down game considerably when both used
 			// uncomment to use 	
@@ -140,62 +143,80 @@ function addTilesForCollisionBasedOnTileType(tileType, x, y) {
 	}
 }
 
-/*function determineTileSurroundings(arrayIndex) {
+function determineWaterTileSurroundings(arrayIndex) {
 	var tileLeft = worldGrid[arrayIndex - 1]; // 
 	var tileRight = worldGrid[arrayIndex + 1]; //
 	var tileUp = worldGrid[arrayIndex - worldCols]; //
 	var tileDown = worldGrid[arrayIndex + worldCols]; // checks in a + around tile's location
-	
-	switch (this.direction) {
-		case NORTH: 
-			if (tileUp == TILE_TREE) { // remove tree above and extended tree tile above tree
-				worldGrid[arrayIndex - worldCols] = TILE_STUMP;
-				worldGrid[arrayIndex - (worldCols * 2)] = TILE_NOTHING;
-				var treeXY = indexToCenteredXY(arrayIndex - worldCols);
-				spawnParticles('chop', treeXY.x, treeXY.y);
-			} 
-			break;
-		case EAST:
-			if (tileRight == TILE_TREE) { // remove tree to the right and extended tile above tree
-				worldGrid[arrayIndex + 1] = TILE_STUMP;
-				worldGrid[arrayIndex + 1 - worldCols] = TILE_NOTHING;
-				var treeXY = indexToCenteredXY(arrayIndex + 1);
-				spawnParticles('chop', treeXY.x, treeXY.y);
-			} 
-			if (tileRight == TILE_EXTEND_COLLISION) { // remove extend tree tile to the right 
-												 // and tree below extend tree tile
-				worldGrid[arrayIndex + 1] = TILE_NOTHING;
-				worldGrid[arrayIndex + 1 + worldCols] = TILE_STUMP;
-				var treeXY = indexToCenteredXY(arrayIndex + 1);
-				spawnParticles('chop', treeXY.x, treeXY.y);
-			} 
-			break;
-		case WEST:
-			if (tileLeft == TILE_TREE) { // remove tree to the left and extend tree tile above tree
-				worldGrid[arrayIndex - 1] = TILE_STUMP;
-				worldGrid[arrayIndex - 1 - worldCols] = TILE_NOTHING;
-				var treeXY = indexToCenteredXY(arrayIndex - 1);
-				spawnParticles('chop', treeXY.x, treeXY.y);
+	var crossOfTiles = [tileLeft,tileRight,tileUp,tileDown];
+	var waterLeft = false;
+	var waterRight = false;
+	var waterUp = false;
+	var waterDown = false;
+	for (var i = 0; i < crossOfTiles.length; i++) {
+		if (crossOfTiles[i] == TILE_WATER) {
+			if (i == 0) {
+				waterLeft = true;
 			}
-			if (tileLeft == TILE_EXTEND_COLLISION) {	// remove extend tree tile to the left 
-												// and tree below extend tree tile
-				worldGrid[arrayIndex - 1] = TILE_NOTHING;
-				worldGrid[arrayIndex - 1 + worldCols] = TILE_STUMP;
-				var treeXY = indexToCenteredXY(arrayIndex - 1);
-				spawnParticles('chop', treeXY.x, treeXY.y);
+			if (i == 1) {
+				waterRight = true;
 			}
-			break;
-		case SOUTH:
-			if (tileDown == TILE_EXTEND_COLLISION) { // remove extend tree tile above 
-												// and tree below extend tree tile
-				worldGrid[arrayIndex + worldCols] = TILE_NOTHING;
-				worldGrid[arrayIndex + (worldCols * 2)] = TILE_STUMP;
-				var treeXY = indexToCenteredXY(arrayIndex + worldCols);
-				spawnParticles('chop', treeXY.x, treeXY.y);
+			if (i == 2) {
+				waterUp = true;
 			}
-			break;
-	} 
-}*/
+			if (i == 3) {
+				waterDown = true;
+			}
+		} // end of if tile at array index is water 
+	} // end of crossTiles for loop
+
+	// [left,right,up,down];
+	if (waterLeft == false && waterRight == false &&
+		waterUp == false && waterDown == false
+		|| 
+		waterLeft == true && waterRight == true &&
+		waterUp == true && waterDown == true
+		) {
+		return 1; // first Row 
+	}
+/*	if (crossOfTiles == [0,0,0,0]) { // TODO: distinguish between 
+									 // vertical and horizontal water tiles 
+									 // (one art style for both?)
+		return 2; // second Row 
+	}*/
+	if (waterLeft == true && waterRight == true &&
+		waterUp == false && waterDown == true) {
+		return 3; // and so on...    
+	}
+	if (waterLeft == false && waterRight == true &&
+		waterUp == false && waterDown == true) {
+		return 4; 
+	}
+	if (waterLeft == true && waterRight == false &&
+		waterUp == false && waterDown == true ) {
+		return 5; 
+	}
+	if (waterLeft == true && waterRight == true &&
+		waterUp == true && waterDown == false) {
+		return 6; 
+	}
+	if (waterLeft == false && waterRight == true &&
+		waterUp == true && waterDown == false) {
+		return 7; 
+	}
+	if (waterLeft == true && waterRight == false &&
+		waterUp == true && waterDown == false) {
+		return 8; 
+	}
+	if (waterLeft == false && waterRight == true &&
+		waterUp == true && waterDown == true) {
+		return 9; 
+	}
+	if (waterLeft == true && waterRight == false &&
+		waterUp == true && waterDown == true) {
+		return 10; 
+	}	
+} 
 
 function drawTypesOfTiles(tileType, x, y) {
 	var textWidth = canvasContext.measureText(tileType).width;
