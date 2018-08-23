@@ -34,14 +34,18 @@ function drawWorld() {
 
 			if (isTileTypeAnimated(tileKindHere)) {
 					var animatedTile = returnAnimatedTileSprites(tileKindHere);
-					if (animatedTile == waterTiles) {
-						// var forWhichRowToAnimate = 
+					var fromWhichRowToAnimate = 0;
+					if (animatedTile.animationRowFrames > 1) {
+						if (animatedTile == waterTiles) {
+						// fromWhichRowToAnimate = determineTileSurroundings(arrayIndex);
+						// var fromWhichRowToAnimate = 
 						// function toDeterminePosition(arrayIndex to use in 
 						// WorldGrid to check all 8 surrounding areas) 
 						// and return what kind of water to draw
 						// check PlayerClass.js ~line 76 for an example.
+						}
 					}
-					animatedTile.draw(drawTileX + TILE_W/2,drawTileY+TILE_H/2, 0, // TODO: 0 needs to be replaced by tileBasedNumber
+					animatedTile.draw(drawTileX + TILE_W/2,drawTileY+TILE_H/2, fromWhichRowToAnimate, // TODO: 0 needs to be replaced by tileBasedNumber
 										false,false,
 										0,0,0,
 										1,false,1,1,
@@ -135,6 +139,63 @@ function addTilesForCollisionBasedOnTileType(tileType, x, y) {
 			break;
 	}
 }
+
+/*function determineTileSurroundings(arrayIndex) {
+	var tileLeft = worldGrid[arrayIndex - 1]; // 
+	var tileRight = worldGrid[arrayIndex + 1]; //
+	var tileUp = worldGrid[arrayIndex - worldCols]; //
+	var tileDown = worldGrid[arrayIndex + worldCols]; // checks in a + around tile's location
+	
+	switch (this.direction) {
+		case NORTH: 
+			if (tileUp == TILE_TREE) { // remove tree above and extended tree tile above tree
+				worldGrid[arrayIndex - worldCols] = TILE_STUMP;
+				worldGrid[arrayIndex - (worldCols * 2)] = TILE_NOTHING;
+				var treeXY = indexToCenteredXY(arrayIndex - worldCols);
+				spawnParticles('chop', treeXY.x, treeXY.y);
+			} 
+			break;
+		case EAST:
+			if (tileRight == TILE_TREE) { // remove tree to the right and extended tile above tree
+				worldGrid[arrayIndex + 1] = TILE_STUMP;
+				worldGrid[arrayIndex + 1 - worldCols] = TILE_NOTHING;
+				var treeXY = indexToCenteredXY(arrayIndex + 1);
+				spawnParticles('chop', treeXY.x, treeXY.y);
+			} 
+			if (tileRight == TILE_EXTEND_COLLISION) { // remove extend tree tile to the right 
+												 // and tree below extend tree tile
+				worldGrid[arrayIndex + 1] = TILE_NOTHING;
+				worldGrid[arrayIndex + 1 + worldCols] = TILE_STUMP;
+				var treeXY = indexToCenteredXY(arrayIndex + 1);
+				spawnParticles('chop', treeXY.x, treeXY.y);
+			} 
+			break;
+		case WEST:
+			if (tileLeft == TILE_TREE) { // remove tree to the left and extend tree tile above tree
+				worldGrid[arrayIndex - 1] = TILE_STUMP;
+				worldGrid[arrayIndex - 1 - worldCols] = TILE_NOTHING;
+				var treeXY = indexToCenteredXY(arrayIndex - 1);
+				spawnParticles('chop', treeXY.x, treeXY.y);
+			}
+			if (tileLeft == TILE_EXTEND_COLLISION) {	// remove extend tree tile to the left 
+												// and tree below extend tree tile
+				worldGrid[arrayIndex - 1] = TILE_NOTHING;
+				worldGrid[arrayIndex - 1 + worldCols] = TILE_STUMP;
+				var treeXY = indexToCenteredXY(arrayIndex - 1);
+				spawnParticles('chop', treeXY.x, treeXY.y);
+			}
+			break;
+		case SOUTH:
+			if (tileDown == TILE_EXTEND_COLLISION) { // remove extend tree tile above 
+												// and tree below extend tree tile
+				worldGrid[arrayIndex + worldCols] = TILE_NOTHING;
+				worldGrid[arrayIndex + (worldCols * 2)] = TILE_STUMP;
+				var treeXY = indexToCenteredXY(arrayIndex + worldCols);
+				spawnParticles('chop', treeXY.x, treeXY.y);
+			}
+			break;
+	} 
+}*/
 
 function drawTypesOfTiles(tileType, x, y) {
 	var textWidth = canvasContext.measureText(tileType).width;

@@ -96,10 +96,10 @@ function AnimatedSpriteClass(data) {
 		                	if (this.currentFrameIndex > this.numberOfRowFrameIndexes) {
 		                        this.currentFrameIndex = 0;
 		                        this.currentPauseFramesLeft = this.framesBetweenLoops;
-		                    }
-		                }
-                    }
-                }
+		                    } // end of reset currentFrameIndex if > numberOfRowFrameIndexes
+		                } // end of else check when sprite sheet isn't orientated sideways
+                    } // end of else if loopsToEndAndBack is false
+                } // end of framesFromGameStart % this.framesUntilNext == 0;
             } else{
 				this.currentPauseFramesLeft--;
 			}
