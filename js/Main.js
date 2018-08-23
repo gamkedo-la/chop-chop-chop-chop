@@ -27,10 +27,11 @@ window.onload = function () {
 function loadingDoneSoStartGame() {
 	gameUpdate = setInterval(update, 1000 / framesPerSecond);
 	player = new playerClass();
+	backgroundMusic.play();
 };
 
 /*function startGame() {
-	
+
 }*/
 
 function update() {
@@ -41,7 +42,7 @@ function update() {
 
 function drawAll() {
 	cameraPan();
-	drawWorld();	
+	drawWorld();
 	drawAllObjects();
 	drawAllAnimals();
 	player.draw();
