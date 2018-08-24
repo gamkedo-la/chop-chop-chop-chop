@@ -29,7 +29,6 @@ function loadingDoneSoStartGame() {
 	    if (openingMenuIsRunning) {
 	      openingMenuIsRunning = false;
 	      gameIsRunning = true;
-				console.log(sourceExtension);
 				backgroundMusic.pause();
 				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
 				backgroundMusic.play();
