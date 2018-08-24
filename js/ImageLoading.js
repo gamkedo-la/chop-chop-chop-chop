@@ -21,6 +21,7 @@ function loadImages() {
         { worldType: TILE_ANIMAL, theFile: "clear.png" }, // clear because it is an object
         { worldType: TILE_WATER, theFile: "clear.png" }, // clear because it is animated
         { worldType: TILE_MUSHROOM, theFile: "mushrooms.png" },
+        { worldType: TILE_THORN, theFile: "thorn.png" },
         { worldType: TILE_LEAVES, theFile: "leaves.png" },
         { worldType: TILE_PILE_OF_LEAVES, theFile: "pile_of_leaves.png" },
         { worldType: TILE_PILE_OF_LEAVES_2, theFile: "pile_of_leaves_2.png" },

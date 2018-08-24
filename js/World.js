@@ -9,10 +9,11 @@ const TILE_WEEDS = 03;
 const TILE_SMALL_ROCK = 04;
 const TILE_WATER = 05;
 const TILE_MUSHROOM = 06;
-const TILE_LEAVES = 07;
-const TILE_PILE_OF_LEAVES = 08;
-const TILE_PILE_OF_LEAVES_2 = 09;
-const TILE_PILE_OF_LEAVES_3 = 10;
+const TILE_THORN = 07;
+const TILE_LEAVES = 08;
+const TILE_PILE_OF_LEAVES = 09;
+const TILE_PILE_OF_LEAVES_2 = 10;
+const TILE_PILE_OF_LEAVES_3 = 11;
 
 const TILE_ANIMAL = 80; // This will need to be expanded out so that individual animals can be placed
 
@@ -48,7 +49,7 @@ function drawWorld() {
 						// check PlayerClass.js ~line 76 for an example.
 						}
 					}
-					animatedTile.draw(drawTileX + TILE_W/2,drawTileY+TILE_H/2, fromWhichRowToAnimate, // TODO: 0 needs to be replaced by tileBasedNumber
+					animatedTile.draw(drawTileX + TILE_W/2,drawTileY+TILE_H/2, fromWhichRowToAnimate,
 										false,false,
 										0,0,0,
 										1,false,1,1,

@@ -143,6 +143,7 @@ function playerClass() {
 			playerSideChop.draw(this.x, this.y, 1,true)  
 		} else {
 			canvasContext.drawImage(this.image,this.x - this.image.width/2,this.y - this.image.height/2);
+			playerSideChop.currentFrameIndex = 0;
 		}
 		drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");
 

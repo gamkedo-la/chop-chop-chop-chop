@@ -11,7 +11,7 @@ function makeAnimatedSprites() {
 			spriteSheet: gamePics.waterTilesSpritesheet,
 			animationRowFrames: 10,
 			animationColFrames: 3,
-			framesUntilNext: 24
+			framesUntilNext: 60
 	});
 	
 };
