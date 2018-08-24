@@ -12,6 +12,8 @@ const SPACEBAR = 32;
 
 const NUMBER_PAD_PLUS = 107;
 const NUMBER_PAD_MINUS = 109;
+const KEY_PLUS = 187;
+const KEY_MINUS = 189;
 
 var leftKeyHeld = false;
 var upKeyHeld = false;
@@ -63,9 +65,11 @@ function keyPressed(evt) {
 			spacebarKeyHeld = true;
 			break;
         case NUMBER_PAD_PLUS:
+        case KEY_PLUS:
             increaseMasterVolume();
             break;
         case NUMBER_PAD_MINUS:
+        case KEY_MINUS:
             decreaseMasterVolume();
             break;
         }
