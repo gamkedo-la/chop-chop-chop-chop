@@ -7,12 +7,12 @@ let sourceExtension = undefined;
 
 let setAudioTypeAndSourceExtension = () => {
 
-  if (backgroundMusic.canPlayType('audio/mpeg;')) {
-      audioType = 'audio/mpeg';
-  } else {
+  if (backgroundMusic.canPlayType('audio/ogg;')) {
       audioType = 'audio/ogg';
+  } else {
+      audioType = 'audio/mpeg';
   }
-
+  console.log(audioType);
   if (audioType === 'audio/mpeg') {
     sourceExtension = ".mp3";
   } else {
