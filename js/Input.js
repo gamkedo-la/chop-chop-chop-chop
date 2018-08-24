@@ -14,6 +14,8 @@ const SPACEBAR = 32;
 
 const NUMBER_PAD_PLUS = 107; // to raise overall audio volume
 const NUMBER_PAD_MINUS = 109; // to lower overall audio volume
+const KEY_PLUS = 187;
+const KEY_MINUS = 189;
 
 var leftKeyHeld = false;
 var upKeyHeld = false;
