@@ -1,5 +1,24 @@
 let backgroundMusic = new Audio();
-backgroundMusic.src = "music/ChopChopForestV1.mp3";
+let audioType = undefined;
+let sourceExtension = undefined;
 
-let menuMusic = new Audio();
-menuMusic.src = "music/ChopChopMeny_v1.mp3";
+let setAudioTypeAndSourceExtension = () => {
+
+  if (backgroundMusic.canPlayType('audio/mpeg;')) {
+      audioType = 'audio/mpeg';
+  } else {
+      audioType = 'audio/ogg';
+  }
+
+  if (audioType === 'audio/mpeg') {
+    sourceExtension = ".mp3";
+  } else {
+    sourceExtension = ".ogg";
+  }
+
+}
+setAudioTypeAndSourceExtension();
+console.log(audioType, sourceExtension);
+
+backgroundMusic.type = audioType;
+backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;

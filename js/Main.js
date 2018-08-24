@@ -27,6 +27,7 @@ window.onload = function () {
 function loadingDoneSoStartGame() {
 	gameUpdate = setInterval(update, 1000 / framesPerSecond);
 	player = new playerClass();
+	console.log("hello world");
 	backgroundMusic.play();
 };
 
