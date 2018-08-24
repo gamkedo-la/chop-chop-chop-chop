@@ -25,10 +25,21 @@ window.onload = function () {
 };
 
 function loadingDoneSoStartGame() {
-	gameUpdate = setInterval(update, 1000 / framesPerSecond);
-	player = new playerClass();
-	console.log("hello world");
-	backgroundMusic.play();
+	canvas.onclick = function() {
+	    if (openingMenuIsRunning) {
+	      openingMenuIsRunning = false;
+	      gameIsRunning = true;
+				console.log(sourceExtension);
+				backgroundMusic.pause();
+				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+				backgroundMusic.play();
+	    }
+	}
+
+		gameUpdate = setInterval(update, 1000 / framesPerSecond);
+		player = new playerClass();
+		console.log(backgroundMusic);
+		backgroundMusic.play();
 };
 
 /*function startGame() {
@@ -42,13 +53,17 @@ function update() {
 }
 
 function drawAll() {
-	cameraPan();
-	drawWorld();
-	drawAllObjects();
-	drawAllAnimals();
-	player.draw();
-	drawParticles();
-	endCameraPan();
+	if (openingMenuIsRunning) {
+		drawOpeningMenu();
+	} else if (gameIsRunning) {
+		cameraPan();
+		drawWorld();
+		drawAllObjects();
+		drawAllAnimals();
+		player.draw();
+		drawParticles();
+		endCameraPan();
+	}
 }
 
 function moveAll() {

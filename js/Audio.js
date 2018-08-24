@@ -30,7 +30,7 @@ let assignAudioTypes = () => {
 }
 assignAudioTypes();
 
-backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
 backgroundMusic.loop = true;
 
 let decreaseMasterVolume = () => {

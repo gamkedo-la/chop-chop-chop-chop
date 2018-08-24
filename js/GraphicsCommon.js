@@ -24,3 +24,8 @@ function outlineCircle(centerX, centerY, radius, strokeColor, lineWidth = 1) {
     canvasContext.lineWidth = lineWidth;
     canvasContext.stroke();
 }
+
+function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
+    canvasContext.fillStyle = fillColor;
+    canvasContext.fillRect(topLeftX, topLeftY, boxWidth, boxHeight);
+}
