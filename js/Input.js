@@ -62,13 +62,13 @@ function keyPressed(evt) {
 			player.chopTreesAroundPlayer();
 			spacebarKeyHeld = true;
 			break;
-    case NUMBER_PAD_PLUS:
-      increaseMasterVolume();
-      break;
-    case NUMBER_PAD_MINUS:
-      decreaseMasterVolume();
-      break;
-    }
+        case NUMBER_PAD_PLUS:
+            increaseMasterVolume();
+            break;
+        case NUMBER_PAD_MINUS:
+            decreaseMasterVolume();
+            break;
+        }
 };
 
 function keyReleased(evt) {
