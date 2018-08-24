@@ -64,6 +64,7 @@ function keyPressed(evt) {
 			player.chopTreesAroundPlayer();
 			spacebarKeyHeld = true;
 			break;
+<<<<<<< HEAD
     case NUMBER_PAD_PLUS:
       increaseMasterVolume();
       break;
@@ -74,6 +75,15 @@ function keyPressed(evt) {
     case P_KEY:
       pauseGame();
       break;
+=======
+        case NUMBER_PAD_PLUS:
+            increaseMasterVolume();
+            break;
+        case NUMBER_PAD_MINUS:
+            decreaseMasterVolume();
+            break;
+        }
+>>>>>>> fed84bea98b8543ea0e97f09e7907f373fa17649
 };
 
 function keyReleased(evt) {
