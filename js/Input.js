@@ -73,7 +73,7 @@ function keyPressed(evt) {
       decreaseMasterVolume();
       break;
     case P_KEY:
-        pauseGame();
+        togglePauseGame();
         break;
     }
 };
