@@ -63,10 +63,10 @@ function keyPressed(evt) {
 			spacebarKeyHeld = true;
 			break;
     case NUMBER_PAD_PLUS:
-      backgroundMusic.volume += 0.1;
+      increaseMasterVolume();
       break;
     case NUMBER_PAD_MINUS:
-      backgroundMusic.volume -= 0.1;
+      decreaseMasterVolume();
       break;
     }
 };
