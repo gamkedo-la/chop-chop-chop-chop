@@ -8,10 +8,12 @@ const W_KEY = 87;
 const D_KEY = 68;
 const S_KEY = 83;
 
+const P_KEY = 80;//for pause
+
 const SPACEBAR = 32;
 
-const NUMBER_PAD_PLUS = 107;
-const NUMBER_PAD_MINUS = 109;
+const NUMBER_PAD_PLUS = 107; // to raise overall audio volume
+const NUMBER_PAD_MINUS = 109; // to lower overall audio volume
 
 var leftKeyHeld = false;
 var upKeyHeld = false;
@@ -69,6 +71,9 @@ function keyPressed(evt) {
       decreaseMasterVolume();
       break;
     }
+    case P_KEY:
+      pauseGame();
+      break;
 };
 
 function keyReleased(evt) {
