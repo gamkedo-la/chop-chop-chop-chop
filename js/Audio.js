@@ -18,7 +18,9 @@ let setAudioTypeAndSourceExtension = () => {
 
 }
 setAudioTypeAndSourceExtension();
-console.log(audioType, sourceExtension);
 
 backgroundMusic.type = audioType;
 backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+backgroundMusic.loop = true;
+
+console.log(backgroundMusic.volume);

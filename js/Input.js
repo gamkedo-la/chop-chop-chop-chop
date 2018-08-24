@@ -10,11 +10,16 @@ const S_KEY = 83;
 
 const SPACEBAR = 32;
 
+const NUMBER_PAD_PLUS = 107;
+const NUMBER_PAD_MINUS = 109;
+
 var leftKeyHeld = false;
 var upKeyHeld = false;
 var downKeyHeld = false;
 var rightKeyHeld = false;
 var spacebarKeyHeld = false;
+var numberPadPlusHeld = false;
+var numberPadMinusHeld = false;
 
 function setupInput() {
     window.addEventListener("blur", windowOnBlur);
@@ -57,6 +62,12 @@ function keyPressed(evt) {
 			player.chopTreesAroundPlayer();
 			spacebarKeyHeld = true;
 			break;
+    case NUMBER_PAD_PLUS:
+      backgroundMusic.volume += 0.1;
+      break;
+    case NUMBER_PAD_MINUS:
+      backgroundMusic.volume -= 0.1;
+      break;
     }
 };
 
