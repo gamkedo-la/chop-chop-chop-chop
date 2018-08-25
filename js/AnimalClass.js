@@ -15,16 +15,17 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 	this.waitingTimer = 45; // frames
 	var waitingTimerFull = this.waitingTimer; // frames
 	this.homeRadius = this.detectionRadius * 2.5;
-	this.home = indexToCenteredXY(arrayIndex); 
+	this.home = indexToCenteredXY(arrayIndex);
 	// some of these vars will depend on the animal type and will be fleshed out in inherited classes
 
 	this.draw = function() {
+		canvasContext.drawImage(this.img, this.x - this.width/2,this.y - this.height/2, this.width,this.height);
 		drawRect(this.x - this.width, this.y - this.height,this.width,this.height, "red");
 		outlineCircle(this.x - this.width / 2,this.y - this.height / 2, this.detectionRadius, "green",1);
 		outlineCircle(this.centerX,this.centerY, this.homeRadius, "blue",1);
 		this.detectionRadiusTrigger();
 		this.homeRadiusTrigger();
-		/*canvasContext.drawImage(this.img,this.x - this.width/4,this.y - this.height/4 - TILE_H/2);*/	
+		/*canvasContext.drawImage(this.img,this.x - this.width/4,this.y - this.height/4 - TILE_H/2);*/
 	}
 
 	this.move = function() {
@@ -70,22 +71,22 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 	this.detectionRadiusTrigger = function() {
 		var radius = this.detectionRadius;
 		var distX = Math.abs((this.x - this.width / 2) - player.x);
-		var distY = Math.abs((this.y - this.height / 2) - player.y);  
+		var distY = Math.abs((this.y - this.height / 2) - player.y);
 		var diffX = distX - player.width/4;
 		var diffY = distY - player.height/2;
-		
+
 		if ((diffX*diffX+diffY*diffY)<=(radius*radius)) {
-			this.playerDetected = true;		
+			this.playerDetected = true;
 		}
 	}
 
 	this.homeRadiusTrigger = function() {
 		var radius = this.homeRadius;
 		var distX = Math.abs(this.centerX - player.x);
-		var distY = Math.abs(this.centerY - player.y);  
+		var distY = Math.abs(this.centerY - player.y);
 		var diffX = distX - player.width/4;
 		var diffY = distY - player.height/2;
-		
+
 		if ((diffX*diffX+diffY*diffY)>(radius*radius)) {
 			if (this.playerDetected) {
 				this.waiting = true;

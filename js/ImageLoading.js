@@ -9,6 +9,7 @@ function loadImages() {
         { varName: "playerImage", theFile: "CCFrontImage.png" },
         { varName: "playerSideChopSheet", theFile: "player_chopping_horizontal.png" },
         { varName: "waterTilesSpritesheet", theFile: "water_spritesheet.png" },
+        { varName: "placeholderDeathCatImage", theFile: "placeholderDeathCatImage.png"},
 
         //World Tile Pics
         { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" }, // clear because it is an object
