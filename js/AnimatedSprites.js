@@ -19,8 +19,8 @@ function makeAnimatedSprites() {
 function AnimatedSpriteClass(data) {
 	this.data = data;
 	this.spriteSheet = data.spriteSheet;
-	this.animationRowFrames = data.animationRowFrames || 1;
 	this.animationColFrames = data.animationColFrames;
+	this.animationRowFrames = data.animationRowFrames || 1;
 	this.numberOfColFrameIndexes = data.animationColFrames - 1;
 	this.numberOfRowFrameIndexes = data.animationRowFrames - 1;
 	this.currentFrameIndex = 0;
@@ -100,7 +100,7 @@ function AnimatedSpriteClass(data) {
 		                } // end of else check when sprite sheet isn't orientated sideways
                     } // end of else if loopsToEndAndBack is false
                 } // end of framesFromGameStart % this.framesUntilNext == 0;
-            } else{
+            } else {
 				this.currentPauseFramesLeft--;
 			}
 		}
