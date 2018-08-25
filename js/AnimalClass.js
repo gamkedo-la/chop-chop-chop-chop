@@ -71,16 +71,17 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 					//animal is home, begin idling
 					this.idleTimer--;
 					if(this.idleTimer == 0) {
-						let deg = getRandomNumberBetweenMinMax(0, 360) * DEGREES_TO_RADIANS;
+						let radians = getRandomNumberBetweenMinMax(0, 360) * DEGREES_TO_RADIANS;
 						let radius = getRandomNumberBetweenMinMax(0, this.idleRadius);
-						this.idlePosition.x = Math.cos(deg) * radius + this.home.x;
-						this.idlePosition.y = Math.sin(deg) * radius + this.home.y;
+						this.idlePosition.x = Math.cos(radians) * radius + this.home.x;
+						this.idlePosition.y = Math.sin(radians) * radius + this.home.y;
 						this.idleTimer = idleTimerFull;
 					}
 				}
 				if (checkTileCollision(this.x,this.y,moveXTowardHome,moveYTowardHome)) {
 					moveXTowardHome = 0;
 			 		moveYTowardHome = 0;
+					this.idlePosition = {x: this.x, y: this.y};
 				}
 				this.x += moveXTowardHome;
 				this.y += moveYTowardHome;
