@@ -39,9 +39,7 @@ function loadingDoneSoStartGame() {
 
 		gameUpdate = setInterval(update, 1000 / framesPerSecond);
 		player = new playerClass();
-		placeholderDeathCat = new animalClass(gamePics.placeholderDeathCatImage, 100,100, 75,75, 55);
-
-		console.log(player, placeholderDeathCat);
+		placeholderDeathCat = new animalClass(gamePics.placeholderDeathCatImage, 650,1000, 75,75, 0);
 		backgroundMusic.play();
 };
 
@@ -72,6 +70,7 @@ function drawAll() {
 
 function moveAll() {
 	player.move();
+	placeholderDeathCat.move();
 	moveAllAnimals();
 	moveParticles();
 }

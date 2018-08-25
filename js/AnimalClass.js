@@ -9,9 +9,9 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 	this.centerX = this.x - this.width / 2;
 	this.centerY = this.y - this.height / 2;
 	this.speed = 3;
-	this.detectionRadius = this.width * 6;
+	this.detectionRadius = this.width * 2;
 	this.playerDetected = false;
-	this.waiting = false;
+	this.waiting = true;
 	this.waitingTimer = 45; // frames
 	var waitingTimerFull = this.waitingTimer; // frames
 	this.homeRadius = this.detectionRadius * 2.5;
@@ -20,11 +20,11 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 
 	this.draw = function() {
 		canvasContext.drawImage(this.img, this.x - this.width/2,this.y - this.height/2, this.width,this.height);
-		drawRect(this.x - this.width, this.y - this.height,this.width,this.height, "red");
+		//drawRect(this.x - this.width, this.y - this.height,this.width,this.height, "red");
 		outlineCircle(this.x - this.width / 2,this.y - this.height / 2, this.detectionRadius, "green",1);
 		outlineCircle(this.centerX,this.centerY, this.homeRadius, "blue",1);
-		this.detectionRadiusTrigger();
-		this.homeRadiusTrigger();
+		//this.detectionRadiusTrigger();
+		//this.homeRadiusTrigger();
 		/*canvasContext.drawImage(this.img,this.x - this.width/4,this.y - this.height/4 - TILE_H/2);*/
 	}
 
@@ -39,8 +39,9 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 			 }
 			this.x += moveXTowardPlayer;
 			this.y += moveYTowardPlayer;
-		} else { // else wait
-			if (this.waiting) {
+		} else if (this.waiting) { // else wait
+			console.log(this.x, this.home);
+			//this.x += this.speed;
 				if (this.waitingTimer == 0) {
 					this.waiting = false;
 					this.waitingTimer = waitingTimerFull;
@@ -49,7 +50,8 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 					this.waitingTimer--;
 					return;
 				}
-			} else { // else return home
+			}
+				else { // else return home
 				var moveXTowardHome = this.x < this.home.x ? this.speed : -this.speed;
 				var moveYTowardHome = this.y < this.home.y ? this.speed : -this.speed;
 				if (this.x <= this.home.x + closeToHome) {
@@ -65,7 +67,7 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 				this.x += moveXTowardHome;
 				this.y += moveYTowardHome;
 			} // end of else return home
-		} // end of else wait
+	//	} // end of else wait
 	} // end of move function
 
 	this.detectionRadiusTrigger = function() {
