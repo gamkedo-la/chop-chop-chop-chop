@@ -31,7 +31,12 @@ let assignAudioTypes = () => {
 assignAudioTypes();
 
 backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
-backgroundMusic.loop = true;
+backgroundMusic.addEventListener('timeupdate', function(){
+                var buffer = .44
+                if(this.currentTime > this.duration - buffer){
+                    this.currentTime = 0
+                    this.play()
+                }}, false);
 
 let decreaseMasterVolume = () => {
   for ( let arrayOfSoundsIndex = 0; arrayOfSoundsIndex < arrayOfSounds.length; arrayOfSoundsIndex++ ) {
