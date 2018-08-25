@@ -16,6 +16,10 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 	var waitingTimerFull = this.waitingTimer; // frames
 	this.homeRadius = this.detectionRadius * 2.5;
 	this.home = indexToCenteredXY(arrayIndex);
+	this.idleRadius = this.detectionRadius;
+	this.idleTimer = 45; // frames
+	var idleTimerFull = this.idleTimer;
+	this.idlePosition = { x: this.home.x, y: this.home.y}
 	// some of these vars will depend on the animal type and will be fleshed out in inherited classes
 
 	this.draw = function() {
@@ -52,14 +56,27 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 				}
 			}
 				else { // else return home
-				var moveXTowardHome = this.x < this.home.x ? this.speed : -this.speed;
-				var moveYTowardHome = this.y < this.home.y ? this.speed : -this.speed;
-				if (this.x <= this.home.x + closeToHome) {
+				var moveXTowardHome = this.x < this.idlePosition.x ? this.speed : -this.speed;
+				var moveYTowardHome = this.y < this.idlePosition.y ? this.speed : -this.speed;
+				if (this.x <= this.idlePosition.x + closeToHome && 
+				    this.x >= this.idlePosition.x - closeToHome) {
 					moveXTowardHome = 0;
 				}
-				if (this.y <= this.home.y + closeToHome) {
+				if (this.y <= this.idlePosition.y + closeToHome &&
+				    this.y >= this.idlePosition.y - closeToHome) {
 					moveYTowardHome = 0;
 				} // end of check if animal.y is home.y
+				if(moveXTowardHome == 0 && moveYTowardHome == 0) {
+					//animal is home, begin idling
+					this.idleTimer--;
+					if(this.idleTimer == 0) {
+						let deg = getRandomNumberBetweenMinMax(0, 360) * DEGREES_TO_RADIANS;
+						let radius = getRandomNumberBetweenMinMax(0, this.idleRadius);
+						this.idlePosition.x = Math.cos(deg) * radius + this.home.x;
+						this.idlePosition.y = Math.sin(deg) * radius + this.home.y;
+						this.idleTimer = idleTimerFull;
+					}
+				}
 				if (checkTileCollision(this.x,this.y,moveXTowardHome,moveYTowardHome)) {
 					moveXTowardHome = 0;
 			 		moveYTowardHome = 0;
