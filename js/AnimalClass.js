@@ -9,26 +9,27 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 	this.centerX = this.x - this.width / 2;
 	this.centerY = this.y - this.height / 2;
 	this.speed = 3;
-	this.detectionRadius = this.width * 2;
+	this.detectionRadius = this.width * 6;
 	this.playerDetected = false;
 	this.waiting = true;
 	this.waitingTimer = 45; // frames
 	var waitingTimerFull = this.waitingTimer; // frames
-	this.homeRadius = this.detectionRadius * 2.5;
+	this.homeRadius = this.detectionRadius * 2;
 	this.home = indexToCenteredXY(arrayIndex);
 	this.idleRadius = this.detectionRadius;
 	this.idleTimer = 45; // frames
 	var idleTimerFull = this.idleTimer;
-	this.idlePosition = { x: this.home.x, y: this.home.y}
+	this.idlePosition = {x: this.home.x, y: this.home.y};
 	// some of these vars will depend on the animal type and will be fleshed out in inherited classes
 
 	this.draw = function() {
 		canvasContext.drawImage(this.img, this.x - this.width/2,this.y - this.height/2, this.width,this.height);
-		//drawRect(this.x - this.width, this.y - this.height,this.width,this.height, "red");
-		outlineCircle(this.x - this.width / 2,this.y - this.height / 2, this.detectionRadius, "green",1);
-		outlineCircle(this.centerX,this.centerY, this.homeRadius, "blue",1);
-		//this.detectionRadiusTrigger();
-		//this.homeRadiusTrigger();
+		drawRect(this.x, this.y,1,1, "red");
+		drawRect(this.home.x, this.home.y,1,1, "teal");
+		outlineCircle(this.x,this.y, this.detectionRadius, "green",1);
+		outlineCircle(this.home.x,this.home.y, this.homeRadius, "blue",1);
+		this.detectionRadiusTrigger();
+		this.homeRadiusTrigger();
 		/*canvasContext.drawImage(this.img,this.x - this.width/4,this.y - this.height/4 - TILE_H/2);*/
 	}
 
@@ -44,7 +45,7 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 			this.x += moveXTowardPlayer;
 			this.y += moveYTowardPlayer;
 		} else if (this.waiting) { // else wait
-			console.log(this.x, this.home);
+			//console.log(this.x, this.home);
 			//this.x += this.speed;
 				if (this.waitingTimer == 0) {
 					this.waiting = false;

@@ -43,10 +43,7 @@ function drawWorld() {
 					var fromWhichRowToAnimate = 1;
 					if (animatedTile.animationRowFrames > 1) {
 						if (animatedTile == waterTiles) {
-						fromWhichRowToAnimate = determineWaterTileSurroundings(arrayIndex);
-						// arrayIndex in WorldGrid to check all 4/8 surrounding areas) 
-						// and return what kind of water to draw
-						// check PlayerClass.js ~line 76 for an example.
+							fromWhichRowToAnimate = determineWaterTileSurroundings(arrayIndex);
 						}
 					}
 					animatedTile.draw(drawTileX + TILE_W/2,drawTileY+TILE_H/2, fromWhichRowToAnimate,
@@ -63,7 +60,7 @@ function drawWorld() {
 				objectList.push(newObject);
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
-				newAnimal = new animalClass(useImg, drawTileX, drawTileY,
+				newAnimal = new animalClass(useImg, drawTileX + TILE_W/2, drawTileY + TILE_H/2,
 					useImg.width, useImg.height,
 					arrayIndex);
 				worldGrid[arrayIndex] = TILE_NOTHING;
@@ -72,7 +69,7 @@ function drawWorld() {
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 			}
 
-			// drawTypesOfTiles(tileKindHere, drawTileX, drawTileY);
+			// drawTypesOfTiles(arrayIndex, drawTileX, drawTileY);
 			// drawGridOfTiles(drawTileX,drawTileY);
 			// WARNING: Slows down game considerably when both used
 			// uncomment to use 	

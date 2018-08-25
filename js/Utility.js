@@ -45,19 +45,19 @@ function getTileIndexAtPixelCoord(x, y) {
 }
 
 function arrayIndexToCol(index) {
-	return index % worldCols + 1;
+	return index % worldCols;
 }
 
 function arrayIndexToRow(index) {
-	return Math.floor(index / worldCols) + 1;
+	return Math.floor(index / worldCols);
 }
 
 function colToCenteredX(col) {
-	return (col * TILE_W) - TILE_W/2;
+	return (col * TILE_W) + TILE_W/2;
 }
 
 function rowToCenteredY(row) {
-	return (row * TILE_H) - TILE_H/2;
+	return (row * TILE_H) + TILE_H/2;
 }
 
 function indexToCenteredXY(index) {
