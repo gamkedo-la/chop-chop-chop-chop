@@ -8,8 +8,6 @@ var framesPerSecond = 30;
 var framesFromGameStart = 0;
 
 var player;
-var placeholderDeathCat;
-
 
 window.onload = function () {
 	canvas = document.createElement("canvas");
@@ -39,7 +37,6 @@ function loadingDoneSoStartGame() {
 
 		gameUpdate = setInterval(update, 1000 / framesPerSecond);
 		player = new playerClass();
-		placeholderDeathCat = new animalClass(gamePics.placeholderDeathCatImage, 650,1000, 75,75, 0);
 		backgroundMusic.play();
 };
 
@@ -62,7 +59,6 @@ function drawAll() {
 		drawAllObjects();
 		drawAllAnimals();
 		player.draw();
-		placeholderDeathCat.draw();
 		drawParticles();
 		endCameraPan();
 	}
@@ -70,7 +66,6 @@ function drawAll() {
 
 function moveAll() {
 	player.move();
-	placeholderDeathCat.move();
 	moveAllAnimals();
 	moveParticles();
 }

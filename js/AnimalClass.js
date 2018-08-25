@@ -1,4 +1,4 @@
-var animalList = [];
+var animalList = [TILE_PLACEHOLDER_DEATH_CAT];
 
 function animalClass (img,x,y,width,height,arrayIndex) {
 	this.x = x;
@@ -59,7 +59,7 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 				else { // else return home
 				var moveXTowardHome = this.x < this.idlePosition.x ? this.speed : -this.speed;
 				var moveYTowardHome = this.y < this.idlePosition.y ? this.speed : -this.speed;
-				if (this.x <= this.idlePosition.x + closeToHome && 
+				if (this.x <= this.idlePosition.x + closeToHome &&
 				    this.x >= this.idlePosition.x - closeToHome) {
 					moveXTowardHome = 0;
 				}

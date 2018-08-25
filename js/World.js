@@ -16,6 +16,7 @@ const TILE_PILE_OF_LEAVES_2 = 10;
 const TILE_PILE_OF_LEAVES_3 = 11;
 
 const TILE_ANIMAL = 80; // This will need to be expanded out so that individual animals can be placed
+const TILE_PLACEHOLDER_DEATH_CAT = 81;
 
 var allLevels = [levelOne];
 var currentLevelIndex = 0;
@@ -50,7 +51,7 @@ function drawWorld() {
 										false,false,
 										0,0,0,
 										1,false,1,1,
-										true); 
+										true);
 			} else if (isTileTypeAnObject(tileKindHere)) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
 				newObject = new objectClass(useImg, drawTileX, drawTileY,
@@ -72,9 +73,9 @@ function drawWorld() {
 			// drawTypesOfTiles(arrayIndex, drawTileX, drawTileY);
 			// drawGridOfTiles(drawTileX,drawTileY);
 			// WARNING: Slows down game considerably when both used
-			// uncomment to use 	
-			// helps visualize the tile grid 
-			// and gives info about what tile is where (use either arrayIndex or tileKindHere)	
+			// uncomment to use
+			// helps visualize the tile grid
+			// and gives info about what tile is where (use either arrayIndex or tileKindHere)
 
 			// add world tile effects
 			/*if (tileKindHere === TILE_WHATEVER) {
@@ -112,7 +113,7 @@ function isTileTypeCollidable(tileType) {
 function returnAnimatedTileSprites(tileKindHere) {
 	switch (tileKindHere) {
 		case TILE_WATER:
-			return waterTiles; 
+			return waterTiles;
 	}
 }
 
@@ -129,6 +130,9 @@ function isTileTypeAnAnimal(tileType) {
 		case TILE_ANIMAL:
 			return true;
 			break;
+		case TILE_PLACEHOLDER_DEATH_CAT:
+			return true;
+			break;
 	}
 }
 
@@ -142,7 +146,7 @@ function addTilesForCollisionBasedOnTileType(tileType, x, y) {
 }
 
 function determineWaterTileSurroundings(arrayIndex) {
-	var tileLeft = worldGrid[arrayIndex - 1]; // 
+	var tileLeft = worldGrid[arrayIndex - 1]; //
 	var tileRight = worldGrid[arrayIndex + 1]; //
 	var tileUp = worldGrid[arrayIndex - worldCols]; //
 	var tileDown = worldGrid[arrayIndex + worldCols]; // checks in a + around tile's location
@@ -165,56 +169,56 @@ function determineWaterTileSurroundings(arrayIndex) {
 			if (i == 3) {
 				waterDown = true;
 			}
-		} // end of if tile at array index is water 
+		} // end of if tile at array index is water
 	} // end of crossTiles for loop
 
 	// [left,right,up,down];
 	if (waterLeft == false && waterRight == false &&
 		waterUp == false && waterDown == false
-		|| 
+		||
 		waterLeft == true && waterRight == true &&
 		waterUp == true && waterDown == true
 		) {
-		return 1; // first Row 
+		return 1; // first Row
 	}
-/*	if (crossOfTiles == [0,0,0,0]) { // TODO: distinguish between 
-									 // vertical and horizontal water tiles 
+/*	if (crossOfTiles == [0,0,0,0]) { // TODO: distinguish between
+									 // vertical and horizontal water tiles
 									 // (one art style for both?)
-		return 2; // second Row 
+		return 2; // second Row
 	}*/
 	if (waterLeft == true && waterRight == true &&
 		waterUp == false && waterDown == true) {
-		return 3; // and so on...    
+		return 3; // and so on...
 	}
 	if (waterLeft == false && waterRight == true &&
 		waterUp == false && waterDown == true) {
-		return 4; 
+		return 4;
 	}
 	if (waterLeft == true && waterRight == false &&
 		waterUp == false && waterDown == true ) {
-		return 5; 
+		return 5;
 	}
 	if (waterLeft == true && waterRight == true &&
 		waterUp == true && waterDown == false) {
-		return 6; 
+		return 6;
 	}
 	if (waterLeft == false && waterRight == true &&
 		waterUp == true && waterDown == false) {
-		return 7; 
+		return 7;
 	}
 	if (waterLeft == true && waterRight == false &&
 		waterUp == true && waterDown == false) {
-		return 8; 
+		return 8;
 	}
 	if (waterLeft == false && waterRight == true &&
 		waterUp == true && waterDown == true) {
-		return 9; 
+		return 9;
 	}
 	if (waterLeft == true && waterRight == false &&
 		waterUp == true && waterDown == true) {
-		return 10; 
-	}	
-} 
+		return 10;
+	}
+}
 
 function drawTypesOfTiles(tileType, x, y) {
 	var textWidth = canvasContext.measureText(tileType).width;
