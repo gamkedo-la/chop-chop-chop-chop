@@ -16,7 +16,7 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 	var waitingTimerFull = this.waitingTimer; // frames
 	this.homeRadius = this.detectionRadius * 2;
 	this.home = indexToCenteredXY(arrayIndex);
-	this.idleRadius = this.detectionRadius;
+	this.idleRadius = this.width/2;
 	this.idleTimer = 45; // frames
 	var idleTimerFull = this.idleTimer;
 	this.idlePosition = {x: this.home.x, y: this.home.y};
