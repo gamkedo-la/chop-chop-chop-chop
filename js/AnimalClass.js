@@ -1,4 +1,4 @@
-var animalList = [TILE_PLACEHOLDER_DEATH_CAT];
+var animalList = [];
 
 function animalClass (img,x,y,width,height,arrayIndex) {
 	this.x = x;
