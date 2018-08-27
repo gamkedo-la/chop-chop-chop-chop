@@ -10,6 +10,7 @@ function loadImages() {
         { varName: "playerSideChopSheet", theFile: "player_chopping_horizontal.png" },
         { varName: "waterTilesSpritesheet", theFile: "water_spritesheet.png" },
         { varName: "placeholderDeathCatImage", theFile: "placeholderDeathCatImage.png"},
+        { varName: "placeholderDeathCatMeanderSheet", theFile: "placeholderDeathCatMeanderSheet.png"},
 
         //World Tile Pics
         { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" }, // clear because it is an object
@@ -20,7 +21,7 @@ function loadImages() {
         { worldType: TILE_WEEDS, theFile: "weeds.png" },
         { worldType: TILE_SMALL_ROCK, theFile: "rock.png" },
         { worldType: TILE_ANIMAL, theFile: "clear.png" }, // clear because it is an object
-        { worldType: TILE_PLACEHOLDER_DEATH_CAT, theFile: "placeholderDeathCatImage.png"},
+        //{ worldType: TILE_PLACEHOLDER_DEATH_CAT, theFile: "placeholderDeathCatImage.png"},
         { worldType: TILE_WATER, theFile: "clear.png" }, // clear because it is animated
         { worldType: TILE_MUSHROOM, theFile: "mushrooms.png" },
         { worldType: TILE_THORN, theFile: "thorn.png" },

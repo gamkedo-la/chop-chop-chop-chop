@@ -114,12 +114,17 @@ function returnAnimatedTileSprites(tileKindHere) {
 	switch (tileKindHere) {
 		case TILE_WATER:
 			return waterTiles;
+		case TILE_PLACEHOLDER_DEATH_CAT:
+			return placeholderDeathCatMeander;
 	}
 }
 
 function isTileTypeAnimated(tileType) {
 	switch (tileType) {
 		case TILE_WATER:
+			return true;
+			break;
+		case TILE_PLACEHOLDER_DEATH_CAT:
 			return true;
 			break;
 	}
