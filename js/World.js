@@ -18,6 +18,7 @@ const TILE_PILE_OF_LEAVES_3 = 11;
 const TILE_ANIMAL = 80; // This will need to be expanded out so that individual animals can be placed
 const TILE_PLACEHOLDER_DEATH_CAT = 81;
 
+
 var allLevels = [levelOne];
 var currentLevelIndex = 0;
 
@@ -59,13 +60,10 @@ function drawWorld() {
 					tileKindHere);
 				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX, drawTileY);
 				objectList.push(newObject);
-			} else if (isTileTypeAnAnimal(tileKindHere)) {
+			} else if (isTileTypeAnAnimalHome(tileKindHere)) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
-				newAnimal = new animalClass(useImg, drawTileX + TILE_W/2, drawTileY + TILE_H/2,
-					useImg.width, useImg.height,
-					arrayIndex);
 				worldGrid[arrayIndex] = TILE_NOTHING;
-				animalList.push(newAnimal);
+				//animalList.push(newAnimal);
 			} else {
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 			}
@@ -114,8 +112,6 @@ function returnAnimatedTileSprites(tileKindHere) {
 	switch (tileKindHere) {
 		case TILE_WATER:
 			return waterTiles;
-		case TILE_PLACEHOLDER_DEATH_CAT:
-			return placeholderDeathCatMeander;
 	}
 }
 
@@ -124,13 +120,10 @@ function isTileTypeAnimated(tileType) {
 		case TILE_WATER:
 			return true;
 			break;
-		case TILE_PLACEHOLDER_DEATH_CAT:
-			return true;
-			break;
 	}
 }
 
-function isTileTypeAnAnimal(tileType) {
+function isTileTypeAnAnimalHome(tileType) {
 	switch (tileType) {
 		case TILE_ANIMAL:
 			return true;

@@ -1,9 +1,11 @@
 var animalList = [];
 
-function animalClass (img,x,y,width,height,arrayIndex) {
+function animalClass (meanderSpriteSheet,x,y,width,height,arrayIndex) {
 	this.x = x;
 	this.y = y;
-	this.img = img;
+	this.meanderSpriteSheet = meanderSpriteSheet;
+	this.meander = true;
+	console.log(this.meanderSpriteSheet);
 	this.width = width;
 	this.height = height;
 	this.centerX = this.x - this.width / 2;
@@ -11,7 +13,7 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 	this.speed = 3;
 	this.detectionRadius = this.width * 6;
 	this.playerDetected = false;
-	this.waiting = false;
+	this.waiting = true;
 	this.waitingTimer = 45; // frames
 	var waitingTimerFull = this.waitingTimer; // frames
 	this.homeRadius = this.detectionRadius * 2;
@@ -22,8 +24,10 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 	this.idlePosition = {x: this.home.x, y: this.home.y};
 	// some of these vars will depend on the animal type and will be fleshed out in inherited classes
 
-	this.draw = function() {
-		canvasContext.drawImage(this.img, this.x - this.width/2,this.y - this.height/2, this.width,this.height);
+	this.draw = function () {
+		if (this.meander) {
+			this.meanderSpriteSheet.draw(this.x,this.y, 1, false, false);
+	  }
 		drawRect(this.x, this.y,1,1, "red");
 		drawRect(this.home.x, this.home.y,1,1, "teal");
 		outlineCircle(this.x,this.y, this.detectionRadius, "green",1);
@@ -31,7 +35,8 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 		this.detectionRadiusTrigger();
 		this.homeRadiusTrigger();
 		/*canvasContext.drawImage(this.img,this.x - this.width/4,this.y - this.height/4 - TILE_H/2);*/
-	}
+	} // end of draw function
+
 
 	this.move = function() {
 		var closeToHome = 2;

@@ -37,6 +37,7 @@ function loadingDoneSoStartGame() {
 
 		gameUpdate = setInterval(update, 1000 / framesPerSecond);
 		player = new playerClass();
+		placeholderDeathCat = new animalClass(placeholderDeathCatMeander, 500,500, 35,35, 445);
 		backgroundMusic.play();
 };
 
@@ -57,8 +58,10 @@ function drawAll() {
 		cameraPan();
 		drawWorld();
 		drawAllObjects();
-		drawAllAnimals();
+		//drawAllAnimals();
 		player.draw();
+		placeholderDeathCat.draw(this.x,this.y, 1, false, false);
+		console.log(placeholderDeathCat.meanderSpriteSheet);
 		drawParticles();
 		endCameraPan();
 	}

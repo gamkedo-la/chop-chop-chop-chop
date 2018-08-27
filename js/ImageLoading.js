@@ -21,7 +21,7 @@ function loadImages() {
         { worldType: TILE_WEEDS, theFile: "weeds.png" },
         { worldType: TILE_SMALL_ROCK, theFile: "rock.png" },
         { worldType: TILE_ANIMAL, theFile: "clear.png" }, // clear because it is an object
-        //{ worldType: TILE_PLACEHOLDER_DEATH_CAT, theFile: "placeholderDeathCatImage.png"},
+        //{ worldType: TILE_PLACEHOLDER_DEATH_CAT, theFile: "placeholderDeathCatMeanderSheet2a.png"},
         { worldType: TILE_WATER, theFile: "clear.png" }, // clear because it is animated
         { worldType: TILE_MUSHROOM, theFile: "mushrooms.png" },
         { worldType: TILE_THORN, theFile: "thorn.png" },
