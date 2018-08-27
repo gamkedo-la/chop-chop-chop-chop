@@ -11,13 +11,13 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 	this.speed = 3;
 	this.detectionRadius = this.width * 6;
 	this.playerDetected = false;
-	this.waiting = true;
+	this.waiting = false;
 	this.waitingTimer = 45; // frames
 	var waitingTimerFull = this.waitingTimer; // frames
 	this.homeRadius = this.detectionRadius * 2;
 	this.home = indexToCenteredXY(arrayIndex);
 	this.idleRadius = this.width/2;
-	this.idleTimer = 45; // frames
+	this.idleTimer = 90; // frames
 	var idleTimerFull = this.idleTimer;
 	this.idlePosition = {x: this.home.x, y: this.home.y};
 	// some of these vars will depend on the animal type and will be fleshed out in inherited classes
@@ -50,6 +50,8 @@ function animalClass (img,x,y,width,height,arrayIndex) {
 				if (this.waitingTimer == 0) {
 					this.waiting = false;
 					this.waitingTimer = waitingTimerFull;
+					this.idlePosition.x = this.home.x;
+					this.idlePosition.y = this.home.y;
 				}
 				if (this.waitingTimer > 0) {
 					this.waitingTimer--;
