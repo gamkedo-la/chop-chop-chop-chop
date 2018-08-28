@@ -1,6 +1,7 @@
 var playerSideChop;
 var animatedWaterTiles;
 var placeholderDeathCatMeander;
+var stebsBird;
 
 function makeAnimatedSprites() {
 	playerSideChop = new AnimatedSpriteClass({
@@ -18,7 +19,13 @@ function makeAnimatedSprites() {
 		  spriteSheet: gamePics.placeholderDeathCatMeanderSheet,
 			animationRowFrames: 1,
 			animationColFrames: 2,
-			framesUntilNext: 20
+			framesUntilNext: 25
+	});
+	stebsBird = new AnimatedSpriteClass({
+			spriteSheet: gamePics.stebsBird,
+			animationRowFrames: 1,
+			animationColFrames: 2,
+			framesUntilNext: 25
 	})
 
 };

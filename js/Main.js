@@ -25,6 +25,7 @@ window.onload = function () {
 };
 
 function loadingDoneSoStartGame() {
+	console.log(stebsBird);
 	canvas.onclick = function() {
 	    if (openingMenuIsRunning) {
 	      openingMenuIsRunning = false;

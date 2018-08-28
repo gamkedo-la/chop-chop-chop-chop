@@ -17,6 +17,7 @@ const TILE_PILE_OF_LEAVES_3 = 11;
 
 const TILE_ANIMAL = 80; // This will need to be expanded out so that individual animals can be placed
 const TILE_PLACEHOLDER_DEATH_CAT = 81;
+const TILE_STEBS_BIRD = 82;
 
 
 var allLevels = [levelOne];
@@ -131,6 +132,9 @@ function whatAnimal(tileType) {
 		case TILE_PLACEHOLDER_DEATH_CAT:
 			return placeholderDeathCatMeander;
 			break;
+		case TILE_STEBS_BIRD:
+			return stebsBird;
+			break;
 	}
 }
 
@@ -138,6 +142,7 @@ function isTileTypeAnAnimal(tileType) {
 	switch (tileType) {
 		case TILE_ANIMAL:
 		case TILE_PLACEHOLDER_DEATH_CAT:
+		case TILE_STEBS_BIRD:
 			return true;
 			break;
 	}
