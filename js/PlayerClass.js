@@ -3,29 +3,31 @@ function playerClass() {
 	this.y = SCREEN_H/2 + 100;
 	this.speed = 6;
 	var walkIntoTileType = TILE_TREE;
-	this.image = gamePics.playerImage;
-	this.width = this.image.width;
-	this.height = this.image.height;
+	this.sprite = playerWalking;
+	this.width = this.sprite.spriteSheet.width/this.sprite.animationColFrames;
+	this.height = this.sprite.spriteSheet.height/this.sprite.animationRowFrames;
 	const NORTH = "north";
 	const EAST = "east";
 	const WEST = "west";
 	const SOUTH = "south";
 	this.direction = WEST; // direction helps prioritize chop
 	this.state = {
-		still: false
+		chopping: false
 	};
-	this.AABB = {
-		topLeft: { x: this.x - this.width/4, y: this.y - this.height/2 },
-		topRight: { x: this.x + this.width/4, y: this.y - this.height/2 },
-		bottomRight: { x: this.x + this.width/4, y: this.y + this.height/2 },
-		bottomLeft: { x: this.x - this.width/4, y: this.y + this.height/2 },
-	}
+	var axeHitboxWidth = 6;
+	var axeHitboxHeight = 5;
+	var axeOffsetX = this.width/2;
+	var axeOffsetY = -this.width/4 + 3;
+	this.axeHitbox = new colliderClass(this.x, this.y, axeHitboxWidth, axeHitboxHeight, 
+										axeOffsetX, axeOffsetY);
+	this.playerHitbox = new colliderClass(this.x, this.y, this.width, this.height, 
+										0, 0);
 
 	this.move = function() {
 		var movementX = 0;
         var movementY = 0;
 
-        if (!this.state.still) {
+        if (!this.state.chopping) {
 			if (leftKeyHeld) {
 				movementX -= this.speed;
 				this.direction = WEST;
@@ -70,10 +72,11 @@ function playerClass() {
 			this.x = nextX;
 			this.y = nextY;
 		}
+		this.playerHitbox.update(this.x, this.y);
 		//console.log("player direction: " + this.direction);
 	}
 
-	this.chopTreesAroundPlayer = function() {
+	/*this.chopTreesAroundPlayer = function() {
 		var arrayIndex = getTileIndexAtPixelCoord(this.x,this.y);
 		var tileLeft = worldGrid[arrayIndex - 1]; // 
 		var tileRight = worldGrid[arrayIndex + 1]; //
@@ -132,57 +135,43 @@ function playerClass() {
 				}
 				break;
 		} // end of switch cases
-	} // end of chopTreesAroundPlayer
+	} // end of chopTreesAroundPlayer*/
 
 	this.chopTrees = function(direction) {
-		var currentChoppingDirection = direction;	
-		/*x: this.x + this.width/2 - 2,
-		y: this.y - this.width/4 + 2,*/
-		var hitboxWidth = 6;
-		var hitboxHeight = 5;
+		var currentChoppingDirection = direction;
 		if (currentChoppingDirection == EAST) {
-			var hitboxTopLeft = {x: this.x + this.width/2 - 2,
-								y: this.y - this.width/4 + 2};
-		} else {
-			var hitboxTopLeft = {x: this.x - this.width/2 - 2,
-								y: this.y - this.width/4 + 2};
+			this.axeHitbox.update(this.x,this.y);
+		} else if (currentChoppingDirection == WEST) {
+			this.axeHitbox.update(this.x - axeOffsetX * 2,this.y);
 		}
-		var hitboxTopRight = {x: hitboxTopLeft.x + hitboxWidth,
-								y: hitboxTopLeft.y};
-		var hitboxBottomRight = {x: hitboxTopRight.x,
-								y: hitboxTopLeft.y + hitboxHeight};
-		var hitboxBottomLeft =  {x: hitboxTopLeft.x,
-								y: hitboxTopLeft.y + hitboxHeight};
-
-		canvasContext.beginPath();
-		canvasContext.moveTo(hitboxTopLeft.x,hitboxTopLeft.y);
-		canvasContext.lineTo(hitboxTopRight.x,hitboxTopRight.y);
-		canvasContext.lineTo(hitboxBottomRight.x,hitboxBottomRight.y);
-		canvasContext.lineTo(hitboxBottomLeft.x,hitboxBottomLeft.y);
-		canvasContext.lineTo(hitboxTopLeft.x,hitboxTopLeft.y);
-		canvasContext.strokeStyle = "red";
-		canvasContext.stroke();
+		for (var i = 0; i < objectList.length; i++);
+			var object = objectList[i];
+			if (this.axeHitbox.isCollidingWith(object.hitbox)) {
+				console.log("you hit an object")
+			};
+		this.axeHitbox.draw("blue");
 	};
 
 	this.draw = function() {
 		var contactFrame = 0;
 		if (this.direction == EAST && spacebarKeyHeld) {
-			this.state.still = true;
+			this.state.chopping = true;
 			playerSideChop.draw(this.x,this.y);
 			if (playerSideChop.currentFrameIndex == contactFrame) {
 				this.chopTrees(this.direction);
 			} 
 		} else if (this.direction == WEST && spacebarKeyHeld) {
-			this.state.still = true;
+			this.state.chopping = true;
 			playerSideChop.draw(this.x, this.y, 1,true);
 			if (playerSideChop.currentFrameIndex == contactFrame) {
 				this.chopTrees(this.direction);
 			}  
 		} else {
-			canvasContext.drawImage(this.image,this.x - this.image.width/2,this.y - this.image.height/2);
+			playerWalking.draw(this.x,this.y);
 			playerSideChop.currentFrameIndex = 2;
 		}
 		drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");
+		this.playerHitbox.draw("red");
 
 	}
 } // end of objectClass

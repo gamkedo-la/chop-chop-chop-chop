@@ -63,7 +63,6 @@ function keyPressed(evt) {
 			downKeyHeld = true;
 			break;
 		case SPACEBAR:
-			player.chopTreesAroundPlayer();
 			spacebarKeyHeld = true;
 			break;
 	    case NUMBER_PAD_PLUS:
@@ -99,7 +98,7 @@ function keyReleased(evt) {
             downKeyHeld = false;
         case SPACEBAR:
 			spacebarKeyHeld = false;
-			player.state.still = false;
+			player.state.chopping = false;
             break;
 	}
 };

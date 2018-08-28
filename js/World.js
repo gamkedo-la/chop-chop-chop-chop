@@ -57,13 +57,16 @@ function drawWorld() {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
 				newObject = new objectClass(useImg, drawTileX, drawTileY,
 					useImg.width, useImg.height,
-					tileKindHere);
+					tileKindHere, arrayIndex);
 				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX, drawTileY);
 				objectList.push(newObject);
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY); // TODO: width and height
 				useImg = whatAnimal(tileKindHere);
-				var newAnimal = new animalClass(useImg, 35,35, arrayIndex);
+				var newAnimal = new animalClass(useImg, 
+					useImg.spriteSheet.width/useImg.animationColFrames,
+					useImg.spriteSheet.height/useImg.animationRowFrames, 
+					arrayIndex);
 				worldGrid[arrayIndex] = TILE_NOTHING;
 				animalList.push(newAnimal);
 			} else {

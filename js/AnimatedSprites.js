@@ -1,8 +1,15 @@
+var playerWalking;
 var playerSideChop;
 var animatedWaterTiles;
 var placeholderDeathCatMeander;
 
 function makeAnimatedSprites() {
+	playerWalking = new AnimatedSpriteClass({
+			spriteSheet: gamePics.playerWalkingSheet,
+			animationColFrames: 17,
+			currentFrameIndex: 6,
+			loops: false
+	});
 	playerSideChop = new AnimatedSpriteClass({
 			spriteSheet: gamePics.playerSideChopSheet,
 			animationColFrames: 17,
@@ -30,7 +37,7 @@ function AnimatedSpriteClass(data) {
 	this.animationRowFrames = data.animationRowFrames || 1;
 	this.numberOfColFrameIndexes = data.animationColFrames - 1;
 	this.numberOfRowFrameIndexes = data.animationRowFrames - 1;
-	this.currentFrameIndex = 0;
+	this.currentFrameIndex = data.currentFrameIndex || 0;
 	this.framesUntilNext = data.framesUntilNext;
 	this.framesMoveSideways = data.framesMoveSideways || true;
 	this.loops = data.loops || true;
