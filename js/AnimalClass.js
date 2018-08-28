@@ -1,11 +1,11 @@
 var animalList = [];
 
-function animalClass (meanderSpriteSheet,x,y,width,height,arrayIndex) {
-	this.x = x;
-	this.y = y;
-	this.meanderSpriteSheet = meanderSpriteSheet;
-	this.meander = true;
-	console.log(this.meanderSpriteSheet);
+function animalClass (img,width,height,arrayIndex) {
+	this.home = indexToCenteredXY(arrayIndex);
+	this.x = this.home.x;
+	this.y = this.home.y;
+	this.img = img;
+	//console.log(this.meanderSpriteSheet);
 	this.width = width;
 	this.height = height;
 	this.centerX = this.x - this.width / 2;
@@ -13,11 +13,11 @@ function animalClass (meanderSpriteSheet,x,y,width,height,arrayIndex) {
 	this.speed = 3;
 	this.detectionRadius = this.width * 6;
 	this.playerDetected = false;
-	this.waiting = true;
+	this.waiting = false;
+	this.meander = true;
 	this.waitingTimer = 45; // frames
 	var waitingTimerFull = this.waitingTimer; // frames
 	this.homeRadius = this.detectionRadius * 2;
-	this.home = indexToCenteredXY(arrayIndex);
 	this.idleRadius = this.width/2;
 	this.idleTimer = 90; // frames
 	var idleTimerFull = this.idleTimer;
@@ -26,9 +26,8 @@ function animalClass (meanderSpriteSheet,x,y,width,height,arrayIndex) {
 
 	this.draw = function () {
 		if (this.meander) {
-			this.meanderSpriteSheet.draw(this.x,this.y, 1, false, false);
-	  }
-		drawRect(this.x, this.y,1,1, "red");
+			this.img.draw(this.x,this.y);
+	  	}
 		drawRect(this.home.x, this.home.y,1,1, "teal");
 		outlineCircle(this.x,this.y, this.detectionRadius, "green",1);
 		outlineCircle(this.home.x,this.home.y, this.homeRadius, "blue",1);
@@ -41,6 +40,7 @@ function animalClass (meanderSpriteSheet,x,y,width,height,arrayIndex) {
 	this.move = function() {
 		var closeToHome = 2;
 		if (this.playerDetected) {
+			this.meander = false;
 			var moveXTowardPlayer = this.x < player.x ? this.speed : -this.speed;
 			var moveYTowardPlayer = this.y < player.y ? this.speed : -this.speed;
 			 if (checkTileCollision(this.x,this.y,moveXTowardPlayer,moveYTowardPlayer)) {
@@ -76,6 +76,7 @@ function animalClass (meanderSpriteSheet,x,y,width,height,arrayIndex) {
 				} // end of check if animal.y is home.y
 				if(moveXTowardHome == 0 && moveYTowardHome == 0) {
 					//animal is home, begin idling
+					this.meander = true;
 					this.idleTimer--;
 					if(this.idleTimer == 0) {
 						let radians = getRandomNumberBetweenMinMax(0, 360) * DEGREES_TO_RADIANS;

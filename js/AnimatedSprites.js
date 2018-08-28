@@ -5,7 +5,7 @@ var placeholderDeathCatMeander;
 function makeAnimatedSprites() {
 	playerSideChop = new AnimatedSpriteClass({
 			spriteSheet: gamePics.playerSideChopSheet,
-			animationColFrames: 16,
+			animationColFrames: 17,
 			framesUntilNext: 1
 	});
 	waterTiles = new AnimatedSpriteClass({

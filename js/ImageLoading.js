@@ -13,7 +13,7 @@ function loadImages() {
         { varName: "placeholderDeathCatMeanderSheet", theFile: "placeholderDeathCatMeanderSheet2a.png"},
 
         //World Tile Pics
-        { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" }, // clear because it is an object
+        { worldType: TILE_EXTEND_COLLISION, theFile: "nothing.png" },
         { worldType: TILE_NOTHING, theFile: "nothing.png" },
         { worldType: TILE_TREE, theFile: "tree.png" },
         { worldType: TILE_STUMP, theFile: "stump.png" },

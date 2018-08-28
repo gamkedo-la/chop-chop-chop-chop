@@ -134,16 +134,53 @@ function playerClass() {
 		} // end of switch cases
 	} // end of chopTreesAroundPlayer
 
+	this.chopTrees = function(direction) {
+		var currentChoppingDirection = direction;	
+		/*x: this.x + this.width/2 - 2,
+		y: this.y - this.width/4 + 2,*/
+		var hitboxWidth = 6;
+		var hitboxHeight = 5;
+		if (currentChoppingDirection == EAST) {
+			var hitboxTopLeft = {x: this.x + this.width/2 - 2,
+								y: this.y - this.width/4 + 2};
+		} else {
+			var hitboxTopLeft = {x: this.x - this.width/2 - 2,
+								y: this.y - this.width/4 + 2};
+		}
+		var hitboxTopRight = {x: hitboxTopLeft.x + hitboxWidth,
+								y: hitboxTopLeft.y};
+		var hitboxBottomRight = {x: hitboxTopRight.x,
+								y: hitboxTopLeft.y + hitboxHeight};
+		var hitboxBottomLeft =  {x: hitboxTopLeft.x,
+								y: hitboxTopLeft.y + hitboxHeight};
+
+		canvasContext.beginPath();
+		canvasContext.moveTo(hitboxTopLeft.x,hitboxTopLeft.y);
+		canvasContext.lineTo(hitboxTopRight.x,hitboxTopRight.y);
+		canvasContext.lineTo(hitboxBottomRight.x,hitboxBottomRight.y);
+		canvasContext.lineTo(hitboxBottomLeft.x,hitboxBottomLeft.y);
+		canvasContext.lineTo(hitboxTopLeft.x,hitboxTopLeft.y);
+		canvasContext.strokeStyle = "red";
+		canvasContext.stroke();
+	};
+
 	this.draw = function() {
+		var contactFrame = 0;
 		if (this.direction == EAST && spacebarKeyHeld) {
 			this.state.still = true;
-			playerSideChop.draw(this.x,this.y, 1);
+			playerSideChop.draw(this.x,this.y);
+			if (playerSideChop.currentFrameIndex == contactFrame) {
+				this.chopTrees(this.direction);
+			} 
 		} else if (this.direction == WEST && spacebarKeyHeld) {
 			this.state.still = true;
-			playerSideChop.draw(this.x, this.y, 1,true)  
+			playerSideChop.draw(this.x, this.y, 1,true);
+			if (playerSideChop.currentFrameIndex == contactFrame) {
+				this.chopTrees(this.direction);
+			}  
 		} else {
 			canvasContext.drawImage(this.image,this.x - this.image.width/2,this.y - this.image.height/2);
-			playerSideChop.currentFrameIndex = 0;
+			playerSideChop.currentFrameIndex = 2;
 		}
 		drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");
 
