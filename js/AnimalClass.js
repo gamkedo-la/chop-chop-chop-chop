@@ -30,7 +30,7 @@ function animalClass (img,width,height,arrayIndex) {
 	// some of these vars will depend on the animal type and will be fleshed out in inherited classes
 
 	this.draw = function () {
-		if (this.meander) {
+		if (this.meander || this.playerDetected || this.waiting) {
 			this.img.draw(this.x,this.y);
 	  	}
 		drawRect(this.home.x, this.home.y,1,1, "teal");
@@ -46,6 +46,7 @@ function animalClass (img,width,height,arrayIndex) {
 		var closeToHome = 2;
 		if (this.playerDetected) {
 			this.meander = false;
+			this.img.framesUntilNext = 8;
 			var moveXTowardPlayer = this.x < player.x ? this.speed : -this.speed;
 			var moveYTowardPlayer = this.y < player.y ? this.speed : -this.speed;
 			 if (checkTileCollision(this.x,this.y,moveXTowardPlayer,moveYTowardPlayer)) {
@@ -57,6 +58,8 @@ function animalClass (img,width,height,arrayIndex) {
 			this.hitbox.update(this.x,this.y);
 		} else if (this.waiting) { // else wait
 				if (this.waitingTimer == 0) {
+					this.img.framesUntilNext = 25;
+					this.playerDetected = false;
 					this.waiting = false;
 					this.waitingTimer = waitingTimerFull;
 					this.idlePosition.x = this.home.x;
@@ -67,6 +70,9 @@ function animalClass (img,width,height,arrayIndex) {
 					return;
 				}
 		} else { // else return home
+			this.meander = false;
+			this.playerDetected = false;
+			this.img.framesUntilNext = 25;
 			var moveXTowardHome = this.x < this.idlePosition.x ? this.speed : -this.speed;
 			var moveYTowardHome = this.y < this.idlePosition.y ? this.speed : -this.speed;
 			if (this.x <= this.idlePosition.x + closeToHome &&
