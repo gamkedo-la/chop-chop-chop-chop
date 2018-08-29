@@ -27,17 +27,16 @@ window.onload = function () {
 function loadingDoneSoStartGame() {
 	canvas.onclick = function() {
 	    if (openingMenuIsRunning) {
-	      openingMenuIsRunning = false;
-	      gameIsRunning = true;
-				backgroundMusic.pause();
-				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
-				backgroundMusic.play();
+	    	openingMenuIsRunning = false;
+	    	gameIsRunning = true;
+			currentTrack.pause();
+			currentTrack = forestMusic;
+			currentTrack.play();
 	    }
 	}
-
-		gameUpdate = setInterval(update, 1000 / framesPerSecond);
-		player = new playerClass();
-		backgroundMusic.play();
+	gameUpdate = setInterval(update, 1000 / framesPerSecond);
+	player = new playerClass();
+	currentTrack.play();
 };
 
 /*function startGame() {

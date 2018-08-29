@@ -1,12 +1,12 @@
 let backgroundMusic = new Audio();
-let unimplementedSFX1 = new Audio();
-let unimplementedSFX2 = new Audio();
-let arrayOfSounds = [backgroundMusic, unimplementedSFX1, unimplementedSFX2];
+let chop1 = new Audio();
+let chop2 = new Audio();
+let forestMusic = new Audio();
+let arrayOfSounds = [backgroundMusic, chop1, chop2,forestMusic];
 let audioType = undefined;
 let sourceExtension = undefined;
 
 let setAudioTypeAndSourceExtension = () => {
-
   if (backgroundMusic.canPlayType('audio/ogg;')) {
       audioType = 'audio/ogg';
   } else {
@@ -37,6 +37,11 @@ backgroundMusic.addEventListener('timeupdate', function(){
                     this.currentTime = 0
                     this.play()
                 }}, false);
+forestMusic.src = "music/ChopChopForestV1" + sourceExtension;
+chop1.src = "SFX/Chop1" + sourceExtension;
+chop2.src = "SFX/Chop2" + sourceExtension;
+
+var currentTrack = backgroundMusic;
 
 let decreaseMasterVolume = () => {
   for ( let arrayOfSoundsIndex = 0; arrayOfSoundsIndex < arrayOfSounds.length; arrayOfSoundsIndex++ ) {

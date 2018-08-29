@@ -27,6 +27,15 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex) {
 			this.hitbox.draw("red");
 		}
 	}
+
+	this.gotHit = function() {
+		this.health--
+		if (this.health <= 0) {
+			worldGrid[this.arrayIndex - worldCols] = TILE_NOTHING;
+			worldGrid[this.arrayIndex] = TILE_STUMP;
+			this.remove = true;
+		}
+	}
 } // end of objectClass
 
 function drawAndRemoveAllObjects() {
