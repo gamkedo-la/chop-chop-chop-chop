@@ -6,29 +6,34 @@ var stebsBird;
 
 function makeAnimatedSprites() {
 	playerWalking = new AnimatedSpriteClass({
+			name: "player",
 			spriteSheet: gamePics.playerWalkingSheet,
 			animationColFrames: 17,
 			currentFrameIndex: 6,
 			loops: false
 	});
 	playerSideChop = new AnimatedSpriteClass({
+			name: "playerSideChop",
 			spriteSheet: gamePics.playerSideChopSheet,
 			animationColFrames: 17,
 			framesUntilNext: 1
 	});
 	waterTiles = new AnimatedSpriteClass({
+			name: "waterTiles",
 			spriteSheet: gamePics.waterTilesSpritesheet,
 			animationRowFrames: 10,
 			animationColFrames: 3,
 			framesUntilNext: 60
 	});
 	placeholderDeathCatMeander = new AnimatedSpriteClass({
+			name: "deathCat",
 		  spriteSheet: gamePics.placeholderDeathCatMeanderSheet,
 			animationRowFrames: 1,
 			animationColFrames: 2,
 			framesUntilNext: 25
 	});
 	stebsBird = new AnimatedSpriteClass({
+			name: "stebsBird",
 			spriteSheet: gamePics.stebsBird,
 			animationRowFrames: 1,
 			animationColFrames: 2,

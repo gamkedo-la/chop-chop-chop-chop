@@ -32,7 +32,7 @@ function animalClass (img,width,height,arrayIndex) {
 	this.draw = function () {
 		if (this.meander || this.playerDetected || this.waiting) {
 			this.img.draw(this.x,this.y);
-	  	}
+	  }
 		drawRect(this.home.x, this.home.y,1,1, "teal");
 		this.hitbox.draw("green");
 		outlineCircle(this.x,this.y, this.detectionRadius, "green",1);
@@ -57,6 +57,7 @@ function animalClass (img,width,height,arrayIndex) {
 			this.y += moveYTowardPlayer;
 			this.hitbox.update(this.x,this.y);
 		} else if (this.waiting) { // else wait
+				this.meander = true;
 				if (this.waitingTimer == 0) {
 					this.img.framesUntilNext = 25;
 					this.playerDetected = false;
@@ -70,7 +71,7 @@ function animalClass (img,width,height,arrayIndex) {
 					return;
 				}
 		} else { // else return home
-			this.meander = false;
+			this.meander = true;
 			this.playerDetected = false;
 			this.img.framesUntilNext = 25;
 			var moveXTowardHome = this.x < this.idlePosition.x ? this.speed : -this.speed;

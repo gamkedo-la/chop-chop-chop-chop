@@ -1,6 +1,6 @@
 function playerClass() {
-	this.x = SCREEN_W/2;
-	this.y = SCREEN_H/2 + 100;
+	this.x = 20;
+	this.y = 20;
 	this.speed = 6;
 	var walkIntoTileType = TILE_TREE;
 	this.sprite = playerWalking;
@@ -18,9 +18,9 @@ function playerClass() {
 	var axeHitboxHeight = 5;
 	var axeOffsetX = this.width/2;
 	var axeOffsetY = -this.width/4 + 3;
-	this.axeHitbox = new colliderClass(this.x, this.y, axeHitboxWidth, axeHitboxHeight, 
+	this.axeHitbox = new colliderClass(this.x, this.y, axeHitboxWidth, axeHitboxHeight,
 										axeOffsetX, axeOffsetY);
-	this.playerHitbox = new colliderClass(this.x, this.y, this.width, this.height, 
+	this.playerHitbox = new colliderClass(this.x, this.y, this.width, this.height,
 										0, 0);
 
 	this.move = function() {
@@ -104,13 +104,13 @@ function playerClass() {
 			playerSideChop.draw(this.x,this.y);
 			if (playerSideChop.currentFrameIndex == contactFrame) {
 				this.chopTrees(this.direction);
-			} 
+			}
 		} else if (this.direction == WEST && spacebarKeyHeld) {
 			this.state.chopping = true;
 			playerSideChop.draw(this.x, this.y, 1,true);
 			if (playerSideChop.currentFrameIndex == contactFrame) {
 				this.chopTrees(this.direction);
-			}  
+			}
 		} else {
 			playerWalking.draw(this.x,this.y);
 			playerSideChop.currentFrameIndex = 2;
