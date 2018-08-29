@@ -64,9 +64,9 @@ function drawWorld() {
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
 				useImg = whatAnimal(tileKindHere);
-				var newAnimal = new animalClass(useImg, 
+				var newAnimal = new animalClass(useImg,
 					useImg.spriteSheet.width/useImg.animationColFrames,
-					useImg.spriteSheet.height/useImg.animationRowFrames, 
+					useImg.spriteSheet.height/useImg.animationRowFrames,
 					arrayIndex);
 				worldGrid[arrayIndex] = TILE_NOTHING;
 				animalList.push(newAnimal);

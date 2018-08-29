@@ -1,6 +1,6 @@
 function playerClass() {
-	this.x = SCREEN_W/2;
-	this.y = SCREEN_H/2 + 100;
+	this.x = 20;
+	this.y = 20;
 	this.speed = 6;
 	var walkIntoTileType = TILE_TREE;
 	this.sprite = playerWalking;
@@ -18,9 +18,9 @@ function playerClass() {
 	var axeHitboxHeight = 5;
 	var axeOffsetX = this.width/2;
 	var axeOffsetY = -this.width/4 + 3;
-	this.axeHitbox = new colliderClass(this.x, this.y, axeHitboxWidth, axeHitboxHeight, 
+	this.axeHitbox = new colliderClass(this.x, this.y, axeHitboxWidth, axeHitboxHeight,
 										axeOffsetX, axeOffsetY);
-	this.playerHitbox = new colliderClass(this.x, this.y, this.width, this.height, 
+	this.playerHitbox = new colliderClass(this.x, this.y, this.width, this.height,
 										0, 0);
 
 	this.move = function() {
@@ -78,19 +78,19 @@ function playerClass() {
 
 	/*this.chopTreesAroundPlayer = function() {
 		var arrayIndex = getTileIndexAtPixelCoord(this.x,this.y);
-		var tileLeft = worldGrid[arrayIndex - 1]; // 
+		var tileLeft = worldGrid[arrayIndex - 1]; //
 		var tileRight = worldGrid[arrayIndex + 1]; //
 		var tileUp = worldGrid[arrayIndex - worldCols]; //
 		var tileDown = worldGrid[arrayIndex + worldCols]; // checks in a + around player's location
 
 		switch (this.direction) {
-			case NORTH: 
+			case NORTH:
 				if (tileUp == TILE_TREE) { // remove tree above and extended tree tile above tree
 					worldGrid[arrayIndex - worldCols] = TILE_STUMP;
 					worldGrid[arrayIndex - (worldCols * 2)] = TILE_NOTHING;
 					var treeXY = indexToCenteredXY(arrayIndex - worldCols);
 					spawnParticles('chop', treeXY.x, treeXY.y);
-				} 
+				}
 				break;
 
 			case EAST:
@@ -99,14 +99,14 @@ function playerClass() {
 					worldGrid[arrayIndex + 1 - worldCols] = TILE_NOTHING;
 					var treeXY = indexToCenteredXY(arrayIndex + 1);
 					spawnParticles('chop', treeXY.x, treeXY.y);
-				} 
-				if (tileRight == TILE_EXTEND_COLLISION) { // remove extend tree tile to the right 
+				}
+				if (tileRight == TILE_EXTEND_COLLISION) { // remove extend tree tile to the right
 													 // and tree below extend tree tile
 					worldGrid[arrayIndex + 1] = TILE_NOTHING;
 					worldGrid[arrayIndex + 1 + worldCols] = TILE_STUMP;
 					var treeXY = indexToCenteredXY(arrayIndex + 1);
 					spawnParticles('chop', treeXY.x, treeXY.y);
-				} 
+				}
 				break;
 
 			case WEST:
@@ -116,7 +116,7 @@ function playerClass() {
 					var treeXY = indexToCenteredXY(arrayIndex - 1);
 					spawnParticles('chop', treeXY.x, treeXY.y);
 				}
-				if (tileLeft == TILE_EXTEND_COLLISION) {	// remove extend tree tile to the left 
+				if (tileLeft == TILE_EXTEND_COLLISION) {	// remove extend tree tile to the left
 													// and tree below extend tree tile
 					worldGrid[arrayIndex - 1] = TILE_NOTHING;
 					worldGrid[arrayIndex - 1 + worldCols] = TILE_STUMP;
@@ -126,7 +126,7 @@ function playerClass() {
 				break;
 
 			case SOUTH:
-				if (tileDown == TILE_EXTEND_COLLISION) { // remove extend tree tile above 
+				if (tileDown == TILE_EXTEND_COLLISION) { // remove extend tree tile above
 													// and tree below extend tree tile
 					worldGrid[arrayIndex + worldCols] = TILE_NOTHING;
 					worldGrid[arrayIndex + (worldCols * 2)] = TILE_STUMP;
@@ -167,13 +167,13 @@ function playerClass() {
 			playerSideChop.draw(this.x,this.y);
 			if (playerSideChop.currentFrameIndex == contactFrame) {
 				this.chopTrees(this.direction);
-			} 
+			}
 		} else if (this.direction == WEST && spacebarKeyHeld) {
 			this.state.chopping = true;
 			playerSideChop.draw(this.x, this.y, 1,true);
 			if (playerSideChop.currentFrameIndex == contactFrame) {
 				this.chopTrees(this.direction);
-			}  
+			}
 		} else {
 			playerWalking.draw(this.x,this.y);
 			playerSideChop.currentFrameIndex = 2;

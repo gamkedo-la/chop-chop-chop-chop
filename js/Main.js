@@ -48,6 +48,10 @@ function update() {
     drawAll();
     framesFromGameStart++
     moveAll();
+		for (let i = 0; i<animalList.length; i++) {
+			console.log(animalList[i].img.data.name, animalList[i].meander, animalList[i].waiting, animalList[i].playerDetected);
+		}
+
 }
 
 function drawAll() {
