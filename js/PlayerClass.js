@@ -38,11 +38,11 @@ function playerClass() {
 			}
 			if (upKeyHeld) {
 				movementY -= this.speed;
-				this.direction = NORTH;
+				//this.direction = NORTH;
 			}
 			if (downKeyHeld) {
 				movementY += this.speed;
-				this.direction = SOUTH;
+				//this.direction = SOUTH;
 			}
 		} else {
 			return;

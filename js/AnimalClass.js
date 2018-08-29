@@ -21,6 +21,12 @@ function animalClass (img,width,height,arrayIndex) {
 	this.idleTimer = 90; // frames
 	var idleTimerFull = this.idleTimer;
 	this.idlePosition = {x: this.home.x, y: this.home.y};
+	var colliderWidth = this.width;
+	var colliderHeight = this.height;
+	var colliderOffsetX = 0;
+	var colliderOffsetY = 0;
+	this.hitbox = new colliderClass(this.x,this.y,
+		colliderWidth,colliderHeight,colliderOffsetX,colliderOffsetY);
 	// some of these vars will depend on the animal type and will be fleshed out in inherited classes
 
 	this.draw = function () {
@@ -28,12 +34,15 @@ function animalClass (img,width,height,arrayIndex) {
 			this.img.draw(this.x,this.y);
 	  	}
 		drawRect(this.home.x, this.home.y,1,1, "teal");
+		this.hitbox.draw("green");
 		outlineCircle(this.x,this.y, this.detectionRadius, "green",1);
 		outlineCircle(this.home.x,this.home.y, this.homeRadius, "blue",1);
 	} // end of draw function
 
 
 	this.move = function() {
+		this.detectionRadiusTrigger();
+		this.homeRadiusTrigger();
 		var closeToHome = 2;
 		if (this.playerDetected) {
 			this.meander = false;
@@ -45,9 +54,8 @@ function animalClass (img,width,height,arrayIndex) {
 			 }
 			this.x += moveXTowardPlayer;
 			this.y += moveYTowardPlayer;
+			this.hitbox.update(this.x,this.y);
 		} else if (this.waiting) { // else wait
-			//console.log(this.x, this.home);
-			//this.x += this.speed;
 				if (this.waitingTimer == 0) {
 					this.waiting = false;
 					this.waitingTimer = waitingTimerFull;
@@ -58,40 +66,39 @@ function animalClass (img,width,height,arrayIndex) {
 					this.waitingTimer--;
 					return;
 				}
+		} else { // else return home
+			var moveXTowardHome = this.x < this.idlePosition.x ? this.speed : -this.speed;
+			var moveYTowardHome = this.y < this.idlePosition.y ? this.speed : -this.speed;
+			if (this.x <= this.idlePosition.x + closeToHome &&
+			    this.x >= this.idlePosition.x - closeToHome) {
+				moveXTowardHome = 0;
 			}
-				else { // else return home
-				var moveXTowardHome = this.x < this.idlePosition.x ? this.speed : -this.speed;
-				var moveYTowardHome = this.y < this.idlePosition.y ? this.speed : -this.speed;
-				if (this.x <= this.idlePosition.x + closeToHome &&
-				    this.x >= this.idlePosition.x - closeToHome) {
-					moveXTowardHome = 0;
+			if (this.y <= this.idlePosition.y + closeToHome &&
+			    this.y >= this.idlePosition.y - closeToHome) {
+				moveYTowardHome = 0;
+			} // end of check if animal.y is home.y
+			if (moveXTowardHome == 0 && moveYTowardHome == 0) {
+				//animal is home, begin idling
+				this.meander = true;
+				this.idleTimer--;
+				if(this.idleTimer == 0) {
+					let radians = getRandomNumberBetweenMinMax(0, 360) * DEGREES_TO_RADIANS;
+					let radius = getRandomNumberBetweenMinMax(0, this.idleRadius);
+					this.idlePosition.x = Math.cos(radians) * radius + this.home.x;
+					this.idlePosition.y = Math.sin(radians) * radius + this.home.y;
+					this.idleTimer = idleTimerFull;
 				}
-				if (this.y <= this.idlePosition.y + closeToHome &&
-				    this.y >= this.idlePosition.y - closeToHome) {
-					moveYTowardHome = 0;
-				} // end of check if animal.y is home.y
-				if(moveXTowardHome == 0 && moveYTowardHome == 0) {
-					//animal is home, begin idling
-					this.meander = true;
-					this.idleTimer--;
-					if(this.idleTimer == 0) {
-						let radians = getRandomNumberBetweenMinMax(0, 360) * DEGREES_TO_RADIANS;
-						let radius = getRandomNumberBetweenMinMax(0, this.idleRadius);
-						this.idlePosition.x = Math.cos(radians) * radius + this.home.x;
-						this.idlePosition.y = Math.sin(radians) * radius + this.home.y;
-						this.idleTimer = idleTimerFull;
-					}
-				}
-				if (checkTileCollision(this.x,this.y,moveXTowardHome,moveYTowardHome)) {
-					moveXTowardHome = 0;
-			 		moveYTowardHome = 0;
-					this.idlePosition = {x: this.x, y: this.y};
-				}
-				this.x += moveXTowardHome;
-				this.y += moveYTowardHome;
-			} // end of else return home
-	//	} // end of else wait
-	} // end of move function
+			}
+			if (checkTileCollision(this.x,this.y,moveXTowardHome,moveYTowardHome)) {
+				moveXTowardHome = 0;
+		 		moveYTowardHome = 0;
+				this.idlePosition = {x: this.x, y: this.y};
+			}
+			this.x += moveXTowardHome;
+			this.y += moveYTowardHome;
+			this.hitbox.update(this.x,this.y);
+		} // end of else return home
+	} // end of move funtion
 
 	this.detectionRadiusTrigger = function() {
 		var radius = this.detectionRadius;
@@ -119,9 +126,6 @@ function animalClass (img,width,height,arrayIndex) {
 			this.playerDetected = false;
 		}
 	}
-
-	this.detectionRadiusTrigger();
-	this.homeRadiusTrigger();
 } // end of animal class
 
 function checkTileCollision (x,y,movementX,movementY) {
