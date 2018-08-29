@@ -34,7 +34,6 @@ function drawWorld() {
 	var arrayIndex = 0;
 	var drawTileX = 0;
 	var drawTileY = 0;
-	objectList = [];
 	for (var eachRow = 0; eachRow < worldRows; eachRow++) {
 		for (var eachCol = 0; eachCol < worldCols; eachCol++) {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
@@ -59,10 +58,11 @@ function drawWorld() {
 				newObject = new objectClass(useImg, drawTileX, drawTileY,
 					useImg.width, useImg.height,
 					tileKindHere, arrayIndex);
+				worldGrid[arrayIndex] = TILE_NOTHING;
 				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX, drawTileY);
 				objectList.push(newObject);
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
-				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY); // TODO: width and height
+				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
 				useImg = whatAnimal(tileKindHere);
 				var newAnimal = new animalClass(useImg, 
 					useImg.spriteSheet.width/useImg.animationColFrames,
@@ -155,6 +155,7 @@ function addTilesForCollisionBasedOnTileType(tileType, x, y) {
 	var arrayIndex = getTileIndexAtPixelCoord(x, y)
 	switch (tileType) {
 		case TILE_TREE:
+			worldGrid[arrayIndex] = TILE_EXTEND_COLLISION;
 			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_COLLISION;
 			break;
 	}

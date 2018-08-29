@@ -5,7 +5,6 @@ function animalClass (img,width,height,arrayIndex) {
 	this.x = this.home.x;
 	this.y = this.home.y;
 	this.img = img;
-	//console.log(this.meanderSpriteSheet);
 	this.width = width;
 	this.height = height;
 	this.centerX = this.x - this.width / 2;
@@ -31,9 +30,6 @@ function animalClass (img,width,height,arrayIndex) {
 		drawRect(this.home.x, this.home.y,1,1, "teal");
 		outlineCircle(this.x,this.y, this.detectionRadius, "green",1);
 		outlineCircle(this.home.x,this.home.y, this.homeRadius, "blue",1);
-		this.detectionRadiusTrigger();
-		this.homeRadiusTrigger();
-		/*canvasContext.drawImage(this.img,this.x - this.width/4,this.y - this.height/4 - TILE_H/2);*/
 	} // end of draw function
 
 
@@ -123,6 +119,9 @@ function animalClass (img,width,height,arrayIndex) {
 			this.playerDetected = false;
 		}
 	}
+
+	this.detectionRadiusTrigger();
+	this.homeRadiusTrigger();
 } // end of animal class
 
 function checkTileCollision (x,y,movementX,movementY) {

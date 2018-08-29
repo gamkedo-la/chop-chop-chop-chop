@@ -25,7 +25,6 @@ window.onload = function () {
 };
 
 function loadingDoneSoStartGame() {
-	console.log(stebsBird);
 	canvas.onclick = function() {
 	    if (openingMenuIsRunning) {
 	      openingMenuIsRunning = false;
@@ -57,7 +56,7 @@ function drawAll() {
 	} else if (gameIsRunning) {
 		cameraPan();
 		drawWorld();
-		drawAllObjects();
+		drawAndRemoveAllObjects();
 		drawAllAnimals();
 		player.draw();
 		drawParticles();

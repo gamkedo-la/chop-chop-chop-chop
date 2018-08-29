@@ -144,11 +144,19 @@ function playerClass() {
 		} else if (currentChoppingDirection == WEST) {
 			this.axeHitbox.update(this.x - axeOffsetX * 2,this.y);
 		}
-		for (var i = 0; i < objectList.length; i++);
+		for (var i = 0; i < objectList.length; i++) {
 			var object = objectList[i];
-			if (this.axeHitbox.isCollidingWith(object.hitbox)) {
-				console.log("you hit an object")
-			};
+			if (object.hasHitbox) {
+				if (this.axeHitbox.isCollidingWith(object.hitbox)) {
+					console.log("hit an object!");
+					worldGrid[object.arrayIndex - worldCols] = TILE_NOTHING;
+					worldGrid[object.arrayIndex] = TILE_STUMP;
+					object.remove = true;
+				} else {
+					console.log("swing!");
+				}
+			}
+		}
 		this.axeHitbox.draw("blue");
 	};
 
@@ -172,6 +180,5 @@ function playerClass() {
 		}
 		drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");
 		this.playerHitbox.draw("red");
-
 	}
 } // end of objectClass
