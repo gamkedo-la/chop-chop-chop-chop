@@ -34,19 +34,18 @@ let assignAudioTypes = () => {
 assignAudioTypes();
 
 backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
-if (currentTrack == backgroundMusic) {
-	currentTrack.addEventListener('timeupdate', function(){
-	var buffer = .44
+
+backgroundMusic.addEventListener('timeupdate', function(){
+	var buffer = .44;
     if(this.currentTime > this.duration - buffer) {
-    	this.currentTime = 0
-        this.play()
-    }}, false);
-}
-forestMusic.src = "music/ChopChopForestV1" + sourceExtension;
+    	this.currentTime = 0;
+        this.play();
+}}, false);
+
+
+//forestMusic.src = "music/ChopChopForestV1" + sourceExtension;
 chop1.src = "SFX/Chop1" + sourceExtension;
 chop2.src = "SFX/Chop2" + sourceExtension;
-
-var currentTrack = backgroundMusic;
 
 let decreaseMasterVolume = () => {
   for ( let arrayOfSoundsIndex = 0; arrayOfSoundsIndex < arrayOfSounds.length; arrayOfSoundsIndex++ ) {

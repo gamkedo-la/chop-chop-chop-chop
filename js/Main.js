@@ -27,18 +27,19 @@ window.onload = function () {
 };
 
 function loadingDoneSoStartGame() {
+	console.log(backgroundMusic.src);
 	canvas.onclick = function() {
 	    if (openingMenuIsRunning) {
 	    	openingMenuIsRunning = false;
 	    	gameIsRunning = true;
-			currentTrack.pause();
-			currentTrack = forestMusic;
-			currentTrack.play();
+				backgroundMusic.pause();
+				backgroundMusic.src = "ChopChopForestV1" + sourceExtension;
+				backgroundMusic.play();
 	    }
 	}
 	gameUpdate = setInterval(update, 1000 / framesPerSecond);
 	player = new playerClass();
-	currentTrack.play();
+	backgroundMusic.play();
 };
 
 /*function startGame() {
@@ -49,6 +50,7 @@ function update() {
     drawAll();
     framesFromGameStart++
     moveAll();
+		console.log(backgroundMusic.currentTime);
 	/*for (let i = 0; i<animalList.length; i++) {
 		console.log(animalList[i].img.data.name, animalList[i].meander, animalList[i].waiting, animalList[i].playerDetected);
 	}*/
