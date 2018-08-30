@@ -27,7 +27,6 @@ window.onload = function () {
 };
 
 function loadingDoneSoStartGame() {
-	console.log(backgroundMusic.src);
 	canvas.onclick = function() {
 	    if (openingMenuIsRunning) {
 	    	openingMenuIsRunning = false;
@@ -50,10 +49,6 @@ function update() {
     drawAll();
     framesFromGameStart++
     moveAll();
-		console.log(backgroundMusic.currentTime);
-	/*for (let i = 0; i<animalList.length; i++) {
-		console.log(animalList[i].img.data.name, animalList[i].meander, animalList[i].waiting, animalList[i].playerDetected);
-	}*/
 }
 
 function drawAll() {

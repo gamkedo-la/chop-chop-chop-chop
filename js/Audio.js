@@ -16,7 +16,7 @@ let setAudioTypeAndSourceExtension = () => {
   } else {
       audioType = 'audio/mpeg';
   }
-  console.log(audioType);
+
   if (audioType === 'audio/mpeg') {
     sourceExtension = ".mp3";
   } else {
