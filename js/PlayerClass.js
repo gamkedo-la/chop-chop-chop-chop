@@ -92,7 +92,8 @@ function playerClass() {
 				if (this.axeHitbox.isCollidingWith(object.hitbox)) {
 					console.log("hit an object!");
 					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
-					chop1.play();
+					var random = getRoundedRandomNumberBetweenMinMax(0, 1)
+					arrayOfChopSFXs[random].play();
 					object.gotHit(this.axePower);
 				}
 			}
