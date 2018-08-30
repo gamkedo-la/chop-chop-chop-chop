@@ -5,6 +5,14 @@ var placeholderDeathCatMeander;
 var stebsBird;
 
 function makeAnimatedSprites() {
+	playerIdle = new AnimatedSpriteClass({
+		name: "player",
+		spriteSheet: gamePics.playerWalkingSheet, // FIXME
+		animationColFrames: 8,
+		currentFrameIndex: 0,
+		framesUntilNext: 999999999999,
+		loops: true
+});
 	playerWalking = new AnimatedSpriteClass({
 			name: "player",
 			spriteSheet: gamePics.playerWalkingSheet,

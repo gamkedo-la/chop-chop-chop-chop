@@ -138,11 +138,15 @@ function playerClass() {
 		
 		} else { // not chopping
 
-			if (!this.state.walking) { // idle, just standing there
-				playerWalking.currentFrameIndex = 1; // TODO FIXME add idle animation
+			if (this.state.walking) {
+	
+				playerWalking.draw(this.x, this.y, 1, (this.direction != EAST));
+				
+			} else { // idle
+
+				playerIdle.draw(this.x, this.y, 1, (this.direction != EAST));
+
 			}
-			
-			playerWalking.draw(this.x, this.y, 1, (this.direction != EAST));
 		}
 
 		if (debug) {
