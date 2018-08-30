@@ -12,6 +12,7 @@ function animalClass (img,width,height,arrayIndex) {
 	this.speed = 3;
 	this.detectionRadius = this.width * 6;
 	this.playerDetected = false;
+	this.playerDetectedSoundPlayed = false;
 	this.waiting = false;
 	this.meander = true;
 	this.waitingTimer = 45; // frames
@@ -47,6 +48,14 @@ function animalClass (img,width,height,arrayIndex) {
 		this.homeRadiusTrigger();
 		var closeToHome = 2;
 		if (this.playerDetected) {
+			if (this.img.data.name === "deathCat" && this.playerDetectedSoundPlayed === false) {
+				deathMeow.play();
+				this.playerDetectedSoundPlayed = true;
+			}
+			if (this.img.data.name === "stebsBird" && this.playerDetectedSoundPlayed === false) {
+				birdSound.play();
+				this.playerDetectedSoundPlayed = true;
+			}
 			this.meander = false;
 			this.img.framesUntilNext = 8;
 			var moveXTowardPlayer = this.x < player.x ? this.speed : -this.speed;
@@ -71,6 +80,7 @@ function animalClass (img,width,height,arrayIndex) {
 					//this.img.framesUntilNext = 25;
 					this.meander = true;
 					this.playerDetected = false;
+					this.playerDetectedSoundPlayed = false;
 					this.waiting = false;
 					this.waitingTimer = waitingTimerFull;
 					this.idlePosition.x = this.home.x;

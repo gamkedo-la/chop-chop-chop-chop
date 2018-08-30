@@ -1,6 +1,8 @@
 let backgroundMusic = new Audio();
 let chop1 = new Audio();
 let chop2 = new Audio();
+let birdSound = new Audio();
+let deathMeow = new Audio();
 let forestMusic = new Audio();
 
 let arrayOfSounds = [backgroundMusic, chop1, chop2,forestMusic];
@@ -46,6 +48,10 @@ backgroundMusic.addEventListener('timeupdate', function(){
 //forestMusic.src = "music/ChopChopForestV1" + sourceExtension;
 chop1.src = "SFX/Chop1" + sourceExtension;
 chop2.src = "SFX/Chop2" + sourceExtension;
+deathMeow.src = "SFX/deathMeow" + sourceExtension;
+deathMeow.volume = 0.5;
+birdSound.src = "SFX/birdSound" + sourceExtension;
+birdSound.volume = 0.6;
 
 let decreaseMasterVolume = () => {
   for ( let arrayOfSoundsIndex = 0; arrayOfSoundsIndex < arrayOfSounds.length; arrayOfSoundsIndex++ ) {
