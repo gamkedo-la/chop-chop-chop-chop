@@ -8,7 +8,8 @@ const W_KEY = 87;
 const D_KEY = 68;
 const S_KEY = 83;
 
-const P_KEY = 80;//for pause
+const O_KEY = 79; // for debug
+const P_KEY = 80; // for pause
 
 const SPACEBAR = 32;
 
@@ -75,6 +76,9 @@ function keyPressed(evt) {
 	      break;
 	    case P_KEY:
 	        togglePauseGame();
+	        break;
+	    case O_KEY:
+	        toggleDebug();
 	        break;
     }
 };

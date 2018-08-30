@@ -24,12 +24,12 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex) {
 		canvasContext.drawImage(this.img,this.x - this.width/4,this.y - this.height/4 - TILE_H/2);
 		if (this.hasHitbox) {
 			this.hitbox.update(this.x,this.y);
-			this.hitbox.draw("red");
+			if (debug) this.hitbox.draw("red");
 		}
 	}
 
-	this.gotHit = function() {
-		this.health--
+	this.gotHit = function(healthToSubtract) {
+		this.health -= healthToSubtract;
 		if (this.health <= 0) {
 			worldGrid[this.arrayIndex - worldCols] = TILE_NOTHING;
 			worldGrid[this.arrayIndex] = TILE_STUMP;

@@ -17,11 +17,14 @@ function playerClass() {
 	var axeHitboxWidth = 6;
 	var axeHitboxHeight = 5;
 	var axeOffsetX = this.width/2;
-	var axeOffsetY = -this.width/4 + 3;
+	var axeOffsetY = -this.width/4;
 	this.axeHitbox = new colliderClass(this.x, this.y, axeHitboxWidth, axeHitboxHeight,
 										axeOffsetX, axeOffsetY);
+	this.axeSharpness = 0;
+	this.axeLevel = 0;
+	this.axePower = 1 + this.axeSharpness + this.axeLevel;
 	this.playerHitbox = new colliderClass(this.x, this.y, this.width, this.height,
-										0, 0);
+											0, 0);
 
 	this.move = function() {
 		var movementX = 0;
@@ -90,11 +93,11 @@ function playerClass() {
 					console.log("hit an object!");
 					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 					chop1.play();
-					object.gotHit();
+					object.gotHit(this.axePower);
 				}
 			}
 		}
-		this.axeHitbox.draw("blue");
+		if (debug) this.axeHitbox.draw("blue");
 	};
 
 	this.draw = function() {
@@ -115,7 +118,9 @@ function playerClass() {
 			playerWalking.draw(this.x,this.y);
 			playerSideChop.currentFrameIndex = 2;
 		}
-		drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");
-		this.playerHitbox.draw("red");
+		if (debug) {
+			drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");
+			this.playerHitbox.draw("red");
+		}
 	}
 } // end of objectClass

@@ -33,10 +33,12 @@ function animalClass (img,width,height,arrayIndex) {
 		if (this.meander || this.playerDetected || this.waiting) {
 			this.img.draw(this.x,this.y);
 	  }
-		drawRect(this.home.x, this.home.y,1,1, "teal");
-		this.hitbox.draw("green");
-		outlineCircle(this.x,this.y, this.detectionRadius, "green",1);
-		outlineCircle(this.home.x,this.home.y, this.homeRadius, "blue",1);
+		if (debug) {
+			drawRect(this.home.x, this.home.y,1,1, "teal");
+			this.hitbox.draw("green");
+			outlineCircle(this.x,this.y, this.detectionRadius, "green",1);
+			outlineCircle(this.home.x,this.home.y, this.homeRadius, "blue",1);
+		}
 	} // end of draw function
 
 
@@ -49,17 +51,25 @@ function animalClass (img,width,height,arrayIndex) {
 			this.img.framesUntilNext = 8;
 			var moveXTowardPlayer = this.x < player.x ? this.speed : -this.speed;
 			var moveYTowardPlayer = this.y < player.y ? this.speed : -this.speed;
-			 if (checkTileCollision(this.x,this.y,moveXTowardPlayer,moveYTowardPlayer)) {
-			 	moveXTowardPlayer = 0;
-			 	moveYTowardPlayer = 0;
-			 }
+			if (checkTileCollision(this.x,this.y,moveXTowardPlayer,moveYTowardPlayer)) {
+				moveXTowardPlayer = 0;
+				moveYTowardPlayer = 0;
+			}
+			if (this.x <= player.x + closeToHome &&
+			    this.x >= player.x - closeToHome) {
+				moveXTowardPlayer = 0;
+			}
+			if (this.y <= player.y + closeToHome &&
+			    this.y >= player.y - closeToHome) {
+				moveYTowardPlayer = 0;
+			}
 			this.x += moveXTowardPlayer;
 			this.y += moveYTowardPlayer;
 			this.hitbox.update(this.x,this.y);
 		} else if (this.waiting) { // else wait
-				this.meander = true;
 				if (this.waitingTimer == 0) {
-					this.img.framesUntilNext = 25;
+					//this.img.framesUntilNext = 25;
+					this.meander = true;
 					this.playerDetected = false;
 					this.waiting = false;
 					this.waitingTimer = waitingTimerFull;
@@ -71,7 +81,6 @@ function animalClass (img,width,height,arrayIndex) {
 					return;
 				}
 		} else { // else return home
-			this.meander = true;
 			this.playerDetected = false;
 			this.img.framesUntilNext = 25;
 			var moveXTowardHome = this.x < this.idlePosition.x ? this.speed : -this.speed;

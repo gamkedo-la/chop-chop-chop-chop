@@ -9,6 +9,8 @@ var framesFromGameStart = 0;
 
 var player;
 
+var debug = false;
+
 window.onload = function () {
 	canvas = document.createElement("canvas");
 	canvasContext = canvas.getContext("2d");
@@ -47,10 +49,9 @@ function update() {
     drawAll();
     framesFromGameStart++
     moveAll();
-		for (let i = 0; i<animalList.length; i++) {
-			console.log(animalList[i].img.data.name, animalList[i].meander, animalList[i].waiting, animalList[i].playerDetected);
-		}
-
+	/*for (let i = 0; i<animalList.length; i++) {
+		console.log(animalList[i].img.data.name, animalList[i].meander, animalList[i].waiting, animalList[i].playerDetected);
+	}*/
 }
 
 function drawAll() {
