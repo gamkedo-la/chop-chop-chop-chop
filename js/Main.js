@@ -33,7 +33,7 @@ function loadingDoneSoStartGame() {
 	    	openingMenuIsRunning = false;
 	    	gameIsRunning = true;
 				backgroundMusic.pause();
-				backgroundMusic.src = "ChopChopForestV1" + sourceExtension;
+				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
 				backgroundMusic.play();
 	    }
 	}
