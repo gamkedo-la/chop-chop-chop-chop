@@ -12,7 +12,8 @@ function playerClass() {
 	const SOUTH = "south";
 	this.direction = WEST; // direction helps prioritize chop
 	this.state = {
-		chopping: false
+		chopping: false,
+		walking: false
 	};
 	var axeHitboxWidth = 6;
 	var axeHitboxHeight = 5;
@@ -31,23 +32,28 @@ function playerClass() {
 	this.move = function() {
 		var movementX = 0;
         var movementY = 0;
+		this.state.walking = false;
 
         if (!this.state.chopping) {
 			if (leftKeyHeld) {
 				movementX -= this.speed;
 				this.direction = WEST;
+				this.state.walking = true;
 			}
 			if (rightKeyHeld) {
 				movementX += this.speed;
 				this.direction = EAST;
+				this.state.walking = true;
 			}
 			if (upKeyHeld) {
 				movementY -= this.speed;
 				//this.direction = NORTH;
+				this.state.walking = true;
 			}
 			if (downKeyHeld) {
 				movementY += this.speed;
 				//this.direction = SOUTH;
+				this.state.walking = true;
 			}
 		} else {
 			return;
@@ -129,15 +135,16 @@ function playerClass() {
 					player.state.chopping = false;
 				}
 			}
-		} else {
-			if (this.direction == EAST) {
-			playerWalking.draw(this.x,this.y);
-			playerSideChop.currentFrameIndex = 2;
-			} else {
-			playerWalking.draw(this.x,this.y, 1, true);
-			playerSideChop.currentFrameIndex = 2;
+		
+		} else { // not chopping
+
+			if (!this.state.walking) { // idle, just standing there
+				playerWalking.currentFrameIndex = 1; // TODO FIXME add idle animation
 			}
+			
+			playerWalking.draw(this.x, this.y, 1, (this.direction != EAST));
 		}
+
 		if (debug) {
 			drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");
 			this.hitbox.draw("red");
