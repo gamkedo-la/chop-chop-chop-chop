@@ -30,6 +30,8 @@ function loadImages() {
         { worldType: TILE_PILE_OF_LEAVES, theFile: "pile_of_leaves.png" },
         { worldType: TILE_PILE_OF_LEAVES_2, theFile: "pile_of_leaves_2.png" },
         { worldType: TILE_PILE_OF_LEAVES_3, theFile: "pile_of_leaves_3.png" },
+        { worldType: TILE_PUMPKIN, theFile: "pumpkin.png" },
+        { worldType: TILE_JACK_O, theFile: "jackolatern.png" },
     ];
 
     picsToLoad = imageList.length;

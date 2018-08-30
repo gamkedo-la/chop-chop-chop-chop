@@ -14,6 +14,8 @@ const TILE_LEAVES = 08;
 const TILE_PILE_OF_LEAVES = 09;
 const TILE_PILE_OF_LEAVES_2 = 10;
 const TILE_PILE_OF_LEAVES_3 = 11;
+const TILE_PUMPKIN = 12;
+const TILE_JACK_O = 13;
 
 const TILE_ANIMAL = 80; // This will need to be expanded out so that individual animals can be placed
 const TILE_PLACEHOLDER_DEATH_CAT = 81;

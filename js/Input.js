@@ -102,7 +102,6 @@ function keyReleased(evt) {
             downKeyHeld = false;
         case SPACEBAR:
 			spacebarKeyHeld = false;
-			player.state.chopping = false;
             break;
 	}
 };

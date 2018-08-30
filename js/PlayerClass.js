@@ -23,6 +23,7 @@ function playerClass() {
 	this.axeSharpness = 0;
 	this.axeLevel = 0;
 	this.axePower = 1 + this.axeSharpness + this.axeLevel;
+	var chopTimer = 0;
 	this.playerHitbox = new colliderClass(this.x, this.y, this.width, this.height,
 											0, 0);
 
@@ -103,17 +104,24 @@ function playerClass() {
 
 	this.draw = function() {
 		var contactFrame = 0;
-		if (this.direction == EAST && spacebarKeyHeld) {
+		if (spacebarKeyHeld && chopTimer == 0) {
+			chopTimer = playerSideChop.animationColFrames;
+		}
+		if (chopTimer > 0) {
 			this.state.chopping = true;
-			playerSideChop.draw(this.x,this.y);
-			if (playerSideChop.currentFrameIndex == contactFrame) {
-				this.chopTrees(this.direction);
-			}
-		} else if (this.direction == WEST && spacebarKeyHeld) {
-			this.state.chopping = true;
-			playerSideChop.draw(this.x, this.y, 1,true);
-			if (playerSideChop.currentFrameIndex == contactFrame) {
-				this.chopTrees(this.direction);
+			if (chopTimer > 0) {
+				if (this.direction == EAST) {
+					playerSideChop.draw(this.x,this.y);
+				} else {
+					playerSideChop.draw(this.x,this.y, 1, true);
+				}
+				if (playerSideChop.currentFrameIndex == contactFrame) {
+					this.chopTrees(this.direction);
+				}
+				chopTimer--;
+				if (chopTimer <= 0) {
+					player.state.chopping = false;
+				}
 			}
 		} else {
 			playerWalking.draw(this.x,this.y);
