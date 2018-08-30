@@ -24,8 +24,9 @@ function playerClass() {
 	this.axeLevel = 0;
 	this.axePower = 1 + this.axeSharpness + this.axeLevel;
 	var chopTimer = 0;
-	this.playerHitbox = new colliderClass(this.x, this.y, this.width, this.height,
-											0, 0);
+	this.hitbox = new colliderClass(this.x, this.y, this.width/2, this.height,
+											1, 0);
+	this.currentFrustration = 0;
 
 	this.move = function() {
 		var movementX = 0;
@@ -76,8 +77,13 @@ function playerClass() {
 			this.x = nextX;
 			this.y = nextY;
 		}
-		this.playerHitbox.update(this.x, this.y);
+		this.hitbox.update(this.x, this.y);
 		//console.log("player direction: " + this.direction);
+	}
+
+	this.gotHit = function(addedFrustration) {
+		this.currentFrustration += addedFrustration;
+		console.log(this.currentFrustration);
 	}
 
 	this.chopTrees = function(direction) {
@@ -124,12 +130,17 @@ function playerClass() {
 				}
 			}
 		} else {
+			if (this.direction == EAST) {
 			playerWalking.draw(this.x,this.y);
 			playerSideChop.currentFrameIndex = 2;
+			} else {
+			playerWalking.draw(this.x,this.y, 1, true);
+			playerSideChop.currentFrameIndex = 2;
+			}
 		}
 		if (debug) {
 			drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");
-			this.playerHitbox.draw("red");
+			this.hitbox.draw("red");
 		}
 	}
 } // end of objectClass

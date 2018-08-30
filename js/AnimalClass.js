@@ -23,11 +23,12 @@ function animalClass (img,width,height,arrayIndex) {
 	var idleTimerFull = this.idleTimer;
 	this.idlePosition = {x: this.home.x, y: this.home.y};
 	var colliderWidth = this.width;
-	var colliderHeight = this.height;
+	var colliderHeight = this.height/2;
 	var colliderOffsetX = 0;
-	var colliderOffsetY = 0;
+	var colliderOffsetY = this.height/8;
 	this.hitbox = new colliderClass(this.x,this.y,
 		colliderWidth,colliderHeight,colliderOffsetX,colliderOffsetY);
+	this.attackPower = 2;
 	// some of these vars will depend on the animal type and will be fleshed out in inherited classes
 
 	this.draw = function () {
@@ -75,6 +76,9 @@ function animalClass (img,width,height,arrayIndex) {
 			this.x += moveXTowardPlayer;
 			this.y += moveYTowardPlayer;
 			this.hitbox.update(this.x,this.y);
+			if (this.hitbox.isCollidingWith(player.hitbox)) {
+				player.gotHit(this.attackPower);
+			}
 		} else if (this.waiting) { // else wait
 				if (this.waitingTimer == 0) {
 					//this.img.framesUntilNext = 25;

@@ -9,7 +9,7 @@ var framesFromGameStart = 0;
 
 var player;
 
-var debug = false;
+var debug = true;
 
 window.onload = function () {
 	canvas = document.createElement("canvas");

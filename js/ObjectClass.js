@@ -9,9 +9,9 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex) {
 	this.health = 2;
 	this.arrayIndex = arrayIndex;
 	this.tileType = worldTileType;
-	var colliderWidth = 32;
+	var colliderWidth = TILE_W - 5;
 	var colliderHeight = 64;
-	var colliderOffsetX = this.width/4;
+	var colliderOffsetX = this.width/4 + 3;
 	var colliderOffsetY = 0;
 	this.hasHitbox = tileTypeGetsHitbox(this.tileType);
 	if (this.hasHitbox) {
