@@ -8,9 +8,10 @@ function makeAnimatedSprites() {
 	playerWalking = new AnimatedSpriteClass({
 			name: "player",
 			spriteSheet: gamePics.playerWalkingSheet,
-			animationColFrames: 17,
-			currentFrameIndex: 6,
-			loops: false
+			animationColFrames: 8,
+			currentFrameIndex: 0,
+			framesUntilNext: 3,
+			loops: true
 	});
 	playerSideChop = new AnimatedSpriteClass({
 			name: "playerSideChop",

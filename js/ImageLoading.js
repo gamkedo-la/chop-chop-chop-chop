@@ -6,7 +6,7 @@ var worldPics = [];
 function loadImages() {
     var imageList = [
         //Game Pics (player, enemies, objects, effects, etc.)
-        { varName: "playerWalkingSheet", theFile: "player_chopping_horizontal.png" },
+        { varName: "playerWalkingSheet", theFile: "player_run.png" },
         { varName: "playerSideChopSheet", theFile: "player_chopping_horizontal.png" },
         { varName: "waterTilesSpritesheet", theFile: "water_spritesheet.png" },
         { varName: "placeholderDeathCatImage", theFile: "placeholderDeathCatImage.png"},
