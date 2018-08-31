@@ -100,18 +100,25 @@ function playerClass() {
 		} else if (currentChoppingDirection == WEST) {
 			this.axeHitbox.update(this.x - axeOffsetX * 2,this.y);
 		}
+		var hit = false;
 		for (var i = 0; i < objectList.length; i++) {
 			var object = objectList[i];
 			if (object.hasHitbox) {
 				if (this.axeHitbox.isCollidingWith(object.hitbox)) {
-					console.log("hit an object!");
+					hit = true;
+					//console.log("hit an object!");
 					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
-					var random = getRoundedRandomNumberBetweenMinMax(0, 1)
+					var random = getRoundedRandomNumberBetweenMinMax(0, 1);
 					arrayOfChopSFXs[random].play();
 					object.gotHit(this.axePower);
 				}
 			}
 		}
+		if (!hit) {
+			//console.log("missed all trees!");
+			missedSwing.play();
+		}
+		hit = false;
 		if (debug) this.axeHitbox.draw("blue");
 	};
 

@@ -1,11 +1,11 @@
 let backgroundMusic = new Audio();
 let chop1 = new Audio();
 let chop2 = new Audio();
+let missedSwing = new Audio();
 let birdSound = new Audio();
 let deathMeow = new Audio();
-let forestMusic = new Audio();
 
-let arrayOfSounds = [backgroundMusic, chop1, chop2,forestMusic];
+let arrayOfSounds = [backgroundMusic, chop1, chop2];
 
 let audioType = undefined;
 let sourceExtension = undefined;
@@ -44,10 +44,9 @@ backgroundMusic.addEventListener('timeupdate', function(){
         this.play();
 }}, false);
 
-
-//forestMusic.src = "music/ChopChopForestV1" + sourceExtension;
 chop1.src = "SFX/Chop1" + sourceExtension;
 chop2.src = "SFX/Chop2" + sourceExtension;
+missedSwing.src = "SFX/missedSwing" + sourceExtension;
 deathMeow.src = "SFX/deathMeow" + sourceExtension;
 deathMeow.volume = 0.5;
 birdSound.src = "SFX/birdSound" + sourceExtension;
