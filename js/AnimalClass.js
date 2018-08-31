@@ -48,7 +48,7 @@ function animalClass (img,width,height,arrayIndex) {
 		this.detectionRadiusTrigger();
 		this.homeRadiusTrigger();
 		var closeToHome = 2;
-		if (this.playerDetected) {
+		if (this.playerDetected) { // chasing player
 			if (this.img.data.name === "deathCat" && this.playerDetectedSoundPlayed === false) {
 				deathMeow.play();
 				this.playerDetectedSoundPlayed = true;

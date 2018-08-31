@@ -10,15 +10,15 @@ function playerClass() {
 	const EAST = "east";
 	const WEST = "west";
 	const SOUTH = "south";
-	this.direction = WEST; // direction helps prioritize chop
+	this.direction = EAST; // direction helps prioritize chop
 	this.state = {
 		chopping: false,
 		walking: false
 	};
 	var axeHitboxWidth = 6;
 	var axeHitboxHeight = 5;
-	var axeOffsetX = this.width/2;
-	var axeOffsetY = -this.width/4;
+	var axeOffsetX = (playerSideChop.spriteSheet.width/2)/playerSideChop.animationColFrames;
+	var axeOffsetY = -(playerSideChop.spriteSheet.height/4);
 	this.axeHitbox = new colliderClass(this.x, this.y, axeHitboxWidth, axeHitboxHeight,
 										axeOffsetX, axeOffsetY);
 	this.axeSharpness = 0;
@@ -28,6 +28,9 @@ function playerClass() {
 	this.hitbox = new colliderClass(this.x, this.y, this.width/2, this.height,
 											1, 0);
 	this.currentFrustration = 0;
+	this.invincible = false;
+	this.invincibiltyTimer = 0;
+	this.invincibiltyTimerFull = 45;
 
 	this.move = function() {
 		var movementX = 0;
@@ -59,37 +62,35 @@ function playerClass() {
 			return;
 		}
 
-		var nextX = Math.round(this.x + movementX);
-        var nextY = Math.round(this.y + movementY);
-
-        if (nextX < 0 || nextX > worldCols * TILE_W) {
-        	nextX = this.x;
-        }
-
-        if (nextY < 0 || nextY > worldRows * TILE_H) {
-        	nextY = this.y;
-        }
-
-        var walkIntoTileType = getTileTypeAtPixelCoord(nextX, nextY);
-
-        if (walkIntoTileType === undefined) {
-			walkIntoTileType = TILE_EXTEND_COLLISION;
+		if (checkTileCollision(this.x,this.y,movementX,movementY)) {
+			movementX = 0;
+	 		movementY = 0;
 		}
-
-		if (isTileTypeCollidable(walkIntoTileType)) {
-			this.x = this.x;
-			this.y = this.y;
-		} else {
-			this.x = nextX;
-			this.y = nextY;
-		}
+		this.x += movementX;
+		this.y += movementY;
 		this.hitbox.update(this.x, this.y);
 		//console.log("player direction: " + this.direction);
 	}
 
 	this.gotHit = function(addedFrustration) {
-		this.currentFrustration += addedFrustration;
-		console.log(this.currentFrustration);
+		if (this.invincible) {
+			return;
+		} else {
+			this.currentFrustration += addedFrustration;
+			console.log(this.currentFrustration);
+			var radians = getRandomNumberBetweenMinMax(0, 360) * DEGREES_TO_RADIANS;
+			var boopedX = Math.cos(radians) * this.speed * 10;
+			var boopedY = Math.sin(radians) * this.speed * 10;
+			if (checkTileCollision(this.x,this.y,boopedX,boopedY)) {
+				this.x -= boopedX;
+				this.y -= boopedY;
+			} else {
+				this.x += boopedX;
+				this.y += boopedY;
+			}
+			this.invincibiltyTimer = this.invincibiltyTimerFull;
+			this.invincible = true;
+		}
 	}
 
 	this.chopTrees = function(direction) {
@@ -115,18 +116,25 @@ function playerClass() {
 	};
 
 	this.draw = function() {
+		if (this.invincibiltyTimer > 0 && this.invincible) {
+			this.invincibiltyTimer--;
+			if (this.invincibiltyTimer % 3 == 0 && this.invincibiltyTimer > 0) {
+				return;
+			}
+			if (this.invincibiltyTimer <= 0 && this.invincible) {
+				this.invincible = false;
+			}
+		}
+
 		var contactFrame = 0;
+
 		if (spacebarKeyHeld && chopTimer == 0) {
 			chopTimer = playerSideChop.animationColFrames;
 		}
 		if (chopTimer > 0) {
 			this.state.chopping = true;
 			if (chopTimer > 0) {
-				if (this.direction == EAST) {
-					playerSideChop.draw(this.x,this.y);
-				} else {
-					playerSideChop.draw(this.x,this.y, 1, true);
-				}
+				playerSideChop.draw(this.x,this.y, 1, (this.direction != EAST));
 				if (playerSideChop.currentFrameIndex == contactFrame) {
 					this.chopTrees(this.direction);
 				}

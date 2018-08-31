@@ -6,49 +6,47 @@ var stebsBird;
 
 function makeAnimatedSprites() {
 	playerIdle = new AnimatedSpriteClass({
-		name: "player",
+		name: "playerIdle",
 		spriteSheet: gamePics.playerWalkingSheet, // FIXME
 		animationColFrames: 8,
 		currentFrameIndex: 0,
-		framesUntilNext: 999999999999,
-		loops: true
-});
+		framesUntilNext: 1,
+		loops: false
+	});
 	playerWalking = new AnimatedSpriteClass({
-			name: "player",
-			spriteSheet: gamePics.playerWalkingSheet,
-			animationColFrames: 8,
-			currentFrameIndex: 0,
-			framesUntilNext: 3,
-			loops: true
+		name: "playerWalking",
+		spriteSheet: gamePics.playerWalkingSheet,
+		animationColFrames: 8,
+		currentFrameIndex: 0,
+		framesUntilNext: 3,
 	});
 	playerSideChop = new AnimatedSpriteClass({
-			name: "playerSideChop",
-			spriteSheet: gamePics.playerSideChopSheet,
-			animationColFrames: 17,
-			framesUntilNext: 1
+		name: "playerSideChop",
+		spriteSheet: gamePics.playerSideChopSheet,
+		animationColFrames: 17,
+		framesUntilNext: 1,
 	});
 	waterTiles = new AnimatedSpriteClass({
-			name: "waterTiles",
-			spriteSheet: gamePics.waterTilesSpritesheet,
-			animationRowFrames: 10,
-			animationColFrames: 3,
-			framesUntilNext: 60
+		name: "waterTiles",
+		spriteSheet: gamePics.waterTilesSpritesheet,
+		animationRowFrames: 10,
+		animationColFrames: 3,
+		framesUntilNext: 60,
 	});
 	placeholderDeathCatMeander = new AnimatedSpriteClass({
-			name: "deathCat",
-		  spriteSheet: gamePics.placeholderDeathCatMeanderSheet,
-			animationRowFrames: 1,
-			animationColFrames: 2,
-			framesUntilNext: 25
+		name: "deathCat",
+		spriteSheet: gamePics.placeholderDeathCatMeanderSheet,
+		animationRowFrames: 1,
+		animationColFrames: 2,
+		framesUntilNext: 25,
 	});
 	stebsBird = new AnimatedSpriteClass({
-			name: "stebsBird",
-			spriteSheet: gamePics.stebsBird,
-			animationRowFrames: 1,
-			animationColFrames: 2,
-			framesUntilNext: 25
+		name: "stebsBird",
+		spriteSheet: gamePics.stebsBird,
+		animationRowFrames: 1,
+		animationColFrames: 2,
+		framesUntilNext: 25,
 	})
-
 };
 
 function AnimatedSpriteClass(data) {
@@ -61,7 +59,7 @@ function AnimatedSpriteClass(data) {
 	this.currentFrameIndex = data.currentFrameIndex || 0;
 	this.framesUntilNext = data.framesUntilNext;
 	this.framesMoveSideways = data.framesMoveSideways || true;
-	this.loops = data.loops || true;
+	this.loops = (data.loops == undefined) ? true : data.loops;
 	this.framesBetweenLoops = data.framesBetweenLoops || 0;
 	this.currentPauseFramesLeft = 0;
 	this.reversing = false;
@@ -73,10 +71,6 @@ function AnimatedSpriteClass(data) {
 	this.getFrame = function(frame) {
 		return this.currentFrameIndex;
 	}
-
-	//	canvasContext.drawImage(image,
-	//							source x, source y, source width, source height,
-	//							destination x, destination y, destination width/ strech/squish, destination height/ strech/squish);
 
 	this.draw = function (x,y, currentAxisIndexOfAnimation = 1,
 							flipped = false, rotated = false, degrees,
