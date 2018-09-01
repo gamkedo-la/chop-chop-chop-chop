@@ -32,6 +32,25 @@ function playerClass() {
 	this.invincibiltyTimer = 0;
 	this.invincibiltyTimerFull = 45;
 
+	this.leaveTrail = function() { // dust near the player's feet every so often
+		
+		const TRAIL_FRAME_INTERVAL = 15; // every nth frame, emit one particle
+		const TRAIL_Y_OFFSET = 16; // foot position
+		
+		if (this.trailFrame == undefined) { // init
+			//console.log('Trail starting!');
+			this.trailFrame = 0;
+		}
+		
+		this.trailFrame++;
+
+		if (this.trailFrame % TRAIL_FRAME_INTERVAL == 0) { // time for another?
+			//console.log('Trail at frame ' + this.trailFrame);
+			spawnParticles('footstep', this.x, this.y+TRAIL_Y_OFFSET);
+		}
+
+	}
+
 	this.move = function() {
 		var movementX = 0;
         var movementY = 0;
@@ -60,6 +79,10 @@ function playerClass() {
 			}
 		} else {
 			return;
+		}
+
+		if (this.state.walking) { // occasionally leave a trail of particles (dust/footprints)
+			this.leaveTrail(); // maybe use only at certain states/times/surfaces? (wet feet?)
 		}
 
 		if (checkTileCollision(this.x,this.y,movementX,movementY)) {

@@ -8,8 +8,12 @@
 // and "angSpreadDeg" will allow you specify how wide of an angle youd like the particles to come out at, 360 will give you a full circle if startAng is 0
 // If you want to have different sizes for the particles, simply add a variable to the draw function instead of 2,2
 
+const PARTICLE_W = 1; // in pixels
+const PARTICLE_H = 1;
+
 var particleDefs = [
-					{type: 'chop', howMany: 15, startSpeed: 7, howLong: 30, gravity: 0.1, startAng: 0, angSpreadDeg: 180, color: 'white'}
+					{type: 'chop', howMany: 15, startSpeed: 7, howLong: 30, gravity: 0.1, startAng: 0, angSpreadDeg: 180, color: 'white'},
+					{type: 'footstep', howMany: 3, startSpeed: 0.5, howLong: 20, gravity: 0.02, startAng: -90, angSpreadDeg: 90, color: 'white'}
 					];
 var particleList = [];
 
@@ -41,7 +45,7 @@ function pfx() {
 	}
 
 	this.draw = function() {
-		drawRect(Math.floor(this.x), Math.floor(this.y), 2,2, this.color, 0.8);
+		drawRect(Math.floor(this.x), Math.floor(this.y), PARTICLE_W, PARTICLE_H, this.color, 0.8);
 	}
 
 }
