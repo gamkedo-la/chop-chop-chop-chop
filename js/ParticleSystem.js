@@ -12,9 +12,10 @@ const PARTICLE_W = 1; // in pixels
 const PARTICLE_H = 1;
 
 var particleDefs = [
-					{type: 'chop', howMany: 15, startSpeed: 7, howLong: 30, gravity: 0.1, startAng: 0, angSpreadDeg: 180, color: 'white'},
-					{type: 'footstep', howMany: 3, startSpeed: 0.5, howLong: 20, gravity: 0.02, startAng: -90, angSpreadDeg: 90, color: 'white'}
-					];
+	{type: 'chop', howMany: 15, startSpeed: 2, howLong: 30, gravity: 0.1, startAng: -90, angSpreadDeg: 90, color: 'white'},				
+	{type: 'fireworks', howMany: 15, startSpeed: 7, howLong: 30, gravity: 0.1, startAng: 0, angSpreadDeg: 180, color: 'white'},
+	{type: 'footstep', howMany: 3, startSpeed: 0.5, howLong: 20, gravity: 0.02, startAng: -90, angSpreadDeg: 90, color: 'white'}
+];
 var particleList = [];
 
 
