@@ -15,10 +15,10 @@ function playerClass() {
 		chopping: false,
 		walking: false
 	};
-	var axeHitboxWidth = 6;
+	var axeHitboxWidth = 9;
 	var axeHitboxHeight = 5;
-	var axeOffsetX = (playerSideChop.spriteSheet.width/2)/playerSideChop.animationColFrames;
-	var axeOffsetY = -(playerSideChop.spriteSheet.height/4);
+	var axeOffsetX = (playerSideChop.spriteSheet.width/3)/playerSideChop.animationColFrames;
+	var axeOffsetY = -(playerSideChop.spriteSheet.height/6);
 	this.axeHitbox = new colliderClass(this.x, this.y, axeHitboxWidth, axeHitboxHeight,
 										axeOffsetX, axeOffsetY);
 	this.axeSharpness = 0;
@@ -26,7 +26,7 @@ function playerClass() {
 	this.axePower = 1 + this.axeSharpness + this.axeLevel;
 	var chopTimer = 0;
 	this.hitbox = new colliderClass(this.x, this.y, this.width/2, this.height,
-											1, 0);
+											0, 0);
 	this.currentFrustration = 0;
 	this.invincible = false;
 	this.invincibiltyTimer = 0;
@@ -133,10 +133,11 @@ function playerClass() {
 			}
 		}
 
-		var contactFrame = 0;
+		var contactFrame = 15;
 
 		if (spacebarKeyHeld && chopTimer == 0) {
-			chopTimer = playerSideChop.animationColFrames;
+			chopTimer = playerSideChop.animationColFrames - 1;
+			playerSideChop.currentFrameIndex = 2;
 		}
 		if (chopTimer > 0) {
 			this.state.chopping = true;

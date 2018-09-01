@@ -23,7 +23,7 @@ function makeAnimatedSprites() {
 	playerSideChop = new AnimatedSpriteClass({
 		name: "playerSideChop",
 		spriteSheet: gamePics.playerSideChopSheet,
-		animationColFrames: 17,
+		animationColFrames: 16,
 		framesUntilNext: 1,
 	});
 	waterTiles = new AnimatedSpriteClass({
