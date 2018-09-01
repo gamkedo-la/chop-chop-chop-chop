@@ -27,6 +27,7 @@ window.onload = function () {
 };
 
 function loadingDoneSoStartGame() {
+	console.log("All assets loaded! Starting update loop.");
 	canvas.onclick = function() {
 	    if (openingMenuIsRunning) {
 	    	openingMenuIsRunning = false;

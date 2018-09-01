@@ -38,11 +38,16 @@ function keyHoldState(keyHeld, setTo) {
 }
 
 function windowOnBlur() {
-    clearInterval(gameUpdate);
+	clearInterval(gameUpdate);
+	gameUpdate = null;
 }
 
 function windowOnFocus() {
-    gameUpdate = setInterval(update, 1000 / framesPerSecond);
+	if (!gameUpdate) { // don't run this if we already started
+		gameUpdate = setInterval(update, 1000 / framesPerSecond);
+	} else {
+		console.log("Avoiding a double update loop timer.");
+	}
 }
 
 function keyPressed(evt) {
