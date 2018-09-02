@@ -11,12 +11,13 @@
 
 const PARTICLE_W = 1; // in pixels
 const PARTICLE_H = 1;
-const BOUNCE_RESTITURION_SCALE = -0.5; // influence speed when we bounce off the floor
+const BOUNCE_SCALE = -0.5; // influence speed when we bounce off the floor
 
 var particleDefs = [
 	{type: 'chop', howMany: 15, startSpeed: 2, howLong: 50, gravity: 0.2, startAng: -90, angSpreadDeg: 90, color: 'white', floorDist: 32},				
 	{type: 'fireworks', howMany: 15, startSpeed: 7, howLong: 30, gravity: 0.1, startAng: 0, angSpreadDeg: 180, color: 'white'},
-	{type: 'footstep', howMany: 3, startSpeed: 0.5, howLong: 20, gravity: 0.02, startAng: -90, angSpreadDeg: 90, color: 'white'}
+	{type: 'footstep', howMany: 3, startSpeed: 0.5, howLong: 20, gravity: 0.02, startAng: -90, angSpreadDeg: 90, color: 'white'},
+	{type: 'leaf', howMany: 100, startSpeed: 0, howLong: 1000, gravity: 0.01, startAng: -90, angSpreadDeg: 90, color: 'green', floorDist: 32, isLeaf:true }
 ];
 var particleList = [];
 
@@ -44,8 +45,13 @@ function pfx() {
 		if (this.floorY) { // if specified, bounce off the floor
 			if (this.y > this.floorY) {
 				this.y = this.floorY;
-				this.velY = BOUNCE_RESTITURION_SCALE * this.velY; // bounce up with less force
+				this.velY = BOUNCE_SCALE * this.velY; // bounce up with less force
+				if (this.isLeaf) this.velY = 0; // leaves don't bounce
 			}
+		}
+
+		if (this.isLeaf && this.velY > this.gravity) { // float back and forth side to side as it falls
+			this.x += Math.sin(this.cycleLife / 10) * 0.5;
 		}
 
 		this.cycleLife--;
@@ -106,6 +112,7 @@ function spawnParticles(type, startX, startY) {
 		newPFX.color = pfxDef.color;
 		newPFX.cycleLife = pfxDef.howLong;
 		newPFX.gravity = pfxDef.gravity;
+		newPFX.isLeaf = pfxDef.isLeaf;
 
 		particleList.push(newPFX);
 	}	

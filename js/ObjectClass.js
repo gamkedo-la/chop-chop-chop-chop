@@ -31,6 +31,8 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex) {
 	this.gotHit = function(healthToSubtract) {
 		this.health -= healthToSubtract;
 		if (this.health <= 0) {
+			console.log("Tree falling!");
+			spawnParticles('leaf',this.x+Math.random()*8-4, this.y-20); // from top of tree, a leaf falls
 			worldGrid[this.arrayIndex - worldCols] = TILE_NOTHING;
 			worldGrid[this.arrayIndex] = TILE_STUMP;
 			this.remove = true;
