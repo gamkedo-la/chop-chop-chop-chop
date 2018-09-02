@@ -50,7 +50,7 @@ function pfx() {
 			}
 		}
 
-		if (this.isLeaf && this.velY > this.gravity) { // float back and forth side to side as it falls
+		if (this.isLeaf && (this.velY > this.gravity)) { // float back and forth side to side as it falls
 			this.x += Math.sin(this.cycleLife / 10) * 0.5;
 		}
 
@@ -62,7 +62,12 @@ function pfx() {
 	}
 
 	this.draw = function() {
-		drawRect(Math.floor(this.x), Math.floor(this.y), PARTICLE_W, PARTICLE_H, this.color, 0.8);
+		if (this.isLeaf) {
+			canvasContext.drawImage(gamePics.leaf,Math.floor(this.x), Math.floor(this.y));
+		} 
+		else { // normal square particle:
+			drawRect(Math.floor(this.x), Math.floor(this.y), PARTICLE_W, PARTICLE_H, this.color, 0.8);
+		}
 	}
 
 }
