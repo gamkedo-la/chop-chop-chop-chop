@@ -6,13 +6,15 @@
 // the higher "howLong" is, the longer the particle will live, the higher the "gravity", the faster the particles will fall
 // "startAng" refers to where you'd like the particles to start (0 is directly to the right, 180 is to the left
 // and "angSpreadDeg" will allow you specify how wide of an angle youd like the particles to come out at, 360 will give you a full circle if startAng is 0
+// "floorDist" is the number of pixels below the startY that particles will consider the floor to bounce off of (leave blank for none)
 // If you want to have different sizes for the particles, simply add a variable to the draw function instead of 2,2
 
 const PARTICLE_W = 1; // in pixels
 const PARTICLE_H = 1;
+const BOUNCE_RESTITURION_SCALE = -0.5; // influence speed when we bounce off the floor
 
 var particleDefs = [
-	{type: 'chop', howMany: 15, startSpeed: 2, howLong: 30, gravity: 0.1, startAng: -90, angSpreadDeg: 90, color: 'white'},				
+	{type: 'chop', howMany: 15, startSpeed: 2, howLong: 50, gravity: 0.2, startAng: -90, angSpreadDeg: 90, color: 'white', floorDist: 32},				
 	{type: 'fireworks', howMany: 15, startSpeed: 7, howLong: 30, gravity: 0.1, startAng: 0, angSpreadDeg: 180, color: 'white'},
 	{type: 'footstep', howMany: 3, startSpeed: 0.5, howLong: 20, gravity: 0.02, startAng: -90, angSpreadDeg: 90, color: 'white'}
 ];
@@ -29,6 +31,7 @@ function pfx() {
 	this.velY = -3;
 	this.cycleLife = 10; // How long the particle will "live" before being removed
 	this.gravity = -1;
+	this.floorY = 0; // if >0, this is the "floor" Y coordinate particles bounce off of
 
 	this.color = 'white';
 
@@ -37,6 +40,13 @@ function pfx() {
 		this.y += this.velY;
 
 		this.velY += this.gravity;
+
+		if (this.floorY) { // if specified, bounce off the floor
+			if (this.y > this.floorY) {
+				this.y = this.floorY;
+				this.velY = BOUNCE_RESTITURION_SCALE * this.velY; // bounce up with less force
+			}
+		}
 
 		this.cycleLife--;
 	}
@@ -74,13 +84,15 @@ function spawnParticles(type, startX, startY) {
 		howMany = pfxDef.howMany;
 	}
 
-	
-
 	for (var j = 0; j < howMany; j++) {
 		var newPFX = new pfx();
 
 		newPFX.x = startX;
 		newPFX.y = startY;
+		
+		if (pfxDef.floorDist) { // if specified, set a floor height to bounce off
+			newPFX.floorY = startY + pfxDef.floorDist;
+		}
 
 		// var randAng = Math.random() * Math.PI * 2.0; // random radian
 
