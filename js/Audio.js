@@ -5,7 +5,10 @@ let missedSwing = new Audio();
 let birdSound = new Audio();
 let deathMeow = new Audio();
 
-let arrayOfSounds = [backgroundMusic, chop1, chop2];
+let arrayOfSounds = [backgroundMusic,chop1, chop2,missedSwing,birdSound,deathMeow];
+
+let arrayOfMusic = [backgroundMusic];
+let arrayOfSFXs = [chop1, chop2,missedSwing,birdSound,deathMeow];
 
 let audioType = undefined;
 let sourceExtension = undefined;
@@ -52,14 +55,32 @@ deathMeow.volume = 0.5;
 birdSound.src = "SFX/birdSound" + sourceExtension;
 birdSound.volume = 0.6;
 
-let decreaseMasterVolume = () => {
+/*let decreaseMasterVolume = () => {
   for ( let arrayOfSoundsIndex = 0; arrayOfSoundsIndex < arrayOfSounds.length; arrayOfSoundsIndex++ ) {
     arrayOfSounds[arrayOfSoundsIndex].volume -= 0.1;
   }
+};*/
+
+let decreaseMusicVolume = () => {
+  for ( let arrayOfMusicIndex = 0; arrayOfMusicIndex < arrayOfMusic.length; arrayOfMusicIndex++ ) {
+    arrayOfMusic[arrayOfMusicIndex].volume -= 0.1;
+  }
 };
 
-let increaseMasterVolume = () => {
-  for ( let arrayOfSoundsIndex = 0; arrayOfSoundsIndex < arrayOfSounds.length; arrayOfSoundsIndex++ ) {
-    arrayOfSounds[arrayOfSoundsIndex].volume += 0.1;
+let decreaseSFXVolume = () => {
+  for ( let arrayOfSoundsIndex = 0; arrayOfSoundsIndex < arrayOfSFXs.length; arrayOfSoundsIndex++ ) {
+    arrayOfSFXs[arrayOfSoundsIndex].volume -= 0.1;
+  }
+};
+
+let increaseMusicVolume = () => {
+  for ( let arrayOfMusicIndex = 0; arrayOfMusicIndex < arrayOfMusic.length; arrayOfMusicIndex++ ) {
+    arrayOfMusic[arrayOfMusicIndex].volume += 0.1;
+  }
+};
+
+let increaseSFXVolume = () => {
+  for ( let arrayOfSoundsIndex = 0; arrayOfSoundsIndex < arrayOfSFXs.length; arrayOfSoundsIndex++ ) {
+    arrayOfSFXs[arrayOfSoundsIndex].volume += 0.1;
   }
 };
