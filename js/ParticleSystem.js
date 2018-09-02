@@ -17,7 +17,7 @@ var particleDefs = [
 	{type: 'chop', howMany: 15, startSpeed: 2, howLong: 50, gravity: 0.2, startAng: -90, angSpreadDeg: 90, color: 'white', floorDist: 32},				
 	{type: 'fireworks', howMany: 15, startSpeed: 7, howLong: 30, gravity: 0.1, startAng: 0, angSpreadDeg: 180, color: 'white'},
 	{type: 'footstep', howMany: 3, startSpeed: 0.5, howLong: 20, gravity: 0.02, startAng: -90, angSpreadDeg: 90, color: 'white'},
-	{type: 'leaf', howMany: 100, startSpeed: 0, howLong: 1000, gravity: 0.01, startAng: -90, angSpreadDeg: 90, color: 'green', floorDist: 32, isLeaf:true }
+	{type: 'leaf', howMany: 100, startSpeed: 0, howLong: 1000, gravity: 0.01, startAng: -90, angSpreadDeg: 90, color: 'green', floorDist: 48, isLeaf:true }
 ];
 var particleList = [];
 
