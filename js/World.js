@@ -16,6 +16,22 @@ const TILE_PILE_OF_LEAVES_2 = 10;
 const TILE_PILE_OF_LEAVES_3 = 11;
 const TILE_PUMPKIN = 12;
 const TILE_JACK_O = 13;
+const TILE_CLIFF_TOP_LEFT = 14;
+const TILE_CLIFF_TOP = 15;
+const TILE_CLIFF_TOP_RIGHT = 16;
+const TILE_CLIFF_RIGHT = 17;
+const TILE_CLIFF_BOTTOM_RIGHT = 18;
+const TILE_CLIFF_BOTTOM = 19;
+const TILE_CLIFF_BOTTOM_LEFT = 20;
+const TILE_CLIFF_LEFT = 21;
+const TILE_PIT_TOP_LEFT = 22;
+const TILE_PIT_TOP = 23;
+const TILE_PIT_TOP_RIGHT = 24;
+const TILE_PIT_RIGHT = 25;
+const TILE_PIT_BOTTOM_RIGHT = 26;
+const TILE_PIT_BOTTOM = 27;
+const TILE_PIT_BOTTOM_LEFT = 28;
+const TILE_PIT_LEFT = 29;
 
 const TILE_ANIMAL = 80; // This will need to be expanded out so that individual animals can be placed
 const TILE_PLACEHOLDER_DEATH_CAT = 81;
@@ -110,6 +126,22 @@ function isTileTypeCollidable(tileType) {
 		case TILE_EXTEND_COLLISION:
 		case TILE_TREE:
 		case TILE_WATER:
+		case TILE_CLIFF_TOP_LEFT:
+		case TILE_CLIFF_TOP:
+		case TILE_CLIFF_TOP_RIGHT:
+		case TILE_CLIFF_LEFT:
+		case TILE_CLIFF_RIGHT:
+		case TILE_CLIFF_BOTTOM_LEFT:
+		case TILE_CLIFF_BOTTOM:
+		case TILE_CLIFF_BOTTOM_RIGHT:
+		case TILE_PIT_TOP_LEFT:
+		case TILE_PIT_TOP:
+		case TILE_PIT_TOP_RIGHT:
+		case TILE_PIT_LEFT:
+		case TILE_PIT_RIGHT:
+		case TILE_PIT_BOTTOM_LEFT:
+		case TILE_PIT_BOTTOM:
+		case TILE_PIT_BOTTOM_RIGHT:
 			return true;
 			break;
 	}
@@ -119,6 +151,7 @@ function returnAnimatedTileSprites(tileKindHere) {
 	switch (tileKindHere) {
 		case TILE_WATER:
 			return waterTiles;
+			break;
 	}
 }
 
