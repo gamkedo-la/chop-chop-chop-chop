@@ -17,6 +17,8 @@ const NUMBER_PAD_PLUS = 107; // to raise overall audio volume
 const NUMBER_PAD_MINUS = 109; // to lower overall audio volume
 const KEY_PLUS = 187;
 const KEY_MINUS = 189;
+const KEY_LEFT_BRACKET = 219;
+const KEY_RIGHT_BRACKET = 221;
 
 var leftKeyHeld = false;
 var upKeyHeld = false;
@@ -71,20 +73,26 @@ function keyPressed(evt) {
 		case SPACEBAR:
 			spacebarKeyHeld = true;
 			break;
-	    case NUMBER_PAD_PLUS:
-	    case KEY_PLUS:
-	      increaseMasterVolume();
-	      break;
-	    case NUMBER_PAD_MINUS:
-	    case KEY_MINUS:
-	      decreaseMasterVolume();
-	      break;
-	    case P_KEY:
-	        togglePauseGame();
-	        break;
-	    case O_KEY:
-	        toggleDebug();
-	        break;
+		case NUMBER_PAD_PLUS:
+		case KEY_PLUS:
+			increaseMusicVolume();
+			break;
+		case NUMBER_PAD_MINUS:
+		case KEY_MINUS:
+			decreaseMusicVolume();
+			break;
+		case KEY_RIGHT_BRACKET:
+			increaseSFXVolume();
+			break;
+		case KEY_LEFT_BRACKET:
+			decreaseSFXVolume();
+			break;
+		case P_KEY:
+			togglePauseGame();
+			break;
+		case O_KEY:
+			toggleDebug();
+		break;
     }
 };
 
