@@ -1,6 +1,6 @@
 function playerClass() {
-	this.x = 20;
-	this.y = 20;
+	this.x = 400;
+	this.y = 1000;
 	this.speed = 6;
 	var walkIntoTileType = TILE_TREE;
 	this.sprite = playerWalking;

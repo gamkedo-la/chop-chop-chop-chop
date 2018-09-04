@@ -32,6 +32,14 @@ const TILE_PIT_BOTTOM_RIGHT = 26;
 const TILE_PIT_BOTTOM = 27;
 const TILE_PIT_BOTTOM_LEFT = 28;
 const TILE_PIT_LEFT = 29;
+const TILE_CLIFF_TOP_LEFT_2 = 30;
+const TILE_CLIFF_TOP_LEFT_3 = 31;
+const TILE_CLIFF_TOP_RIGHT_2 = 32;
+const TILE_CLIFF_TOP_RIGHT_3 = 33;
+const TILE_CLIFF_BOTTOM_RIGHT_2 = 34;
+const TILE_CLIFF_BOTTOM_RIGHT_3 = 35;
+const TILE_CLIFF_BOTTOM_LEFT_2 = 36;
+const TILE_CLIFF_BOTTOM_LEFT_3 = 37;
 
 const TILE_ANIMAL = 80; // This will need to be expanded out so that individual animals can be placed
 const TILE_PLACEHOLDER_DEATH_CAT = 81;
