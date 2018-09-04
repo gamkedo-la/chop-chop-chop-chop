@@ -34,8 +34,8 @@ function playerClass() {
 
 	this.leaveTrail = function() { // dust near the player's feet every so often
 		
-		const TRAIL_FRAME_INTERVAL = 15; // every nth frame, emit one particle
-		const TRAIL_Y_OFFSET = 16; // foot position
+		const TRAIL_FRAME_INTERVAL = 6; // every nth frame, emit one particle
+		const TRAIL_Y_OFFSET = 20; // foot position
 		
 		if (this.trailFrame == undefined) { // init
 			//console.log('Trail starting!');
