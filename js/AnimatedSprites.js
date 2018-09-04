@@ -7,7 +7,7 @@ var stebsBird;
 function makeAnimatedSprites() {
 	playerIdle = new AnimatedSpriteClass({
 		name: "playerIdle",
-		spriteSheet: gamePics.playerWalkingSheet, // FIXME
+		spriteSheet: gamePics.playerWalkingSheet,
 		animationColFrames: 8,
 		currentFrameIndex: 0,
 		framesUntilNext: 1,
@@ -26,12 +26,23 @@ function makeAnimatedSprites() {
 		animationColFrames: 16,
 		framesUntilNext: 1,
 	});
-	waterTiles = new AnimatedSpriteClass({
-		name: "waterTiles",
-		spriteSheet: gamePics.waterTilesSpritesheet,
-		animationRowFrames: 10,
-		animationColFrames: 3,
-		framesUntilNext: 60,
+	waterfallBottomLeft = new AnimatedSpriteClass({
+		name: "waterfallBL",
+		spriteSheet: gamePics.waterfallBottomLeftSpritesheet,
+		animationColFrames: 2,
+		framesUntilNext: 12,
+	});
+	waterfallBottomCenter = new AnimatedSpriteClass({
+		name: "waterfallBC",
+		spriteSheet: gamePics.waterfallBottomCenterSpritesheet,
+		animationColFrames: 2,
+		framesUntilNext: 12,
+	});
+	waterfallBottomRight = new AnimatedSpriteClass({
+		name: "waterfallBR",
+		spriteSheet: gamePics.waterfallBottomRightSpritesheet,
+		animationColFrames: 2,
+		framesUntilNext: 12,
 	});
 	placeholderDeathCatMeander = new AnimatedSpriteClass({
 		name: "deathCat",
@@ -51,18 +62,22 @@ function makeAnimatedSprites() {
 
 function AnimatedSpriteClass(data) {
 	this.data = data;
+	this.name = data.name;
 	this.spriteSheet = data.spriteSheet;
 	this.animationColFrames = data.animationColFrames;
-	this.animationRowFrames = data.animationRowFrames || 1;
+	this.framesUntilNext = data.framesUntilNext;
+	this.loops = (data.loops == undefined) ? true : data.loops;
+	this.currentFrameIndex = (data.currentFrameIndex == undefined) ? 0 : data.currentFrameIndex;
+	this.framesMoveSideways = (data.framesMoveSideways == undefined) ? true : data.framesMoveSideways;
+	this.framesBetweenLoops = (data.framesBetweenLoops == undefined) ? 0 : data.framesBetweenLoops;
+	this.animationRowFrames = (data.animationRowFrames == undefined) ? 1 : data.animationRowFrames;
 	this.numberOfColFrameIndexes = data.animationColFrames - 1;
 	this.numberOfRowFrameIndexes = data.animationRowFrames - 1;
-	this.currentFrameIndex = data.currentFrameIndex || 0;
-	this.framesUntilNext = data.framesUntilNext;
-	this.framesMoveSideways = data.framesMoveSideways || true;
-	this.loops = (data.loops == undefined) ? true : data.loops;
-	this.framesBetweenLoops = data.framesBetweenLoops || 0;
 	this.currentPauseFramesLeft = 0;
 	this.reversing = false;
+	this.x = data.x;
+	this.y = data.y;
+	this.arrayIndex = data.arrayIndex;
 
 	this.setFrame = function(frame) {
 		this.currentFrameIndex = frame;
@@ -145,27 +160,31 @@ function AnimatedSpriteClass(data) {
 				canvasContext.drawImage(this.spriteSheet,
 									this.currentFrameIndex * this.spriteSheet.width/this.animationColFrames,
 									(currentAxisIndexOfAnimation - 1) * this.spriteSheet.height/this.animationRowFrames,
-									this.spriteSheet.width/this.animationColFrames, this.spriteSheet.height,
+									this.spriteSheet.width/this.animationColFrames, 
+									this.spriteSheet.height/this.animationRowFrames,
 									offsetInRelationToRotationX, offsetInRelationToRotationY,
-									this.spriteSheet.width/this.animationColFrames, this.spriteSheet.height);
+									this.spriteSheet.width/this.animationColFrames, 
+									this.spriteSheet.height/this.animationRowFrames);
 			} else if (flipped) {
 				canvasContext.drawImage(this.spriteSheet,
 									this.currentFrameIndex * this.spriteSheet.width/this.animationColFrames,
 									(currentAxisIndexOfAnimation - 1) * this.spriteSheet.height/this.animationRowFrames,
-									this.spriteSheet.width/this.animationColFrames, this.spriteSheet.height,
+									this.spriteSheet.width/this.animationColFrames, 
+									this.spriteSheet.height/this.animationRowFrames,
 									(this.spriteSheet.width / this.animationColFrames) / 2,
 									-this.spriteSheet.height / 2,
 									this.spriteSheet.width/this.animationColFrames + (additionalWidth * strechX),
-									this.spriteSheet.height * strechY);
+									this.spriteSheet.height/this.animationRowFrames * strechY);
 			} else {
 				canvasContext.drawImage(this.spriteSheet,
 									this.currentFrameIndex * this.spriteSheet.width/this.animationColFrames,
 									(currentAxisIndexOfAnimation - 1) * this.spriteSheet.height/this.animationRowFrames,
-									this.spriteSheet.width/this.animationColFrames, this.spriteSheet.height,
+									this.spriteSheet.width/this.animationColFrames, 
+									this.spriteSheet.height/this.animationRowFrames,
 									x - (this.spriteSheet.width / this.animationColFrames) / 2,
 									y - (this.spriteSheet.height / this.animationRowFrames) / 2,
 									this.spriteSheet.width/this.animationColFrames + (additionalWidth * strechX),
-									this.spriteSheet.height * strechY);
+									(this.spriteSheet.height/this.animationRowFrames) * strechY);
 			}
 		} else {
 			if (rotated) { //The frames in the source image are arranged top to bottom, all using the same width

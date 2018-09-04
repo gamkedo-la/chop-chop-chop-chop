@@ -20,7 +20,6 @@ function outlineCircle(centerX, centerY, radius, strokeColor, lineWidth = 1) {
     canvasContext.strokeStyle = strokeColor;
     canvasContext.beginPath();
     canvasContext.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
-    //canvasContext.setLineDash([]);
     canvasContext.lineWidth = lineWidth;
     canvasContext.stroke();
 }

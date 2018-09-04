@@ -2,6 +2,7 @@ var picsToLoad = 0;
 
 var gamePics = [];
 var worldPics = [];
+var waterTilelist = [];
 
 function loadImages() {
     var imageList = [
@@ -9,6 +10,9 @@ function loadImages() {
         { varName: "playerWalkingSheet", theFile: "player_run.png" },
         { varName: "playerSideChopSheet", theFile: "player_chop.png" },
         { varName: "waterTilesSpritesheet", theFile: "water_spritesheet.png" },
+        { varName: "waterfallBottomLeftSpritesheet", theFile: "waterfall_bottom_left_spritesheet.png" },
+        { varName: "waterfallBottomCenterSpritesheet", theFile: "waterfall_bottom_center_spritesheet.png" },
+        { varName: "waterfallBottomRightSpritesheet", theFile: "waterfall_bottom_right_spritesheet.png" },
         { varName: "placeholderDeathCatImage", theFile: "placeholderDeathCatImage.png"},
         { varName: "placeholderDeathCatMeanderSheet", theFile: "placeholderDeathCatMeanderSheet2a.png"},
         { varName: "stebsBird", theFile: "stebsbirdsheet.png"},
@@ -23,6 +27,7 @@ function loadImages() {
         { worldType: TILE_WEEDS, theFile: "weeds.png" },
         { worldType: TILE_SMALL_ROCK, theFile: "rock.png" },
         { worldType: TILE_WATER, theFile: "clear.png" }, // clear because it is animated
+        { worldType: TILE_REPLACE_WATER, theFile: "nothing.png" },
         { worldType: TILE_CLIFF_TOP_LEFT, theFile: "cliff_top_left.png" },
         { worldType: TILE_CLIFF_TOP, theFile: "cliff_top.png" }, 
         { worldType: TILE_CLIFF_TOP_RIGHT, theFile: "cliff_top_right.png" }, 

@@ -58,6 +58,7 @@ function drawAll() {
 	} else if (gameIsRunning) {
 		cameraPan();
 		drawWorld();
+		drawWaterTiles();
 		drawAndRemoveAllObjects();
 		drawAllAnimals();
 		player.draw();

@@ -50,7 +50,6 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex) {
 			var leavesToSpawn = 12;
 			for (var leaves = 0; leaves < leavesToSpawn; leaves++) {
 				spawnParticles('leaf',this.x+Math.random()*32, this.y-20 + Math.random()*10); // from top of tree, a leaf falls
-
 			}
 			worldGrid[this.arrayIndex - worldCols] = TILE_NOTHING;
 			worldGrid[this.arrayIndex] = TILE_STUMP;

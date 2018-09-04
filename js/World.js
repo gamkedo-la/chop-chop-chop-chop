@@ -40,6 +40,10 @@ const TILE_CLIFF_BOTTOM_RIGHT_2 = 34;
 const TILE_CLIFF_BOTTOM_RIGHT_3 = 35;
 const TILE_CLIFF_BOTTOM_LEFT_2 = 36;
 const TILE_CLIFF_BOTTOM_LEFT_3 = 37;
+const TILE_WATERFALL_BOTTOM_LEFT = 38;
+const TILE_WATERFALL_BOTTOM_CENTER = 39;
+const TILE_WATERFALL_BOTTOM_RIGHT = 40;
+const TILE_REPLACE_WATER = 41;
 
 const TILE_ANIMAL = 80; // This will need to be expanded out so that individual animals can be placed
 const TILE_PLACEHOLDER_DEATH_CAT = 81;
@@ -58,6 +62,9 @@ console.log("Current level: " + currentLevelIndex + " size: " + worldCols + 'x' 
 
 worldGrid = allLevels[currentLevelIndex].layout;
 
+var water;
+var waterTileList = [];
+
 function drawWorld() {
 	var arrayIndex = 0;
 	var drawTileX = 0;
@@ -71,16 +78,22 @@ function drawWorld() {
 			if (isTileTypeAnimated(tileKindHere)) {
 					var animatedTile = returnAnimatedTileSprites(tileKindHere);
 					var fromWhichRowToAnimate = 1;
-					if (animatedTile.animationRowFrames > 1) {
-						if (animatedTile == waterTiles) {
-							fromWhichRowToAnimate = determineWaterTileSurroundings(arrayIndex);
-						}
+					if (animatedTile == water) {
+						animatedTile = new AnimatedSpriteClass({
+							name: "waterTiles",
+							spriteSheet: gamePics.waterTilesSpritesheet,
+							animationRowFrames: 10,
+							animationColFrames: 3,
+							framesUntilNext: 22,
+							x: drawTileX + TILE_W/2,
+							y: drawTileY + TILE_H/2,
+							arrayIndex: arrayIndex
+						});
+						worldGrid[arrayIndex] = TILE_REPLACE_WATER;
+						waterTileList.push(animatedTile);
+					} else {
+						animatedTile.draw(drawTileX + TILE_W/2,drawTileY+TILE_H/2);
 					}
-					animatedTile.draw(drawTileX + TILE_W/2,drawTileY+TILE_H/2, fromWhichRowToAnimate,
-										false,false,
-										0,0,0,
-										1,false,1,1,
-										true);
 			} else if (isTileTypeAnObject(tileKindHere)) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
 				newObject = new objectClass(useImg, drawTileX, drawTileY,
@@ -135,7 +148,7 @@ function isTileTypeCollidable(tileType) {
 	switch (tileType) {
 		case TILE_EXTEND_COLLISION:
 		case TILE_TREE:
-		case TILE_WATER:
+		case TILE_REPLACE_WATER:
 		case TILE_CLIFF_TOP_LEFT:
 		case TILE_CLIFF_TOP:
 		case TILE_CLIFF_TOP_RIGHT:
@@ -160,7 +173,15 @@ function isTileTypeCollidable(tileType) {
 function returnAnimatedTileSprites(tileKindHere) {
 	switch (tileKindHere) {
 		case TILE_WATER:
-			return waterTiles;
+			return water;
+		case TILE_WATERFALL_BOTTOM_LEFT:
+			return waterfallBottomLeft;
+			break;
+		case TILE_WATERFALL_BOTTOM_CENTER:
+			return waterfallBottomCenter;
+			break;
+		case TILE_WATERFALL_BOTTOM_RIGHT:
+			return waterfallBottomRight;
 			break;
 	}
 }
@@ -168,6 +189,9 @@ function returnAnimatedTileSprites(tileKindHere) {
 function isTileTypeAnimated(tileType) {
 	switch (tileType) {
 		case TILE_WATER:
+		case TILE_WATERFALL_BOTTOM_LEFT:
+		case TILE_WATERFALL_BOTTOM_CENTER:
+		case TILE_WATERFALL_BOTTOM_RIGHT:
 			return true;
 			break;
 	}
@@ -217,7 +241,7 @@ function determineWaterTileSurroundings(arrayIndex) {
 	var waterUp = false;
 	var waterDown = false;
 	for (var i = 0; i < crossOfTiles.length; i++) {
-		if (crossOfTiles[i] == TILE_WATER) {
+		if (crossOfTiles[i] == TILE_WATER || crossOfTiles[i] == TILE_REPLACE_WATER) {
 			if (i == 0) {
 				waterLeft = true;
 			}
@@ -242,9 +266,7 @@ function determineWaterTileSurroundings(arrayIndex) {
 		) {
 		return 1; // first Row
 	}
-/*	if (crossOfTiles == [0,0,0,0]) { // TODO: distinguish between
-									 // vertical and horizontal water tiles
-									 // (one art style for both?)
+/*	if (crossOfTiles == [0,0,0,0]) { 
 		return 2; // second Row
 	}*/
 	if (waterLeft == true && waterRight == true &&
@@ -278,6 +300,17 @@ function determineWaterTileSurroundings(arrayIndex) {
 	if (waterLeft == true && waterRight == false &&
 		waterUp == true && waterDown == true) {
 		return 10;
+	}
+}
+
+function drawWaterTiles() {
+	for (var i = 0; i < waterTileList.length; i++) {
+		var fromWhichRowToAnimate = determineWaterTileSurroundings(waterTileList[i].arrayIndex);
+		waterTileList[i].draw(waterTileList[i].x,waterTileList[i].y, fromWhichRowToAnimate,
+			false,false,
+			0,0,0,
+			1,false,1,1,
+			true);
 	}
 }
 

@@ -1,6 +1,6 @@
 function playerClass() {
-	this.x = 400;
-	this.y = 1000;
+	this.x = 20;
+	this.y = 20;
 	this.speed = 6;
 	var walkIntoTileType = TILE_TREE;
 	this.sprite = playerWalking;
@@ -17,8 +17,8 @@ function playerClass() {
 	};
 	var axeHitboxWidth = 9;
 	var axeHitboxHeight = 5;
-	var axeOffsetX = (playerSideChop.spriteSheet.width/3)/playerSideChop.animationColFrames;
-	var axeOffsetY = -(playerSideChop.spriteSheet.height/6);
+	var axeOffsetX = ((playerSideChop.spriteSheet.width/2) - 35)/playerSideChop.animationColFrames;
+	var axeOffsetY = -(playerSideChop.spriteSheet.height/6) - 1;
 	this.axeHitbox = new colliderClass(this.x, this.y, axeHitboxWidth, axeHitboxHeight,
 										axeOffsetX, axeOffsetY);
 	this.axeSharpness = 0;
