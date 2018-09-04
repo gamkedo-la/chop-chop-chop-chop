@@ -52,7 +52,7 @@ var randomForest = sproutRandomTrees(levelOne);
 
 
 function sproutRandomTrees(old) { // adds trees to an existing level
-    const CHANCE_OF_A_TREE = 0.07; // 0.1 means a 10% chance per empty tile
+    const CHANCE_OF_A_TREE = 0.05; // 0.1 means a 10% chance per empty tile
     var lvl = { columns:old.columns, rows:old.rows, layout:[] };
     for (var i=0; i<old.layout.length; i++) {
         lvl.layout[i] = old.layout[i];
