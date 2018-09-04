@@ -1,3 +1,8 @@
+// trees shake when being chopped
+const HIT_SHAKE_COUNT = 6; // frames to shake for
+const HIT_SHAKE_SPEED = 0.1; // 0.1=fast, 5=slow 
+const HIT_SHAKE_SIZE = 2; // size of wobble
+
 var objectList = [];
 
 function objectClass (img,x,y,width,height,worldTileType,arrayIndex) {
@@ -7,6 +12,7 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex) {
 	this.width = width;
 	this.height = height;
 	this.health = 2;
+	this.pendingShakes = 0; // shake for a while when hit
 	this.arrayIndex = arrayIndex;
 	this.tileType = worldTileType;
 	var colliderWidth = TILE_W - 5;
@@ -21,7 +27,15 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex) {
 	this.remove = false;
 
 	this.draw = function() {
-		canvasContext.drawImage(this.img,this.x - this.width/4,this.y - this.height/4 - TILE_H/2);
+		
+		var xoffset = 0; // optionally vibrate a bit after being hit
+		if (this.pendingShakes) { 
+			xoffset = Math.sin(this.pendingShakes / HIT_SHAKE_SPEED) * HIT_SHAKE_SIZE;
+			this.pendingShakes--;
+		}
+		
+		canvasContext.drawImage(this.img,this.x - this.width/4 + xoffset,this.y - this.height/4 - TILE_H/2);
+		
 		if (this.hasHitbox) {
 			this.hitbox.update(this.x,this.y);
 			if (debug) this.hitbox.draw("red");
@@ -30,6 +44,7 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex) {
 
 	this.gotHit = function(healthToSubtract) {
 		this.health -= healthToSubtract;
+		this.pendingShakes = HIT_SHAKE_COUNT;
 		if (this.health <= 0) {
 			console.log("Tree falling!");
 			var leavesToSpawn = 12;
