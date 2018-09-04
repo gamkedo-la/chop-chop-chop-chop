@@ -7,7 +7,7 @@ function loadImages() {
     var imageList = [
         //Game Pics (player, enemies, objects, effects, etc.)
         { varName: "playerWalkingSheet", theFile: "player_run.png" },
-        { varName: "playerSideChopSheet", theFile: "player_chopping_horizontal.png" },
+        { varName: "playerSideChopSheet", theFile: "player_chop.png" },
         { varName: "waterTilesSpritesheet", theFile: "water_spritesheet.png" },
         { varName: "placeholderDeathCatImage", theFile: "placeholderDeathCatImage.png"},
         { varName: "placeholderDeathCatMeanderSheet", theFile: "placeholderDeathCatMeanderSheet2a.png"},
