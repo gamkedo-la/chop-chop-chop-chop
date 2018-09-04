@@ -46,4 +46,21 @@ var levelOne = {
 	rows: 40
 };
 
+var randomForest = sproutRandomTrees(levelOne);
+
 // When adding a level, make sure to add the level to the allLevels array in World.js
+
+
+function sproutRandomTrees(old) { // adds trees to an existing level
+    const CHANCE_OF_A_TREE = 0.07; // 0.1 means a 10% chance per empty tile
+    var lvl = { columns:old.columns, rows:old.rows, layout:[] };
+    for (var i=0; i<old.layout.length; i++) {
+        lvl.layout[i] = old.layout[i];
+        if (lvl.layout[i]==0) { // empty tile?
+            if (Math.random()<CHANCE_OF_A_TREE) {
+                lvl.layout[i]=1; // not defined yet: TILE_TREE;
+            }
+        }
+    }
+    return lvl;
+}

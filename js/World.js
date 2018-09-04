@@ -38,13 +38,15 @@ const TILE_PLACEHOLDER_DEATH_CAT = 81;
 const TILE_STEBS_BIRD = 82;
 
 
-var allLevels = [levelOne];
-var currentLevelIndex = 0;
+var allLevels = [levelOne,randomForest];
+var currentLevelIndex = 1; // FIXME TODO: put back to zero when not testing level 2
 
 var worldCols = allLevels[currentLevelIndex].columns; //
 var worldRows = allLevels[currentLevelIndex].rows; // both of these depend on level, these numbers are for level 1
 
 var worldGrid = [];
+
+console.log("Current level: " + currentLevelIndex + " size: " + worldCols + 'x' + worldRows); 
 
 worldGrid = allLevels[currentLevelIndex].layout;
 
