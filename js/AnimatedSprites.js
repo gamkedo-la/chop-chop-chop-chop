@@ -26,22 +26,28 @@ function makeAnimatedSprites() {
 		animationColFrames: 16,
 		framesUntilNext: 1,
 	});
+	maxAxeProjectile = new AnimatedSpriteClass({
+		name: "maxAxeProjectile",
+		spriteSheet: gamePics.maxAxeProjectileSheet,
+		animationColFrames: 4,
+		framesUntilNext: 2,
+	});
 	waterfallBottomLeft = new AnimatedSpriteClass({
 		name: "waterfallBL",
 		spriteSheet: gamePics.waterfallBottomLeftSpritesheet,
-		animationColFrames: 2,
+		animationColFrames: 3,
 		framesUntilNext: 12,
 	});
 	waterfallBottomCenter = new AnimatedSpriteClass({
 		name: "waterfallBC",
 		spriteSheet: gamePics.waterfallBottomCenterSpritesheet,
-		animationColFrames: 2,
+		animationColFrames: 3,
 		framesUntilNext: 12,
 	});
 	waterfallBottomRight = new AnimatedSpriteClass({
 		name: "waterfallBR",
 		spriteSheet: gamePics.waterfallBottomRightSpritesheet,
-		animationColFrames: 2,
+		animationColFrames: 3,
 		framesUntilNext: 12,
 	});
 	placeholderDeathCatMeander = new AnimatedSpriteClass({

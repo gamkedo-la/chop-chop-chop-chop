@@ -9,6 +9,7 @@ function loadImages() {
         //Game Pics (player, enemies, objects, effects, etc.)
         { varName: "playerWalkingSheet", theFile: "player_run.png" },
         { varName: "playerSideChopSheet", theFile: "player_chop.png" },
+        { varName: "maxAxeProjectileSheet", theFile: "max_axe_upgrade_projectile.png" },
         { varName: "waterTilesSpritesheet", theFile: "water_spritesheet.png" },
         { varName: "waterfallBottomLeftSpritesheet", theFile: "waterfall_bottom_left_spritesheet.png" },
         { varName: "waterfallBottomCenterSpritesheet", theFile: "waterfall_bottom_center_spritesheet.png" },

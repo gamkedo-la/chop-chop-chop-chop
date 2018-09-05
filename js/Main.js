@@ -61,6 +61,7 @@ function drawAll() {
 		drawWaterTiles();
 		drawAndRemoveAllObjects();
 		drawAllAnimals();
+		maxAxeProjectile.draw(20,20);
 		player.draw();
 		drawParticles();
 		endCameraPan();
