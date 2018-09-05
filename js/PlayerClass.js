@@ -2,7 +2,7 @@ function playerClass() {
 	this.x = 20;
 	this.y = 20;
 	this.speed = 6;
-	var walkIntoTileType = TILE_TREE;
+	var walkIntoTileType = TILE_SMALL_TREE;
 	this.sprite = playerWalking;
 	this.width = this.sprite.spriteSheet.width/this.sprite.animationColFrames;
 	this.height = this.sprite.spriteSheet.height/this.sprite.animationRowFrames;
@@ -193,4 +193,55 @@ function playerClass() {
 			this.hitbox.draw("red");
 		}
 	}
-} // end of objectClass
+} // end of playerClass
+
+function checkTileCollision (x,y,movementX,movementY) {
+	var nextX = Math.round(x + movementX);
+    var nextY = Math.round(y + movementY);
+
+    if (nextX < 0 || nextX > worldCols * TILE_W) {
+    	return true;
+    }
+
+    if (nextY < 0 || nextY > worldRows * TILE_H) {
+    	return true;
+    }
+
+	var walkIntoTileType = getTileTypeAtPixelCoord(nextX, nextY);
+
+    if (walkIntoTileType === undefined) {
+		return true;
+	}
+
+	if (isTileTypeCollidable(walkIntoTileType)) {
+		//console.log("walkIntoTileType: " + walkIntoTileType);
+		return true;
+	}
+}
+
+function isTileTypeCollidable(tileType) {
+	switch (tileType) {
+		case TILE_EXTEND_COLLISION:
+		case TILE_SMALL_TREE:
+		case TILE_SMALL_TREE_ALT:
+		case TILE_REPLACE_WATER:
+		case TILE_CLIFF_TOP_LEFT:
+		case TILE_CLIFF_TOP:
+		case TILE_CLIFF_TOP_RIGHT:
+		case TILE_CLIFF_LEFT:
+		case TILE_CLIFF_RIGHT:
+		case TILE_CLIFF_BOTTOM_LEFT:
+		case TILE_CLIFF_BOTTOM:
+		case TILE_CLIFF_BOTTOM_RIGHT:
+		case TILE_PIT_TOP_LEFT:
+		case TILE_PIT_TOP:
+		case TILE_PIT_TOP_RIGHT:
+		case TILE_PIT_LEFT:
+		case TILE_PIT_RIGHT:
+		case TILE_PIT_BOTTOM_LEFT:
+		case TILE_PIT_BOTTOM:
+		case TILE_PIT_BOTTOM_RIGHT:
+			return true;
+			break;
+	}
+}

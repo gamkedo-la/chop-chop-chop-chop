@@ -1,52 +1,63 @@
 const TILE_W = TILE_H = 32;
 
-const TILE_STUMP = -02
+const TILE_REPLACE_WATER = -04;
+const TILE_STUMP_ALT = -03;
+const TILE_STUMP = -02;
 const TILE_EXTEND_COLLISION = -01;
-const TILE_NOTHING = 00;
-const TILE_TREE = 01;
-const TILE_FLOWER = 02;
-const TILE_WEEDS = 03;
-const TILE_SMALL_ROCK = 04;
-const TILE_WATER = 05;
-const TILE_MUSHROOM = 06;
-const TILE_THORN = 07;
-const TILE_LEAVES = 08;
-const TILE_PILE_OF_LEAVES = 09;
-const TILE_PILE_OF_LEAVES_2 = 10;
-const TILE_PILE_OF_LEAVES_3 = 11;
-const TILE_PUMPKIN = 12;
-const TILE_JACK_O = 13;
-const TILE_CLIFF_TOP_LEFT = 14;
-const TILE_CLIFF_TOP = 15;
-const TILE_CLIFF_TOP_RIGHT = 16;
-const TILE_CLIFF_RIGHT = 17;
-const TILE_CLIFF_BOTTOM_RIGHT = 18;
-const TILE_CLIFF_BOTTOM = 19;
-const TILE_CLIFF_BOTTOM_LEFT = 20;
-const TILE_CLIFF_LEFT = 21;
-const TILE_PIT_TOP_LEFT = 22;
-const TILE_PIT_TOP = 23;
-const TILE_PIT_TOP_RIGHT = 24;
-const TILE_PIT_RIGHT = 25;
-const TILE_PIT_BOTTOM_RIGHT = 26;
-const TILE_PIT_BOTTOM = 27;
-const TILE_PIT_BOTTOM_LEFT = 28;
-const TILE_PIT_LEFT = 29;
-const TILE_CLIFF_TOP_LEFT_2 = 30;
-const TILE_CLIFF_TOP_LEFT_3 = 31;
-const TILE_CLIFF_TOP_RIGHT_2 = 32;
-const TILE_CLIFF_TOP_RIGHT_3 = 33;
-const TILE_CLIFF_BOTTOM_RIGHT_2 = 34;
-const TILE_CLIFF_BOTTOM_RIGHT_3 = 35;
-const TILE_CLIFF_BOTTOM_LEFT_2 = 36;
-const TILE_CLIFF_BOTTOM_LEFT_3 = 37;
-const TILE_WATERFALL_BOTTOM_LEFT = 38;
-const TILE_WATERFALL_BOTTOM_CENTER = 39;
-const TILE_WATERFALL_BOTTOM_RIGHT = 40;
-const TILE_REPLACE_WATER = 41;
 
-const TILE_PLACEHOLDER_DEATH_CAT = 80;
-const TILE_STEBS_BIRD = 81;
+const TILE_NOTHING = 000;
+
+// Ground Objects/Water
+const TILE_FLOWER = 102;
+const TILE_WEEDS = 103;
+const TILE_SMALL_ROCK = 104;
+const TILE_WATER = 105;
+const TILE_MUSHROOM = 106;
+const TILE_THORN = 107;
+const TILE_LEAVES = 108;
+const TILE_PILE_OF_LEAVES = 109;
+const TILE_PILE_OF_LEAVES_2 = 110;
+const TILE_PILE_OF_LEAVES_3 = 111;
+const TILE_PUMPKIN = 112;
+const TILE_JACK_O = 113;
+
+//Trees
+const TILE_SMALL_TREE = 200;
+const TILE_SMALL_TREE_ALT = 201;
+
+// Cliffs,Pits and Waterfalls
+const TILE_CLIFF_TOP_LEFT = 300;
+const TILE_CLIFF_TOP = 301;
+const TILE_CLIFF_TOP_RIGHT = 302;
+const TILE_CLIFF_RIGHT = 303;
+const TILE_CLIFF_BOTTOM_RIGHT = 304;
+const TILE_CLIFF_BOTTOM = 305;
+const TILE_CLIFF_BOTTOM_LEFT = 306;
+const TILE_CLIFF_LEFT = 307;
+const TILE_CLIFF_TOP_LEFT_2 = 308;
+const TILE_CLIFF_TOP_LEFT_3 = 309;
+const TILE_CLIFF_TOP_RIGHT_2 = 310;
+const TILE_CLIFF_TOP_RIGHT_3 = 311;
+const TILE_CLIFF_BOTTOM_RIGHT_2 = 312;
+const TILE_CLIFF_BOTTOM_RIGHT_3 = 313;
+const TILE_CLIFF_BOTTOM_LEFT_2 = 314;
+const TILE_CLIFF_BOTTOM_LEFT_3 = 315;
+const TILE_PIT_TOP_LEFT = 316;
+const TILE_PIT_TOP = 317;
+const TILE_PIT_TOP_RIGHT = 318;
+const TILE_PIT_RIGHT = 319;
+const TILE_PIT_BOTTOM_RIGHT = 320;
+const TILE_PIT_BOTTOM = 321;
+const TILE_PIT_BOTTOM_LEFT = 322;
+const TILE_PIT_LEFT = 323;
+
+const TILE_WATERFALL_BOTTOM_LEFT = 324;
+const TILE_WATERFALL_BOTTOM_CENTER = 325;
+const TILE_WATERFALL_BOTTOM_RIGHT = 326;
+
+// Animals
+const TILE_PLACEHOLDER_DEATH_CAT = 800;
+const TILE_STEBS_BIRD = 801;
 
 
 var allLevels = [levelOne,randomForest];
@@ -96,9 +107,10 @@ function drawWorld() {
 					}
 			} else if (isTileTypeAnObject(tileKindHere)) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
+
 				newObject = new objectClass(useImg, drawTileX, drawTileY,
 					useImg.width, useImg.height,
-					tileKindHere, arrayIndex);
+					tileKindHere, arrayIndex, worldGrid[arrayIndex - worldCols]);
 				worldGrid[arrayIndex] = TILE_NOTHING;
 				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX, drawTileY);
 				objectList.push(newObject);
@@ -131,34 +143,10 @@ function drawWorld() {
 
 function isTileTypeAnObject(tileType) {
 	switch (tileType) {
-		case TILE_TREE:
+		case TILE_SMALL_TREE:
+		case TILE_SMALL_TREE_ALT:
 		case TILE_STUMP:
-			return true;
-			break;
-	}
-}
-
-function isTileTypeCollidable(tileType) {
-	switch (tileType) {
-		case TILE_EXTEND_COLLISION:
-		case TILE_TREE:
-		case TILE_REPLACE_WATER:
-		case TILE_CLIFF_TOP_LEFT:
-		case TILE_CLIFF_TOP:
-		case TILE_CLIFF_TOP_RIGHT:
-		case TILE_CLIFF_LEFT:
-		case TILE_CLIFF_RIGHT:
-		case TILE_CLIFF_BOTTOM_LEFT:
-		case TILE_CLIFF_BOTTOM:
-		case TILE_CLIFF_BOTTOM_RIGHT:
-		case TILE_PIT_TOP_LEFT:
-		case TILE_PIT_TOP:
-		case TILE_PIT_TOP_RIGHT:
-		case TILE_PIT_LEFT:
-		case TILE_PIT_RIGHT:
-		case TILE_PIT_BOTTOM_LEFT:
-		case TILE_PIT_BOTTOM:
-		case TILE_PIT_BOTTOM_RIGHT:
+		case TILE_STUMP_ALT:
 			return true;
 			break;
 	}
@@ -216,7 +204,8 @@ function spawnAnimalBasedOnTile(tileType, arrayIndex) {
 function addTilesForCollisionBasedOnTileType(tileType, x, y) {
 	var arrayIndex = getTileIndexAtPixelCoord(x, y)
 	switch (tileType) {
-		case TILE_TREE:
+		case TILE_SMALL_TREE:
+		case TILE_SMALL_TREE_ALT:
 			worldGrid[arrayIndex] = TILE_EXTEND_COLLISION;
 			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_COLLISION;
 			break;

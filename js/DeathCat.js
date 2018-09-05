@@ -5,7 +5,7 @@ function deathCat (arrayIndex) {
 	this.img = placeholderDeathCatMeander;
 	this.width = this.img.spriteSheet.width/this.img.animationColFrames;
 	this.height = this.img.spriteSheet.height/this.img.animationRowFrames;
-	this.speed = 3;
+	this.speed = 4;
 	this.detectionRadius = 120;
 	this.homeRadius = 300;
 	this.idleRadius = 17;
@@ -18,5 +18,7 @@ function deathCat (arrayIndex) {
 	this.idlePosition = {x: this.home.x, y: this.home.y};
 	this.attackPower = 2;
 
-	return new animalClass (this);
+	this.collidableTiles = standardCollisionTiles;
+
+	return new animalClass(this);
 }

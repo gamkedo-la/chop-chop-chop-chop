@@ -5,10 +5,10 @@ function bigBird (arrayIndex) {
 	this.img = stebsBird;
 	this.width = this.img.spriteSheet.width/this.img.animationColFrames;
 	this.height = this.img.spriteSheet.height/this.img.animationRowFrames;
-	this.speed = 3;
-	this.detectionRadius = 120;
-	this.homeRadius = 300;
-	this.idleRadius = 17;
+	this.speed = 5;
+	this.detectionRadius = 240;
+	this.homeRadius = 600;
+	this.idleRadius = 40;
 	this.waiting = false;
 	this.meander = true;
 	this.waitingTimer = 30; // frames
@@ -18,5 +18,8 @@ function bigBird (arrayIndex) {
 	this.idlePosition = {x: this.home.x, y: this.home.y};
 	this.attackPower = 2;
 
-	return new animalClass (this);
-}
+	this.collidableTiles = [];
+
+	return new animalClass(this);
+
+} // end of bigBird

@@ -21,8 +21,10 @@ function loadImages() {
         //World Tile Pics
         { worldType: TILE_EXTEND_COLLISION, theFile: "nothing.png" },
         { worldType: TILE_NOTHING, theFile: "nothing.png" },
-        { worldType: TILE_TREE, theFile: "tree2.png" },
-        { worldType: TILE_STUMP, theFile: "stump2.png" },
+        { worldType: TILE_SMALL_TREE, theFile: "tree1.png" },
+        { worldType: TILE_SMALL_TREE_ALT, theFile: "tree2.png" },
+        { worldType: TILE_STUMP, theFile: "stump1.png" },
+        { worldType: TILE_STUMP_ALT, theFile: "stump2.png" },
         { worldType: TILE_FLOWER, theFile: "flowers.png" },
         { worldType: TILE_WEEDS, theFile: "weeds.png" },
         { worldType: TILE_SMALL_ROCK, theFile: "rock.png" },

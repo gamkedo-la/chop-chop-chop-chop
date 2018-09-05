@@ -5,7 +5,7 @@ const HIT_SHAKE_SIZE = 2; // size of wobble
 
 var objectList = [];
 
-function objectClass (img,x,y,width,height,worldTileType,arrayIndex) {
+function objectClass (img,x,y,width,height,worldTileType,arrayIndex,hiddenTile) {
 	this.x = x;
 	this.y = y;
 	this.img = img;
@@ -15,6 +15,7 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex) {
 	this.pendingShakes = 0; // shake for a while when hit
 	this.arrayIndex = arrayIndex;
 	this.tileType = worldTileType;
+	this.hiddenTile = hiddenTile;
 	var colliderWidth = TILE_W - 5;
 	var colliderHeight = 64;
 	var colliderOffsetX = this.width/4 + 3;
@@ -51,12 +52,24 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex) {
 			for (var leaves = 0; leaves < leavesToSpawn; leaves++) {
 				spawnParticles('leaf',this.x+Math.random()*32, this.y-20 + Math.random()*10); // from top of tree, a leaf falls
 			}
-			worldGrid[this.arrayIndex - worldCols] = TILE_NOTHING;
-			worldGrid[this.arrayIndex] = TILE_STUMP;
+			spawnProperRemnants(this.tileType,this.arrayIndex, this.hiddenTile);
 			this.remove = true;
 		}
 	}
 } // end of objectClass
+
+function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {
+	switch (tileType) {
+		case TILE_SMALL_TREE:
+			worldGrid[arrayIndex - worldCols] = hiddenTile;
+			worldGrid[arrayIndex] = TILE_STUMP;
+		break;
+		case TILE_SMALL_TREE_ALT:
+			worldGrid[arrayIndex - worldCols] = hiddenTile;
+			worldGrid[arrayIndex] = TILE_STUMP_ALT;
+		break;
+	}
+}
 
 function drawAndRemoveAllObjects() {
 	for (var i = 0; i < objectList.length; i++) {
@@ -71,7 +84,8 @@ function drawAndRemoveAllObjects() {
 
 function tileTypeGetsHitbox(tileType) {
 	switch (tileType) {
-		case TILE_TREE:
+		case TILE_SMALL_TREE:
+		case TILE_SMALL_TREE_ALT:
 			return true;
 			break;
 		default: 

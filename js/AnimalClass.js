@@ -15,6 +15,7 @@ function animalClass (newAnimal) {
 	this.idleTimer = newAnimal.idleTimer; // frames
 	var idleTimerFull = this.idleTimer;
 	this.attackPower = newAnimal.attackPower;
+	this.collidableTiles = newAnimal.collidableTiles;
 
 	this.x = this.home.x;
 	this.y = this.home.y;
@@ -51,7 +52,7 @@ function animalClass (newAnimal) {
 	this.move = function() {
 		this.detectionRadiusTrigger();
 		this.homeRadiusTrigger();
-		var closeToHome = 2;
+		var closeToHome = this.speed;
 		if (this.playerDetected) { // chasing player
 			if (this.img.data.name === "deathCat" && this.playerDetectedSoundPlayed === false) {
 				deathMeow.play();
@@ -65,7 +66,7 @@ function animalClass (newAnimal) {
 			this.img.framesUntilNext = 8;
 			var moveXTowardPlayer = this.x < player.x ? this.speed : -this.speed;
 			var moveYTowardPlayer = this.y < player.y ? this.speed : -this.speed;
-			if (checkTileCollision(this.x,this.y,moveXTowardPlayer,moveYTowardPlayer)) {
+			if (this.checkTileCollision(this.x,this.y,moveXTowardPlayer,moveYTowardPlayer)) {
 				moveXTowardPlayer = 0;
 				moveYTowardPlayer = 0;
 			}
@@ -123,7 +124,7 @@ function animalClass (newAnimal) {
 					this.idleTimer = idleTimerFull;
 				}
 			}
-			if (checkTileCollision(this.x,this.y,moveXTowardHome,moveYTowardHome)) {
+			if (this.checkTileCollision(this.x,this.y,moveXTowardHome,moveYTowardHome)) {
 				moveXTowardHome = 0;
 		 		moveYTowardHome = 0;
 				this.idlePosition = {x: this.x, y: this.y};
@@ -160,31 +161,56 @@ function animalClass (newAnimal) {
 			this.playerDetected = false;
 		}
 	}
+
+	this.checkTileCollision = function(x,y,movementX,movementY) {
+		var nextX = Math.round(x + movementX);
+	    var nextY = Math.round(y + movementY);
+
+	    if (nextX < 0 || nextX > worldCols * TILE_W) {
+	    	return true;
+	    }
+
+	    if (nextY < 0 || nextY > worldRows * TILE_H) {
+	    	return true;
+	    }
+
+		var walkIntoTileType = getTileTypeAtPixelCoord(nextX, nextY);
+
+	    if (walkIntoTileType === undefined) {
+			return true;
+		}
+
+		if (this.tileTypeCollidable(walkIntoTileType)) {
+			//console.log("walkIntoTileType: " + walkIntoTileType);
+			return true;
+		}
+	}
+
+	this.tileTypeCollidable = function(tileType) {
+		if (this.collidableTiles == []) {
+			return false;
+		} else if ((this.collidableTiles.indexOf(worldGrid[tileType])) > -1) {
+			return true;
+		}
+	}
 } // end of animal class
 
-function checkTileCollision (x,y,movementX,movementY) {
-	var nextX = Math.round(x + movementX);
-    var nextY = Math.round(y + movementY);
-
-    if (nextX < 0 || nextX > worldCols * TILE_W) {
-    	return true;
-    }
-
-    if (nextY < 0 || nextY > worldRows * TILE_H) {
-    	return true;
-    }
-
-	var walkIntoTileType = getTileTypeAtPixelCoord(nextX, nextY);
-
-    if (walkIntoTileType === undefined) {
-		return true;
-	}
-
-	if (isTileTypeCollidable(walkIntoTileType)) {
-		//console.log("walkIntoTileType: " + walkIntoTileType);
-		return true;
-	}
-}
+var standardCollisionTiles = [TILE_EXTEND_COLLISION,TILE_SMALL_TREE,
+	TILE_SMALL_TREE_ALT,TILE_REPLACE_WATER,
+	TILE_CLIFF_TOP_LEFT,TILE_CLIFF_TOP,TILE_CLIFF_TOP_RIGHT,
+	TILE_CLIFF_LEFT,TILE_CLIFF_RIGHT,
+	TILE_CLIFF_BOTTOM_LEFT,TILE_CLIFF_BOTTOM,TILE_CLIFF_BOTTOM_RIGHT,
+	TILE_PIT_TOP_LEFT,TILE_PIT_TOP,TILE_PIT_TOP_RIGHT,
+	TILE_PIT_LEFT,TILE_PIT_RIGHT,TILE_PIT_BOTTOM_LEFT,
+	TILE_PIT_BOTTOM,TILE_PIT_BOTTOM_RIGHT,
+	TILE_CLIFF_TOP_LEFT_2,TILE_CLIFF_TOP_LEFT_3,
+	TILE_CLIFF_TOP_RIGHT_2,TILE_CLIFF_TOP_RIGHT_3,
+	TILE_CLIFF_BOTTOM_RIGHT_2,TILE_CLIFF_BOTTOM_RIGHT_3,
+	TILE_CLIFF_BOTTOM_LEFT_2,TILE_CLIFF_BOTTOM_LEFT_3,
+	TILE_PIT_TOP_LEFT,TILE_PIT_TOP,TILE_PIT_TOP_RIGHT,
+	TILE_PIT_RIGHT,TILE_PIT_LEFT,
+	TILE_PIT_BOTTOM_RIGHT,TILE_PIT_BOTTOM,TILE_PIT_BOTTOM_LEFT,
+	TILE_WATERFALL_BOTTOM_LEFT, TILE_WATERFALL_BOTTOM_CENTER,TILE_WATERFALL_BOTTOM_RIGHT];
 
 function drawAllAnimals() {
 	for (var i = 0; i < animalList.length; i++) {
