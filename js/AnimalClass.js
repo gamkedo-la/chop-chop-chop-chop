@@ -1,35 +1,39 @@
 var animalList = [];
 
-function animalClass (img,width,height,arrayIndex) {
-	this.home = indexToCenteredXY(arrayIndex);
+function animalClass (newAnimal) {
+	this.animal = newAnimal;
+	this.home = newAnimal.home;
+	this.img = newAnimal.img;
+	this.width = newAnimal.width;
+	this.height = newAnimal.height;
+	this.speed = newAnimal.speed;
+	this.detectionRadius = newAnimal.detectionRadius;
+	this.homeRadius = newAnimal.homeRadius;
+	this.waitingTimer = newAnimal.waitingTimer; // frames
+	var waitingTimerFull = this.waitingTimer;
+	this.idleRadius = newAnimal.idleRadius;
+	this.idleTimer = newAnimal.idleTimer; // frames
+	var idleTimerFull = this.idleTimer;
+	this.attackPower = newAnimal.attackPower;
+
 	this.x = this.home.x;
 	this.y = this.home.y;
-	this.img = img;
-	this.width = width;
-	this.height = height;
+	this.idlePosition = {x: this.home.x, y: this.home.y};
+	
 	this.centerX = this.x - this.width / 2;
 	this.centerY = this.y - this.height / 2;
-	this.speed = 3;
-	this.detectionRadius = this.width * 6;
-	this.playerDetected = false;
-	this.playerDetectedSoundPlayed = false;
+	
 	this.waiting = false;
 	this.meander = true;
-	this.waitingTimer = 45; // frames
-	var waitingTimerFull = this.waitingTimer; // frames
-	this.homeRadius = this.detectionRadius * 2;
-	this.idleRadius = this.width/2;
-	this.idleTimer = 90; // frames
-	var idleTimerFull = this.idleTimer;
-	this.idlePosition = {x: this.home.x, y: this.home.y};
+	this.playerDetected = false;
+	this.playerDetectedSoundPlayed = false;
+
 	var colliderWidth = this.width;
 	var colliderHeight = this.height/2;
 	var colliderOffsetX = 0;
 	var colliderOffsetY = this.height/8;
 	this.hitbox = new colliderClass(this.x,this.y,
 		colliderWidth,colliderHeight,colliderOffsetX,colliderOffsetY);
-	this.attackPower = 2;
-	// some of these vars will depend on the animal type and will be fleshed out in inherited classes
 
 	this.draw = function () {
 		if (this.meander || this.playerDetected || this.waiting) {

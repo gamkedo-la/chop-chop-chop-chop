@@ -45,13 +45,12 @@ const TILE_WATERFALL_BOTTOM_CENTER = 39;
 const TILE_WATERFALL_BOTTOM_RIGHT = 40;
 const TILE_REPLACE_WATER = 41;
 
-const TILE_ANIMAL = 80; // This will need to be expanded out so that individual animals can be placed
-const TILE_PLACEHOLDER_DEATH_CAT = 81;
-const TILE_STEBS_BIRD = 82;
+const TILE_PLACEHOLDER_DEATH_CAT = 80;
+const TILE_STEBS_BIRD = 81;
 
 
 var allLevels = [levelOne,randomForest];
-var currentLevelIndex = 1; // FIXME TODO: put back to zero when not testing level 2
+var currentLevelIndex = 0; // FIXME TODO: put back to zero when not testing level 2
 
 var worldCols = allLevels[currentLevelIndex].columns; //
 var worldRows = allLevels[currentLevelIndex].rows; // both of these depend on level, these numbers are for level 1
@@ -69,6 +68,7 @@ function drawWorld() {
 	var arrayIndex = 0;
 	var drawTileX = 0;
 	var drawTileY = 0;
+	var nextEnemy = null;
 	for (var eachRow = 0; eachRow < worldRows; eachRow++) {
 		for (var eachCol = 0; eachCol < worldCols; eachCol++) {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
@@ -103,14 +103,8 @@ function drawWorld() {
 				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX, drawTileY);
 				objectList.push(newObject);
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
-				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
-				useImg = whatAnimal(tileKindHere);
-				var newAnimal = new animalClass(useImg,
-					useImg.spriteSheet.width/useImg.animationColFrames,
-					useImg.spriteSheet.height/useImg.animationRowFrames,
-					arrayIndex);
+				spawnAnimalBasedOnTile(tileKindHere,arrayIndex);
 				worldGrid[arrayIndex] = TILE_NOTHING;
-				animalList.push(newAnimal);
 			} else {
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 			}
@@ -197,25 +191,24 @@ function isTileTypeAnimated(tileType) {
 	}
 }
 
-function whatAnimal(tileType) {
+function isTileTypeAnAnimal(tileType) {
 	switch (tileType) {
-		case TILE_ANIMAL:
-			break;
 		case TILE_PLACEHOLDER_DEATH_CAT:
-			return placeholderDeathCatMeander;
-			break;
 		case TILE_STEBS_BIRD:
-			return stebsBird;
+			return true;
 			break;
 	}
 }
 
-function isTileTypeAnAnimal(tileType) {
+function spawnAnimalBasedOnTile(tileType, arrayIndex) {
 	switch (tileType) {
-		case TILE_ANIMAL:
 		case TILE_PLACEHOLDER_DEATH_CAT:
+			animal = new deathCat(arrayIndex);
+			animalList.push(animal);
+			break;
 		case TILE_STEBS_BIRD:
-			return true;
+			animal = new bigBird(arrayIndex);
+			animalList.push(animal);
 			break;
 	}
 }
