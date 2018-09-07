@@ -11,14 +11,21 @@ const S_KEY = 83;
 const O_KEY = 79; // for debug
 const P_KEY = 80; // for pause
 
+const KEY_LEFT_SHIFT = 16;
 const SPACEBAR = 32;
-
 const NUMBER_PAD_PLUS = 107; // to raise overall audio volume
 const NUMBER_PAD_MINUS = 109; // to lower overall audio volume
 const KEY_PLUS = 187;
 const KEY_MINUS = 189;
+const KEY_TILDE = 192;
 const KEY_LEFT_BRACKET = 219;
 const KEY_RIGHT_BRACKET = 221;
+
+var mouseX = 0;
+var mouseY = 0;
+var mouseHeld = false;
+var mouseCanvasY = 0;
+var mouseCanvasX = 0;
 
 var leftKeyHeld = false;
 var upKeyHeld = false;
@@ -33,7 +40,24 @@ function setupInput() {
     window.addEventListener("focus", windowOnFocus);
     document.addEventListener("keydown", keyPressed);
     document.addEventListener("keyup", keyReleased);
+   	canvas.addEventListener('mousemove', updateMousePos);
+	canvas.addEventListener('mousedown',function() {
+		mousePressed();
+	});
+	canvas.addEventListener('mouseup',function() {
+		mouseReleased();
+		editTileOnMouseClick();
+	});
 };
+
+function updateMousePos(evt) {
+	var rect = canvas.getBoundingClientRect();
+	var root = document.documentElement;
+	mouseX = evt.clientX - rect.left;
+	mouseY = evt.clientY - rect.top;
+	mouseCanvasX = mouseX + cameraPanX;
+	mouseCanvasY = mouseY + cameraPanY;
+}
 
 function keyHoldState(keyHeld, setTo) {
     keyHeld = setTo;
@@ -93,6 +117,14 @@ function keyPressed(evt) {
 		case O_KEY:
 			toggleDebug();
 		break;
+		case KEY_TILDE:
+			tileEditor = !tileEditor;
+			console.log("tileEditor = " + tileEditor);
+		break;
+		case KEY_LEFT_SHIFT:
+			copyToClipboard();
+		break;
+		
     }
 };
 
@@ -118,3 +150,11 @@ function keyReleased(evt) {
             break;
 	}
 };
+
+function mousePressed(evt) {
+	mouseHeld = true;
+}
+
+function mouseReleased(evt) {
+	mouseHeld = false;
+}

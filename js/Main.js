@@ -48,6 +48,9 @@ function loadingDoneSoStartGame() {
 
 function update() {
     drawAll();
+    if (tileEditor) {
+        roomTileCoordinate();
+  	}
     framesFromGameStart++
     moveAll();
 }

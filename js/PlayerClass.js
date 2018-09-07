@@ -1,3 +1,7 @@
+const LOW = 1;
+const MID = 2;
+const MAX = 3;
+
 function playerClass() {
 	this.x = 20;
 	this.y = 20;
@@ -22,8 +26,8 @@ function playerClass() {
 	this.axeHitbox = new colliderClass(this.x, this.y, axeHitboxWidth, axeHitboxHeight,
 										axeOffsetX, axeOffsetY);
 	this.axeSharpness = 0;
-	this.axeLevel = 0;
-	this.axePower = 1 + this.axeSharpness + this.axeLevel;
+	this.axeLevel = LOW;
+	this.axePower = 1 + this.axeSharpness;
 	var chopTimer = 0;
 	this.hitbox = new colliderClass(this.x, this.y, this.width/2, this.height,
 											0, 0);
@@ -131,7 +135,7 @@ function playerClass() {
 					hit = true;
 					//console.log("hit an object!");
 					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
-					var random = getRoundedRandomNumberBetweenMinMax(0, 1);
+					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 					arrayOfChopSFXs[random].play();
 					object.gotHit(this.axePower);
 				}

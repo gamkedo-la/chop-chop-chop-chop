@@ -11,7 +11,6 @@ const TILE_NOTHING = 000;
 const TILE_FLOWER = 102;
 const TILE_WEEDS = 103;
 const TILE_SMALL_ROCK = 104;
-const TILE_WATER = 105;
 const TILE_MUSHROOM = 106;
 const TILE_THORN = 107;
 const TILE_LEAVES = 108;
@@ -51,16 +50,18 @@ const TILE_PIT_BOTTOM = 321;
 const TILE_PIT_BOTTOM_LEFT = 322;
 const TILE_PIT_LEFT = 323;
 
-const TILE_WATERFALL_BOTTOM_LEFT = 324;
-const TILE_WATERFALL_BOTTOM_CENTER = 325;
-const TILE_WATERFALL_BOTTOM_RIGHT = 326;
+// Water
+const TILE_WATER = 400;
+const TILE_WATERFALL_BOTTOM_LEFT = 401;
+const TILE_WATERFALL_BOTTOM_CENTER = 402;
+const TILE_WATERFALL_BOTTOM_RIGHT = 403;
 
 // Animals
 const TILE_PLACEHOLDER_DEATH_CAT = 800;
 const TILE_STEBS_BIRD = 801;
 
 
-var allLevels = [levelOne,randomForest];
+var allLevels = [mountainBase,randomForest];
 var currentLevelIndex = 0; // FIXME TODO: put back to zero when not testing level 2
 
 var worldCols = allLevels[currentLevelIndex].columns; //
