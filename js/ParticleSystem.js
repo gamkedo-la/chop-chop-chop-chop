@@ -12,12 +12,17 @@
 const PARTICLE_W = 1; // in pixels
 const PARTICLE_H = 1;
 const BOUNCE_SCALE = -0.5; // influence speed when we bounce off the floor
+const PARTICLE_SPEED_DAMPENING = 0.95;
 
 var particleDefs = [
 	{type: 'chop', howMany: 15, startSpeed: 2, howLong: 50, gravity: 0.2, startAng: -90, angSpreadDeg: 90, color: 'white', floorDist: 32},				
 	{type: 'fireworks', howMany: 15, startSpeed: 7, howLong: 30, gravity: 0.1, startAng: 0, angSpreadDeg: 180, color: 'white'},
 	{type: 'footstep', howMany: 3, startSpeed: 0.5, howLong: 20, gravity: 0.02, startAng: -90, angSpreadDeg: 90, color: 'white'},
-	{type: 'leaf', howMany: 1, startSpeed: 0, howLong: 1000, gravity: 0.01, startAng: -90, angSpreadDeg: 90, color: 'green', floorDist: 48, isLeaf:true }
+	{type: 'leaf', howMany: 1, startSpeed: 0, howLong: 1000, gravity: 0.01, startAng: -90, angSpreadDeg: 90, color: 'white', floorDist: 48, isLeaf:true, sprite:"leaf" },
+	{type: 'debris0', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 16, isLeaf:true, sprite:"debris0" },
+	{type: 'debris1', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 20, isLeaf:true, sprite:"debris1" },
+	{type: 'debris2', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 24, isLeaf:true, sprite:"debris2" },
+
 ];
 var particleList = [];
 
@@ -46,13 +51,19 @@ function pfx() {
 			if (this.y > this.floorY) {
 				this.y = this.floorY;
 				this.velY = BOUNCE_SCALE * this.velY; // bounce up with less force
-				if (this.isLeaf) this.velY = 0; // leaves don't bounce
+				if (this.isLeaf) {
+					this.velY = 0; // leaves don't bounce
+					this.velX = 0; // and don't slide on the ground
+				}
 			}
 		}
 
 		if (this.isLeaf && (this.velY > this.gravity)) { // float back and forth side to side as it falls
 			this.x += Math.sin(this.cycleLife / 10) * 0.5;
 		}
+
+		// decay horizontal speed to logs don't slide around
+		this.velX *= PARTICLE_SPEED_DAMPENING;
 
 		this.cycleLife--;
 	}
@@ -62,8 +73,8 @@ function pfx() {
 	}
 
 	this.draw = function() {
-		if (this.isLeaf) {
-			canvasContext.drawImage(gamePics.leaf,Math.floor(this.x), Math.floor(this.y));
+		if (this.sprite) {
+			canvasContext.drawImage(gamePics[this.sprite],Math.floor(this.x), Math.floor(this.y));
 		} 
 		else { // normal square particle:
 			drawRect(Math.floor(this.x), Math.floor(this.y), PARTICLE_W, PARTICLE_H, this.color, 0.8);
@@ -118,6 +129,7 @@ function spawnParticles(type, startX, startY) {
 		newPFX.cycleLife = pfxDef.howLong;
 		newPFX.gravity = pfxDef.gravity;
 		newPFX.isLeaf = pfxDef.isLeaf;
+		newPFX.sprite = pfxDef.sprite;
 
 		particleList.push(newPFX);
 	}	

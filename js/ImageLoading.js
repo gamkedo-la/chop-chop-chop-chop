@@ -18,6 +18,9 @@ function loadImages() {
         { varName: "placeholderDeathCatMeanderSheet", theFile: "placeholderDeathCatMeanderSheet2a.png"},
         { varName: "stebsBird", theFile: "stebsbirdsheet.png"},
         { varName: "leaf", theFile: "leaf.png"},
+        { varName: "debris0", theFile: "debris0.png"},
+        { varName: "debris1", theFile: "debris1.png"},
+        { varName: "debris2", theFile: "debris2.png"},
 
         //World Tile Pics
         { worldType: TILE_EXTEND_COLLISION, theFile: "nothing.png" },
