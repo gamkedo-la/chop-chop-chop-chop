@@ -52,7 +52,7 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex,hiddenTile) 
 			for (var leaves = 0; leaves < leavesToSpawn; leaves++) {
 				
 				// leaves
-				spawnParticles('leaf',this.x+Math.random()*32, this.y-20 + Math.random()*10); // from top of tree, a leaf falls
+				spawnParticles('leaf',this.x+Math.random()*48-16, this.y-20 + Math.random()*10); // from top of tree, a leaf falls
 
 				// a few chunks of wood debris / logs / branches
 				if (Math.random()<0.15) spawnParticles('debris0',this.x+Math.random()*32, this.y + Math.random()*10); 
