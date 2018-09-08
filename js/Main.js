@@ -61,7 +61,7 @@ function drawAll() {
 	} else if (gameIsRunning) {
 		cameraPan();
 		drawWorld();
-		drawWaterTiles();
+		drawAnimatedTiles();
 		drawAndRemoveAllObjects();
 		drawAllAnimals();
 		maxAxeProjectile.draw(20,20);

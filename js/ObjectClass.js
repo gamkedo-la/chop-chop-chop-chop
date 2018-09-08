@@ -28,6 +28,9 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex,hiddenTile) 
 	this.remove = false;
 
 	this.draw = function() {
+		if (worldGrid[this.arrayIndex] != TILE_REPLACE_OBJECT) {
+			return;
+		}
 		
 		var xoffset = 0; // optionally vibrate a bit after being hit
 		if (this.pendingShakes) { 
@@ -59,8 +62,6 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex,hiddenTile) 
 				if (Math.random()<0.15) spawnParticles('debris1',this.x+Math.random()*32, this.y + Math.random()*10); 
 				if (Math.random()<0.15) spawnParticles('debris2',this.x+Math.random()*32, this.y + Math.random()*10); 
 			}
-
-
 			spawnProperRemnants(this.tileType,this.arrayIndex, this.hiddenTile);
 			this.remove = true;
 		}

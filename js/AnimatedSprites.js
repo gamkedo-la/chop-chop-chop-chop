@@ -32,38 +32,6 @@ function makeAnimatedSprites() {
 		animationColFrames: 4,
 		framesUntilNext: 2,
 	});
-	waterfallBottomLeft = new AnimatedSpriteClass({
-		name: "waterfallBL",
-		spriteSheet: gamePics.waterfallBottomLeftSpritesheet,
-		animationColFrames: 3,
-		framesUntilNext: 12,
-	});
-	waterfallBottomCenter = new AnimatedSpriteClass({
-		name: "waterfallBC",
-		spriteSheet: gamePics.waterfallBottomCenterSpritesheet,
-		animationColFrames: 3,
-		framesUntilNext: 12,
-	});
-	waterfallBottomRight = new AnimatedSpriteClass({
-		name: "waterfallBR",
-		spriteSheet: gamePics.waterfallBottomRightSpritesheet,
-		animationColFrames: 3,
-		framesUntilNext: 12,
-	});
-	placeholderDeathCatMeander = new AnimatedSpriteClass({
-		name: "deathCat",
-		spriteSheet: gamePics.placeholderDeathCatMeanderSheet,
-		animationRowFrames: 1,
-		animationColFrames: 2,
-		framesUntilNext: 25,
-	});
-	stebsBird = new AnimatedSpriteClass({
-		name: "stebsBird",
-		spriteSheet: gamePics.stebsBird,
-		animationRowFrames: 1,
-		animationColFrames: 2,
-		framesUntilNext: 25,
-	})
 };
 
 function AnimatedSpriteClass(data) {
@@ -84,6 +52,7 @@ function AnimatedSpriteClass(data) {
 	this.x = data.x;
 	this.y = data.y;
 	this.arrayIndex = data.arrayIndex;
+	this.tileType = data.tileType;
 
 	this.setFrame = function(frame) {
 		this.currentFrameIndex = frame;

@@ -28,7 +28,7 @@ function roomTileCoordinate() {
    	var tileY = (levelRow * TILE_H) - cameraPanY;
 
     tileUnderMouse = rowColToArrayIndex(levelCol, levelRow);
-    //console.log("Col: " + levelCol,"Row: " + levelRow,"Type: " +  worldGrid[tileUnderMouse]);
+	console.log("Col: " + levelCol,"Row: " + levelRow,"Type: " +  worldGrid[tileUnderMouse]);
 
     canvasContext.strokeRect(tileX, tileY, TILE_W, TILE_H);
     canvasContext.strokeStyle = 'orange';
@@ -79,29 +79,35 @@ function copyToClipboard() {
 		if (allLevels[currentLevelIndex].layout[i] == 0) {
 			//if ()
 			layoutString += "00" + allLevels[currentLevelIndex].layout[i].toString() + ",";
-		} else if (allLevels[currentLevelIndex].layout[i] == -1) {
+		} else if (allLevels[currentLevelIndex].layout[i] == TILE_EXTEND_COLLISION) {
 			layoutString += "000,";
-		} else if (allLevels[currentLevelIndex].layout[i] == -2) {
+		} else if (allLevels[currentLevelIndex].layout[i] == TILE_STUMP) {
 			layoutString += "200,";
-		} else if (allLevels[currentLevelIndex].layout[i] == -3) {
+		} else if (allLevels[currentLevelIndex].layout[i] == TILE_STUMP_ALT) {
 			layoutString += "201,";
-		} else if (allLevels[currentLevelIndex].layout[i] == -4) {
+		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_WATER) {
 			layoutString += "400,";
-		} else if (allLevels[currentLevelIndex].layout[i] == -5) {
+			} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_WATERFALL) {
+			for (var j = 0; j < animatedTileList.length; j++) {
+				if (animatedTileList[j].arrayIndex == i) {
+					var numberPrintOut = animatedTileList[j].tileType;
+				}
+			}
+			layoutString += "" + numberPrintOut + ",";
+		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_OBJECT) {
 			for (var j = 0; j < objectList.length; j++) {
 				if (objectList[j].arrayIndex == i) {
 					var numberPrintOut = objectList[j].tileType;
 				}
 			}
 			layoutString += "" + numberPrintOut + ",";
-		} else if (allLevels[currentLevelIndex].layout[i] == -6) {
+		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_ANIMAL) {
 			for (var k = 0; k < animalList.length; k++) {
 				if (animalList[k].arrayIndex == i) {
 					var numberPrintOut = animalList[k].tileType;
 				}
 			}
 			layoutString += "" + numberPrintOut + ",";
-
 		} else {
 			layoutString += allLevels[currentLevelIndex].layout[i] + ",";
 		}

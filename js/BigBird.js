@@ -1,6 +1,13 @@
 var animalList = [];
 
 function bigBird (arrayIndex,worldTileType) {
+	var stebsBird = new AnimatedSpriteClass({
+		name: "stebsBird",
+		spriteSheet: gamePics.stebsBird,
+		animationRowFrames: 1,
+		animationColFrames: 2,
+		framesUntilNext: 25,
+	})
 	this.arrayIndex = arrayIndex;
 	this.tileType = worldTileType;
 	this.home = indexToCenteredXY(arrayIndex);

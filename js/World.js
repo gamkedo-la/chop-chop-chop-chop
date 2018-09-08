@@ -1,5 +1,6 @@
 const TILE_W = TILE_H = 32;
 
+const TILE_REPLACE_WATERFALL = -07;
 const TILE_REPLACE_ANIMAL = -06;
 const TILE_REPLACE_OBJECT = -05;
 const TILE_REPLACE_WATER = -04;
@@ -75,8 +76,11 @@ console.log("Current level: " + currentLevelIndex + " size: " + worldCols + 'x' 
 
 worldGrid = allLevels[currentLevelIndex].layout;
 
-var water;
-var waterTileList = [];
+var water = 0;
+var waterfallBottomLeft = 1;
+var waterfallBottomRight = 2;
+var waterfallBottomCenter = 3;
+var animatedTileList = [];
 
 function drawWorld() {
 	var arrayIndex = 0;
@@ -88,26 +92,8 @@ function drawWorld() {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = worldGrid[arrayIndex];
 			var useImg = worldPics[tileKindHere];
-
 			if (isTileTypeAnimated(tileKindHere)) {
-					var animatedTile = returnAnimatedTileSprites(tileKindHere);
-					var fromWhichRowToAnimate = 1;
-					if (animatedTile == water) {
-						animatedTile = new AnimatedSpriteClass({
-							name: "waterTiles",
-							spriteSheet: gamePics.waterTilesSpritesheet,
-							animationRowFrames: 10,
-							animationColFrames: 3,
-							framesUntilNext: 22,
-							x: drawTileX + TILE_W/2,
-							y: drawTileY + TILE_H/2,
-							arrayIndex: arrayIndex
-						});
-						worldGrid[arrayIndex] = TILE_REPLACE_WATER;
-						waterTileList.push(animatedTile);
-					} else {
-						animatedTile.draw(drawTileX + TILE_W/2,drawTileY+TILE_H/2);
-					}
+				setupAnimatedTiles(tileKindHere,drawTileX,drawTileY,arrayIndex);
 			} else if (isTileTypeAnObject(tileKindHere)) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
 				newObject = new objectClass(useImg, drawTileX, drawTileY,
@@ -119,6 +105,13 @@ function drawWorld() {
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
 				spawnAnimalBasedOnTile(tileKindHere,arrayIndex);
 				worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
+			} else if (tileKindHere == TILE_EXTEND_COLLISION) {
+				for (var i = 0; i < objectList.length; i++) {
+					if (objectList[i].arrayIndex == (arrayIndex + worldCols)) {
+						useImg = worldPics[objectList[i].hiddenTile];
+					}
+				}
+				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 			} else {
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 			}
@@ -181,6 +174,70 @@ function isTileTypeAnimated(tileType) {
 	}
 }
 
+function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
+	var animatedTile = returnAnimatedTileSprites(tileType);
+	var fromWhichRowToAnimate = 1;
+	switch (animatedTile) {
+		case water:
+			animatedTile = new AnimatedSpriteClass({
+				name: "waterTiles",
+				spriteSheet: gamePics.waterTilesSpritesheet,
+				animationRowFrames: 10,
+				animationColFrames: 3,
+				framesUntilNext: 22,
+				x: drawTileX + TILE_W/2,
+				y: drawTileY + TILE_H/2,
+				arrayIndex: arrayIndex,
+				tileType: TILE_WATER
+			});
+			worldGrid[arrayIndex] = TILE_REPLACE_WATER;
+			animatedTileList.push(animatedTile);
+			break;
+		case waterfallBottomLeft:
+			animatedTile = new AnimatedSpriteClass({
+				name: "waterfallBL",
+				spriteSheet: gamePics.waterfallBottomLeftSpritesheet,
+				animationColFrames: 3,
+				framesUntilNext: 12,
+				x: drawTileX + TILE_W/2,
+				y: drawTileY + TILE_H/2,
+				arrayIndex: arrayIndex,
+				tileType: TILE_WATERFALL_BOTTOM_LEFT
+			});
+			worldGrid[arrayIndex] = TILE_REPLACE_WATERFALL;
+			animatedTileList.push(animatedTile);
+			break;
+		case waterfallBottomCenter:
+				animatedTile = new AnimatedSpriteClass({
+				name: "waterfallBC",
+				spriteSheet: gamePics.waterfallBottomCenterSpritesheet,
+				animationColFrames: 3,
+				framesUntilNext: 12,
+				x: drawTileX + TILE_W/2,
+				y: drawTileY + TILE_H/2,
+				arrayIndex: arrayIndex,
+				tileType: TILE_WATERFALL_BOTTOM_CENTER
+			});
+			worldGrid[arrayIndex] = TILE_REPLACE_WATERFALL;
+			animatedTileList.push(animatedTile);
+			break;
+		case waterfallBottomRight:
+			animatedTile = new AnimatedSpriteClass({
+				name: "waterfallBR",
+				spriteSheet: gamePics.waterfallBottomRightSpritesheet,
+				animationColFrames: 3,
+				framesUntilNext: 12,
+				x: drawTileX + TILE_W/2,
+				y: drawTileY + TILE_H/2,
+				arrayIndex: arrayIndex,
+				tileType: TILE_WATERFALL_BOTTOM_RIGHT
+			});
+			worldGrid[arrayIndex] = TILE_REPLACE_WATERFALL;
+			animatedTileList.push(animatedTile);
+			break;
+	}
+}
+
 function isTileTypeAnAnimal(tileType) {
 	switch (tileType) {
 		case TILE_PLACEHOLDER_DEATH_CAT:
@@ -210,12 +267,6 @@ function addTilesForCollisionBasedOnTileType(tileType, x, y) {
 		case TILE_SMALL_TREE_ALT:
 			worldGrid[arrayIndex] = TILE_REPLACE_OBJECT;
 			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_COLLISION;
-			break;
-		case TILE_STUMP:
-			worldGrid[arrayIndex] = TILE_STUMP;
-			break;
-		case TILE_STUMP_ALT:
-			worldGrid[arrayIndex] = TILE_STUMP_ALT;
 			break;
 	}
 }
@@ -293,18 +344,24 @@ function determineWaterTileSurroundings(arrayIndex) {
 	}
 }
 
-function drawWaterTiles() {
-	for (var i = 0; i < waterTileList.length; i++) {
-		var fromWhichRowToAnimate = determineWaterTileSurroundings(waterTileList[i].arrayIndex);
-		if (worldGrid[waterTileList[i].arrayIndex] == TILE_REPLACE_WATER) {
-			waterTileList[i].draw(waterTileList[i].x,waterTileList[i].y, fromWhichRowToAnimate,
-				false,false,
-				0,0,0,
-				1,false,1,1,
-				true);
+function drawAnimatedTiles() {
+	for (var i = 0; i < animatedTileList.length; i++) {
+		var fromWhichRowToAnimate = 1;
+		if (animatedTileList[i].tileType == TILE_WATER) {
+			fromWhichRowToAnimate = determineWaterTileSurroundings(animatedTileList[i].arrayIndex);
+			animatedTileList[i].draw(animatedTileList[i].x,animatedTileList[i].y, fromWhichRowToAnimate,
+			false,false,
+			0,0,0,
+			1,false,1,1,
+			true);
 		} else {
-			// don't draw it
+			animatedTileList[i].draw(animatedTileList[i].x,animatedTileList[i].y, fromWhichRowToAnimate,
+			false,false,
+			0,0,0,
+			1,false,1,1,
+			false);
 		}
+		
 	}
 }
 

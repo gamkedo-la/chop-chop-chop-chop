@@ -1,6 +1,13 @@
 var animalList = [];
 
 function deathCat (arrayIndex,worldTileType) {
+	var placeholderDeathCatMeander = new AnimatedSpriteClass({
+		name: "deathCat",
+		spriteSheet: gamePics.placeholderDeathCatMeanderSheet,
+		animationRowFrames: 1,
+		animationColFrames: 2,
+		framesUntilNext: 25,
+	});
 	this.arrayIndex = arrayIndex;
 	this.tileType = worldTileType;
 	this.home = indexToCenteredXY(arrayIndex);

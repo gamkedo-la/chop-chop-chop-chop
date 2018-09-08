@@ -23,7 +23,7 @@ function loadImages() {
         { varName: "debris2", theFile: "debris2.png"},
 
         //World Tile Pics
-        { worldType: TILE_EXTEND_COLLISION, theFile: "nothing.png" },
+        { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" },
         { worldType: TILE_NOTHING, theFile: "nothing.png" },
         { worldType: TILE_SMALL_TREE, theFile: "tree1.png" },
         { worldType: TILE_SMALL_TREE_ALT, theFile: "tree2.png" }, 
@@ -36,7 +36,7 @@ function loadImages() {
         { worldType: TILE_FLOWER, theFile: "flowers.png" },
         { worldType: TILE_WEEDS, theFile: "weeds.png" },
         { worldType: TILE_SMALL_ROCK, theFile: "rock.png" },
-        { worldType: TILE_WATER, theFile: "clear.png" }, // clear = animated and is draw differently
+        { worldType: TILE_WATER, theFile: "water.png" },
         { worldType: TILE_REPLACE_WATER, theFile: "nothing.png" },
         { worldType: TILE_CLIFF_TOP_LEFT, theFile: "cliff_top_left.png" },
         { worldType: TILE_CLIFF_TOP, theFile: "cliff_top.png" }, 
@@ -62,9 +62,10 @@ function loadImages() {
         { worldType: TILE_PIT_BOTTOM_LEFT, theFile: "pit_bottom_left.png" }, 
         { worldType: TILE_PIT_BOTTOM, theFile: "pit_bottom.png" }, 
         { worldType: TILE_PIT_BOTTOM_RIGHT, theFile: "pit_bottom_right.png" },
-        { worldType: TILE_WATERFALL_BOTTOM_LEFT, theFile: "clear.png" }, // clear = animated and is draw differently
-        { worldType: TILE_WATERFALL_BOTTOM_RIGHT, theFile: "clear.png" }, // clear = animated and is draw differently
-        { worldType: TILE_WATERFALL_BOTTOM_CENTER, theFile: "clear.png" }, // clear = animated and is draw differently 
+        { worldType: TILE_WATERFALL_BOTTOM_LEFT, theFile: "waterfall_bottom_left.png" },
+        { worldType: TILE_WATERFALL_BOTTOM_RIGHT, theFile: "waterfall_bottom_right.png" },
+        { worldType: TILE_WATERFALL_BOTTOM_CENTER, theFile: "waterfall_bottom_center.png" },
+        { worldType: TILE_REPLACE_WATERFALL, theFile: "clear.png" },
         { worldType: TILE_MUSHROOM, theFile: "mushrooms.png" },
         { worldType: TILE_THORN, theFile: "thorn.png" },
         { worldType: TILE_LEAVES, theFile: "leaves.png" },
@@ -72,7 +73,7 @@ function loadImages() {
         { worldType: TILE_PILE_OF_LEAVES_2, theFile: "pile_of_leaves_2.png" },
         { worldType: TILE_PILE_OF_LEAVES_3, theFile: "pile_of_leaves_3.png" },
         { worldType: TILE_PUMPKIN, theFile: "pumpkin.png" },
-        { worldType: TILE_JACK_O, theFile: "jackolatern.png" },
+        { worldType: TILE_JACK_O, theFile: "jackolatern.png" }
     ];
 
     picsToLoad = imageList.length;
