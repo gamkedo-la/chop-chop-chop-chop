@@ -1,6 +1,8 @@
 var animalList = [];
 
-function bigBird (arrayIndex) {
+function bigBird (arrayIndex,worldTileType) {
+	this.arrayIndex = arrayIndex;
+	this.tileType = worldTileType;
 	this.home = indexToCenteredXY(arrayIndex);
 	this.img = stebsBird;
 	this.width = this.img.spriteSheet.width/this.img.animationColFrames;

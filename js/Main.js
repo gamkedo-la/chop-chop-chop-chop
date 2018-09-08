@@ -48,7 +48,7 @@ function loadingDoneSoStartGame() {
 
 function update() {
     drawAll();
-    if (tileEditor) {
+    if (worldEditor) {
         roomTileCoordinate();
   	}
     framesFromGameStart++

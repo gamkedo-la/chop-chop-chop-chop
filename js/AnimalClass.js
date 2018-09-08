@@ -7,6 +7,8 @@ function animalClass (newAnimal) {
 	this.width = newAnimal.width;
 	this.height = newAnimal.height;
 	this.speed = newAnimal.speed;
+	this.arrayIndex = newAnimal.arrayIndex;
+	this.tileType = newAnimal.tileType;
 	this.detectionRadius = newAnimal.detectionRadius;
 	this.homeRadius = newAnimal.homeRadius;
 	this.waitingTimer = newAnimal.waitingTimer; // frames
@@ -37,11 +39,19 @@ function animalClass (newAnimal) {
 		colliderWidth,colliderHeight,colliderOffsetX,colliderOffsetY);
 
 	this.draw = function () {
+		if (worldGrid[this.arrayIndex] != TILE_REPLACE_ANIMAL) {
+			return;
+		}
 		if (this.meander || this.playerDetected || this.waiting) {
 			this.img.draw(this.x,this.y);
-	  }
+		}
+		if (debug || worldEditor) {
+			canvasContext.strokeStyle = "teal";
+			canvasContext.lineWidth = 1;
+			canvasContext.strokeRect(this.home.x - TILE_W/2, this.home.y - TILE_H/2, TILE_W, TILE_H);
+			colorText("Home", this.home.x, this.home.y, "teal", "Verdana", "center");
+		}
 		if (debug) {
-			drawRect(this.home.x, this.home.y,1,1, "teal");
 			this.hitbox.draw("green");
 			outlineCircle(this.x,this.y, this.detectionRadius, "green",1);
 			outlineCircle(this.home.x,this.home.y, this.homeRadius, "blue",1);
@@ -50,6 +60,9 @@ function animalClass (newAnimal) {
 
 
 	this.move = function() {
+		if (worldGrid[this.arrayIndex] != TILE_REPLACE_ANIMAL) {
+			return;
+		}
 		this.detectionRadiusTrigger();
 		this.homeRadiusTrigger();
 		var closeToHome = this.speed;
@@ -189,14 +202,14 @@ function animalClass (newAnimal) {
 	this.tileTypeCollidable = function(tileType) {
 		if (this.collidableTiles == []) {
 			return false;
-		} else if ((this.collidableTiles.indexOf(worldGrid[tileType])) > -1) {
+		} else if (this.collidableTiles.indexOf(tileType) > -1) {
 			return true;
 		}
 	}
 } // end of animal class
 
 var standardCollisionTiles = [TILE_EXTEND_COLLISION,TILE_SMALL_TREE,
-	TILE_SMALL_TREE_ALT,TILE_REPLACE_WATER,
+	TILE_SMALL_TREE_ALT,TILE_REPLACE_OBJECT,TILE_REPLACE_WATER,
 	TILE_CLIFF_TOP_LEFT,TILE_CLIFF_TOP,TILE_CLIFF_TOP_RIGHT,
 	TILE_CLIFF_LEFT,TILE_CLIFF_RIGHT,
 	TILE_CLIFF_BOTTOM_LEFT,TILE_CLIFF_BOTTOM,TILE_CLIFF_BOTTOM_RIGHT,

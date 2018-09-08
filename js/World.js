@@ -1,5 +1,7 @@
 const TILE_W = TILE_H = 32;
 
+const TILE_REPLACE_ANIMAL = -06;
+const TILE_REPLACE_OBJECT = -05;
 const TILE_REPLACE_WATER = -04;
 const TILE_STUMP_ALT = -03;
 const TILE_STUMP = -02;
@@ -7,18 +9,18 @@ const TILE_EXTEND_COLLISION = -01;
 
 const TILE_NOTHING = 000;
 
-// Ground Objects/Water
-const TILE_FLOWER = 102;
-const TILE_WEEDS = 103;
-const TILE_SMALL_ROCK = 104;
-const TILE_MUSHROOM = 106;
-const TILE_THORN = 107;
-const TILE_LEAVES = 108;
-const TILE_PILE_OF_LEAVES = 109;
-const TILE_PILE_OF_LEAVES_2 = 110;
-const TILE_PILE_OF_LEAVES_3 = 111;
-const TILE_PUMPKIN = 112;
-const TILE_JACK_O = 113;
+// Ground Objects
+const TILE_FLOWER = 100;
+const TILE_WEEDS = 101;
+const TILE_SMALL_ROCK = 102;
+const TILE_MUSHROOM = 103;
+const TILE_THORN = 104;
+const TILE_LEAVES = 105;
+const TILE_PILE_OF_LEAVES = 106;
+const TILE_PILE_OF_LEAVES_2 = 107;
+const TILE_PILE_OF_LEAVES_3 = 108;
+const TILE_PUMPKIN = 109;
+const TILE_JACK_O = 110;
 
 //Trees
 const TILE_SMALL_TREE = 200;
@@ -108,16 +110,15 @@ function drawWorld() {
 					}
 			} else if (isTileTypeAnObject(tileKindHere)) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
-
 				newObject = new objectClass(useImg, drawTileX, drawTileY,
 					useImg.width, useImg.height,
 					tileKindHere, arrayIndex, worldGrid[arrayIndex - worldCols]);
-				worldGrid[arrayIndex] = TILE_NOTHING;
+				worldGrid[arrayIndex] = TILE_REPLACE_OBJECT;
 				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX, drawTileY);
 				objectList.push(newObject);
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
 				spawnAnimalBasedOnTile(tileKindHere,arrayIndex);
-				worldGrid[arrayIndex] = TILE_NOTHING;
+				worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
 			} else {
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 			}
@@ -192,11 +193,11 @@ function isTileTypeAnAnimal(tileType) {
 function spawnAnimalBasedOnTile(tileType, arrayIndex) {
 	switch (tileType) {
 		case TILE_PLACEHOLDER_DEATH_CAT:
-			animal = new deathCat(arrayIndex);
+			animal = new deathCat(arrayIndex,tileType);
 			animalList.push(animal);
 			break;
 		case TILE_STEBS_BIRD:
-			animal = new bigBird(arrayIndex);
+			animal = new bigBird(arrayIndex,tileType);
 			animalList.push(animal);
 			break;
 	}
@@ -207,8 +208,14 @@ function addTilesForCollisionBasedOnTileType(tileType, x, y) {
 	switch (tileType) {
 		case TILE_SMALL_TREE:
 		case TILE_SMALL_TREE_ALT:
-			worldGrid[arrayIndex] = TILE_EXTEND_COLLISION;
+			worldGrid[arrayIndex] = TILE_REPLACE_OBJECT;
 			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_COLLISION;
+			break;
+		case TILE_STUMP:
+			worldGrid[arrayIndex] = TILE_STUMP;
+			break;
+		case TILE_STUMP_ALT:
+			worldGrid[arrayIndex] = TILE_STUMP_ALT;
 			break;
 	}
 }
@@ -289,11 +296,15 @@ function determineWaterTileSurroundings(arrayIndex) {
 function drawWaterTiles() {
 	for (var i = 0; i < waterTileList.length; i++) {
 		var fromWhichRowToAnimate = determineWaterTileSurroundings(waterTileList[i].arrayIndex);
-		waterTileList[i].draw(waterTileList[i].x,waterTileList[i].y, fromWhichRowToAnimate,
-			false,false,
-			0,0,0,
-			1,false,1,1,
-			true);
+		if (worldGrid[waterTileList[i].arrayIndex] == TILE_REPLACE_WATER) {
+			waterTileList[i].draw(waterTileList[i].x,waterTileList[i].y, fromWhichRowToAnimate,
+				false,false,
+				0,0,0,
+				1,false,1,1,
+				true);
+		} else {
+			// don't draw it
+		}
 	}
 }
 

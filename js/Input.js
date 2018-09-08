@@ -2,24 +2,37 @@ const LEFT_ARROW_KEY = 37;
 const UP_ARROW_KEY = 38;
 const RIGHT_ARROW_KEY = 39;
 const DOWN_ARROW_KEY = 40;
-
 const A_KEY = 65;
 const W_KEY = 87;
 const D_KEY = 68;
 const S_KEY = 83;
 
+const ZERO_KEY = 48;
+const ONE_KEY = 49;
+const TWO_KEY = 50;
+const THREE_KEY = 51;
+const FOUR_KEY = 52;
+const FIVE_KEY = 53;
+const SIX_KEY = 54;
+const SEVEN_KEY = 55;
+const EIGHT_KEY = 56;
+const NINE_KEY = 57;
+
 const O_KEY = 79; // for debug
 const P_KEY = 80; // for pause
 
-const KEY_LEFT_SHIFT = 16;
+const KEY_TILDE = 192; // Access World Editor
+const X_KEY = 88; // for increasing currentSetIndex in World Editor
+const Z_KEY = 90; // for decreasing currentSetIndex in World Editor
+
+const KEY_LEFT_SHIFT = 16; 
 const SPACEBAR = 32;
 const NUMBER_PAD_PLUS = 107; // to raise overall audio volume
 const NUMBER_PAD_MINUS = 109; // to lower overall audio volume
-const KEY_PLUS = 187;
-const KEY_MINUS = 189;
-const KEY_TILDE = 192;
-const KEY_LEFT_BRACKET = 219;
-const KEY_RIGHT_BRACKET = 221;
+const KEY_PLUS = 187; // to raise Music volume
+const KEY_MINUS = 189; // to lower Music volume
+const KEY_RIGHT_BRACKET = 221; // to raise SFX volume
+const KEY_LEFT_BRACKET = 219; // to lower SFX volume
 
 var mouseX = 0;
 var mouseY = 0;
@@ -118,13 +131,65 @@ function keyPressed(evt) {
 			toggleDebug();
 		break;
 		case KEY_TILDE:
-			tileEditor = !tileEditor;
-			console.log("tileEditor = " + tileEditor);
+			worldEditor = !worldEditor;
+			if (worldEditor) console.log("worldEditor ON!");
+			if (!worldEditor) console.log("worldEditor OFF...");
+		break;
+		case X_KEY:
+			if (worldEditor) {
+				currentSetIndex++;
+				if (worldPics[currentlySelectedSet[currentSetIndex]] == undefined) {
+					currentSetIndex = 0;
+				}
+			}
+		break;
+		case Z_KEY:
+			if (worldEditor) {
+				currentSetIndex--;
+				if (currentSetIndex < 0) {
+					currentSetIndex = 0;
+				}
+			}
 		break;
 		case KEY_LEFT_SHIFT:
 			copyToClipboard();
 		break;
-		
+		case ZERO_KEY:
+			if (worldEditor) {
+				pickASet(nothingSet);
+				console.log("Nothing tile selected");
+			}
+		break;
+		case ONE_KEY:
+			if (worldEditor) {
+				pickASet(groundSet);
+				console.log("groundSet selected");
+			}
+		break;
+		case TWO_KEY:
+			if (worldEditor) {
+				pickASet(treeSet);
+				console.log("treeSet selected");
+			}
+		break;
+		case THREE_KEY:
+			if (worldEditor) {
+				pickASet(cliffSet);
+				console.log("cliffSet selected");
+			}
+		break;
+		case FOUR_KEY:
+			if (worldEditor) {
+				pickASet(waterSet);
+				console.log("waterSet selected");
+			}
+		break;
+		case EIGHT_KEY:
+			if (worldEditor) {
+				pickASet(animalSet);
+				console.log("animalSet selected");
+			}
+		break;
     }
 };
 

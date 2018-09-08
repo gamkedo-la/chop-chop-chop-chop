@@ -1,6 +1,8 @@
 var animalList = [];
 
-function deathCat (arrayIndex) {
+function deathCat (arrayIndex,worldTileType) {
+	this.arrayIndex = arrayIndex;
+	this.tileType = worldTileType;
 	this.home = indexToCenteredXY(arrayIndex);
 	this.img = placeholderDeathCatMeander;
 	this.width = this.img.spriteSheet.width/this.img.animationColFrames;
