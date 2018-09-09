@@ -39,7 +39,7 @@ function loadingDoneSoStartGame() {
 	}
 	gameUpdate = setInterval(update, 1000 / framesPerSecond);
 	player = new playerClass();
-	backgroundMusic.play();
+	//backgroundMusic.play();
 };
 
 /*function startGame() {

@@ -1,5 +1,5 @@
 var animalList = [];
-
+var playing = false;
 function animalClass (newAnimal) {
 	this.animal = newAnimal;
 	this.home = newAnimal.home;
@@ -67,6 +67,16 @@ function animalClass (newAnimal) {
 		this.homeRadiusTrigger();
 		var closeToHome = this.speed;
 		if (this.playerDetected) { // chasing player
+			if (!playing) {
+				backgroundMusic.pause();
+				backgroundMusic.src = "music/animal_chase_v3" + sourceExtension;
+				backgroundMusic.play();
+				playing = true;
+			}
+			var buffer = .04;
+			if (backgroundMusic.currentTime > backgroundMusic.duration - buffer) {
+				backgroundMusic.play();
+			}
 			if (this.img.data.name === "deathCat" && this.playerDetectedSoundPlayed === false) {
 				deathMeow.play();
 				this.playerDetectedSoundPlayed = true;
