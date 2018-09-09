@@ -25,20 +25,46 @@ function loadImages() {
         //World Tile Pics
         { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" },
         { worldType: TILE_NOTHING, theFile: "nothing.png" },
-        { worldType: TILE_SMALL_TREE, theFile: "tree1.png" },
-        { worldType: TILE_SMALL_TREE_ALT, theFile: "tree2.png" },
-        { worldType: TILE_REPLACE_TREE, theFile: "nothing.png" }, 
-        { worldType: TILE_STUMP, theFile: "stump1.png" },
-        { worldType: TILE_STUMP_ALT, theFile: "stump2.png" },
-        { worldType: TILE_REPLACE_STUMP, theFile: "nothing.png" },
-        { worldType: TILE_STEBS_BIRD, theFile: "stebsbird.png" },
-        { worldType: TILE_PLACEHOLDER_DEATH_CAT, theFile: "placeholderDeathCatMeanderSheet1.png" },
-        { worldType: TILE_REPLACE_ANIMAL, theFile: "nothing.png" },
+
         { worldType: TILE_FLOWER, theFile: "flowers.png" },
         { worldType: TILE_WEEDS, theFile: "weeds.png" },
         { worldType: TILE_SMALL_ROCK, theFile: "rock.png" },
+        { worldType: TILE_MUSHROOM, theFile: "mushrooms.png" },
+        { worldType: TILE_THORN, theFile: "thorn.png" },
+        { worldType: TILE_LEAVES, theFile: "leaves.png" },
+        { worldType: TILE_PILE_OF_LEAVES, theFile: "pile_of_leaves.png" },
+        { worldType: TILE_PILE_OF_LEAVES_2, theFile: "pile_of_leaves_2.png" },
+        { worldType: TILE_PILE_OF_LEAVES_3, theFile: "pile_of_leaves_3.png" },
+        { worldType: TILE_PUMPKIN, theFile: "pumpkin.png" },
+        { worldType: TILE_JACK_O, theFile: "jackolatern.png" },
+        { worldType: TILE_ROCK_PILE_ROUGH, theFile: "path_cobble_rough_01.png" },
+        { worldType: TILE_ROCK_PILE_ROUGH_ALT, theFile: "path_cobble_rough_02.png" },
+        { worldType: TILE_ROCK_PILE_SMOOTH, theFile: "path_cobble_smooth_01.png" },
+        { worldType: TILE_ROCK_PILE_SMOOTH_ALT, theFile: "path_cobble_smooth_02.png" },
+        { worldType: TILE_PATH, theFile: "path_dirt_side.png" },
+        { worldType: TILE_PATH_CORNER_OUT, theFile: "path_dirt_cornerOUT.png" },
+        { worldType: TILE_PATH_CORNER_IN, theFile: "path_dirt_cornerIN.png" },
+
+        { worldType: TILE_SMALL_TREE, theFile: "tree1.png" },
+        { worldType: TILE_SMALL_TREE_ALT, theFile: "tree2.png" },
+        { worldType: TILE_REPLACE_TREE, theFile: "nothing.png" }, 
+
+        { worldType: TILE_STUMP, theFile: "stump1.png" },
+        { worldType: TILE_STUMP_ALT, theFile: "stump2.png" },
+        { worldType: TILE_REPLACE_STUMP, theFile: "nothing.png" },
+
         { worldType: TILE_WATER, theFile: "water.png" },
         { worldType: TILE_REPLACE_WATER, theFile: "nothing.png" },
+
+        { worldType: TILE_WATERFALL_BOTTOM_LEFT, theFile: "waterfall_bottom_left.png" },
+        { worldType: TILE_WATERFALL_BOTTOM_RIGHT, theFile: "waterfall_bottom_right.png" },
+        { worldType: TILE_WATERFALL_BOTTOM_CENTER, theFile: "waterfall_bottom_center.png" },
+        { worldType: TILE_REPLACE_WATERFALL, theFile: "clear.png" },
+
+        { worldType: TILE_STEBS_BIRD, theFile: "stebsbird.png" },
+        { worldType: TILE_PLACEHOLDER_DEATH_CAT, theFile: "placeholderDeathCatMeanderSheet1.png" },
+        { worldType: TILE_REPLACE_ANIMAL, theFile: "nothing.png" },
+
         { worldType: TILE_CLIFF_TOP_LEFT, theFile: "cliff_top_left.png" },
         { worldType: TILE_CLIFF_TOP, theFile: "cliff_top.png" }, 
         { worldType: TILE_CLIFF_TOP_RIGHT, theFile: "cliff_top_right.png" }, 
@@ -62,19 +88,7 @@ function loadImages() {
         { worldType: TILE_PIT_RIGHT, theFile: "pit_right.png" }, 
         { worldType: TILE_PIT_BOTTOM_LEFT, theFile: "pit_bottom_left.png" }, 
         { worldType: TILE_PIT_BOTTOM, theFile: "pit_bottom.png" }, 
-        { worldType: TILE_PIT_BOTTOM_RIGHT, theFile: "pit_bottom_right.png" },
-        { worldType: TILE_WATERFALL_BOTTOM_LEFT, theFile: "waterfall_bottom_left.png" },
-        { worldType: TILE_WATERFALL_BOTTOM_RIGHT, theFile: "waterfall_bottom_right.png" },
-        { worldType: TILE_WATERFALL_BOTTOM_CENTER, theFile: "waterfall_bottom_center.png" },
-        { worldType: TILE_REPLACE_WATERFALL, theFile: "clear.png" },
-        { worldType: TILE_MUSHROOM, theFile: "mushrooms.png" },
-        { worldType: TILE_THORN, theFile: "thorn.png" },
-        { worldType: TILE_LEAVES, theFile: "leaves.png" },
-        { worldType: TILE_PILE_OF_LEAVES, theFile: "pile_of_leaves.png" },
-        { worldType: TILE_PILE_OF_LEAVES_2, theFile: "pile_of_leaves_2.png" },
-        { worldType: TILE_PILE_OF_LEAVES_3, theFile: "pile_of_leaves_3.png" },
-        { worldType: TILE_PUMPKIN, theFile: "pumpkin.png" },
-        { worldType: TILE_JACK_O, theFile: "jackolatern.png" }
+        { worldType: TILE_PIT_BOTTOM_RIGHT, theFile: "pit_bottom_right.png" }
     ];
 
     picsToLoad = imageList.length;

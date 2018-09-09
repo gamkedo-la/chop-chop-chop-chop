@@ -2,16 +2,16 @@ var worldEditor = false;
 var tileUnderMouse = null;
 
 var nothingSet = [000];
-var groundSet = range(100, startAt = 100); // 100 to 199
-var treeSet = range(100, startAt = 200); // 200 to 299
-var cliffSet = range(100, startAt = 300); // 300 to 399
-var waterSet = range(100, startAt = 400); // 400 to 499
-var animalSet = range(100, startAt = 800);  // 800 to 899
+var groundSet = arrayWithRange(100, startAt = 100); // 100 to 199
+var treeSet = arrayWithRange(100, startAt = 200); // 200 to 299
+var cliffSet = arrayWithRange(100, startAt = 300); // 300 to 399
+var waterSet = arrayWithRange(100, startAt = 400); // 400 to 499
+var animalSet = arrayWithRange(100, startAt = 800);  // 800 to 899
 
 var currentlySelectedSet = nothingSet;
 var currentSetIndex = 0;
 
-function range(size, startAt = 0) {
+function arrayWithRange(size, startAt = 0) {
     return [...Array(size).keys()].map(i => i + startAt);
 }
 

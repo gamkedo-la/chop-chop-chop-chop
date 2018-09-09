@@ -255,6 +255,10 @@ function isTileTypeCollidable(tileType) {
 		case TILE_PIT_BOTTOM_LEFT:
 		case TILE_PIT_BOTTOM:
 		case TILE_PIT_BOTTOM_RIGHT:
+		case TILE_ROCK_PILE_ROUGH:
+		case TILE_ROCK_PILE_ROUGH_ALT:
+		case TILE_ROCK_PILE_SMOOTH:
+		case TILE_ROCK_PILE_SMOOTH_ALT:
 			return true;
 			break;
 	}
