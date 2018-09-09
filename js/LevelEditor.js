@@ -28,7 +28,7 @@ function roomTileCoordinate() {
    	var tileY = (levelRow * TILE_H) - cameraPanY;
 
     tileUnderMouse = rowColToArrayIndex(levelCol, levelRow);
-	console.log("Col: " + levelCol,"Row: " + levelRow,"Type: " +  worldGrid[tileUnderMouse]);
+	//console.log("Col: " + levelCol,"Row: " + levelRow,"Type: " +  worldGrid[tileUnderMouse]);
 
     canvasContext.strokeRect(tileX, tileY, TILE_W, TILE_H);
     canvasContext.strokeStyle = 'orange';
@@ -69,6 +69,7 @@ function editTileOnMouseClick() {
 
 function copyToClipboard() {
 	var layoutString = "";
+	var numberPrintOut;
 	for(var i=0; i<allLevels[currentLevelIndex].layout.length; i++) {
 		if (i%allLevels[currentLevelIndex].columns==0 && i>0) {
 			layoutString += "\n" + "	";
@@ -81,30 +82,39 @@ function copyToClipboard() {
 			layoutString += "00" + allLevels[currentLevelIndex].layout[i].toString() + ",";
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_EXTEND_COLLISION) {
 			layoutString += "000,";
-		} else if (allLevels[currentLevelIndex].layout[i] == TILE_STUMP) {
-			layoutString += "200,";
-		} else if (allLevels[currentLevelIndex].layout[i] == TILE_STUMP_ALT) {
-			layoutString += "201,";
+		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_STUMP) {
+			for (var j = 0; j < objectList.length; j++) {
+				if (objectList[j].arrayIndex == i) {
+					var stumpType = objectList[j].tileType;
+					numberPrintOut;
+					if (stumpType == TILE_STUMP) {
+						numberPrintOut = TILE_SMALL_TREE;
+					} else if (stumpType == TILE_STUMP_ALT) {
+						numberPrintOut = TILE_SMALL_TREE_ALT;
+					}
+				}
+			}
+			layoutString += "" + numberPrintOut + ",";
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_WATER) {
 			layoutString += "400,";
 			} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_WATERFALL) {
 			for (var j = 0; j < animatedTileList.length; j++) {
 				if (animatedTileList[j].arrayIndex == i) {
-					var numberPrintOut = animatedTileList[j].tileType;
+					numberPrintOut = animatedTileList[j].tileType;
 				}
 			}
 			layoutString += "" + numberPrintOut + ",";
-		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_OBJECT) {
+		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_TREE) {
 			for (var j = 0; j < objectList.length; j++) {
 				if (objectList[j].arrayIndex == i) {
-					var numberPrintOut = objectList[j].tileType;
+					numberPrintOut = objectList[j].tileType;
 				}
 			}
 			layoutString += "" + numberPrintOut + ",";
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_ANIMAL) {
 			for (var k = 0; k < animalList.length; k++) {
 				if (animalList[k].arrayIndex == i) {
-					var numberPrintOut = animalList[k].tileType;
+					numberPrintOut = animalList[k].tileType;
 				}
 			}
 			layoutString += "" + numberPrintOut + ",";

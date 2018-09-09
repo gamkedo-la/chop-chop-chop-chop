@@ -4,6 +4,12 @@ const HIT_SHAKE_SPEED = 0.1; // 0.1=fast, 5=slow
 const HIT_SHAKE_SIZE = 2; // size of wobble
 
 var objectList = [];
+var objects = [TILE_STUMP_ALT,
+TILE_STUMP,
+TILE_SMALL_TREE,
+TILE_SMALL_TREE_ALT,
+TILE_REPLACE_TREE,
+TILE_REPLACE_STUMP]
 
 function objectClass (img,x,y,width,height,worldTileType,arrayIndex,hiddenTile) {
 	this.x = x;
@@ -28,21 +34,21 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex,hiddenTile) 
 	this.remove = false;
 
 	this.draw = function() {
-		if (worldGrid[this.arrayIndex] != TILE_REPLACE_OBJECT) {
+		if ((objects.indexOf(worldGrid[this.arrayIndex]) > -1)) {
+			var xoffset = 0; // optionally vibrate a bit after being hit
+			if (this.pendingShakes) { 
+				xoffset = Math.sin(this.pendingShakes / HIT_SHAKE_SPEED) * HIT_SHAKE_SIZE;
+				this.pendingShakes--;
+			}
+			
+			canvasContext.drawImage(this.img,this.x - this.width/4 + xoffset,this.y - this.height/4 - TILE_H/2);
+			
+			if (this.hasHitbox) {
+				this.hitbox.update(this.x,this.y);
+				if (debug) this.hitbox.draw("red");
+			}
+		} else {
 			return;
-		}
-		
-		var xoffset = 0; // optionally vibrate a bit after being hit
-		if (this.pendingShakes) { 
-			xoffset = Math.sin(this.pendingShakes / HIT_SHAKE_SPEED) * HIT_SHAKE_SIZE;
-			this.pendingShakes--;
-		}
-		
-		canvasContext.drawImage(this.img,this.x - this.width/4 + xoffset,this.y - this.height/4 - TILE_H/2);
-		
-		if (this.hasHitbox) {
-			this.hitbox.update(this.x,this.y);
-			if (debug) this.hitbox.draw("red");
 		}
 	}
 
@@ -66,6 +72,15 @@ function objectClass (img,x,y,width,height,worldTileType,arrayIndex,hiddenTile) 
 			this.remove = true;
 		}
 	}
+
+	this.replaceTiles = function() {
+		if (this.tileType == TILE_SMALL_TREE || this.tileType == TILE_SMALL_TREE_ALT) {
+			worldGrid[this.arrayIndex] = TILE_REPLACE_TREE;
+		} else if (this.tileType == TILE_STUMP || this.tileType == TILE_STUMP_ALT) {
+			worldGrid[this.arrayIndex] = TILE_REPLACE_STUMP;
+		}
+	}
+
 } // end of objectClass
 
 function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {

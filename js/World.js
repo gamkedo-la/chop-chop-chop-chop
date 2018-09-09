@@ -1,9 +1,10 @@
 const TILE_W = TILE_H = 32;
 
-const TILE_REPLACE_WATERFALL = -07;
+const TILE_REPLACE_WATERFALL = -08;
+const TILE_REPLACE_WATER = -07;
 const TILE_REPLACE_ANIMAL = -06;
-const TILE_REPLACE_OBJECT = -05;
-const TILE_REPLACE_WATER = -04;
+const TILE_REPLACE_TREE = -05;
+const TILE_REPLACE_STUMP = -04;
 const TILE_STUMP_ALT = -03;
 const TILE_STUMP = -02;
 const TILE_EXTEND_COLLISION = -01;
@@ -99,8 +100,8 @@ function drawWorld() {
 				newObject = new objectClass(useImg, drawTileX, drawTileY,
 					useImg.width, useImg.height,
 					tileKindHere, arrayIndex, worldGrid[arrayIndex - worldCols]);
-				worldGrid[arrayIndex] = TILE_REPLACE_OBJECT;
 				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX, drawTileY);
+				newObject.replaceTiles();
 				objectList.push(newObject);
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
 				spawnAnimalBasedOnTile(tileKindHere,arrayIndex);
@@ -265,7 +266,6 @@ function addTilesForCollisionBasedOnTileType(tileType, x, y) {
 	switch (tileType) {
 		case TILE_SMALL_TREE:
 		case TILE_SMALL_TREE_ALT:
-			worldGrid[arrayIndex] = TILE_REPLACE_OBJECT;
 			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_COLLISION;
 			break;
 	}
@@ -347,21 +347,25 @@ function determineWaterTileSurroundings(arrayIndex) {
 function drawAnimatedTiles() {
 	for (var i = 0; i < animatedTileList.length; i++) {
 		var fromWhichRowToAnimate = 1;
-		if (animatedTileList[i].tileType == TILE_WATER) {
-			fromWhichRowToAnimate = determineWaterTileSurroundings(animatedTileList[i].arrayIndex);
-			animatedTileList[i].draw(animatedTileList[i].x,animatedTileList[i].y, fromWhichRowToAnimate,
-			false,false,
-			0,0,0,
-			1,false,1,1,
-			true);
+		if (worldGrid[animatedTileList[i].arrayIndex] == TILE_REPLACE_WATER || 
+			worldGrid[animatedTileList[i].arrayIndex] == TILE_REPLACE_WATERFALL) {
+			if (animatedTileList[i].tileType == TILE_WATER) {
+				fromWhichRowToAnimate = determineWaterTileSurroundings(animatedTileList[i].arrayIndex);
+				animatedTileList[i].draw(animatedTileList[i].x,animatedTileList[i].y, fromWhichRowToAnimate,
+				false,false,
+				0,0,0,
+				1,false,1,1,
+				true);
+			} else {
+				animatedTileList[i].draw(animatedTileList[i].x,animatedTileList[i].y, fromWhichRowToAnimate,
+				false,false,
+				0,0,0,
+				1,false,1,1,
+				false);
+			}
 		} else {
-			animatedTileList[i].draw(animatedTileList[i].x,animatedTileList[i].y, fromWhichRowToAnimate,
-			false,false,
-			0,0,0,
-			1,false,1,1,
-			false);
+			// draw nothing
 		}
-		
 	}
 }
 
