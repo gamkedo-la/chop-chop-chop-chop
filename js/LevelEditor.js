@@ -78,15 +78,22 @@ function copyToClipboard() {
 			layoutString += "	";
 		}
 		if (allLevels[currentLevelIndex].layout[i] == 0) {
-			//if ()
 			layoutString += "00" + allLevels[currentLevelIndex].layout[i].toString() + ",";
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_EXTEND_COLLISION) {
-			layoutString += "000,";
-		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_STUMP) {
 			for (var j = 0; j < objectList.length; j++) {
-				if (objectList[j].arrayIndex == i) {
-					var stumpType = objectList[j].tileType;
-					numberPrintOut;
+				if (objectList[j].arrayIndex == (i + worldCols)) {
+					numberPrintOut = objectList[j].hiddenTile;
+					if (numberPrintOut == 0) {
+						layoutString += "000,"
+					} else {
+						layoutString += "" + numberPrintOut + ",";
+					}
+				}
+			}
+		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_STUMP) {
+			for (var k = 0; k < objectList.length; k++) {
+				if (objectList[k].arrayIndex == i) {
+					var stumpType = objectList[k].tileType;
 					if (stumpType == TILE_STUMP) {
 						numberPrintOut = TILE_SMALL_TREE;
 					} else if (stumpType == TILE_STUMP_ALT) {
@@ -98,23 +105,23 @@ function copyToClipboard() {
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_WATER) {
 			layoutString += "400,";
 			} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_WATERFALL) {
-			for (var j = 0; j < animatedTileList.length; j++) {
-				if (animatedTileList[j].arrayIndex == i) {
-					numberPrintOut = animatedTileList[j].tileType;
+			for (var l = 0; l < animatedTileList.length; l++) {
+				if (animatedTileList[l].arrayIndex == i) {
+					numberPrintOut = animatedTileList[l].tileType;
 				}
 			}
 			layoutString += "" + numberPrintOut + ",";
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_TREE) {
-			for (var j = 0; j < objectList.length; j++) {
-				if (objectList[j].arrayIndex == i) {
-					numberPrintOut = objectList[j].tileType;
+			for (var m = 0; m < objectList.length; m++) {
+				if (objectList[m].arrayIndex == i) {
+					numberPrintOut = objectList[m].tileType;
 				}
 			}
 			layoutString += "" + numberPrintOut + ",";
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_ANIMAL) {
-			for (var k = 0; k < animalList.length; k++) {
-				if (animalList[k].arrayIndex == i) {
-					numberPrintOut = animalList[k].tileType;
+			for (var n = 0; n < animalList.length; n++) {
+				if (animalList[n].arrayIndex == i) {
+					numberPrintOut = animalList[n].tileType;
 				}
 			}
 			layoutString += "" + numberPrintOut + ",";

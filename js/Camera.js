@@ -1,13 +1,31 @@
 var cameraPanX = 0;
 var cameraPanY = 0;
 
+var cameraMovementSpeed = 16; // for World Editor
+
 function cameraPan() {
 	var cameraRightBoundary = worldCols * TILE_W - canvas.width;
 	var cameraBottomBoundary = worldRows * TILE_H - canvas.height;
-	var cameraPanXWas = cameraPanX;
-	var cameraPanYWas = cameraPanY;
-	cameraPanX = player.x - canvas.width/2;
-	cameraPanY = player.y - canvas.height/2;
+	if (worldEditor) {
+		var canvasRightBoundary = canvas.width + cameraPanX;
+		var canvasBottomBoundary = canvas.height + cameraPanY;
+		if (mouseCanvasX > (canvasRightBoundary + cameraPanX) - TILE_W) {
+			cameraPanX += cameraMovementSpeed;
+		}
+		if (mouseCanvasX < cameraPanX + TILE_W) {
+			cameraPanX -= cameraMovementSpeed;
+		}
+		if (mouseCanvasY > (canvas.height + cameraPanY) - TILE_W) {
+			cameraPanY += cameraMovementSpeed;
+		}
+		if (mouseCanvasY < cameraPanY + TILE_W) {
+			cameraPanY -= cameraMovementSpeed;
+			console.log(cameraPanY);
+		}
+	} else {
+		cameraPanX = player.x - canvas.width/2;
+		cameraPanY = player.y - canvas.height/2;
+	}
 	if (cameraPanX < 0) {
 		cameraPanX = 0;
 	}

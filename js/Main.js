@@ -11,6 +11,7 @@ var player;
 
 var debug = false;
 
+var havingAMoment = false;
 window.onload = function () {
 	canvas = document.createElement("canvas");
 	canvasContext = canvas.getContext("2d");
@@ -59,20 +60,29 @@ function drawAll() {
 	if (openingMenuIsRunning) {
 		drawOpeningMenu();
 	} else if (gameIsRunning) {
+		if (!havingAMoment) {
 		cameraPan();
 		drawWorld();
 		drawAnimatedTiles();
 		drawAndRemoveAllObjects();
 		drawAllAnimals();
 		maxAxeProjectile.draw(20,20);
-		player.draw();
+		if (!worldEditor) player.draw();
 		drawParticles();
 		endCameraPan();
+		} else {
+			drawRect(0, 0, canvas.width, canvas.height, "black");
+			player.draw();
+			player.x = canvas.width / 2;
+			player.y = canvas.height / 2;
+		}
 	}
 }
 
 function moveAll() {
-	player.move();
+	if (!worldEditor && !havingAMoment) {
+		player.move();
+	}
 	moveAllAnimals();
 	moveParticles();
 }
