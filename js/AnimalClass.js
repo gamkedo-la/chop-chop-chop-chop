@@ -28,6 +28,7 @@ function animalClass (newAnimal) {
 	
 	this.waiting = false;
 	this.meander = true;
+	this.neutral = newAnimal.neutral;
 	this.playerDetected = false;
 	this.playerDetectedSoundPlayed = false;
 
@@ -67,45 +68,49 @@ function animalClass (newAnimal) {
 		this.homeRadiusTrigger();
 		var closeToHome = this.speed;
 		if (this.playerDetected) { // chasing player
-			if (!playing) {
-				backgroundMusic.pause();
-				backgroundMusic.src = "music/animal_chase_v3" + sourceExtension;
-				backgroundMusic.play();
-				playing = true;
-			}
-			var buffer = .04;
-			if (backgroundMusic.currentTime > backgroundMusic.duration - buffer) {
-				backgroundMusic.play();
-			}
-			if (this.img.data.name === "deathCat" && this.playerDetectedSoundPlayed === false) {
-				deathMeow.play();
-				this.playerDetectedSoundPlayed = true;
-			}
-			if (this.img.data.name === "stebsBird" && this.playerDetectedSoundPlayed === false) {
-				birdSound.play();
-				this.playerDetectedSoundPlayed = true;
-			}
-			this.meander = false;
-			this.img.framesUntilNext = 8;
-			var moveXTowardPlayer = this.x < player.x ? this.speed : -this.speed;
-			var moveYTowardPlayer = this.y < player.y ? this.speed : -this.speed;
-			if (this.checkTileCollision(this.x,this.y,moveXTowardPlayer,moveYTowardPlayer)) {
-				moveXTowardPlayer = 0;
-				moveYTowardPlayer = 0;
-			}
-			if (this.x <= player.x + closeToHome &&
-			    this.x >= player.x - closeToHome) {
-				moveXTowardPlayer = 0;
-			}
-			if (this.y <= player.y + closeToHome &&
-			    this.y >= player.y - closeToHome) {
-				moveYTowardPlayer = 0;
-			}
-			this.x += moveXTowardPlayer;
-			this.y += moveYTowardPlayer;
-			this.hitbox.update(this.x,this.y);
-			if (this.hitbox.isCollidingWith(player.hitbox)) {
-				player.gotHit(this.attackPower);
+			if (this.neutral) {
+				// don't chase the player
+			} else {
+				if (!playing) {
+					backgroundMusic.pause();
+					backgroundMusic.src = "music/animal_chase_v3" + sourceExtension;
+					backgroundMusic.play();
+					playing = true;
+				}
+				var buffer = .04;
+				if (backgroundMusic.currentTime > backgroundMusic.duration - buffer) {
+					backgroundMusic.play();
+				}
+				if (this.img.data.name === "deathCat" && this.playerDetectedSoundPlayed === false) {
+					deathMeow.play();
+					this.playerDetectedSoundPlayed = true;
+				}
+				if (this.img.data.name === "stebsBird" && this.playerDetectedSoundPlayed === false) {
+					birdSound.play();
+					this.playerDetectedSoundPlayed = true;
+				}
+				this.meander = false;
+				this.img.framesUntilNext = 8;
+				var moveXTowardPlayer = this.x < player.x ? this.speed : -this.speed;
+				var moveYTowardPlayer = this.y < player.y ? this.speed : -this.speed;
+				if (this.checkTileCollision(this.x,this.y,moveXTowardPlayer,moveYTowardPlayer)) {
+					moveXTowardPlayer = 0;
+					moveYTowardPlayer = 0;
+				}
+				if (this.x <= player.x + closeToHome &&
+				    this.x >= player.x - closeToHome) {
+					moveXTowardPlayer = 0;
+				}
+				if (this.y <= player.y + closeToHome &&
+				    this.y >= player.y - closeToHome) {
+					moveYTowardPlayer = 0;
+				}
+				this.x += moveXTowardPlayer;
+				this.y += moveYTowardPlayer;
+				this.hitbox.update(this.x,this.y);
+				if (this.hitbox.isCollidingWith(player.hitbox)) {
+					player.gotHit(this.attackPower);
+				}
 			}
 		} else if (this.waiting) { // else wait
 				if (this.waitingTimer == 0) {
@@ -235,6 +240,19 @@ var standardCollisionTiles = [TILE_EXTEND_COLLISION,TILE_SMALL_TREE,
 	TILE_PIT_BOTTOM_RIGHT,TILE_PIT_BOTTOM,TILE_PIT_BOTTOM_LEFT,
 	TILE_WATERFALL_BOTTOM_LEFT, TILE_WATERFALL_BOTTOM_CENTER,TILE_WATERFALL_BOTTOM_RIGHT,
 	TILE_ROCK_PILE_ROUGH,TILE_ROCK_PILE_ROUGH_ALT,TILE_ROCK_PILE_SMOOTH,TILE_ROCK_PILE_SMOOTH_ALT];
+
+function spawnAnimalBasedOnTile(tileType, arrayIndex) {
+	switch (tileType) {
+		case TILE_PLACEHOLDER_DEATH_CAT:
+			animal = new deathCat(arrayIndex,tileType);
+			animalList.push(animal);
+			break;
+		case TILE_STEBS_BIRD:
+			animal = new bigBird(arrayIndex,tileType);
+			animalList.push(animal);
+			break;
+	}
+}
 
 function drawAllAnimals() {
 	for (var i = 0; i < animalList.length; i++) {

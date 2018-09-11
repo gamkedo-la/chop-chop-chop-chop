@@ -1,12 +1,10 @@
 const TILE_W = TILE_H = 32;
 
-const TILE_REPLACE_WATERFALL = -08;
-const TILE_REPLACE_WATER = -07;
-const TILE_REPLACE_ANIMAL = -06;
-const TILE_REPLACE_TREE = -05;
-const TILE_REPLACE_STUMP = -04;
-const TILE_STUMP_ALT = -03;
-const TILE_STUMP = -02;
+const TILE_REPLACE_WATERFALL = -06;
+const TILE_REPLACE_WATER = -05;
+const TILE_REPLACE_ANIMAL = -04;
+const TILE_REPLACE_TREE = -03;
+const TILE_REPLACE_STUMP = -02;
 const TILE_EXTEND_COLLISION = -01;
 
 const TILE_NOTHING = 000;
@@ -27,13 +25,11 @@ const TILE_ROCK_PILE_ROUGH = 111;
 const TILE_ROCK_PILE_ROUGH_ALT = 112;
 const TILE_ROCK_PILE_SMOOTH = 113;
 const TILE_ROCK_PILE_SMOOTH_ALT = 114;
-const TILE_PATH = 115;
-const TILE_PATH_CORNER_OUT = 116;
-const TILE_PATH_CORNER_IN = 117;
 
-//Trees
+// Trees
 const TILE_SMALL_TREE = 200;
 const TILE_SMALL_TREE_ALT = 201;
+const TILE_LOLLIPOP = 202;
 
 // Cliffs,Pits and Waterfalls
 const TILE_CLIFF_TOP_LEFT = 300;
@@ -66,6 +62,25 @@ const TILE_WATER = 400;
 const TILE_WATERFALL_BOTTOM_LEFT = 401;
 const TILE_WATERFALL_BOTTOM_CENTER = 402;
 const TILE_WATERFALL_BOTTOM_RIGHT = 403;
+
+// Path
+const TILE_PATH_SIDE_LEFT = 500;
+const TILE_PATH_SIDE_RIGHT = 501;
+const TILE_PATH_SIDE_TOP = 502;
+const TILE_PATH_SIDE_BOTTOM = 503;
+const TILE_PATH_CORNER_OUT_TOP_LEFT = 504;
+const TILE_PATH_CORNER_OUT_TOP_RIGHT = 505;
+const TILE_PATH_CORNER_OUT_BOTTOM_RIGHT = 506;
+const TILE_PATH_CORNER_OUT_BOTTOM_LEFT = 507;
+const TILE_PATH_CORNER_IN_TOP_LEFT = 508;
+const TILE_PATH_CORNER_IN_TOP_RIGHT = 509;
+const TILE_PATH_CORNER_IN_BOTTOM_RIGHT = 510;
+const TILE_PATH_CORNER_IN_BOTTOM_LEFT = 511;
+
+// Stumps
+const TILE_STUMP = 600;
+const TILE_STUMP_ALT = 601;
+const TILE_POP_STUMP = 602;
 
 // Animals
 const TILE_PLACEHOLDER_DEATH_CAT = 800;
@@ -104,12 +119,8 @@ function drawWorld() {
 				setupAnimatedTiles(tileKindHere,drawTileX,drawTileY,arrayIndex);
 			} else if (isTileTypeAnObject(tileKindHere)) {
 				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
-				newObject = new objectClass(useImg, drawTileX, drawTileY,
-					useImg.width, useImg.height,
-					tileKindHere, arrayIndex, worldGrid[arrayIndex - worldCols]);
+				spawnObjectBasedOnTile(tileKindHere, arrayIndex, worldGrid[arrayIndex - worldCols])
 				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX, drawTileY);
-				newObject.replaceTiles();
-				objectList.push(newObject);
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
 				spawnAnimalBasedOnTile(tileKindHere,arrayIndex);
 				worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
@@ -148,6 +159,7 @@ function isTileTypeAnObject(tileType) {
 	switch (tileType) {
 		case TILE_SMALL_TREE:
 		case TILE_SMALL_TREE_ALT:
+		case TILE_LOLLIPOP:
 		case TILE_STUMP:
 		case TILE_STUMP_ALT:
 			return true;
@@ -251,29 +263,6 @@ function isTileTypeAnAnimal(tileType) {
 		case TILE_PLACEHOLDER_DEATH_CAT:
 		case TILE_STEBS_BIRD:
 			return true;
-			break;
-	}
-}
-
-function spawnAnimalBasedOnTile(tileType, arrayIndex) {
-	switch (tileType) {
-		case TILE_PLACEHOLDER_DEATH_CAT:
-			animal = new deathCat(arrayIndex,tileType);
-			animalList.push(animal);
-			break;
-		case TILE_STEBS_BIRD:
-			animal = new bigBird(arrayIndex,tileType);
-			animalList.push(animal);
-			break;
-	}
-}
-
-function addTilesForCollisionBasedOnTileType(tileType, x, y) {
-	var arrayIndex = getTileIndexAtPixelCoord(x, y)
-	switch (tileType) {
-		case TILE_SMALL_TREE:
-		case TILE_SMALL_TREE_ALT:
-			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_COLLISION;
 			break;
 	}
 }

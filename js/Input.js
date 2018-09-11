@@ -186,6 +186,12 @@ function keyPressed(evt) {
 				console.log("waterSet selected");
 			}
 		break;
+		case FIVE_KEY:
+			if (worldEditor) {
+				pickASet(pathSet);
+				console.log("pathSet selected");
+			}
+		break;
 		case EIGHT_KEY:
 			if (worldEditor) {
 				pickASet(animalSet);

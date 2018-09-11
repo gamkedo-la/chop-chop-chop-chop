@@ -18,8 +18,7 @@ function deathCat (arrayIndex,worldTileType) {
 	this.detectionRadius = 120;
 	this.homeRadius = 300;
 	this.idleRadius = 17;
-	this.waiting = false;
-	this.meander = true;
+	this.neutral = false;
 	this.waitingTimer = 30; // frames
 	var waitingTimerFull = this.waitingTimer; // frames
 	this.idleTimer = 75; // frames

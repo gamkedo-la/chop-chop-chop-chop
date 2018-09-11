@@ -13,9 +13,6 @@ function drawOpeningMenu() {
 }
 
 function drawPauseScreen() {
-	//canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-	//canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-
 	drawAll();
 
 	for (let x = 0; x < canvas.width; x += 16) {

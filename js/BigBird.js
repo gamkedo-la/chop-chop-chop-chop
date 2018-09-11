@@ -18,8 +18,7 @@ function bigBird (arrayIndex,worldTileType) {
 	this.detectionRadius = 240;
 	this.homeRadius = 600;
 	this.idleRadius = 40;
-	this.waiting = false;
-	this.meander = true;
+	this.neutral = false;
 	this.waitingTimer = 30; // frames
 	var waitingTimerFull = this.waitingTimer; // frames
 	this.idleTimer = 75; // frames

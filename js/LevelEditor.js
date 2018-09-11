@@ -6,6 +6,7 @@ var groundSet = arrayWithRange(100, startAt = 100); // 100 to 199
 var treeSet = arrayWithRange(100, startAt = 200); // 200 to 299
 var cliffSet = arrayWithRange(100, startAt = 300); // 300 to 399
 var waterSet = arrayWithRange(100, startAt = 400); // 400 to 499
+var pathSet = arrayWithRange(100, startAt = 500); // 400 to 499
 var animalSet = arrayWithRange(100, startAt = 800);  // 800 to 899
 
 var currentlySelectedSet = nothingSet;
