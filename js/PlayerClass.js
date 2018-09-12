@@ -6,6 +6,14 @@ function playerClass() {
 	this.x = 20;
 	this.y = 20;
 	this.speed = 6;
+	
+	// stats
+	this.swingCount = 0;
+	this.chopCount = 0;
+	this.stepCount = 0;
+	this.treeCount = 0;
+	this.attackCount = 0;
+
 	var walkIntoTileType = TILE_SMALL_TREE;
 	this.sprite = playerWalking;
 	this.width = this.sprite.spriteSheet.width/this.sprite.animationColFrames;
@@ -51,6 +59,7 @@ function playerClass() {
 		if (this.trailFrame % TRAIL_FRAME_INTERVAL == 0) { // time for another?
 			//console.log('Trail at frame ' + this.trailFrame);
 			spawnParticles('footstep', this.x, this.y+TRAIL_Y_OFFSET);
+			this.stepCount++; // add to stats for GUI
 		}
 
 	}
@@ -138,12 +147,15 @@ function playerClass() {
 					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 					arrayOfChopSFXs[random].play();
 					object.gotHit(this.axePower);
+					this.chopCount++; // add to score on GUI
+					this.swingCount++; // a successful chop counts as a swing, too
 				}
 			}
 		}
 		if (!hit) {
 			//console.log("missed all trees!");
 			missedSwing.play();
+			this.swingCount++; // add to score on GUI
 		}
 		hit = false;
 		if (debug) this.axeHitbox.draw("blue");
