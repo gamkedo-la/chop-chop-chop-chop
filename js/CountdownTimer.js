@@ -9,7 +9,7 @@ function resetCountdownTimer() {
 }
 
 function updateCountdownTimer(dt=1) {
-    console.log("updateTimer");
+    //console.log("updateTimer");
     countdownTimeRemaining -= dt;
     if (countdownTimeRemaining <= 0) {
         onTimerComplete();
