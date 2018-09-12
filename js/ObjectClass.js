@@ -65,6 +65,7 @@ function objectClass (newObject) {
 		this.pendingShakes = HIT_SHAKE_COUNT;
 		if (this.health <= 0) {
 			console.log("Tree falling!");
+			player.treeCount++; // add to stats for GUI
 			var leavesToSpawn = 12;
 			for (var leaves = 0; leaves < leavesToSpawn; leaves++) {
 				
