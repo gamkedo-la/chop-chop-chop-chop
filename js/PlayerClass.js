@@ -4,7 +4,7 @@ const MAX = 3;
 
 function playerClass() {
 	this.x = 20;
-	this.y = 20;
+	this.y = 40;
 	this.speed = 6;
 	
 	// stats

@@ -105,13 +105,6 @@ function copyToClipboard() {
 			layoutString += "" + numberPrintOut + ",";
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_WATER) {
 			layoutString += "400,";
-			} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_WATERFALL) {
-			for (var l = 0; l < animatedTileList.length; l++) {
-				if (animatedTileList[l].arrayIndex == i) {
-					numberPrintOut = animatedTileList[l].tileType;
-				}
-			}
-			layoutString += "" + numberPrintOut + ",";
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_TREE) {
 			for (var m = 0; m < objectList.length; m++) {
 				if (objectList[m].arrayIndex == i) {
@@ -126,6 +119,13 @@ function copyToClipboard() {
 				}
 			}
 			layoutString += "" + numberPrintOut + ",";
+		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_ANIMATED_TILE) {
+			for (var o = 0; o < animatedTileList.length; o++) {
+				if (animatedTileList[o].arrayIndex == i) {
+					numberPrintOut = animatedTileList[o].tileType;
+					layoutString += "" + numberPrintOut + ",";
+				}
+			}
 		} else {
 			layoutString += allLevels[currentLevelIndex].layout[i] + ",";
 		}

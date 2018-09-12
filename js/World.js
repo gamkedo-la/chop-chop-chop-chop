@@ -1,5 +1,6 @@
 const TILE_W = TILE_H = 32;
 
+const TILE_REPLACE_ANIMATED_TILE = -07
 const TILE_REPLACE_WATERFALL = -06;
 const TILE_REPLACE_WATER = -05;
 const TILE_REPLACE_ANIMAL = -04;
@@ -34,6 +35,11 @@ const TILE_BOULDER_MIDDLE_RIGHT = 120;
 const TILE_BOULDER_BOTTOM_LEFT = 121;
 const TILE_BOULDER_BOTTOM = 122;
 const TILE_BOULDER_BOTTOM_RIGHT = 123;
+const TILE_CRACKED_EGGS = 124;
+const TILE_TWIG = 125;
+const TILE_CAMERA = 126;
+const TILE_CAMPFIRE = 127;
+const TILE_DS_BONFIRE = 128;
 
 // Trees
 const TILE_SMALL_TREE = 200;
@@ -115,6 +121,9 @@ var water = 0;
 var waterfallBottomLeft = 1;
 var waterfallBottomRight = 2;
 var waterfallBottomCenter = 3;
+var camera = 4;
+var campfire = 5;
+var dsBonfire = 6;
 var animatedTileList = [];
 
 function drawWorld() {
@@ -192,6 +201,15 @@ function returnAnimatedTileSprites(tileKindHere) {
 		case TILE_WATERFALL_BOTTOM_RIGHT:
 			return waterfallBottomRight;
 			break;
+		case TILE_CAMERA:
+			return camera;
+			break;
+		case TILE_CAMPFIRE:
+			return campfire;
+			break;
+		case TILE_DS_BONFIRE:
+			return dsBonfire;
+			break;
 	}
 }
 
@@ -201,6 +219,9 @@ function isTileTypeAnimated(tileType) {
 		case TILE_WATERFALL_BOTTOM_LEFT:
 		case TILE_WATERFALL_BOTTOM_CENTER:
 		case TILE_WATERFALL_BOTTOM_RIGHT:
+		case TILE_CAMERA:
+		case TILE_CAMPFIRE:
+		case TILE_DS_BONFIRE:
 			return true;
 			break;
 	}
@@ -236,7 +257,7 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 				arrayIndex: arrayIndex,
 				tileType: TILE_WATERFALL_BOTTOM_LEFT
 			});
-			worldGrid[arrayIndex] = TILE_REPLACE_WATERFALL;
+			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
 			animatedTileList.push(animatedTile);
 			break;
 		case waterfallBottomCenter:
@@ -250,7 +271,7 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 				arrayIndex: arrayIndex,
 				tileType: TILE_WATERFALL_BOTTOM_CENTER
 			});
-			worldGrid[arrayIndex] = TILE_REPLACE_WATERFALL;
+			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
 			animatedTileList.push(animatedTile);
 			break;
 		case waterfallBottomRight:
@@ -264,7 +285,50 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 				arrayIndex: arrayIndex,
 				tileType: TILE_WATERFALL_BOTTOM_RIGHT
 			});
-			worldGrid[arrayIndex] = TILE_REPLACE_WATERFALL;
+			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
+			animatedTileList.push(animatedTile);
+			break;
+		case camera:
+			animatedTile = new AnimatedSpriteClass({
+				name: "camera",
+				spriteSheet: gamePics.cameraSpritesheet,
+				animationColFrames: 2,
+				framesUntilNext: 4,
+				framesBetweenLoops: 150,
+				x: drawTileX + TILE_W/2,
+				y: drawTileY + TILE_H/2,
+				arrayIndex: arrayIndex,
+				tileType: TILE_CAMERA
+			});
+			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
+			animatedTileList.push(animatedTile);
+			break;
+		case campfire:
+			animatedTile = new AnimatedSpriteClass({
+				name: "campfire",
+				spriteSheet: gamePics.campfireSpritesheet,
+				animationColFrames: 4,
+				framesUntilNext: 10,
+				x: drawTileX + TILE_W/2,
+				y: drawTileY + TILE_H/2,
+				arrayIndex: arrayIndex,
+				tileType: TILE_CAMPFIRE
+			});
+			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
+			animatedTileList.push(animatedTile);
+			break;
+		case dsBonfire:
+			animatedTile = new AnimatedSpriteClass({
+				name: "dsBonfire",
+				spriteSheet: gamePics.dsBonfireSpritesheet,
+				animationColFrames: 4,
+				framesUntilNext: 15,
+				x: drawTileX + TILE_W/2,
+				y: drawTileY + TILE_H/2,
+				arrayIndex: arrayIndex,
+				tileType: TILE_DS_BONFIRE
+			});
+			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
 			animatedTileList.push(animatedTile);
 			break;
 	}
@@ -355,8 +419,8 @@ function determineWaterTileSurroundings(arrayIndex) {
 function drawAnimatedTiles() {
 	for (var i = 0; i < animatedTileList.length; i++) {
 		var fromWhichRowToAnimate = 1;
-		if (worldGrid[animatedTileList[i].arrayIndex] == TILE_REPLACE_WATER || 
-			worldGrid[animatedTileList[i].arrayIndex] == TILE_REPLACE_WATERFALL) {
+		if (worldGrid[animatedTileList[i].arrayIndex] == TILE_REPLACE_ANIMATED_TILE ||
+			worldGrid[animatedTileList[i].arrayIndex] == TILE_REPLACE_WATER) {
 			if (animatedTileList[i].tileType == TILE_WATER) {
 				fromWhichRowToAnimate = determineWaterTileSurroundings(animatedTileList[i].arrayIndex);
 				animatedTileList[i].draw(animatedTileList[i].x,animatedTileList[i].y, fromWhichRowToAnimate,

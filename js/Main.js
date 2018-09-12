@@ -68,7 +68,6 @@ function drawAll() {
 		drawAnimatedTiles();
 		drawAndRemoveAllObjects();
 		drawAllAnimals();
-		maxAxeProjectile.draw(20,20);
 		if (!worldEditor) player.draw();
 		drawParticles();
 		endCameraPan();
