@@ -41,6 +41,15 @@ function loadImages() {
         { worldType: TILE_ROCK_PILE_ROUGH_ALT, theFile: "path_cobble_rough_02.png" },
         { worldType: TILE_ROCK_PILE_SMOOTH, theFile: "path_cobble_smooth_01.png" },
         { worldType: TILE_ROCK_PILE_SMOOTH_ALT, theFile: "path_cobble_smooth_02.png" },
+        { worldType: TILE_BOULDER_TOP_LEFT, theFile: "boulder_top_left.png" },
+        { worldType: TILE_BOULDER_TOP, theFile: "boulder_top.png" },
+        { worldType: TILE_BOULDER_TOP_RIGHT, theFile: "boulder_top_right.png" },
+        { worldType: TILE_BOULDER_MIDDLE_LEFT, theFile: "boulder_middle_left.png" },
+        { worldType: TILE_BOULDER_MIDDLE, theFile: "boulder_middle.png" },
+        { worldType: TILE_BOULDER_MIDDLE_RIGHT, theFile: "boulder_middle_right.png" },
+        { worldType: TILE_BOULDER_BOTTOM_LEFT, theFile: "boulder_bottom_left.png" },
+        { worldType: TILE_BOULDER_BOTTOM, theFile: "boulder_bottom.png" },
+        { worldType: TILE_BOULDER_BOTTOM_RIGHT, theFile: "boulder_bottom_right.png" },
 
         { worldType: TILE_PATH_SIDE_LEFT, theFile: "path_dirt_side_left.png" },
         { worldType: TILE_PATH_SIDE_RIGHT, theFile: "path_dirt_side_right.png" },
@@ -66,7 +75,6 @@ function loadImages() {
 
         { worldType: TILE_WATER, theFile: "water.png" },
         { worldType: TILE_REPLACE_WATER, theFile: "nothing.png" },
-
         { worldType: TILE_WATERFALL_BOTTOM_LEFT, theFile: "waterfall_bottom_left.png" },
         { worldType: TILE_WATERFALL_BOTTOM_RIGHT, theFile: "waterfall_bottom_right.png" },
         { worldType: TILE_WATERFALL_BOTTOM_CENTER, theFile: "waterfall_bottom_center.png" },
@@ -92,6 +100,9 @@ function loadImages() {
         { worldType: TILE_CLIFF_BOTTOM_RIGHT_3, theFile: "cliff_bottom_right_3.png" },
         { worldType: TILE_CLIFF_BOTTOM_LEFT_2, theFile: "cliff_bottom_left_2.png" },
         { worldType: TILE_CLIFF_BOTTOM_LEFT_3, theFile: "cliff_bottom_left_3.png" },
+        { worldType: TILE_CLIFF_VIEW_LEFT, theFile: "cliff_view_left.png" },
+        { worldType: TILE_CLIFF_VIEW_MIDDLE, theFile: "cliff_view_mid.png" },
+        { worldType: TILE_CLIFF_VIEW_RIGHT, theFile: "cliff_view_right.png" },
         { worldType: TILE_PIT_TOP_LEFT, theFile: "pit_top_left.png" },
         { worldType: TILE_PIT_TOP, theFile: "pit_top.png" }, 
         { worldType: TILE_PIT_TOP_RIGHT, theFile: "pit_top_right.png" }, 
@@ -99,7 +110,7 @@ function loadImages() {
         { worldType: TILE_PIT_RIGHT, theFile: "pit_right.png" }, 
         { worldType: TILE_PIT_BOTTOM_LEFT, theFile: "pit_bottom_left.png" }, 
         { worldType: TILE_PIT_BOTTOM, theFile: "pit_bottom.png" }, 
-        { worldType: TILE_PIT_BOTTOM_RIGHT, theFile: "pit_bottom_right.png" }
+        { worldType: TILE_PIT_BOTTOM_RIGHT, theFile: "pit_bottom_right.png" },
     ];
 
     picsToLoad = imageList.length;

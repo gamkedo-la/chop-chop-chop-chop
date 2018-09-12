@@ -247,6 +247,9 @@ function isTileTypeCollidable(tileType) {
 		case TILE_CLIFF_BOTTOM_RIGHT:
 		case TILE_CLIFF_BOTTOM_RIGHT_2:
 		case TILE_CLIFF_BOTTOM_RIGHT_3:
+		case TILE_CLIFF_VIEW_LEFT:
+		case TILE_CLIFF_VIEW_MIDDLE:
+		case TILE_CLIFF_VIEW_RIGHT:
 		case TILE_PIT_TOP_LEFT:
 		case TILE_PIT_TOP:
 		case TILE_PIT_TOP_RIGHT:
