@@ -12,5 +12,5 @@ function drawGUI() {
         "DISTANCE: " + player.stepCount + "m"
         ,4,GUI_Y,GUI_COLOR,GUI_FONT,"left",GUI_OPACITY);
 
-    colorText("TIME REMAINING:",canvas.width-4,GUI_Y,GUI_COLOR,GUI_FONT,"right",GUI_OPACITY);
+    colorText("TIME REMAINING: " + countdownTimeRemaining,canvas.width-4,GUI_Y,GUI_COLOR,GUI_FONT,"right",GUI_OPACITY);
 }

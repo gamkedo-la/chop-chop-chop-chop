@@ -39,6 +39,7 @@ function loadingDoneSoStartGame() {
 	    }
 	}
 	gameUpdate = setInterval(update, 1000 / framesPerSecond);
+	resetCountdownTimer();
 	player = new playerClass();
 	//backgroundMusic.play();
 };
@@ -53,7 +54,8 @@ function update() {
         roomTileCoordinate();
   	}
     framesFromGameStart++
-    moveAll();
+	moveAll();
+	updateCountdownTimer();
 }
 
 function drawAll() {
