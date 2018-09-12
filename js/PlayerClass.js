@@ -148,6 +148,7 @@ function playerClass() {
 					arrayOfChopSFXs[random].play();
 					object.gotHit(this.axePower);
 					this.chopCount++; // add to score on GUI
+					this.swingCount++; // a successful chop counts as a swing, too
 				}
 			}
 		}
