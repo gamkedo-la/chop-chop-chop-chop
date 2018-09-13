@@ -16,6 +16,6 @@ function updateCountdownTimer(dt=1) {
     }
 }
 
-function onCountdownTimerComplete() {
+function onTimerComplete() {
     console.log("onTimerComplete - // TODO - GAME OVER!");
 }

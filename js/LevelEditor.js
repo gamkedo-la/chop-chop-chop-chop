@@ -32,7 +32,7 @@ function roomTileCoordinate() {
 	//console.log("Col: " + levelCol,"Row: " + levelRow,"Type: " +  worldGrid[tileUnderMouse]);
 
     canvasContext.strokeRect(tileX, tileY, TILE_W, TILE_H);
-    canvasContext.strokeStyle = 'orange';
+    canvasContext.strokeStyle = "orange";
     canvasContext.lineWidth = 1;
     if (worldPics[currentlySelectedSet[currentSetIndex]] == undefined) {
     	return;
@@ -43,7 +43,7 @@ function roomTileCoordinate() {
 
 function editTileOnMouseClick() {
     if (worldEditor) {
-    	canvasContext.strokeStyle = 'magenta';
+    	canvasContext.strokeStyle = "magenta";
    		canvasContext.lineWidth = 4;
 
    		var tileKindHere = worldGrid[tileUnderMouse];

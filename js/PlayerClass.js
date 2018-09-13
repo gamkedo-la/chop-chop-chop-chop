@@ -2,6 +2,8 @@ const LOW = 1;
 const MID = 2;
 const MAX = 3;
 
+var upgradeLevelTwo = false;
+
 function playerClass() {
 	this.x = 20;
 	this.y = 40;
@@ -9,7 +11,7 @@ function playerClass() {
 	
 	// stats
 	this.swingCount = 0;
-	this.chopCount = 0;
+	this.chopCount = 98;
 	this.stepCount = 0;
 	this.treeCount = 0;
 	this.attackCount = 0;
@@ -35,7 +37,7 @@ function playerClass() {
 										axeOffsetX, axeOffsetY);
 	this.axeSharpness = 0;
 	this.axeLevel = LOW;
-	this.axePower = 1 + this.axeSharpness;
+	this.axePower = 1;
 	var chopTimer = 0;
 	this.hitbox = new colliderClass(this.x, this.y, this.width/2, this.height,
 											0, 0);

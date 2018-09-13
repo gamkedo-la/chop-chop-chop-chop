@@ -40,6 +40,18 @@ let togglePauseGame = () => {
 	}
 }
 
+let upgradeCheck = () => {
+	if (player.chopCount >= 100 && !upgradeLevelTwo) {
+		framesFromGameStart = 0;
+		havingAMoment = true;
+		upgradeLevelTwo = true;
+		player.axeLevel = MID;
+		player.axeSharpness += 1;
+		player.axePower += player.axeSharpness
+		console.log("level up!");
+	}
+}
+
 let toggleDebug = () => {
 	debug = !debug;
 }

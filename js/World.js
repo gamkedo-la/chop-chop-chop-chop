@@ -452,6 +452,6 @@ function drawTypesOfTiles(tileType, x, y) {
 
 function drawGridOfTiles(x, y) {
 	canvasContext.lineWidth = 0.4;
-	canvasContext.strokeStyle = 'pink';
+	canvasContext.strokeStyle = "pink";
 	canvasContext.strokeRect(x, y, TILE_W, TILE_H);
 }

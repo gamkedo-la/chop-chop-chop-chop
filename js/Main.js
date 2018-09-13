@@ -12,6 +12,7 @@ var player;
 var debug = false;
 
 var havingAMoment = false;
+
 window.onload = function () {
 	canvas = document.createElement("canvas");
 	canvasContext = canvas.getContext("2d");
@@ -48,7 +49,13 @@ function loadingDoneSoStartGame() {
 
 }*/
 
+var upgradeText = "Here is the upgrade text";
+var choppedUpString = upgradeText.split("");
+var wordsToShow = "";
+var stringIndex = 0;
+
 function update() {
+	upgradeCheck();
     drawAll();
     if (worldEditor) {
         roomTileCoordinate();
@@ -56,6 +63,18 @@ function update() {
     framesFromGameStart++
 	moveAll();
 	updateCountdownTimer();
+	if (havingAMoment) {
+		if (stringIndex < choppedUpString.length) {
+			wordsToShow += choppedUpString[stringIndex];
+			colorText(wordsToShow, canvas.width/4, canvas.height/6, "white", "Verdana");
+			stringIndex++; 
+		} else {
+			colorText(wordsToShow, canvas.width/4, canvas.height/6, "white", "Verdana");
+		}
+		if (framesFromGameStart == framesPerSecond * 3) {		
+			havingAMoment = false;
+		}
+	}
 }
 
 function drawAll() {
