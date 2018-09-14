@@ -7,7 +7,7 @@ const FRUSTRATION_BAR_FONT = "14px Verdana, Arial";
 const FRUSTRATION_BAR_X = 110;
 const FRUSTRATION_BAR_TEXT_Y = 8;
 const FRUSTRATION_BAR_Y_OFFSET = 20;
-const FRUSTRATION_BAR_LENGTH = 75;
+const FRUSTRATION_BAR_LENGTH = MAX_FRUSTATION * 2.5; // MAX_FRUSTATION
 const FRUSTRATION_BAR_HEIGHT = 14;
 
 function drawGUI() {
@@ -25,9 +25,10 @@ function drawGUI() {
     var frustrationText = "FRUSTRATION";
     canvasContext.font = FRUSTRATION_BAR_FONT;
     var frustrationTextWidth = canvasContext.measureText(frustrationText).width;
-    var frustrationFillWidth = player.currentFrustration/FRUSTRATION_BAR_LENGTH * 100
+    var frustrationFillWidth = player.currentFrustration * 2.5;
+    
     drawRect(0,canvas.height - FRUSTRATION_BAR_TEXT_Y - 13, 
-    	Math.ceil(frustrationTextWidth) + 6, FRUSTRATION_BAR_HEIGHT + 2, "black");
+    	frustrationTextWidth + 6, FRUSTRATION_BAR_HEIGHT + 2, "black");
     colorText(frustrationText,2,canvas.height - FRUSTRATION_BAR_TEXT_Y,GUI_COLOR,FRUSTRATION_BAR_FONT,"left");
     drawRect(FRUSTRATION_BAR_X - 2,canvas.height - FRUSTRATION_BAR_Y_OFFSET - 2, 
     	FRUSTRATION_BAR_LENGTH + 4, FRUSTRATION_BAR_HEIGHT + 4, GUI_COLOR);

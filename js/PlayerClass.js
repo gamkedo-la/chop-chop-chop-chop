@@ -1,6 +1,7 @@
 const LOW = 1;
 const MID = 2;
 const MAX = 3;
+const MAX_FRUSTATION = 20;
 
 var upgradeLevelTwo = false;
 var upgradeLevelThree = false;
@@ -44,7 +45,7 @@ function playerClass() {
 	var chopTimer = 0;
 	this.hitbox = new colliderClass(this.x, this.y, this.width/2, this.height,
 											0, 0);
-	this.currentFrustration = 0;
+	this.currentFrustration = 18;
 	this.invincible = false;
 	this.invincibiltyTimer = 0;
 	this.invincibiltyTimerFull = 45;
@@ -120,6 +121,13 @@ function playerClass() {
 			return;
 		} else {
 			this.currentFrustration += addedFrustration;
+			if (this.currentFrustration >= MAX_FRUSTATION) {
+				this.currentFrustration = 0;
+				this.state.chopping = false;
+				this.state.walking = false
+    			prepareCutscene(gameOverScene);
+    			return;
+			};
 			//console.log(this.currentFrustration);
 			var radians = getRandomNumberBetweenMinMax(0, 360) * DEGREES_TO_RADIANS;
 			var boopedX = Math.cos(radians) * this.speed * 10;

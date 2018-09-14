@@ -17,5 +17,6 @@ function updateCountdownTimer(dt=1) {
 }
 
 function onTimerComplete() {
+	prepareCutscene(gameOverScene);
     console.log("onTimerComplete - // TODO - GAME OVER!");
 }

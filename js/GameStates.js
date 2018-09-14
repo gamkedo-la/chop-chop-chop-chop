@@ -2,6 +2,23 @@ let openingMenuIsRunning = true;
 let gameIsRunning = false;
 let gameIsPaused = false;
 
+var currentScene = null;
+var stringIndex = 0;
+var wordsToShow = "";
+
+var upgradeLevelTwoScene = {
+	cutsceneTime: 3, // in seconds, multiplied by frames per second later
+	stringToDisplay: "This is level two"
+};
+var upgradeLevelThreeScene = {
+	cutsceneTime: 3,
+	stringToDisplay: "Whoa Level 3? whaaaaa"
+};
+var gameOverScene = {
+	cutsceneTime: 5,
+	stringToDisplay: "Game Over"
+};
+
 //add background image for opening menu
 function drawOpeningMenu() {
 	colorRect(0, 0, canvas.width, canvas.height, "black");
@@ -40,46 +57,36 @@ let togglePauseGame = () => {
 	}
 }
 
-var currentScene = null;
-var stringIndex = 0;
-var wordsToShow = "";
-var upgradeLevelTwoScene = {
-	cutsceneTime: 3, // in seconds, multiplied by frames per second later
-	stringToDisplay: "This is level two"
-};
-var upgradeLevelThreeScene = {
-	cutsceneTime: 3, // in seconds, multiplied by frames per second later
-	stringToDisplay: "Whoa Level 3? whaaaaa"
-};
-
 let upgradeCheck = () => {
 	const LEVEL_TWO_CHOPS = 100;
 	const LEVEL_THREE_CHOPS = 104;
 
 	if (player.chopCount >= LEVEL_TWO_CHOPS && !upgradeLevelTwo) {
-		framesFromGameStart = 0;
-		havingAMoment = true;
+		prepareCutscene(upgradeLevelTwoScene);
 		upgradeLevelTwo = true;
 		player.axeLevel = MID;
 		player.axeSharpness += 1;
 		player.axePower += player.axeSharpness
 		//console.log("level up!");
-		currentScene = upgradeLevelTwoScene;
 	}
 	if (player.chopCount >= LEVEL_THREE_CHOPS && !upgradeLevelThree) {
-		framesFromGameStart = 0;
-		havingAMoment = true;
+		prepareCutscene(upgradeLevelThreeScene);
 		upgradeLevelThree = true;
 		player.axeLevel = MAX;
 		//console.log("level up!");
-		currentScene = upgradeLevelThreeScene;
 	}
+}
+
+function prepareCutscene(scene) {
+	framesFromGameStart = 0;
+	havingAMoment = true;
+	currentScene = scene;
 }
 
 function playCutscene(data) {
 	if (havingAMoment) {
 		cutsceneDialogue(data.stringToDisplay);
-		if (framesFromGameStart == framesPerSecond * data.cutsceneTime) {		
+		if (framesFromGameStart >= framesPerSecond * data.cutsceneTime) {		
 			havingAMoment = false;
 			wordsToShow = "";
 			stringIndex = 0;
@@ -94,10 +101,10 @@ function cutsceneDialogue (stringToDisplay) {
 	var choppedUpString = stringToDisplay.split("");
 	if (stringIndex < choppedUpString.length) {
 		wordsToShow += choppedUpString[stringIndex];
-		colorText(wordsToShow, canvas.width/4, canvas.height/6, "white", "Verdana");
+		colorText(wordsToShow, canvas.width/4, canvas.height/6, "white", "bold 14px Verdana");
 		stringIndex++; 
 	} else {
-		colorText(wordsToShow, canvas.width/4, canvas.height/6, "white", "Verdana");
+		colorText(wordsToShow, canvas.width/4, canvas.height/6, "white", "bold 14px Verdana");
 	}
 }
 
