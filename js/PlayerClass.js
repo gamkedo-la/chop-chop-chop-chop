@@ -242,6 +242,7 @@ function isTileTypeCollidable(tileType) {
 		case TILE_EXTEND_COLLISION:
 		case TILE_SMALL_TREE:
 		case TILE_SMALL_TREE_ALT:
+		case TILE_TALL_TREE:
 		case TILE_REPLACE_TREE:
 		case TILE_REPLACE_WATER:
 		case TILE_REPLACE_WATERFALL:

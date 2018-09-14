@@ -16,5 +16,13 @@ function standardTreeClass (worldTileType,arrayIndex,hiddenTile) {
 	this.colliderOffsetX = this.width/4 + 3;
 	this.colliderOffsetY = 0;
 
+	// handle tall tree (64x128) non-standard size
+	if (worldTileType==TILE_TALL_TREE) {
+		//console.log("Tall tree detected!");
+		this.health = 4;
+		this.y -= 48;
+		this.colliderOffsetY = 64;
+	}
+
 	return new objectClass(this);
 }

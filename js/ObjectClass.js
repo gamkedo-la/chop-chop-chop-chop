@@ -7,6 +7,7 @@ var objectList = [];
 var trees = [
 TILE_SMALL_TREE,
 TILE_SMALL_TREE_ALT,
+TILE_TALL_TREE,
 TILE_LOLLIPOP];
 var stumps = [
 TILE_STUMP_ALT,
@@ -88,6 +89,7 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 	switch (tileType) {
 		case TILE_SMALL_TREE:
 		case TILE_SMALL_TREE_ALT:
+		case TILE_TALL_TREE:
 			newObject = new standardTreeClass(tileType, arrayIndex, hiddenTile);
 			break;
 		case TILE_LOLLIPOP:
@@ -118,6 +120,7 @@ function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {
 			worldGrid[arrayIndex] = TILE_STUMP;
 		break;
 		case TILE_SMALL_TREE_ALT:
+		case TILE_TALL_TREE:
 			worldGrid[arrayIndex - worldCols] = hiddenTile;
 			worldGrid[arrayIndex] = TILE_STUMP_ALT;
 		break;
@@ -133,6 +136,7 @@ function addTilesForCollisionBasedOnTileType(tileType, x, y) {
 	switch (tileType) {
 		case TILE_SMALL_TREE:
 		case TILE_SMALL_TREE_ALT:
+		case TILE_TALL_TREE:
 			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_COLLISION;
 			break;
 	}
@@ -153,6 +157,7 @@ function tileTypeGetsHitbox(tileType) {
 	switch (tileType) {
 		case TILE_SMALL_TREE:
 		case TILE_SMALL_TREE_ALT:
+		case TILE_TALL_TREE:
 		case TILE_LOLLIPOP:
 			return true;
 			break;

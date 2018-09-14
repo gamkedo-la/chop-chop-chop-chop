@@ -45,6 +45,7 @@ const TILE_DS_BONFIRE = 128;
 const TILE_SMALL_TREE = 200;
 const TILE_SMALL_TREE_ALT = 201;
 const TILE_LOLLIPOP = 202;
+const TILE_TALL_TREE = 203;
 
 // Cliffs,Pits and Waterfalls
 const TILE_CLIFF_TOP_LEFT = 300;
@@ -180,6 +181,7 @@ function isTileTypeAnObject(tileType) {
 	switch (tileType) {
 		case TILE_SMALL_TREE:
 		case TILE_SMALL_TREE_ALT:
+		case TILE_TALL_TREE:
 		case TILE_LOLLIPOP:
 		case TILE_STUMP:
 		case TILE_STUMP_ALT:

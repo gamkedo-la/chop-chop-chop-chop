@@ -73,10 +73,12 @@ function loadImages() {
         { worldType: TILE_PATH_CORNER_IN_BOTTOM_RIGHT, theFile: "path_dirt_cornerIN_bottom_right.png" },
         { worldType: TILE_PATH_CORNER_IN_BOTTOM_LEFT, theFile: "path_dirt_cornerIN_bottom_left.png" },
 
+
         { worldType: TILE_SMALL_TREE, theFile: "tree1.png" },
         { worldType: TILE_SMALL_TREE_ALT, theFile: "tree2.png" },
         { worldType: TILE_LOLLIPOP, theFile: "lollipop.png" },
         { worldType: TILE_REPLACE_TREE, theFile: "nothing.png" }, 
+        { worldType: TILE_TALL_TREE, theFile: "tall_tree.png" },
 
         { worldType: TILE_STUMP, theFile: "stump1.png" },
         { worldType: TILE_STUMP_ALT, theFile: "stump2.png" },
