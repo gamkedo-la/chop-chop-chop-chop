@@ -190,22 +190,33 @@ function playerClass() {
 		var contactFrame = 15;
 
 		if (spacebarKeyHeld && chopTimer == 0) {
-			chopTimer = playerSideChop.animationColFrames - 1;
-			playerSideChop.currentFrameIndex = 2;
+			if (this.axeLevel == MAX) {
+				contactFrame = playerSideChop.animationColFrames - 2;
+				chopTimer = playerSideChop.animationColFrames - 1;
+				playerSideChop.currentFrameIndex = 0;
+			} else {
+				chopTimer = playerSideChop.animationColFrames - 1;
+				playerSideChop.currentFrameIndex = 2;
+			}
 		}
 		if (chopTimer > 0) {
 			this.state.chopping = true;
 			if (chopTimer > 0) {
 				playerSideChop.draw(this.x,this.y, 1, (this.direction != EAST));
 				if (playerSideChop.currentFrameIndex == contactFrame) {
-					this.chopTrees(this.direction);
+					if (this.axeLevel == MAX) {
+						var axeProjectile = new projectileClass(this.x,this.y, this.direction);
+						objectList.push(axeProjectile);
+					} else {
+						this.chopTrees(this.direction);
+					}
 				}
 				chopTimer--;
 				if (chopTimer <= 0) {
 					player.state.chopping = false;
 				}
 			}
-		
+
 		} else { // not chopping
 
 			if (this.state.walking) {

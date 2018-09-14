@@ -42,6 +42,10 @@ function objectClass (newObject) {
 	}
 	this.remove = false;
 
+	this.move = function() {
+		// nothing
+	}
+
 	this.draw = function() {
 		if ((replacements.indexOf(worldGrid[this.arrayIndex]) > -1)) {
 			var xoffset = 0; // optionally vibrate a bit after being hit
@@ -151,6 +155,7 @@ function addTilesForCollisionBasedOnTileType(tileType, x, y) {
 
 function drawAndRemoveAllObjects() {
 	for (var i = 0; i < objectList.length; i++) {
+		objectList[i].move();
 		objectList[i].draw();
 	}
 	for(var i = objectList.length - 1; i >= 0; i--) {
