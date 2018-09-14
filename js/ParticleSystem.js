@@ -22,6 +22,10 @@ var particleDefs = [
 	{type: 'debris0', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 22, isLeaf:true, sprite:"debris0" },
 	{type: 'debris1', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 28, isLeaf:true, sprite:"debris1" },
 	{type: 'debris2', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 24, isLeaf:true, sprite:"debris2" },
+	{type: 'tall_leaf', howMany: 1, startSpeed: 0.75, howLong: 1000, gravity: 0.015, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 48+112, isLeaf:true, sprite:"leaf" },
+	{type: 'tall_debris0', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 22+112, isLeaf:true, sprite:"debris0" },
+	{type: 'tall_debris1', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 28+112, isLeaf:true, sprite:"debris1" },
+	{type: 'tall_debris2', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 24+112, isLeaf:true, sprite:"debris2" },
 
 ];
 var particleList = [];

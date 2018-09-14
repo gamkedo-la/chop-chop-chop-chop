@@ -21,7 +21,8 @@ function standardTreeClass (worldTileType,arrayIndex,hiddenTile) {
 		//console.log("Tall tree detected!");
 		this.health = 4;
 		this.y -= 48;
-		this.colliderOffsetY = 64;
+		this.colliderOffsetY = 48;
+		this.colliderOffsetX -= 6;
 	}
 
 	return new objectClass(this);

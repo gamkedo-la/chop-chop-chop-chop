@@ -65,20 +65,29 @@ function objectClass (newObject) {
 		this.health -= healthToSubtract;
 		this.pendingShakes = HIT_SHAKE_COUNT;
 		if (this.health <= 0) {
+			
 			console.log("Tree falling!");
 			player.treeCount++; // add to stats for GUI
+			
+			var yoffset = 0; // to make things come from higher up if reqd
+			var prefix = ""; // to change "leaf" to "tall_leaf"
+			if (this.tileType == TILE_TALL_TREE) {
+				yoffset = -64;
+				prefix = "tall_";
+			}
+			
 			var leavesToSpawn = 12;
 			for (var leaves = 0; leaves < leavesToSpawn; leaves++) {
-				
+
 				// leaves
-				if (this.hasLeaves) spawnParticles('leaf',this.x+Math.random()*48-16, this.y-20 + Math.random()*10); // from top of tree, a leaf falls
+				if (this.hasLeaves) spawnParticles(prefix+'leaf',this.x+Math.random()*48-16, yoffset+this.y-20 + Math.random()*10); // from top of tree, a leaf falls
 
 				// a few chunks of wood debris / logs / branches
-				if (Math.random()<0.15) spawnParticles('debris0',this.x+Math.random()*32, this.y + Math.random()*10); 
-				if (Math.random()<0.15) spawnParticles('debris1',this.x+Math.random()*32, this.y + Math.random()*10); 
-				if (Math.random()<0.15) spawnParticles('debris2',this.x+Math.random()*32, this.y + Math.random()*10); 
+				if (Math.random()<0.15) spawnParticles(prefix+'debris0',this.x+Math.random()*32, yoffset+this.y + Math.random()*10); 
+				if (Math.random()<0.15) spawnParticles(prefix+'debris1',this.x+Math.random()*32, yoffset+this.y + Math.random()*10); 
+				if (Math.random()<0.15) spawnParticles(prefix+'debris2',this.x+Math.random()*32, yoffset+this.y + Math.random()*10); 
 			}
-			spawnProperRemnants(this.tileType,this.arrayIndex, this.hiddenTile);
+			spawnProperRemnants(this.tileType,this.arrayIndex,this.hiddenTile);
 			this.remove = true;
 		}
 	}
