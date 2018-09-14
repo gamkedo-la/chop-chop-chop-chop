@@ -30,7 +30,7 @@ function makeAnimatedSprites() {
 		name: "maxAxeProjectile",
 		spriteSheet: gamePics.maxAxeProjectileSheet,
 		animationColFrames: 4,
-		framesUntilNext: 2,
+		framesUntilNext: 1,
 	});
 };
 

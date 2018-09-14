@@ -2,6 +2,7 @@
 const GAME_COUNTDOWN_LENGTH = 5000;
 
 var countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
+var countdownFinished = false;
 
 function resetCountdownTimer() {
     console.log("resetTimer() countdownTimeRemaining:" + GAME_COUNTDOWN_LENGTH);
@@ -11,12 +12,12 @@ function resetCountdownTimer() {
 function updateCountdownTimer(dt=1) {
     //console.log("updateTimer");
     countdownTimeRemaining -= dt;
-    if (countdownTimeRemaining <= 0) {
+    if (countdownTimeRemaining <= 0 && !countdownFinished) {
         onTimerComplete();
+        countdownFinished = true;
     }
 }
 
 function onTimerComplete() {
 	prepareCutscene(gameOverScene);
-    console.log("onTimerComplete - // TODO - GAME OVER!");
 }
