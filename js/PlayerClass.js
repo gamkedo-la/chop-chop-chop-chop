@@ -3,10 +3,13 @@ const MID = 2;
 const MAX = 3;
 
 var upgradeLevelTwo = false;
+var upgradeLevelThree = false;
 
 function playerClass() {
 	this.x = 20;
 	this.y = 40;
+	this.oldX = this.x;
+	this.oldY = this.y;
 	this.speed = 6;
 	
 	// stats
@@ -67,6 +70,8 @@ function playerClass() {
 	}
 
 	this.move = function() {
+		this.oldX = this.x;
+		this.oldY = this.y;
 		var movementX = 0;
         var movementY = 0;
 		this.state.walking = false;
@@ -115,7 +120,7 @@ function playerClass() {
 			return;
 		} else {
 			this.currentFrustration += addedFrustration;
-			console.log(this.currentFrustration);
+			//console.log(this.currentFrustration);
 			var radians = getRandomNumberBetweenMinMax(0, 360) * DEGREES_TO_RADIANS;
 			var boopedX = Math.cos(radians) * this.speed * 10;
 			var boopedY = Math.sin(radians) * this.speed * 10;

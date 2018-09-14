@@ -99,10 +99,8 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 		case TILE_SMALL_TREE:
 		case TILE_SMALL_TREE_ALT:
 		case TILE_TALL_TREE:
-			newObject = new standardTreeClass(tileType, arrayIndex, hiddenTile);
-			break;
 		case TILE_LOLLIPOP:
-			newObject = new lollipopClass(tileType, arrayIndex, hiddenTile);
+			newObject = new standardTreeClass(tileType, arrayIndex, hiddenTile);
 			break;
 		case TILE_STUMP:
 		case TILE_STUMP_ALT:

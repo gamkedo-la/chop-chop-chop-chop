@@ -49,11 +49,6 @@ function loadingDoneSoStartGame() {
 
 }*/
 
-var upgradeText = "Here is the upgrade text";
-var choppedUpString = upgradeText.split("");
-var wordsToShow = "";
-var stringIndex = 0;
-
 function update() {
 	upgradeCheck();
     drawAll();
@@ -63,18 +58,7 @@ function update() {
     framesFromGameStart++
 	moveAll();
 	updateCountdownTimer();
-	if (havingAMoment) {
-		if (stringIndex < choppedUpString.length) {
-			wordsToShow += choppedUpString[stringIndex];
-			colorText(wordsToShow, canvas.width/4, canvas.height/6, "white", "Verdana");
-			stringIndex++; 
-		} else {
-			colorText(wordsToShow, canvas.width/4, canvas.height/6, "white", "Verdana");
-		}
-		if (framesFromGameStart == framesPerSecond * 3) {		
-			havingAMoment = false;
-		}
-	}
+	playCutscene(currentScene);
 }
 
 function drawAll() {
@@ -87,16 +71,18 @@ function drawAll() {
 		drawAnimatedTiles();
 		drawAndRemoveAllObjects();
 		drawAllAnimals();
-		if (!worldEditor) player.draw();
+		if (!worldEditor) {
+			player.draw();
+		}
 		drawParticles();
 		endCameraPan();
+		drawGUI();
 		} else {
 			drawRect(0, 0, canvas.width, canvas.height, "black");
 			player.draw();
 			player.x = canvas.width / 2;
 			player.y = canvas.height / 2;
 		}
-		drawGUI();
 	}
 }
 
