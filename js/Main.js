@@ -59,6 +59,7 @@ function update() {
 	moveAll();
 	updateCountdownTimer();
 	playCutscene(currentScene);
+	if(checkNextLevelTrigger()) advanceLevel();
 }
 
 function drawAll() {

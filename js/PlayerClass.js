@@ -303,3 +303,14 @@ function isTileTypeCollidable(tileType) {
 			break;
 	}
 }
+
+function checkNextLevelTrigger(){
+	if(	getTileTypeAtPixelCoord(player.hitbox.x, player.hitbox.y) == TILE_NEXT_LEVEL ||
+		getTileTypeAtPixelCoord(player.hitbox.x+player.hitbox.w, player.hitbox.y) == TILE_NEXT_LEVEL ||
+		getTileTypeAtPixelCoord(player.hitbox.x, player.hitbox.y+player.hitbox.h) == TILE_NEXT_LEVEL ||
+		getTileTypeAtPixelCoord(player.hitbox.x+player.hitbox.w, player.hitbox.y+player.hitbox.h) == TILE_NEXT_LEVEL)
+	{
+		return true;
+	}
+	return false;
+}

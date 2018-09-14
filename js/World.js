@@ -9,6 +9,7 @@ const TILE_REPLACE_STUMP = -02;
 const TILE_EXTEND_COLLISION = -01;
 
 const TILE_NOTHING = 000;
+const TILE_NEXT_LEVEL = 001;
 
 // Ground Objects
 const TILE_FLOWER = 100;
@@ -106,7 +107,8 @@ const TILE_PLACEHOLDER_DEATH_CAT = 800;
 const TILE_STEBS_BIRD = 801;
 
 
-var allLevels = [mountainBase,randomForest];
+
+var allLevels = [mountainBase,testLevel];
 var currentLevelIndex = 0; // FIXME TODO: put back to zero when not testing level 2
 
 var worldCols = allLevels[currentLevelIndex].columns; //
@@ -116,7 +118,7 @@ var worldGrid = [];
 
 console.log("Current level: " + currentLevelIndex + " size: " + worldCols + 'x' + worldRows); 
 
-worldGrid = allLevels[currentLevelIndex].layout;
+worldGrid = Array.from(allLevels[currentLevelIndex].layout);
 
 var water = 0;
 var waterfallBottomLeft = 1;
@@ -155,6 +157,9 @@ function drawWorld() {
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 			} else {
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
+				if(debug && tileKindHere == TILE_NEXT_LEVEL){
+					drawRect(drawTileX, drawTileY, TILE_W, TILE_H, 'yellow');
+				}
 			}
 
 			// drawTypesOfTiles(arrayIndex, drawTileX, drawTileY);
@@ -456,4 +461,13 @@ function drawGridOfTiles(x, y) {
 	canvasContext.lineWidth = 0.4;
 	canvasContext.strokeStyle = "pink";
 	canvasContext.strokeRect(x, y, TILE_W, TILE_H);
+}
+
+function advanceLevel(){
+	currentLevelIndex = (currentLevelIndex + 1) % allLevels.length;
+	worldGrid = Array.from(allLevels[currentLevelIndex].layout);
+	worldCols = allLevels[currentLevelIndex].columns; //
+	worldRows = allLevels[currentLevelIndex].rows;
+	player.x = 20;
+	player.y = 40;
 }

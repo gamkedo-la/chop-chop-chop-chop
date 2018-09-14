@@ -28,6 +28,7 @@ function loadImages() {
         //World Tile Pics
         { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" },
         { worldType: TILE_NOTHING, theFile: "nothing.png" },
+		{ worldType: TILE_NEXT_LEVEL, theFile: "nothing.png"},
 
         { worldType: TILE_FLOWER, theFile: "flowers.png" },
         { worldType: TILE_WEEDS, theFile: "weeds.png" },
