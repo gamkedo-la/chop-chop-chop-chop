@@ -15,7 +15,7 @@ function playerClass() {
 	
 	// stats
 	this.swingCount = 0;
-	this.chopCount = 98;
+	this.chopCount = 00;
 	this.stepCount = 0;
 	this.treeCount = 0;
 	this.attackCount = 0;
@@ -31,7 +31,8 @@ function playerClass() {
 	this.direction = EAST; // direction helps prioritize chop
 	this.state = {
 		chopping: false,
-		walking: false
+		walking: false,
+		waiting: false,
 	};
 	var axeHitboxWidth = 9;
 	var axeHitboxHeight = 5;
@@ -40,7 +41,7 @@ function playerClass() {
 	this.axeHitbox = new colliderClass(this.x, this.y, axeHitboxWidth, axeHitboxHeight,
 										axeOffsetX, axeOffsetY);
 	this.axeSharpness = 0;
-	this.axeLevel = LOW;
+	this.axeLevel = MAX;
 	this.axePower = 1;
 	var chopTimer = 0;
 	this.hitbox = new colliderClass(this.x, this.y, this.width/2, this.height,
@@ -77,7 +78,7 @@ function playerClass() {
         var movementY = 0;
 		this.state.walking = false;
 
-        if (!this.state.chopping) {
+        if (!this.state.chopping && !this.state.waiting) {
 			if (leftKeyHeld) {
 				movementX -= this.speed;
 				this.direction = WEST;
@@ -189,46 +190,57 @@ function playerClass() {
 
 		var contactFrame = 15;
 
-		if (spacebarKeyHeld && chopTimer == 0) {
+		if (spacebarKeyHeld && chopTimer <= 0 && !this.state.waiting) {
 			if (this.axeLevel == MAX) {
+				this.state.chopping = true;
 				contactFrame = playerSideChop.animationColFrames - 2;
 				chopTimer = playerSideChop.animationColFrames - 1;
 				playerSideChop.currentFrameIndex = 0;
 			} else {
+				this.state.chopping = true;
 				chopTimer = playerSideChop.animationColFrames - 1;
 				playerSideChop.currentFrameIndex = 2;
 			}
 		}
+
 		if (chopTimer > 0) {
-			this.state.chopping = true;
-			if (chopTimer > 0) {
-				playerSideChop.draw(this.x,this.y, 1, (this.direction != EAST));
-				if (playerSideChop.currentFrameIndex == contactFrame) {
-					if (this.axeLevel == MAX) {
-						var axeProjectile = new projectileClass(this.x,this.y, this.direction);
-						objectList.push(axeProjectile);
-					} else {
-						this.chopTrees(this.direction);
-					}
-				}
-				chopTimer--;
-				if (chopTimer <= 0) {
-					player.state.chopping = false;
+			playerSideChop.draw(this.x,this.y, 1, (this.direction != EAST));
+			if (playerSideChop.currentFrameIndex == contactFrame) {
+				if (this.axeLevel == MAX) {
+					chopTimer = 0;
+					var axeProjectile = new projectileClass(this.x,this.y, this.direction);
+					objectList.push(axeProjectile);
+					this.state.chopping = false;
+					this.state.waiting = true;
+				} else {
+					this.chopTrees(this.direction);
 				}
 			}
-
-		} else { // not chopping
-
+			chopTimer--;
+		} else {
 			if (this.state.walking) {
-	
-				playerWalking.draw(this.x, this.y, 1, (this.direction != EAST));
-				
+
+			playerWalking.draw(this.x, this.y, 1, (this.direction != EAST));
+			
 			} else { // idle
 
-				playerIdle.draw(this.x, this.y, 1, (this.direction != EAST));
+			playerIdle.draw(this.x, this.y, 1, (this.direction != EAST));
 
 			}
 		}
+
+		if (chopTimer <= 0) {
+			if (this.axeLevel == MAX) {
+				for (var j = 0; j < objectList.length; j++) {
+					if (objectList[j].returned) {
+						objectList[j].remove = true;
+						this.state.waiting = false;
+					}
+				}
+			} else {
+				this.state.chopping = false;
+			}
+		} 
 
 		if (debug) {
 			drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");

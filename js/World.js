@@ -467,7 +467,7 @@ function drawGridOfTiles(x, y) {
 function advanceLevel(){
 	animalList = [];
 	objectList = [];
-	console.log(objectList);
+	//console.log(objectList);
 	currentLevelIndex = (currentLevelIndex + 1) % allLevels.length;
 	worldGrid = Array.from(allLevels[currentLevelIndex].layout);
 	worldCols = allLevels[currentLevelIndex].columns; //

@@ -69,8 +69,7 @@ function objectClass (newObject) {
 		this.health -= healthToSubtract;
 		this.pendingShakes = HIT_SHAKE_COUNT;
 		if (this.health <= 0) {
-			
-			console.log("Tree falling!");
+			//console.log("Tree falling!");
 			player.treeCount++; // add to stats for GUI
 			
 			var yoffset = 0; // to make things come from higher up if reqd
