@@ -42,6 +42,9 @@ const TILE_CAMERA = 126;
 const TILE_CAMPFIRE = 127;
 const TILE_DS_BONFIRE = 128;
 const TILE_BUSH = 129;
+const TILE_DIRT = 130;
+const TILE_DIRT_ALT = 131;
+const TILE_TALL_GRASS = 132;
 
 // Trees
 const TILE_SMALL_TREE = 200;
@@ -119,7 +122,7 @@ var worldGrid = [];
 
 console.log("Current level: " + currentLevelIndex + " size: " + worldCols + 'x' + worldRows); 
 
-worldGrid = Array.from(allLevels[currentLevelIndex].layout);
+worldGrid = allLevels[currentLevelIndex].layout;
 
 var water = 0;
 var waterfallBottomLeft = 1;
