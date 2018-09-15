@@ -101,7 +101,7 @@ const TILE_PATH_CORNER_IN_BOTTOM_LEFT = 511;
 // Stumps
 const TILE_STUMP = 600;
 const TILE_STUMP_ALT = 601;
-const TILE_POP_STUMP = 602;
+const TILE_LOLLIPOP_STUMP = 602;
 
 // Animals
 const TILE_PLACEHOLDER_DEATH_CAT = 800;
@@ -191,6 +191,7 @@ function isTileTypeAnObject(tileType) {
 		case TILE_LOLLIPOP:
 		case TILE_STUMP:
 		case TILE_STUMP_ALT:
+		case TILE_LOLLIPOP_STUMP:
 			return true;
 			break;
 	}

@@ -84,6 +84,7 @@ function loadImages() {
 
         { worldType: TILE_STUMP, theFile: "stump1.png" },
         { worldType: TILE_STUMP_ALT, theFile: "stump2.png" },
+        { worldType: TILE_LOLLIPOP_STUMP, theFile: "lollipop_stump.png" },
         { worldType: TILE_REPLACE_STUMP, theFile: "nothing.png" },
 
         { worldType: TILE_WATER, theFile: "water.png" },

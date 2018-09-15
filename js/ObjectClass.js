@@ -11,7 +11,8 @@ TILE_TALL_TREE,
 TILE_LOLLIPOP];
 var stumps = [
 TILE_STUMP_ALT,
-TILE_STUMP];
+TILE_STUMP,
+TILE_LOLLIPOP_STUMP];
 var replacements = [
 TILE_REPLACE_TREE,
 TILE_REPLACE_STUMP]
@@ -107,6 +108,7 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 			break;
 		case TILE_STUMP:
 		case TILE_STUMP_ALT:
+		case TILE_LOLLIPOP_STUMP:
 			newObject = new standardStumpClass(tileType, arrayIndex, hiddenTile);
 			break;
 	}
@@ -125,7 +127,6 @@ function replaceTiles(arrayIndex) {
 function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {
 	switch (tileType) {
 		case TILE_SMALL_TREE:
-		case TILE_LOLLIPOP:
 			worldGrid[arrayIndex - worldCols] = hiddenTile;
 			worldGrid[arrayIndex] = TILE_STUMP;
 		break;
@@ -134,10 +135,10 @@ function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {
 			worldGrid[arrayIndex - worldCols] = hiddenTile;
 			worldGrid[arrayIndex] = TILE_STUMP_ALT;
 		break;
-		/*case TILE_LOLLIPOP:
+		case TILE_LOLLIPOP:
 			worldGrid[arrayIndex - worldCols] = hiddenTile;
-			worldGrid[arrayIndex] = TILE_POP_STUMP;
-		break;*/
+			worldGrid[arrayIndex] = TILE_LOLLIPOP_STUMP;
+		break;
 	}
 }
 
