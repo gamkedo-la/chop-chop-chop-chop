@@ -41,6 +41,7 @@ const TILE_TWIG = 125;
 const TILE_CAMERA = 126;
 const TILE_CAMPFIRE = 127;
 const TILE_DS_BONFIRE = 128;
+const TILE_BUSH = 129;
 
 // Trees
 const TILE_SMALL_TREE = 200;

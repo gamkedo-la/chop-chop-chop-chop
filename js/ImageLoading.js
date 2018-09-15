@@ -60,6 +60,7 @@ function loadImages() {
         { worldType: TILE_BOULDER_BOTTOM_LEFT, theFile: "boulder_bottom_left.png" },
         { worldType: TILE_BOULDER_BOTTOM, theFile: "boulder_bottom.png" },
         { worldType: TILE_BOULDER_BOTTOM_RIGHT, theFile: "boulder_bottom_right.png" },
+		{ worldType: TILE_BUSH, theFile: "bush.png"},
 
         { worldType: TILE_PATH_SIDE_LEFT, theFile: "path_dirt_side_left.png" },
         { worldType: TILE_PATH_SIDE_RIGHT, theFile: "path_dirt_side_right.png" },
