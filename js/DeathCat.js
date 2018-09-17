@@ -12,8 +12,6 @@ function deathCat (arrayIndex,worldTileType) {
 	this.tileType = worldTileType;
 	this.home = indexToCenteredXY(arrayIndex);
 	this.img = placeholderDeathCatMeander;
-	this.width = this.img.spriteSheet.width/this.img.animationColFrames;
-	this.height = this.img.spriteSheet.height/this.img.animationRowFrames;
 	this.speed = 4;
 	this.detectionRadius = 120;
 	this.homeRadius = 300;

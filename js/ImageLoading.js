@@ -6,10 +6,13 @@ var waterTilelist = [];
 
 function loadImages() {
     var imageList = [
-        //Game Pics (player, enemies, objects, effects, etc.)
+        // Game Pics
+        // Player Pic
         { varName: "playerWalkingSheet", theFile: "player_run.png" },
         { varName: "playerSideChopSheet", theFile: "player_chop.png" },
         { varName: "maxAxeProjectileSheet", theFile: "max_axe_upgrade_projectile.png" },
+
+        // Animated Tile Sheets
         { varName: "waterTilesSpritesheet", theFile: "water_spritesheet.png" },
         { varName: "waterfallBottomLeftSpritesheet", theFile: "waterfall_bottom_left_spritesheet.png" },
         { varName: "waterfallBottomCenterSpritesheet", theFile: "waterfall_bottom_center_spritesheet.png" },
@@ -17,13 +20,21 @@ function loadImages() {
         { varName: "cameraSpritesheet", theFile: "camera_spritesheet.png" },
         { varName: "campfireSpritesheet", theFile: "campfire_spritesheet.png" },
         { varName: "dsBonfireSpritesheet", theFile: "ds_bonfire_spritesheet.png" },
-        { varName: "placeholderDeathCatImage", theFile: "placeholderDeathCatImage.png"},
+
+        // Animated Animal Sheets
         { varName: "placeholderDeathCatMeanderSheet", theFile: "placeholderDeathCatMeanderSheet2a.png"},
         { varName: "stebsBird", theFile: "stebsbirdsheet.png"},
+        { varName: "rabbitSheet", theFile: "rabbitsheet.png"},
+
+        // Particle Effects
         { varName: "leaf", theFile: "leaf.png"},
         { varName: "debris0", theFile: "debris0.png"},
         { varName: "debris1", theFile: "debris1.png"},
         { varName: "debris2", theFile: "debris2.png"},
+
+        //Font
+        { varName: "fontSheet", theFile: "ChopChopFontFont.png"},
+
 
         //World Tile Pics
         { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" },
@@ -98,7 +109,9 @@ function loadImages() {
         { worldType: TILE_REPLACE_WATERFALL, theFile: "clear.png" },
 
         { worldType: TILE_STEBS_BIRD, theFile: "stebsbird.png" },
-        { worldType: TILE_PLACEHOLDER_DEATH_CAT, theFile: "placeholderDeathCatMeanderSheet1.png" },
+        { worldType: TILE_DEATH_CAT, theFile: "placeholderDeathCatMeanderSheet1.png" },
+        { worldType: TILE_RABBIT, theFile: "rabbit.png" },
+
         { worldType: TILE_REPLACE_ANIMAL, theFile: "nothing.png" },
 
         { worldType: TILE_CLIFF_TOP_LEFT, theFile: "cliff_top_left.png" },

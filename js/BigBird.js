@@ -12,8 +12,6 @@ function bigBird (arrayIndex,worldTileType) {
 	this.tileType = worldTileType;
 	this.home = indexToCenteredXY(arrayIndex);
 	this.img = stebsBird;
-	this.width = this.img.spriteSheet.width/this.img.animationColFrames;
-	this.height = this.img.spriteSheet.height/this.img.animationRowFrames;
 	this.speed = 5;
 	this.detectionRadius = 240;
 	this.homeRadius = 600;
@@ -24,7 +22,7 @@ function bigBird (arrayIndex,worldTileType) {
 	this.idleTimer = 75; // frames
 	var idleTimerFull = this.idleTimer;
 	this.idlePosition = {x: this.home.x, y: this.home.y};
-	this.attackPower = 2;
+	this.attackPower = 3;
 
 	this.collidableTiles = [];
 

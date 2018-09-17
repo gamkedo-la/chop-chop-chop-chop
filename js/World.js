@@ -107,10 +107,9 @@ const TILE_STUMP_ALT = 601;
 const TILE_LOLLIPOP_STUMP = 602;
 
 // Animals
-const TILE_PLACEHOLDER_DEATH_CAT = 800;
+const TILE_DEATH_CAT = 800;
 const TILE_STEBS_BIRD = 801;
-
-
+const TILE_RABBIT = 802;
 
 var allLevels = [mountainBase,testLevel];
 var currentLevelIndex = 0; // FIXME TODO: put back to zero when not testing level 2
@@ -348,8 +347,9 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 
 function isTileTypeAnAnimal(tileType) {
 	switch (tileType) {
-		case TILE_PLACEHOLDER_DEATH_CAT:
+		case TILE_DEATH_CAT:
 		case TILE_STEBS_BIRD:
+		case TILE_RABBIT:
 			return true;
 			break;
 	}

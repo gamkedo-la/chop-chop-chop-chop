@@ -4,8 +4,8 @@ function animalClass (newAnimal) {
 	this.animal = newAnimal;
 	this.home = newAnimal.home;
 	this.img = newAnimal.img;
-	this.width = newAnimal.width;
-	this.height = newAnimal.height;
+	this.width = this.img.spriteSheet.width/this.img.animationColFrames;
+	this.height = this.img.spriteSheet.height/this.img.animationRowFrames;
 	this.speed = newAnimal.speed;
 	this.arrayIndex = newAnimal.arrayIndex;
 	this.tileType = newAnimal.tileType;
@@ -249,12 +249,16 @@ var standardCollisionTiles = [TILE_EXTEND_COLLISION,TILE_SMALL_TREE,
 
 function spawnAnimalBasedOnTile(tileType, arrayIndex) {
 	switch (tileType) {
-		case TILE_PLACEHOLDER_DEATH_CAT:
+		case TILE_DEATH_CAT:
 			animal = new deathCat(arrayIndex,tileType);
 			animalList.push(animal);
 			break;
 		case TILE_STEBS_BIRD:
 			animal = new bigBird(arrayIndex,tileType);
+			animalList.push(animal);
+			break;
+		case TILE_RABBIT:
+			animal = new rabbitClass(arrayIndex,tileType);
 			animalList.push(animal);
 			break;
 	}
