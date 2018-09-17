@@ -1,22 +1,22 @@
 const GUI_COLOR = "white";
 const GUI_FONT = "8px Verdana, Arial";
 const GUI_OPACITY = 1;
-const GUI_Y = 10;
+const GUI_Y = 4;
 
 const FRUSTRATION_BAR_FONT = "14px Verdana, Arial";
-const FRUSTRATION_BAR_X = 110;
-const FRUSTRATION_BAR_TEXT_Y = 8;
+const FRUSTRATION_BAR_X = 112;
+const FRUSTRATION_BAR_TEXT_Y = 18;
 const FRUSTRATION_BAR_Y_OFFSET = 20;
 const FRUSTRATION_BAR_LENGTH = MAX_FRUSTATION * 2.5; // MAX_FRUSTATION
 const FRUSTRATION_BAR_HEIGHT = 14;
 
 function drawGUI() {
     var statustxt = 
-        "SWINGS: " + player.swingCount + "   " +
-        "CHOPS: " + player.chopCount + "   " +
-        "TREES: " + player.treeCount + "   " +
-        "ATTACKS: " + player.attackCount + "   " +
-        "DISTANCE: " + player.stepCount + "m";
+        "SWINGS:" + player.swingCount + "   " +
+        "CHOPS:" + player.chopCount + "   " +
+        "TREES:" + player.treeCount + "   " +
+        "ATTACKS:" + player.attackCount + "   " +
+        "DISTANCE:" + player.stepCount + "m";
 
     // blurry canvas font version
     //colorText(statustxt,4,GUI_Y,GUI_COLOR,GUI_FONT,"left",GUI_OPACITY);
@@ -36,7 +36,8 @@ function drawGUI() {
     
     drawRect(0,canvas.height - FRUSTRATION_BAR_TEXT_Y - 13, 
     	frustrationTextWidth + 6, FRUSTRATION_BAR_HEIGHT + 2, "black");
-    colorText(frustrationText,2,canvas.height - FRUSTRATION_BAR_TEXT_Y,GUI_COLOR,FRUSTRATION_BAR_FONT,"left");
+    //colorText(frustrationText,2,canvas.height - FRUSTRATION_BAR_TEXT_Y,GUI_COLOR,FRUSTRATION_BAR_FONT,"left");
+    drawPixelfont(frustrationText,4,canvas.height - FRUSTRATION_BAR_TEXT_Y);
     drawRect(FRUSTRATION_BAR_X - 2,canvas.height - FRUSTRATION_BAR_Y_OFFSET - 2, 
     	FRUSTRATION_BAR_LENGTH + 4, FRUSTRATION_BAR_HEIGHT + 4, GUI_COLOR);
     drawRect(FRUSTRATION_BAR_X,canvas.height - FRUSTRATION_BAR_Y_OFFSET, 

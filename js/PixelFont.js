@@ -33,7 +33,7 @@ function pixelfont_dx(char) {
     if (char=='!') num = 30;
     if (isNumeric(char)) num += 47;
     var column = (num % 8);
-    console.log(char+' num:'+num+' col:'+column);
+    //console.log(char+' num:'+num+' col:'+column);
     return column * pixelfont_w;
 }
 function pixelfont_dy(char) {
@@ -45,7 +45,7 @@ function pixelfont_dy(char) {
     if (char=='!') num = 30;
     if (isNumeric(char)) num += 47;
     var row = Math.floor((num / 8));
-    console.log(char+' num:'+num+' row:'+row);
+    //console.log(char+' num:'+num+' row:'+row);
     return row * pixelfont_h;
 }
 
@@ -78,7 +78,7 @@ function drawPixelfontCentered(str, x, y) {
 function drawPixelfont(str, x, y) {
     
     str = str.toUpperCase(); // we only have caps in this font
-    console.log("drawPixelfont " + str + "," + x + "," + y);
+    //console.log("drawPixelfont " + str + "," + x + "," + y);
     
     // sanity checks for globals init by the game engine
     if (!window.canvasContext) {
