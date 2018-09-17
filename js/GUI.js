@@ -1,13 +1,10 @@
 const GUI_COLOR = "white";
-const GUI_FONT = "8px Verdana, Arial";
-const GUI_OPACITY = 1;
 const GUI_Y = 4;
 
-const FRUSTRATION_BAR_FONT = "14px Verdana, Arial";
 const FRUSTRATION_BAR_X = 112;
 const FRUSTRATION_BAR_TEXT_Y = 18;
 const FRUSTRATION_BAR_Y_OFFSET = 20;
-const FRUSTRATION_BAR_LENGTH = MAX_FRUSTATION * 2.5; // MAX_FRUSTATION
+const FRUSTRATION_BAR_LENGTH = MAX_FRUSTATION * 2.5; 
 const FRUSTRATION_BAR_HEIGHT = 14;
 
 function drawGUI() {

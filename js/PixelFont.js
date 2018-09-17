@@ -27,10 +27,10 @@ function isNumeric(n) {
 function pixelfont_dx(char) {
     var num = (''+char).charCodeAt(0)-65; // a-z
     if (char==' ') num = 0;
-    if (char=='.') num = 27;
-    if (char==',') num = 28;
-    if (char=='?') num = 29;
-    if (char=='!') num = 30;
+    if (char=='.') num = 26;
+    if (char==',') num = 27;
+    if (char=='?') num = 28;
+    if (char=='!') num = 29;
     if (isNumeric(char)) num += 47;
     var column = (num % 8);
     //console.log(char+' num:'+num+' col:'+column);
@@ -39,10 +39,10 @@ function pixelfont_dx(char) {
 function pixelfont_dy(char) {
     var num = (''+char).charCodeAt(0)-65; // a-z
     if (char==' ') num = 0;
-    if (char=='.') num = 27;
-    if (char==',') num = 28;
-    if (char=='?') num = 29;
-    if (char=='!') num = 30;
+    if (char=='.') num = 26;
+    if (char==',') num = 27;
+    if (char=='?') num = 28;
+    if (char=='!') num = 29;
     if (isNumeric(char)) num += 47;
     var row = Math.floor((num / 8));
     //console.log(char+' num:'+num+' row:'+row);
