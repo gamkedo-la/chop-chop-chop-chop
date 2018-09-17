@@ -51,6 +51,7 @@ const TILE_SMALL_TREE = 200;
 const TILE_SMALL_TREE_ALT = 201;
 const TILE_LOLLIPOP = 202;
 const TILE_TALL_TREE = 203;
+const TILE_STALAGMITE = 204;
 
 // Cliffs,Pits and Waterfalls
 const TILE_CLIFF_TOP_LEFT = 300;
@@ -105,6 +106,7 @@ const TILE_PATH_CORNER_IN_BOTTOM_LEFT = 511;
 const TILE_STUMP = 600;
 const TILE_STUMP_ALT = 601;
 const TILE_LOLLIPOP_STUMP = 602;
+const TILE_STALAGMITE_STUMP = 603;
 
 // Animals
 const TILE_DEATH_CAT = 800;
@@ -136,7 +138,6 @@ function drawWorld() {
 	var arrayIndex = 0;
 	var drawTileX = 0;
 	var drawTileY = 0;
-	var nextEnemy = null;
 	for (var eachRow = 0; eachRow < worldRows; eachRow++) {
 		for (var eachCol = 0; eachCol < worldCols; eachCol++) {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
@@ -191,9 +192,11 @@ function isTileTypeAnObject(tileType) {
 		case TILE_SMALL_TREE_ALT:
 		case TILE_TALL_TREE:
 		case TILE_LOLLIPOP:
+		case TILE_STALAGMITE:
 		case TILE_STUMP:
 		case TILE_STUMP_ALT:
 		case TILE_LOLLIPOP_STUMP:
+		case TILE_STALAGMITE_STUMP:
 			return true;
 			break;
 	}

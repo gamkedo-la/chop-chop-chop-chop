@@ -30,13 +30,11 @@ function drawGUI() {
 
     //colorText("FRUSTRATION ",2,canvas.height - FRUSTRATION_BAR_TEXT_Y,"black","bolder 13px Verdana, Arial","left");
     var frustrationText = "FRUSTRATION";
-    canvasContext.font = FRUSTRATION_BAR_FONT;
     var frustrationTextWidth = canvasContext.measureText(frustrationText).width;
     var frustrationFillWidth = player.currentFrustration * 2.5;
     
-    drawRect(0,canvas.height - FRUSTRATION_BAR_TEXT_Y - 13, 
-    	frustrationTextWidth + 6, FRUSTRATION_BAR_HEIGHT + 2, "black");
-    //colorText(frustrationText,2,canvas.height - FRUSTRATION_BAR_TEXT_Y,GUI_COLOR,FRUSTRATION_BAR_FONT,"left");
+    drawRect(2,canvas.height - FRUSTRATION_BAR_TEXT_Y - 2, 
+    	FRUSTRATION_BAR_LENGTH * 2 + 6, FRUSTRATION_BAR_HEIGHT + 2, "black");
     drawPixelfont(frustrationText,4,canvas.height - FRUSTRATION_BAR_TEXT_Y);
     drawRect(FRUSTRATION_BAR_X - 2,canvas.height - FRUSTRATION_BAR_Y_OFFSET - 2, 
     	FRUSTRATION_BAR_LENGTH + 4, FRUSTRATION_BAR_HEIGHT + 4, GUI_COLOR);

@@ -176,8 +176,6 @@ function keyPressed(evt) {
 			if (worldEditor) {
 				pickASet(groundSet);
 				console.log("groundSet selected");
-			} else {
-				havingAMoment = !havingAMoment;
 			}
 		break;
 		case TWO_KEY:

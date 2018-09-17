@@ -1,27 +1,24 @@
 var animalList = [];
 
 function rabbitClass (arrayIndex,worldTileType) {
-	var rabbitIdle = new AnimatedSpriteClass({
+	this.arrayIndex = arrayIndex;
+	this.tileType = worldTileType;
+	this.home = indexToCenteredXY(arrayIndex);
+	var randomPositionOffset = getRoundedRandomNumberBetweenMinMax(0,48);
+	this.home.x += randomPositionOffset;
+	this.home.y +=	randomPositionOffset;
+	var rabbitMovement = new AnimatedSpriteClass({
 		name: "rabbit",
 		spriteSheet: gamePics.rabbitSheet,
 		animationRowFrames: 1,
 		animationColFrames: 4,
-		framesUntilNext: 1,
-		currentFrameIndex: 1,
-		loops: false;
+		currentFrameIndex: 0,
+		framesUntilNext: 4,
+		loops: true
 	});
-	var rabbitHop = new AnimatedSpriteClass({
-		name: "rabbitHop",
-		spriteSheet: gamePics.rabbitSheet,
-		animationRowFrames: 1,
-		animationColFrames: 4,
-		currentFrameIndex: 1,
-		framesUntilNext: 10,
-	});
-	this.arrayIndex = arrayIndex;
-	this.tileType = worldTileType;
-	this.home = indexToCenteredXY(arrayIndex);
-	this.img = rabbit;
+	var randomFrameIndex = getRoundedRandomNumberBetweenMinMax(0,rabbitMovement.animationColFrames);
+	rabbitMovement.currentFrameIndex = randomFrameIndex;
+	this.img = rabbitMovement;
 	this.speed = 2;
 	this.detectionRadius = 0;
 	this.homeRadius = 40;

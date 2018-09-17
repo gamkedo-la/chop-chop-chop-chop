@@ -12,7 +12,7 @@ function standardTreeClass (worldTileType,arrayIndex,hiddenTile) {
 	this.hasLeaves = true;
 	this.hasHitbox = true;
 	this.colliderWidth = TILE_W - 5;
-	this.colliderHeight = 64;
+	this.colliderHeight = this.height;
 	this.colliderOffsetX = this.width/4 + 3;
 	this.colliderOffsetY = 0;
 
@@ -21,6 +21,7 @@ function standardTreeClass (worldTileType,arrayIndex,hiddenTile) {
 		//console.log("Tall tree detected!");
 		this.health = 4;
 		this.y -= 48;
+		this.colliderHeight = this.height/2;
 		this.colliderOffsetY = 48;
 		this.colliderOffsetX -= 6;
 	}
@@ -31,6 +32,14 @@ function standardTreeClass (worldTileType,arrayIndex,hiddenTile) {
 		this.colliderHeight = 28;
 		this.colliderOffsetX = this.width/4 - 1;
 		this.colliderOffsetY = TILE_H/2;
+	}
+
+	if (worldTileType == TILE_STALAGMITE) {
+		this.hasLeaves = false;
+		this.health = 5;
+		this.colliderWidth = TILE_W - 10;
+		this.colliderHeight = this.height - 8;
+		this.colliderOffsetX = this.width/4 + 1;
 	}
 
 	return new objectClass(this);

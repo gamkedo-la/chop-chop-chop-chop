@@ -8,11 +8,13 @@ var trees = [
 TILE_SMALL_TREE,
 TILE_SMALL_TREE_ALT,
 TILE_TALL_TREE,
-TILE_LOLLIPOP];
+TILE_LOLLIPOP,
+TILE_STALAGMITE];
 var stumps = [
 TILE_STUMP_ALT,
 TILE_STUMP,
-TILE_LOLLIPOP_STUMP];
+TILE_LOLLIPOP_STUMP,
+TILE_STALAGMITE_STUMP];
 var replacements = [
 TILE_REPLACE_TREE,
 TILE_REPLACE_STUMP]
@@ -104,11 +106,13 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 		case TILE_SMALL_TREE_ALT:
 		case TILE_TALL_TREE:
 		case TILE_LOLLIPOP:
+		case TILE_STALAGMITE:
 			newObject = new standardTreeClass(tileType, arrayIndex, hiddenTile);
 			break;
 		case TILE_STUMP:
 		case TILE_STUMP_ALT:
 		case TILE_LOLLIPOP_STUMP:
+		case TILE_STALAGMITE_STUMP:
 			newObject = new standardStumpClass(tileType, arrayIndex, hiddenTile);
 			break;
 	}
@@ -138,6 +142,10 @@ function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {
 		case TILE_LOLLIPOP:
 			worldGrid[arrayIndex - worldCols] = hiddenTile;
 			worldGrid[arrayIndex] = TILE_LOLLIPOP_STUMP;
+		break;
+		case TILE_STALAGMITE:
+			worldGrid[arrayIndex - worldCols] = hiddenTile;
+			worldGrid[arrayIndex] = TILE_STALAGMITE_STUMP;
 		break;
 	}
 }
@@ -171,6 +179,7 @@ function tileTypeGetsHitbox(tileType) {
 		case TILE_SMALL_TREE_ALT:
 		case TILE_TALL_TREE:
 		case TILE_LOLLIPOP:
+		case TILE_STALAGMITE:
 			return true;
 			break;
 		default: 
