@@ -108,7 +108,9 @@ function keyPressed(evt) {
 			downKeyHeld = true;
 			break;
 		case SPACEBAR:
-			spacebarKeyHeld = true;
+			if (!havingAMoment) {
+				spacebarKeyHeld = true;
+			}
 			break;
 		case NUMBER_PAD_PLUS:
 		case KEY_PLUS:
@@ -132,7 +134,17 @@ function keyPressed(evt) {
 		break;
 		case KEY_TILDE:
 			worldEditor = !worldEditor;
-			if (worldEditor) console.log("worldEditor ON!");
+			if (worldEditor) {
+				console.log("worldEditor ON!");
+				console.log("Please select a set of tiles using:" + "\n"
+   				+ "0 for nothing" + "\n"
+   				+ "1 for ground tiles" + "\n"
+   				+ "2 for tree tiles" + "\n"
+   				+ "3 for cliff tiles" + "\n"
+   				+ "4 for water tiles" + "\n"
+   				+ "5 for water tiles" + "\n"
+   				+ "8 for animal tiles" + "\n");
+			}
 			if (!worldEditor) console.log("worldEditor OFF...");
 		break;
 		case X_KEY:

@@ -20,7 +20,6 @@ function cameraPan() {
 		}
 		if (mouseCanvasY < cameraPanY + TILE_W) {
 			cameraPanY -= cameraMovementSpeed;
-			console.log(cameraPanY);
 		}
 	} else {
 		cameraPanX = player.x - canvas.width/2;

@@ -67,12 +67,22 @@ let upgradeCheck = () => {
 		player.axeLevel = MID;
 		player.axeSharpness += 1;
 		player.axePower += player.axeSharpness
+		player.state = {
+		chopping: false,
+		walking: false,
+		waiting: false,
+		};
 		//console.log("level up!");
 	}
 	if (player.chopCount >= LEVEL_THREE_CHOPS && !upgradeLevelThree) {
 		prepareCutscene(upgradeLevelThreeScene);
 		upgradeLevelThree = true;
 		player.axeLevel = MAX;
+		player.state = {
+		chopping: false,
+		walking: false,
+		waiting: false,
+		};
 		//console.log("level up!");
 	}
 }

@@ -20,7 +20,7 @@ window.onload = function () {
 	document.body.appendChild(canvas);
 	canvas.width = SCREEN_W;
 	canvas.height = SCREEN_H;
-
+	canvasContext.imageSmoothingEnabled = false;
 	drawRect(0, 0, canvas.width, canvas.height, "blue");
 	colorText("Loading. . .", canvas.width / 2, canvas.height / 2, "white", "30px Courier New", "center");
 	setupInput();
