@@ -2,23 +2,6 @@ let openingMenuIsRunning = true;
 let gameIsRunning = false;
 let gameIsPaused = false;
 
-var currentScene = null;
-var stringIndex = 0;
-var wordsToShow = "";
-
-var upgradeLevelTwoScene = {
-	cutsceneTime: 3, // in seconds, multiplied by frames per second later
-	stringToDisplay: "This is level two"
-};
-var upgradeLevelThreeScene = {
-	cutsceneTime: 3,
-	stringToDisplay: "Whoa Level 3? whaaaaa"
-};
-var gameOverScene = {
-	cutsceneTime: 5,
-	stringToDisplay: "Game Over"
-};
-
 //add background image for opening menu
 function drawOpeningMenu() {
 	colorRect(0, 0, canvas.width, canvas.height, "black");
@@ -87,6 +70,26 @@ let upgradeCheck = () => {
 	}
 }
 
+var currentScene = null;
+var stringIndex = 0;
+var wordsToShow = "";
+var cutsceneDialogueIndex = 0;
+var needNewString = false;
+
+var upgradeLevelTwoScene = {
+	cutsceneTime: 3, // in seconds, multiplied by frames per second later
+	stringToDisplay: ["Through a burst of insight and creativity", "Chop-Chop has improved his technique",
+					"...", '"What if I chopped harder?"']
+};
+var upgradeLevelThreeScene = {
+	cutsceneTime: 3,
+	stringToDisplay: "Whoa Level 3? whaaaaa"
+};
+var gameOverScene = {
+	cutsceneTime: 5,
+	stringToDisplay: "Game Over"
+};
+
 function prepareCutscene(scene) {
 	framesFromGameStart = 0;
 	havingAMoment = true;
@@ -95,14 +98,21 @@ function prepareCutscene(scene) {
 
 function playCutscene(data) {
 	if (havingAMoment) {
-		cutsceneDialogue(data.stringToDisplay);
-		if (framesFromGameStart >= framesPerSecond * data.cutsceneTime) {		
+		cutsceneDialogue(data.stringToDisplay[cutsceneDialogueIndex]);
+		if (needNewString) {
+			cutsceneDialogueIndex++;
+			needNewString = false;
+			wordsToShow = "";
+		}
+		if (cutsceneDialogueIndex >= data.stringToDisplay.length) {
 			havingAMoment = false;
 			wordsToShow = "";
 			stringIndex = 0;
+			cutsceneDialogueIndex = 0;
 			currentScene = null;
 			player.x = player.oldX;
 			player.y = player.oldY;
+			needNewString = false;
 		}
 	}
 }
@@ -115,6 +125,8 @@ function cutsceneDialogue (stringToDisplay) {
 		stringIndex++; 
 	} else {
 		drawPixelfont(wordsToShow, canvas.width/4, canvas.height/6);
+		needNewString = true;
+		stringIndex = 0;
 	}
 }
 

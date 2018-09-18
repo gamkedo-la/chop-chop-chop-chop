@@ -474,7 +474,7 @@ function drawAnimatedTiles() {
 					if (distToVolume > volumeMax) {
 						distToVolume = volumeMax;
 					}
-					console.log(distToVolume);
+					//console.log(distToVolume);
 					animatedTileList[i].noise.volume = distToVolume; 
 					animatedTileList[i].noise.play(); 
 				} else {

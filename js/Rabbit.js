@@ -1,5 +1,3 @@
-var animalList = [];
-
 function rabbitClass (arrayIndex,worldTileType) {
 	this.arrayIndex = arrayIndex;
 	this.tileType = worldTileType;

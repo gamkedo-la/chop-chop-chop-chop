@@ -1,5 +1,3 @@
-var animalList = [];
-
 function deathCat (arrayIndex,worldTileType) {
 	var placeholderDeathCatMeander = new AnimatedSpriteClass({
 		name: "deathCat",

@@ -1,5 +1,3 @@
-var animalList = [];
-
 function bigBird (arrayIndex,worldTileType) {
 	var stebsBird = new AnimatedSpriteClass({
 		name: "stebsBird",

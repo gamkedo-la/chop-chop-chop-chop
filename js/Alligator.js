@@ -1,5 +1,3 @@
-var animalList = [];
-
 function alligatorClass (arrayIndex,worldTileType) {
 	this.arrayIndex = arrayIndex;
 	this.tileType = worldTileType;
