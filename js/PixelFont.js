@@ -33,6 +33,7 @@ function pixelfont_dx(char) {
     if (char=='!') num = 29;
     if (char=='-') num = 40;
     if (char==':') num = 41;
+    if (char=='"') num = 42;
     if (isNumeric(char)) num += 47;
     var column = (num % 8);
     //console.log(char+' num:'+num+' col:'+column);
@@ -47,6 +48,7 @@ function pixelfont_dy(char) {
     if (char=='!') num = 29;
     if (char=='-') num = 40;
     if (char==':') num = 41;
+    if (char=='"') num = 42;
     if (isNumeric(char)) num += 47;
     var row = Math.floor((num / 8));
     //console.log(char+' num:'+num+' row:'+row);

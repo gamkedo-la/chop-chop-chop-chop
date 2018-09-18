@@ -83,11 +83,11 @@ var upgradeLevelTwoScene = {
 };
 var upgradeLevelThreeScene = {
 	cutsceneTime: 3,
-	stringToDisplay: "Whoa Level 3? whaaaaa"
+	stringToDisplay: ["Whoa Level 3? whaaaaa"]
 };
 var gameOverScene = {
 	cutsceneTime: 5,
-	stringToDisplay: "Game Over"
+	stringToDisplay: ["Game Over"]
 };
 
 function prepareCutscene(scene) {
