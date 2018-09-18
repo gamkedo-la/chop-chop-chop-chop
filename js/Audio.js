@@ -2,13 +2,14 @@ let backgroundMusic = new Audio();
 let chop1 = new Audio();
 let chop2 = new Audio();
 let missedSwing = new Audio();
+let campfireSFX = new Audio();
 let birdSound = new Audio();
 let deathMeow = new Audio();
 
-let arrayOfSounds = [backgroundMusic,chop1, chop2,missedSwing,birdSound,deathMeow];
+let arrayOfSounds = [backgroundMusic,chop1, chop2,missedSwing,campfireSFX,birdSound,deathMeow];
 
 let arrayOfMusic = [backgroundMusic];
-let arrayOfSFXs = [chop1, chop2,missedSwing,birdSound,deathMeow];
+let arrayOfSFXs = [chop1,chop2,missedSwing,campfireSFX,birdSound,deathMeow];
 
 let audioType = undefined;
 let sourceExtension = undefined;
@@ -49,10 +50,11 @@ backgroundMusic.addEventListener('timeupdate', function(){
 
 chop1.src = "SFX/Chop1" + sourceExtension;
 chop2.src = "SFX/Chop2" + sourceExtension;
-missedSwing.src = "SFX/missedSwing" + sourceExtension;
-deathMeow.src = "SFX/deathMeow" + sourceExtension;
+missedSwing.src = "SFX/MissedSwing" + sourceExtension;
+campfireSFX.src = "SFX/Fire" + sourceExtension;
+deathMeow.src = "SFX/DeathMeow" + sourceExtension;
 deathMeow.volume = 0.5;
-birdSound.src = "SFX/birdSound" + sourceExtension;
+birdSound.src = "SFX/BirdSound" + sourceExtension;
 birdSound.volume = 0.6;
 
 /*let decreaseMasterVolume = () => {

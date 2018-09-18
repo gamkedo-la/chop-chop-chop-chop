@@ -53,6 +53,8 @@ function AnimatedSpriteClass(data) {
 	this.y = data.y;
 	this.arrayIndex = data.arrayIndex;
 	this.tileType = data.tileType;
+	this.makesNoise = (data.makesNoise == undefined) ? false : data.makesNoise;
+	this.noise = (data.makesNoise == false) ? null : data.noise;
 
 	this.setFrame = function(frame) {
 		this.currentFrameIndex = frame;

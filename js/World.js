@@ -326,7 +326,9 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 				x: drawTileX + TILE_W/2,
 				y: drawTileY + TILE_H/2,
 				arrayIndex: arrayIndex,
-				tileType: TILE_CAMPFIRE
+				tileType: TILE_CAMPFIRE,
+				makesNoise: true,
+				noise: campfireSFX
 			});
 			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
 			animatedTileList.push(animatedTile);
@@ -449,6 +451,29 @@ function drawAnimatedTiles() {
 				0,0,0,
 				1,false,1,1,
 				false);
+			}
+			if (animatedTileList[i].makesNoise) {
+				var radius = 128;
+				if (debug) {
+					outlineCircle(animatedTileList[i].x,animatedTileList[i].y, radius, "green",1);
+				}
+				var center = indexToCenteredXY(animatedTileList[i].arrayIndex)
+				var distX = Math.abs(center.x - player.x);
+				var distY = Math.abs(center.y - player.y);
+				var diffX = distX - player.width/4;
+				var diffY = distY - player.height/2;
+				if ((diffX*diffX+diffY*diffY)<=(radius*radius)) {
+					var distToVolume = 1/distX * 10 - .05;
+					var volumeMax = 0.4;
+					if (distToVolume > volumeMax) {
+						distToVolume = volumeMax;
+					}
+					console.log(distToVolume);
+					animatedTileList[i].noise.volume = distToVolume; 
+					animatedTileList[i].noise.play(); 
+				} else {
+					animatedTileList[i].noise.pause();
+				}
 			}
 		} else {
 			// draw nothing
