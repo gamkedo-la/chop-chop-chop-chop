@@ -42,7 +42,8 @@ function animalClass (newAnimal) {
 		colliderWidth,colliderHeight,colliderOffsetX,colliderOffsetY);
 
 	this.draw = function () {
-		if (worldGrid[this.arrayIndex] != TILE_REPLACE_ANIMAL) {
+		if (worldGrid[this.arrayIndex] != TILE_REPLACE_ANIMAL &&
+			worldGrid[this.arrayIndex] != TILE_REPLACE_WATER) {
 			return;
 		}
 		if (this.meander || this.playerDetected || this.waiting) {
@@ -63,7 +64,8 @@ function animalClass (newAnimal) {
 
 
 	this.move = function() {
-		if (worldGrid[this.arrayIndex] != TILE_REPLACE_ANIMAL) {
+		if (worldGrid[this.arrayIndex] != TILE_REPLACE_ANIMAL &&
+			worldGrid[this.arrayIndex] != TILE_REPLACE_WATER) {
 			return;
 		}
 		this.detectionRadiusTrigger();
@@ -279,10 +281,12 @@ function spawnAnimalBasedOnTile(tileType, arrayIndex) {
 		case TILE_DEATH_CAT:
 			animal = new deathCat(arrayIndex,tileType);
 			animalList.push(animal);
+			worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
 			break;
 		case TILE_STEBS_BIRD:
 			animal = new bigBird(arrayIndex,tileType);
 			animalList.push(animal);
+			worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
 			break;
 		case TILE_RABBIT:
 			var rabbitsToSpawn = [];
@@ -292,6 +296,22 @@ function spawnAnimalBasedOnTile(tileType, arrayIndex) {
 				animal = new rabbitClass(arrayIndex,tileType);
 				animalList.push(animal);
 			}
+			worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
+			break;
+		case TILE_JUMPING_FISH:
+			animal = new jumpingFish(arrayIndex,tileType);
+			animalList.push(animal);
+			worldGrid[arrayIndex] = TILE_WATER;
+			break;
+		case TILE_ALLIGATOR:
+			animal = new alligatorClass(arrayIndex,tileType);
+			animalList.push(animal);
+			worldGrid[arrayIndex] = TILE_WATER;
+			break;
+		case TILE_PINCHER_BUG:
+			animal = new pincherBug(arrayIndex,tileType);
+			animalList.push(animal);
+			worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
 			break;
 	}
 }

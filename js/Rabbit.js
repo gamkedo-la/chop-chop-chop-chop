@@ -4,7 +4,7 @@ function rabbitClass (arrayIndex,worldTileType) {
 	this.arrayIndex = arrayIndex;
 	this.tileType = worldTileType;
 	this.home = indexToCenteredXY(arrayIndex);
-	var randomPositionOffset = getRoundedRandomNumberBetweenMinMax(0,48);
+	var randomPositionOffset = getRoundedRandomNumberBetweenMinMax(16,48);
 	this.home.x += randomPositionOffset;
 	this.home.y +=	randomPositionOffset;
 	var rabbitMovement = new AnimatedSpriteClass({

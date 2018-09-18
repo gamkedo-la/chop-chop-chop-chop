@@ -1,7 +1,7 @@
 const TILE_W = TILE_H = 32;
 
-const TILE_REPLACE_ANIMATED_TILE = -07
-const TILE_REPLACE_WATERFALL = -06;
+const TILE_REPLACE_ANIMATED_TILE = -08;
+const TILE_REPLACE_WATERFALL = -07;
 const TILE_REPLACE_WATER = -05;
 const TILE_REPLACE_ANIMAL = -04;
 const TILE_REPLACE_TREE = -03;
@@ -112,6 +112,9 @@ const TILE_STALAGMITE_STUMP = 603;
 const TILE_DEATH_CAT = 800;
 const TILE_STEBS_BIRD = 801;
 const TILE_RABBIT = 802;
+const TILE_JUMPING_FISH = 803;
+const TILE_ALLIGATOR = 804;
+const TILE_PINCHER_BUG = 805;
 
 var allLevels = [mountainBase,testLevel];
 var currentLevelIndex = 0; // FIXME TODO: put back to zero when not testing level 2
@@ -151,7 +154,6 @@ function drawWorld() {
 				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX, drawTileY);
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
 				spawnAnimalBasedOnTile(tileKindHere,arrayIndex);
-				worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
 			} else if (tileKindHere == TILE_EXTEND_COLLISION) {
 				for (var i = 0; i < objectList.length; i++) {
 					if (objectList[i].arrayIndex == (arrayIndex + worldCols)) {
@@ -206,24 +208,25 @@ function returnAnimatedTileSprites(tileKindHere) {
 	switch (tileKindHere) {
 		case TILE_WATER:
 			return water;
+		break;
 		case TILE_WATERFALL_BOTTOM_LEFT:
 			return waterfallBottomLeft;
-			break;
+		break;
 		case TILE_WATERFALL_BOTTOM_CENTER:
 			return waterfallBottomCenter;
-			break;
+		break;
 		case TILE_WATERFALL_BOTTOM_RIGHT:
 			return waterfallBottomRight;
-			break;
+		break;
 		case TILE_CAMERA:
 			return camera;
-			break;
+		break;
 		case TILE_CAMPFIRE:
 			return campfire;
-			break;
+		break;
 		case TILE_DS_BONFIRE:
 			return dsBonfire;
-			break;
+		break;
 	}
 }
 
@@ -246,7 +249,7 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 	var fromWhichRowToAnimate = 1;
 	switch (animatedTile) {
 		case water:
-			animatedTile = new AnimatedSpriteClass({
+			newAnimatedTile = new AnimatedSpriteClass({
 				name: "waterTiles",
 				spriteSheet: gamePics.waterTilesSpritesheet,
 				animationRowFrames: 10,
@@ -258,10 +261,10 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 				tileType: TILE_WATER
 			});
 			worldGrid[arrayIndex] = TILE_REPLACE_WATER;
-			animatedTileList.push(animatedTile);
+			animatedTileList.push(newAnimatedTile);
 			break;
 		case waterfallBottomLeft:
-			animatedTile = new AnimatedSpriteClass({
+			newAnimatedTile = new AnimatedSpriteClass({
 				name: "waterfallBL",
 				spriteSheet: gamePics.waterfallBottomLeftSpritesheet,
 				animationColFrames: 3,
@@ -272,10 +275,10 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 				tileType: TILE_WATERFALL_BOTTOM_LEFT
 			});
 			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
-			animatedTileList.push(animatedTile);
+			animatedTileList.push(newAnimatedTile);
 			break;
 		case waterfallBottomCenter:
-				animatedTile = new AnimatedSpriteClass({
+				newAnimatedTile = new AnimatedSpriteClass({
 				name: "waterfallBC",
 				spriteSheet: gamePics.waterfallBottomCenterSpritesheet,
 				animationColFrames: 3,
@@ -286,10 +289,10 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 				tileType: TILE_WATERFALL_BOTTOM_CENTER
 			});
 			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
-			animatedTileList.push(animatedTile);
+			animatedTileList.push(newAnimatedTile);
 			break;
 		case waterfallBottomRight:
-			animatedTile = new AnimatedSpriteClass({
+			newAnimatedTile = new AnimatedSpriteClass({
 				name: "waterfallBR",
 				spriteSheet: gamePics.waterfallBottomRightSpritesheet,
 				animationColFrames: 3,
@@ -300,10 +303,10 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 				tileType: TILE_WATERFALL_BOTTOM_RIGHT
 			});
 			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
-			animatedTileList.push(animatedTile);
+			animatedTileList.push(newAnimatedTile);
 			break;
 		case camera:
-			animatedTile = new AnimatedSpriteClass({
+			newAnimatedTile = new AnimatedSpriteClass({
 				name: "camera",
 				spriteSheet: gamePics.cameraSpritesheet,
 				animationColFrames: 2,
@@ -315,10 +318,10 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 				tileType: TILE_CAMERA
 			});
 			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
-			animatedTileList.push(animatedTile);
+			animatedTileList.push(newAnimatedTile);
 			break;
 		case campfire:
-			animatedTile = new AnimatedSpriteClass({
+			newAnimatedTile = new AnimatedSpriteClass({
 				name: "campfire",
 				spriteSheet: gamePics.campfireSpritesheet,
 				animationColFrames: 4,
@@ -331,10 +334,10 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 				noise: campfireSFX
 			});
 			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
-			animatedTileList.push(animatedTile);
+			animatedTileList.push(newAnimatedTile);
 			break;
 		case dsBonfire:
-			animatedTile = new AnimatedSpriteClass({
+			newAnimatedTile = new AnimatedSpriteClass({
 				name: "dsBonfire",
 				spriteSheet: gamePics.dsBonfireSpritesheet,
 				animationColFrames: 4,
@@ -345,7 +348,7 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 				tileType: TILE_DS_BONFIRE
 			});
 			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
-			animatedTileList.push(animatedTile);
+			animatedTileList.push(newAnimatedTile);
 			break;
 	}
 }
@@ -355,8 +358,11 @@ function isTileTypeAnAnimal(tileType) {
 		case TILE_DEATH_CAT:
 		case TILE_STEBS_BIRD:
 		case TILE_RABBIT:
+		case TILE_JUMPING_FISH:
+		case TILE_ALLIGATOR:
+		case TILE_PINCHER_BUG:
 			return true;
-			break;
+		break;
 	}
 }
 

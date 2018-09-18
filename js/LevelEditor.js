@@ -29,7 +29,7 @@ function roomTileCoordinate() {
    	var tileY = (levelRow * TILE_H) - cameraPanY;
 
     tileUnderMouse = rowColToArrayIndex(levelCol, levelRow);
-	//console.log("Col: " + levelCol,"Row: " + levelRow,"Type: " +  worldGrid[tileUnderMouse]);
+	console.log("Col: " + levelCol,"Row: " + levelRow,"Type: " +  worldGrid[tileUnderMouse]);
 
     canvasContext.strokeRect(tileX, tileY, TILE_W, TILE_H);
     canvasContext.strokeStyle = "orange";
@@ -106,7 +106,13 @@ function copyToClipboard() {
 			}
 			layoutString += "" + numberPrintOut + ",";
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_WATER) {
-			layoutString += "400,";
+			numberPrintOut = "400";
+			for (var n = 0; n < animalList.length; n++) {
+				if (animalList[n].arrayIndex == i) {
+					numberPrintOut = animalList[n].tileType;
+				} 
+			}
+			layoutString += "" + numberPrintOut + ",";
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_TREE) {
 			for (var m = 0; m < objectList.length; m++) {
 				if (objectList[m].arrayIndex == i) {

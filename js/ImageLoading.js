@@ -25,16 +25,18 @@ function loadImages() {
         { varName: "placeholderDeathCatMeanderSheet", theFile: "placeholderDeathCatMeanderSheet2a.png"},
         { varName: "stebsBird", theFile: "stebsbirdsheet.png"},
         { varName: "rabbitSheet", theFile: "rabbitsheet.png"},
+        { varName: "jumpingFish", theFile: "jumping_fish_sheet.png"},
+        { varName: "alligatorSheet", theFile: "alligator_sheet.png"},
+        { varName: "pincherBugSheet", theFile: "pincher_bug_sheet.png"},
 
         // Particle Effects
         { varName: "leaf", theFile: "leaf.png"},
         { varName: "debris0", theFile: "debris0.png"},
         { varName: "debris1", theFile: "debris1.png"},
-        { varName: "debris2", theFile: "debris2.png"},
+        { varName: "debris2", theFile: "debris2.png"}, 
 
         //Font
         { varName: "fontSheet", theFile: "ChopChopFontFontv2.png"},
-
 
         //World Tile Pics
         { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" },
@@ -60,7 +62,7 @@ function loadImages() {
         { worldType: TILE_CAMERA, theFile: "camera.png" },
         { worldType: TILE_CAMPFIRE, theFile: "campfire.png" },
         { worldType: TILE_DS_BONFIRE, theFile: "ds_bonfire.png" },
-        { worldType: TILE_REPLACE_ANIMATED_TILE, theFile: "clear.png" },
+        { worldType: TILE_REPLACE_ANIMATED_TILE, theFile: "nothing.png" },
         { worldType: TILE_ROCK_PILE_ROUGH, theFile: "path_cobble_rough_01.png" },
         { worldType: TILE_ROCK_PILE_ROUGH_ALT, theFile: "path_cobble_rough_02.png" },
         { worldType: TILE_ROCK_PILE_SMOOTH, theFile: "path_cobble_smooth_01.png" },
@@ -113,7 +115,9 @@ function loadImages() {
         { worldType: TILE_STEBS_BIRD, theFile: "stebsbird.png" },
         { worldType: TILE_DEATH_CAT, theFile: "placeholderDeathCatMeanderSheet1.png" },
         { worldType: TILE_RABBIT, theFile: "rabbit.png" },
-
+        { worldType: TILE_JUMPING_FISH, theFile: "jumping_fish.png" },
+        { worldType: TILE_ALLIGATOR, theFile: "alligator.png" },
+        { worldType: TILE_PINCHER_BUG, theFile: "pincher_bug.png" },
         { worldType: TILE_REPLACE_ANIMAL, theFile: "nothing.png" },
 
         { worldType: TILE_CLIFF_TOP_LEFT, theFile: "cliff_top_left.png" },
