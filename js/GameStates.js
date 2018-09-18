@@ -26,7 +26,7 @@ function drawOpeningMenu() {
 	colorRect(canvas.width / 2 - 298, canvas.height / 2 - 48, 596, 156, "black");
 
 	drawPixelfont("Chop-Cho, Ch-C", canvas.width / 3, canvas.height / 2);
-	drawPixelfont("Get it?......Click to play", canvas.width / 3, canvas.height / 2 + 80);
+	drawPixelfont("Get it?......Click to play:", canvas.width / 3, canvas.height / 2 + 80);
 }
 
 function drawPauseScreen() {

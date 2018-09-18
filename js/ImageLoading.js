@@ -33,7 +33,7 @@ function loadImages() {
         { varName: "debris2", theFile: "debris2.png"},
 
         //Font
-        { varName: "fontSheet", theFile: "ChopChopFontFont.png"},
+        { varName: "fontSheet", theFile: "ChopChopFontFontv2.png"},
 
 
         //World Tile Pics
