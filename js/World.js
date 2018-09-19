@@ -126,7 +126,7 @@ var worldGrid = [];
 
 console.log("Current level: " + currentLevelIndex + " size: " + worldCols + 'x' + worldRows); 
 
-worldGrid = allLevels[currentLevelIndex].layout;
+worldGrid = Array.from(allLevels[currentLevelIndex].layout);
 
 var water = 0;
 var waterfallBottomLeft = 1;
