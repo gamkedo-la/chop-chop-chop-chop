@@ -32,6 +32,7 @@ function loadingDoneSoStartGame() {
 	console.log("All assets loaded! Starting update loop.");
 	canvas.onclick = function() {
 	    if (openingMenuIsRunning) {
+			countdownTimerPaused = false;
 	    	openingMenuIsRunning = false;
 	    	gameIsRunning = true;
 				backgroundMusic.pause();

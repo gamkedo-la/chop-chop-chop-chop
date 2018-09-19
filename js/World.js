@@ -512,4 +512,5 @@ function advanceLevel(){
 	worldRows = allLevels[currentLevelIndex].rows;
 	player.x = 20;
 	player.y = 40;
+	resetCountdownTimer();
 }
