@@ -2,6 +2,8 @@ function jumpingFish (arrayIndex,worldTileType) {
 	this.arrayIndex = arrayIndex;
 	this.tileType = worldTileType;
 	this.home = indexToCenteredXY(arrayIndex);
+	this.x = this.home.x;
+	this.y = this.home.y;
 	var fishJump = new AnimatedSpriteClass({
 		name: "jumpingFish",
 		spriteSheet: gamePics.jumpingFish,
@@ -12,21 +14,23 @@ function jumpingFish (arrayIndex,worldTileType) {
 		loops: true
 	});
 	this.img = fishJump;
+	this.width = this.img.spriteSheet.width/this.img.animationColFrames;
+	this.height = this.img.spriteSheet.height/this.img.animationRowFrames;
 	this.speed = 4;
 	this.underwater = false;
 	this.changedDirection = false;
-	this.heightOfJump = 96;
-	var jumpThreshold = this.y + this.heightOfJump;
-	this.detectionRadius = 10;
-	this.homeRadius = 10;
-	this.idleRadius = 10;
-	this.neutral = true;
-	this.waitingTimer = 30; // frames
-	var waitingTimerFull = this.waitingTimer; // frames
-	this.idleTimer = 50; // frames
-	var idleTimerFull = this.idleTimer;
-	this.idlePosition = {x: this.home.x, y: this.home.y};
+	this.splashDown = false;
+	var heightOfJump = 96;
+	this.jumpThreshold = this.y - heightOfJump;
+	this.underwaterTimer = 0;
+	this.underwaterTimerFinish = 60;
 	this.attackPower = 4;
+	var colliderWidth = this.width;
+	var colliderHeight = this.height/2;
+	var colliderOffsetX = 0;
+	var colliderOffsetY = this.height/8;
+	this.hitbox = new colliderClass(this.x,this.y,
+		colliderWidth,colliderHeight,colliderOffsetX,colliderOffsetY);
 
 	this.collidableTiles = [TILE_EXTEND_COLLISION,TILE_SMALL_TREE, TILE_NOTHING,
 	TILE_SMALL_TREE_ALT,TILE_TALL_TREE,TILE_STALAGMITE,TILE_REPLACE_TREE,
@@ -51,29 +55,53 @@ function jumpingFish (arrayIndex,worldTileType) {
 	// same as standard but minus water and plus nothing/ground; 
 
 	this.move = function() {
-		if (!this.changedDirection) {
-			this.y += this.speed;
-			if (this.y >= jumpThreshold) {
+		if (this.underwater) {
+			if (this.underwaterTimer >= this.underwaterTimerFinish) {
+				this.underwaterTimer = 0;
+				this.underwater = false;
+				this.changedDirection = false;
+				this.splashDown = false;
+				spawnParticles("splash", this.x, this.y);
+			}
+		} else if (!this.changedDirection && !this.underwater) {
+			this.y -= this.speed;
+			if (this.y < this.jumpThreshold && !this.changedDirection) {
 				this.changedDirection = true;
 			}
-		} else {
-			this.y -= this.speed;
+		} else if (this.changedDirection && !this.underwater){
+			this.y += this.speed;
 		}
-		if (this.y <= this.home.y && this.changedDirection) {
+		if (this.y > this.home.y + 1 && this.changedDirection) {
 			this.underwater = true;
+			this.underwaterTimer++;
 		}
+		this.hitbox.update(this.x,this.y);
 	}
 
 	this.draw = function() {
 		if (!this.underwater && !this.changedDirection) {
-			this.img.draw(this.x,this.y,1,false,false);
+			this.img.draw(this.x,this.y,1,true);
 		} else if (!this.underwater && this.changedDirection) {
-			this.img.draw(this.x,this.y,1,true,true, 180);
+			this.img.draw(this.x,this.y,1,false,true, 180,-this.width/2,-this.height/2);
 		} else if (this.underwater && this.changedDirection) {
-			// don't draw
+			if (!this.splashDown) {
+				spawnParticles("splash", this.x, this.y);
+				this.splashDown = true;
+			}
+		}
+		if (debug || worldEditor) {
+			canvasContext.strokeStyle = "teal";
+			canvasContext.lineWidth = 1;
+			canvasContext.strokeRect(this.home.x - TILE_W/2, this.home.y - TILE_H/2, TILE_W, TILE_H);
+			colorText("Home" + "\n" + this.img.name, this.home.x, this.home.y, "teal", "Verdana", "center");
+		}
+		if (debug) {
+			drawRect(this.x,this.y,2,2,"red");
+			drawRect(this.home.x,this.home.y,2,2,"red");
+			this.hitbox.draw("green");
 		}
 	}
 
-	return new animalClass(this);
+	new animalClass(this);
 
 } // end of jumpingFish

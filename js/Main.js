@@ -57,7 +57,9 @@ function update() {
   	}
     framesFromGameStart++
 	moveAll();
-	updateCountdownTimer();
+	if (framesFromGameStart % (framesPerSecond + 8) == 0) {
+		updateCountdownTimer();
+	}
 	playCutscene(currentScene);
 	if(checkNextLevelTrigger()) advanceLevel();
 }

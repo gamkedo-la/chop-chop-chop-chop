@@ -1,5 +1,5 @@
 // countdown timer as seen on the GUI
-const GAME_COUNTDOWN_LENGTH = 5000;
+const GAME_COUNTDOWN_LENGTH = 500;
 
 var countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
 var countdownFinished = false;

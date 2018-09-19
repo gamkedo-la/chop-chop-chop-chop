@@ -53,7 +53,7 @@ function animalClass (newAnimal) {
 			canvasContext.strokeStyle = "teal";
 			canvasContext.lineWidth = 1;
 			canvasContext.strokeRect(this.home.x - TILE_W/2, this.home.y - TILE_H/2, TILE_W, TILE_H);
-			colorText("Home", this.home.x, this.home.y, "teal", "Verdana", "center");
+			colorText("Home" + "\n" + this.img.name, this.home.x, this.home.y, "teal", "Verdana", "center");
 		}
 		if (debug) {
 			this.hitbox.draw("green");

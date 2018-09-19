@@ -3,7 +3,7 @@ function pincherBug (arrayIndex,worldTileType) {
 	this.tileType = worldTileType;
 	this.home = indexToCenteredXY(arrayIndex);
 	var pincherBugMovement = new AnimatedSpriteClass({
-		name: "rabbit",
+		name: "pincherBug",
 		spriteSheet: gamePics.pincherBugSheet,
 		animationRowFrames: 1,
 		animationColFrames: 2,
