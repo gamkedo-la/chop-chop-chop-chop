@@ -126,7 +126,7 @@ function playerClass() {
 				this.currentFrustration = 0;
 				this.state.chopping = false;
 				this.state.walking = false
-    			prepareCutscene(gameOverScene);
+    			prepareCutscene(FrustratedScene);
     			return;
 			};
 			//console.log(this.currentFrustration);

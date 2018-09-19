@@ -77,11 +77,11 @@ function handleEmote(emoteCode) {
     //console.log("handleEmote: "+emoteCode); // FIXME implement!
 }
 
-function drawPixelfontCentered(str, x, y) {
-    drawPixelfont(str, x - Math.round(measurePixelfont(str) / 2), y);
+function drawPixelfontCentered(str, x, y, pixelfont_new_w = 10, pixelfont_new_h = 10) {
+    drawPixelfont(str, x - Math.round(measurePixelfont(str) / 2), y, pixelfont_new_w, pixelfont_new_h);
 }
 
-function drawPixelfont(str, x, y) {
+function drawPixelfont(str, x, y, pixelfont_new_w = 10, pixelfont_new_h = 10) {
     
     str = str.toUpperCase(); // we only have caps in this font
     //console.log("drawPixelfont " + str + "," + x + "," + y);
@@ -102,9 +102,13 @@ function drawPixelfont(str, x, y) {
     pixelfont_x = x;
     pixelfont_y = y;
     var sw = 0;
+    var sh = 0;
     var sx = 0;
     var sy = 0;
     var index = 0;
+
+    var pfw = pixelfont_new_w;
+	var pfh = pixelfont_new_h;
 
     var insideEmote = false;
     var skipThisChar = false;
@@ -143,6 +147,7 @@ function drawPixelfont(str, x, y) {
             else // normal letter
             {
                 sw = pixelfont_w;
+                sh = pixelfont_h;
                 sx = pixelfont_dx(str[c]);
                 sy = pixelfont_dy(str[c]);
 
@@ -154,14 +159,14 @@ function drawPixelfont(str, x, y) {
                     sx,
                     sy,
                     sw,
-                    pixelfont_h,
+                    sh,
                     pixelfont_x,
                     pixelfont_y,
-                    sw,
-                    pixelfont_h);
+                    pfw,
+                    pfh);
 
                 // move to next position
-                pixelfont_x = pixelfont_x + sw + pixelfont_overlap_x;
+                pixelfont_x = pixelfont_x + pfw + pixelfont_overlap_x;
             } // draw
         } // in not in an emote code
     } // char loop

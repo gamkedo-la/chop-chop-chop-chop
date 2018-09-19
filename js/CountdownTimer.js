@@ -19,5 +19,5 @@ function updateCountdownTimer(dt=1) {
 }
 
 function onTimerComplete() {
-	prepareCutscene(gameOverScene);
+	prepareCutscene(FrustratedScene);
 }
