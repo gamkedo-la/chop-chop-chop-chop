@@ -125,7 +125,10 @@ function playerClass() {
 			if (this.currentFrustration >= MAX_FRUSTATION) {
 				this.currentFrustration = 0;
 				this.state.chopping = false;
-				this.state.walking = false
+				this.state.walking = false;
+				this.invincible = true;
+				this.invincibiltyTimer = 0;
+				getNewFrustratedScene();
     			prepareCutscene(FrustratedScene);
     			return;
 			};

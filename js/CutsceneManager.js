@@ -5,72 +5,102 @@ var cutsceneDialogueIndex = 0;
 var needNewString = false;
 
 var displayTimer = 0; // counter 
-var displayTimerLength = 50; // time in frames before new string is typed (game is at 30 frames per second)
+var displayTimerLength = 55; // time in frames before new string is typed (game is at 30 frames per second)
 
 var currentScene = null;
 
 var upgradeLevelTwoScene = {
 	displayLength: displayTimerLength,
-	stringToDisplay: ["Through a burst of insight and creativity...", "Chop-Chop has improved his technique...",
+	stringToDisplay: ["Through a burst of insight and creativity...", "Chop-Chop has improved their technique...",
 					"...", '"What if I chopped harder?"']
 };
 var upgradeLevelThreeScene = {
 	displayLength: displayTimerLength,
-	stringToDisplay: ["Through a burst of insight and creativity...", "Chop-Chop has improved his technique...",
+	stringToDisplay: ["Through a burst of insight and creativity...", "Chop-Chop has improved their technique...",
 					"...", '"What if I threw my axe?"']
-};
-var FrustratedScene = {
-	displayLength: 50,
-	stringToDisplay: ["Game Over"],
-	isGameOver: true
 };
 
 function playCutscene(data) {
 	if (havingAMoment) {
-		countdownTimerPaused = true;
 		if (data.isGameOver) {
-			cutsceneDialogue(data.stringToDisplay[cutsceneDialogueIndex], data.displayLength);
-			// game over sequence
-			return;
+			// play frustrated chop-chop animation
+			// display options for continue and quit to main menu
 		}
-		cutsceneDialogue(data.stringToDisplay[cutsceneDialogueIndex], data.displayLength);
+		countdownTimerPaused = true;
+		cutsceneDialogue(data);
 		if (needNewString) {
-			cutsceneDialogueIndex++;
-			needNewString = false;
-			wordsToShow = "";
+			if (data.isGameOver && cutsceneDialogueIndex == data.stringToDisplay.length) {
+				drawPixelfontCentered(wordsToShow, canvas.width/2, canvas.height/6);
+				return;
+				// stay on last string
+			} else {
+				cutsceneDialogueIndex++;
+				needNewString = false;
+				if (cutsceneDialogueIndex <= data.stringToDisplay.length - 1)
+				wordsToShow = "";
+			}
 		}
 		if (cutsceneDialogueIndex >= data.stringToDisplay.length) {
-			havingAMoment = false;
-			wordsToShow = "";
-			stringIndex = 0;
-			cutsceneDialogueIndex = 0;
-			currentScene = null;
-			player.x = player.oldX;
-			player.y = player.oldY;
-			needNewString = false;
-			countdownTimerPaused = false;
+			if (data.isGameOver) {
+				havingAMoment = false;
+				wordsToShow = "";
+				stringIndex = 0;
+				cutsceneDialogueIndex = 0;
+				currentScene = null;
+				player.x = player.oldX;
+				player.y = player.oldY;
+				player.invincible = false;
+				needNewString = false;
+				countdownTimerPaused = false; 
+				// duplicated for testing 
+			} else {
+				havingAMoment = false;
+				wordsToShow = "";
+				stringIndex = 0;
+				cutsceneDialogueIndex = 0;
+				currentScene = null;
+				player.x = player.oldX;
+				player.y = player.oldY;
+				needNewString = false;
+				countdownTimerPaused = false;
+			}
 		}
 	}
 }
 
-function cutsceneDialogue (stringToDisplay, displayLength) {
-	var choppedUpString = stringToDisplay.split("");
-	if (stringIndex < choppedUpString.length) {
-		wordsToShow += choppedUpString[stringIndex];
+function cutsceneDialogue (data) {
+	if (data.stringToDisplay[cutsceneDialogueIndex] == undefined || 
+		cutsceneDialogueIndex == data.stringToDisplay.length) {
 		drawPixelfontCentered(wordsToShow, canvas.width/2, canvas.height/6);
-		stringIndex++; 
+		return;
+	} else {
+		var choppedUpString = data.stringToDisplay[cutsceneDialogueIndex].split("");
+	}
+
+	if (stringIndex < choppedUpString.length) {
+		if (data.isGameOver && cutsceneDialogueIndex == data.stringToDisplay.length) {
+			// do nothing
+		} else {
+			wordsToShow += choppedUpString[stringIndex];
+			drawPixelfontCentered(wordsToShow, canvas.width/2, canvas.height/6);
+			stringIndex++; 
+		}
 	} else {
 		drawPixelfontCentered(wordsToShow, canvas.width/2, canvas.height/6);
 		displayTimer++
-		if (displayTimer >= displayLength) {
-			needNewString = true;
-			stringIndex = 0;
-			displayTimer = 0;
+		if (displayTimer >= data.displayLength) {
+			if (data.isGameOver && cutsceneDialogueIndex == data.stringToDisplay.length) {
+				// do nothing
+			} else {
+				needNewString = true;
+				stringIndex = 0;
+				displayTimer = 0;
+			}
 		}
 	}
 }
 
-upgradeCheck = function() {
+function upgradeCheck() {
 	const LEVEL_TWO_CHOPS = 100;
 	const LEVEL_THREE_CHOPS = 104;
 

@@ -21,5 +21,5 @@ function updateCountdownTimer(dt=1) {
 }
 
 function onTimerComplete() {
-	prepareCutscene(FrustratedScene);
+	prepareCutscene(OutOfTimeScene);
 }
