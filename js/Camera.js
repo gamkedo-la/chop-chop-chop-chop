@@ -9,16 +9,16 @@ function cameraPan() {
 	if (worldEditor) {
 		var canvasRightBoundary = canvas.width + cameraPanX;
 		var canvasBottomBoundary = canvas.height + cameraPanY;
-		if (mouseCanvasX > (canvasRightBoundary + cameraPanX) - TILE_W) {
+		if (mouseX > canvas.width - TILE_W) {
 			cameraPanX += cameraMovementSpeed;
 		}
-		if (mouseCanvasX < cameraPanX + TILE_W) {
+		if (mouseX < TILE_W) {
 			cameraPanX -= cameraMovementSpeed;
 		}
-		if (mouseCanvasY > (canvas.height + cameraPanY) - TILE_W) {
+		if (mouseY > canvas.height - TILE_H) {
 			cameraPanY += cameraMovementSpeed;
 		}
-		if (mouseCanvasY < cameraPanY + TILE_W) {
+		if (mouseY < TILE_H) {
 			cameraPanY -= cameraMovementSpeed;
 		}
 	} else {

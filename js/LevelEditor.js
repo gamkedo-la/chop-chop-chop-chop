@@ -22,13 +22,11 @@ function pickASet(set) {
 };
 
 function roomTileCoordinate() {
-    levelCol = Math.floor(mouseCanvasX / TILE_W);
-    levelRow = Math.floor(mouseCanvasY / TILE_H);
-
-   	var tileX = (levelCol * TILE_W) - cameraPanX;
-   	var tileY = (levelRow * TILE_H) - cameraPanY;
-
-    tileUnderMouse = rowColToArrayIndex(levelCol, levelRow);
+    tileUnderMouse = getTileIndexAtPixelCoord(mouseX + cameraPanX, mouseY + cameraPanY);
+	var levelCol = arrayIndexToCol(tileUnderMouse);
+	var levelRow = arrayIndexToRow(tileUnderMouse);
+	var tileX = (levelCol * TILE_W) - cameraPanX;
+    var tileY = (levelRow * TILE_H) - cameraPanY;
 	console.log("Col: " + levelCol,"Row: " + levelRow,"Type: " +  worldGrid[tileUnderMouse]);
 
     canvasContext.strokeRect(tileX, tileY, TILE_W, TILE_H);
