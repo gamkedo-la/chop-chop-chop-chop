@@ -27,6 +27,7 @@ var FrustratedScene = {
 
 function playCutscene(data) {
 	if (havingAMoment) {
+		countdownTimerPaused = true;
 		if (data.isGameOver) {
 			cutsceneDialogue(data.stringToDisplay[cutsceneDialogueIndex], data.displayLength);
 			// game over sequence
@@ -47,6 +48,7 @@ function playCutscene(data) {
 			player.x = player.oldX;
 			player.y = player.oldY;
 			needNewString = false;
+			countdownTimerPaused = false;
 		}
 	}
 }
