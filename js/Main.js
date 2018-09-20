@@ -37,6 +37,7 @@ function loadingDoneSoStartGame() {
 	    	gameIsRunning = true;
 				backgroundMusic.pause();
 				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+				backgroundMusic.volume = 0.4;
 				backgroundMusic.play();
 	    }
 	}
@@ -82,6 +83,7 @@ function drawAll() {
 		endCameraPan();
 		drawGUI();
 		} else {
+			backgroundMusic.pause();
 			drawRect(0, 0, canvas.width, canvas.height, "black");
 			player.draw();
 			player.x = canvas.width / 2;

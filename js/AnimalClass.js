@@ -1,5 +1,5 @@
 var animalList = [];
-var playing = false;
+var playingChaseMusic = false;
 function animalClass (newAnimal) {
 	this.animal = newAnimal;
 	this.home = newAnimal.home;
@@ -72,11 +72,11 @@ function animalClass (newAnimal) {
 		this.homeRadiusTrigger();
 		var closeToHome = this.speed;
 		if (this.playerDetected) { // chasing player
-			if (!playing) {
+			if (!playingChaseMusic) {
 				backgroundMusic.pause();
 				backgroundMusic.src = "music/animal_chase_v3" + sourceExtension;
 				backgroundMusic.play();
-				playing = true;
+				playingChaseMusic = true;
 			}
 			var buffer = .04;
 			if (backgroundMusic.currentTime > backgroundMusic.duration - buffer) {
@@ -132,6 +132,10 @@ function animalClass (newAnimal) {
 					this.playerDetected = false;
 					this.playerDetectedSoundPlayed = false;
 					this.waiting = false;
+					playingChaseMusic = false;
+					backgroundMusic.pause();
+					backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+					backgroundMusic.play();
 					this.img.framesUntilNext = 25;
 					this.waitingTimer = waitingTimerFull;
 					this.idlePosition.x = this.home.x;

@@ -63,6 +63,7 @@ function playCutscene(data) {
 				player.y = player.oldY;
 				needNewString = false;
 				countdownTimerPaused = false;
+				backgroundMusic.play();
 			}
 		}
 	}

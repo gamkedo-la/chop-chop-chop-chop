@@ -46,7 +46,7 @@ function playerClass() {
 	var chopTimer = 0;
 	this.hitbox = new colliderClass(this.x, this.y, this.width/2, this.height,
 											0, 0);
-	this.currentFrustration = 18;
+	this.currentFrustration = 0;
 	this.invincible = false;
 	this.invincibiltyTimer = 0;
 	this.invincibiltyTimerFull = 45;
@@ -132,7 +132,7 @@ function playerClass() {
     			prepareCutscene(FrustratedScene);
     			return;
 			};
-			//console.log(this.currentFrustration);
+			playerHurt.play();
 			var radians = getRandomNumberBetweenMinMax(0, 360) * DEGREES_TO_RADIANS;
 			var boopedX = Math.cos(radians) * this.speed * 10;
 			var boopedY = Math.sin(radians) * this.speed * 10;
@@ -163,8 +163,12 @@ function playerClass() {
 					hit = true;
 					//console.log("hit an object!");
 					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
-					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
-					arrayOfChopSFXs[random].play();
+					if (object.tileType == TILE_STALAGMITE) {
+						metallicChop.play();
+					} else {
+						var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+						arrayOfChopSFXs[random].play();
+					}
 					object.gotHit(this.axePower);
 					this.chopCount++; // add to score on GUI
 					this.swingCount++; // a successful chop counts as a swing, too
