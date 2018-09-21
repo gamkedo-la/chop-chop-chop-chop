@@ -90,7 +90,12 @@ function animalClass (newAnimal) {
 			if (this.img.data.name === "stebsBird" && this.playerDetectedSoundPlayed === false) {
 				birdSound.play();
 				this.playerDetectedSoundPlayed = true;
-				player.attackCount++; // stats for GUI
+				player.attackCount++;
+			}
+			if (this.img.data.name === "pincherBug" && this.playerDetectedSoundPlayed === false) {
+				bugSound.play();
+				this.playerDetectedSoundPlayed = true;
+				player.attackCount++;
 			}
 			this.meander = false;
 			this.img.framesUntilNext = 8;

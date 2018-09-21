@@ -29,6 +29,7 @@ function projectileClass (x,y, direction) {
 	}
 
 	this.move = function() {
+		axeWhirl.play();
 		if (this.direction == "west") {
 			projectileEndPoint = (this.startingPointX - (this.speed * 32));
 			if (!this.changedDirection) {

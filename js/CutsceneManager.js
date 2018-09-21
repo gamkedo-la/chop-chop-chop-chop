@@ -42,7 +42,8 @@ function playCutscene(data) {
 		}
 		if (cutsceneDialogueIndex >= data.stringToDisplay.length) {
 			if (data.isGameOver) {
-				havingAMoment = false;
+				// do nothing - wait for input from player
+				/*havingAMoment = false;
 				wordsToShow = "";
 				stringIndex = 0;
 				cutsceneDialogueIndex = 0;
@@ -51,7 +52,7 @@ function playCutscene(data) {
 				player.y = player.oldY;
 				player.invincible = false;
 				needNewString = false;
-				countdownTimerPaused = false; 
+				countdownTimerPaused = false; */
 				// duplicated for testing 
 			} else {
 				havingAMoment = false;

@@ -15,7 +15,7 @@ function playerClass() {
 	
 	// stats
 	this.swingCount = 0;
-	this.chopCount = 99;
+	this.chopCount = 0;
 	this.stepCount = 0;
 	this.treeCount = 0;
 	this.attackCount = 0;
@@ -41,7 +41,7 @@ function playerClass() {
 	this.axeHitbox = new colliderClass(this.x, this.y, axeHitboxWidth, axeHitboxHeight,
 										axeOffsetX, axeOffsetY);
 	this.axeSharpness = 0;
-	this.axeLevel = LOW;
+	this.axeLevel = MAX;
 	this.axePower = 1;
 	var chopTimer = 0;
 	this.hitbox = new colliderClass(this.x, this.y, this.width/2, this.height,
@@ -163,12 +163,8 @@ function playerClass() {
 					hit = true;
 					//console.log("hit an object!");
 					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
-					if (object.tileType == TILE_STALAGMITE) {
-						metallicChop.play();
-					} else {
-						var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
-						arrayOfChopSFXs[random].play();
-					}
+					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+					arrayOfChopSFXs[random].play();
 					object.gotHit(this.axePower);
 					this.chopCount++; // add to score on GUI
 					this.swingCount++; // a successful chop counts as a swing, too
@@ -214,6 +210,7 @@ function playerClass() {
 			playerSideChop.draw(this.x,this.y, 1, (this.direction != EAST));
 			if (playerSideChop.currentFrameIndex == contactFrame) {
 				if (this.axeLevel == MAX) {
+					axeWhirl.currentTime = 0;
 					chopTimer = 0;
 					var axeProjectile = new projectileClass(this.x,this.y, this.direction);
 					objectList.push(axeProjectile);
