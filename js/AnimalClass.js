@@ -1,5 +1,4 @@
 var animalList = [];
-var playingChaseMusic = false;
 function animalClass (newAnimal) {
 	this.animal = newAnimal;
 	this.home = newAnimal.home;
@@ -33,6 +32,7 @@ function animalClass (newAnimal) {
 	this.neutral = newAnimal.neutral;
 	this.playerDetected = false;
 	this.playerDetectedSoundPlayed = false;
+	this.playingChaseMusic = false;
 
 	var colliderWidth = this.width;
 	var colliderHeight = this.height/2;
@@ -72,11 +72,11 @@ function animalClass (newAnimal) {
 		this.homeRadiusTrigger();
 		var closeToHome = this.speed;
 		if (this.playerDetected) { // chasing player
-			if (!playingChaseMusic) {
+			if (!this.playingChaseMusic) {
 				backgroundMusic.pause();
 				backgroundMusic.src = "music/animal_chase_v3" + sourceExtension;
 				backgroundMusic.play();
-				playingChaseMusic = true;
+				this.playingChaseMusic = true;
 			}
 			var buffer = .04;
 			if (backgroundMusic.currentTime > backgroundMusic.duration - buffer) {
@@ -137,10 +137,6 @@ function animalClass (newAnimal) {
 					this.playerDetected = false;
 					this.playerDetectedSoundPlayed = false;
 					this.waiting = false;
-					playingChaseMusic = false;
-					backgroundMusic.pause();
-					backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
-					backgroundMusic.play();
 					this.img.framesUntilNext = 25;
 					this.waitingTimer = waitingTimerFull;
 					this.idlePosition.x = this.home.x;
@@ -152,6 +148,12 @@ function animalClass (newAnimal) {
 				}
 		} else { // else return home
 			this.playerDetected = false;
+			if (this.playingChaseMusic) {
+				this.playingChaseMusic = false;
+				backgroundMusic.pause();
+				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+				backgroundMusic.play();
+			}
 			var moveXTowardHome = this.x < this.idlePosition.x ? this.speed : -this.speed;
 			var moveYTowardHome = this.y < this.idlePosition.y ? this.speed : -this.speed;
 			if (this.x <= this.idlePosition.x + closeToHome &&
