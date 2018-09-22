@@ -24,7 +24,7 @@ function playCutscene(data) {
 	if (havingAMoment) {
 		if (data.isGameOver) {
 			// play frustrated chop-chop animation
-			// display options for continue and quit to main menu
+			gameOverOptions();
 		}
 		countdownTimerPaused = true;
 		cutsceneDialogue(data);
@@ -43,17 +43,6 @@ function playCutscene(data) {
 		if (cutsceneDialogueIndex >= data.stringToDisplay.length) {
 			if (data.isGameOver) {
 				// do nothing - wait for input from player
-				/*havingAMoment = false;
-				wordsToShow = "";
-				stringIndex = 0;
-				cutsceneDialogueIndex = 0;
-				currentScene = null;
-				player.x = player.oldX;
-				player.y = player.oldY;
-				player.invincible = false;
-				needNewString = false;
-				countdownTimerPaused = false; */
-				// duplicated for testing 
 			} else {
 				havingAMoment = false;
 				wordsToShow = "";

@@ -116,8 +116,88 @@ var OutOfTimeScene = {
 	isGameOver: true
 };
 
-let gameOver = () => {
+var leftPosition = true;
 
+let gameOverOptions = () => {
+	var continueX = canvas.width/3 - 100;
+	var quitX = canvas.width/2 + 100;
+	var optionsY = canvas.height - 100;
+	var selectorXContinue = continueX - 10;
+	var selectorXQuit = continueX - 10 + (canvas.width/2 - 67);
+	var selectorY = optionsY + 6;
+	var	selectorX = selectorXContinue;
+
+	if (leftKeyHeld) {
+		leftPosition = true;
+	} else if (rightKeyHeld) {
+		leftPosition = false;
+	}
+
+	if (leftPosition) {
+		// do nothing
+	} else {
+		selectorX = selectorXQuit
+	}
+	
+	if (spacebarKeyHeld) {
+		if (selectorX == selectorXContinue) {
+			wordsToShow = "";
+			stringIndex = 0;
+			cutsceneDialogueIndex = 0;
+			currentScene = null;
+			needNewString = false;
+			// TODO: Wrap these changes and relevant others into resetLevel function
+			worldGrid = Array.from(allLevels[currentLevelIndex].layout);
+			particleList = [];
+			animalList = [];
+			countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
+			countdownTimerPaused = false;
+			player.x = 20;
+			player.y = 40;
+			player.invincible = false;
+			spacebarKeyHeld = false;
+			player.chopTimer = 0;
+			havingAMoment = false;
+		} else if (selectorX == selectorXQuit) {
+			wordsToShow = " ";
+			stringIndex = 0;
+			cutsceneDialogueIndex = 0;
+			currentScene = null;
+			needNewString = false;
+			// TODO: Wrap these changes and relevant others into resetGame function
+			openingMenuIsRunning = true;
+			particleList = [];
+			player.x = 20;
+			player.y = 40;
+			player.invincible = false;
+			spacebarKeyHeld = false;
+			player.chopTimer = 0;
+			havingAMoment = false;
+		}
+	}
+
+	const BLINK_RATE = 16;
+	if (selectorX == selectorXContinue) {
+		if (framesFromGameStart % BLINK_RATE <= (BLINK_RATE/2-1)) {
+			// blinking
+		} else {
+			drawPixelfont("Continue!", continueX, optionsY, 20,20);
+		}
+	} else {
+		drawPixelfont("Continue!", continueX, optionsY, 20,20);
+	}
+
+	if (selectorX == selectorXQuit) {
+		if (framesFromGameStart % BLINK_RATE <= (BLINK_RATE/2-1)) {
+			// blinking
+		} else {
+			drawPixelfont("Quit...", quitX, optionsY, 20,20);
+		}
+	} else {		
+		drawPixelfont("Quit...", quitX, optionsY, 20,20);
+	}
+
+	drawRect(selectorX, selectorY, 6,6, "white");
 }
 
 let resetGame = () => {

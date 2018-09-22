@@ -89,15 +89,15 @@ function jumpingFish (arrayIndex,worldTileType) {
 				this.splashDown = true;
 			}
 		}
-		if (debug || worldEditor) {
+		if (worldEditor) {
 			canvasContext.strokeStyle = "teal";
 			canvasContext.lineWidth = 1;
 			canvasContext.strokeRect(this.home.x - TILE_W/2, this.home.y - TILE_H/2, TILE_W, TILE_H);
 			colorText("Home" + "\n" + this.img.name, this.home.x, this.home.y, "teal", "Verdana", "center");
 		}
 		if (debug) {
-			drawRect(this.x,this.y,2,2,"red");
-			drawRect(this.home.x,this.home.y,2,2,"red");
+			drawRect(this.x,this.y,2,2,"yellow");
+			drawRect(this.home.x,this.home.y,2,2,"teal");
 			this.hitbox.draw("green");
 		}
 	}

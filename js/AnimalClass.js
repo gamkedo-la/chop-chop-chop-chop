@@ -49,13 +49,14 @@ function animalClass (newAnimal) {
 		if (this.meander || this.playerDetected || this.waiting) {
 			this.img.draw(this.x,this.y, 1, (this.direction != WEST));
 		} 
-		if (debug || worldEditor) {
+		if (worldEditor) {
 			canvasContext.strokeStyle = "teal";
 			canvasContext.lineWidth = 1;
 			canvasContext.strokeRect(this.home.x - TILE_W/2, this.home.y - TILE_H/2, TILE_W, TILE_H);
 			colorText("Home" + "\n" + this.img.name, this.home.x, this.home.y, "teal", "Verdana", "center");
 		}
 		if (debug) {
+			drawRect(this.x,this.y, 2,2, "yellow")
 			this.hitbox.draw("green");
 			outlineCircle(this.x,this.y, this.detectionRadius, "green",1);
 			outlineCircle(this.home.x,this.home.y, this.homeRadius, "blue",1);

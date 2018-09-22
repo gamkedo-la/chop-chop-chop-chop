@@ -15,7 +15,7 @@ function playerClass() {
 	
 	// stats
 	this.swingCount = 0;
-	this.chopCount = 0;
+	this.chopCount = 98;
 	this.stepCount = 0;
 	this.treeCount = 0;
 	this.attackCount = 0;
@@ -41,12 +41,12 @@ function playerClass() {
 	this.axeHitbox = new colliderClass(this.x, this.y, axeHitboxWidth, axeHitboxHeight,
 										axeOffsetX, axeOffsetY);
 	this.axeSharpness = 0;
-	this.axeLevel = MAX;
-	this.axePower = 1;
-	var chopTimer = 0;
+	this.axeLevel = LOW; // higher levels unlock increased power and abilities;
+	this.axePower = 1; // how much health the player takes from trees
+	this.chopTimer = 0;
 	this.hitbox = new colliderClass(this.x, this.y, this.width/2, this.height,
 											0, 0);
-	this.currentFrustration = 0;
+	this.currentFrustration = 18;
 	this.invincible = false;
 	this.invincibiltyTimer = 0;
 	this.invincibiltyTimerFull = 45;
@@ -72,6 +72,9 @@ function playerClass() {
 	}
 
 	this.move = function() {
+		if (havingAMoment) {
+			return;
+		}
 		this.oldX = this.x;
 		this.oldY = this.y;
 		var movementX = 0;
@@ -181,6 +184,12 @@ function playerClass() {
 	};
 
 	this.draw = function() {
+		if (havingAMoment) {
+			playerIdle.draw(player.x,player.y)
+			this.chopTimer = 0;
+			return;
+		}
+
 		if (this.invincibiltyTimer > 0 && this.invincible) {
 			this.invincibiltyTimer--;
 			if (this.invincibiltyTimer % 3 == 0 && this.invincibiltyTimer > 0) {
@@ -193,25 +202,26 @@ function playerClass() {
 
 		var contactFrame = 15;
 
-		if (spacebarKeyHeld && chopTimer <= 0 && !this.state.waiting) {
+		if (spacebarKeyHeld && this.chopTimer <= 0 && !this.state.waiting) {
 			if (this.axeLevel == MAX) {
 				this.state.chopping = true;
 				contactFrame = playerSideChop.animationColFrames - 2;
-				chopTimer = playerSideChop.animationColFrames - 1;
+				this.chopTimer = playerSideChop.animationColFrames - 1;
 				playerSideChop.currentFrameIndex = 0;
 			} else {
 				this.state.chopping = true;
-				chopTimer = playerSideChop.animationColFrames - 1;
+				this.chopTimer = playerSideChop.animationColFrames - 1;
 				playerSideChop.currentFrameIndex = 2;
 			}
 		}
 
-		if (chopTimer > 0) {
+		if (this.chopTimer > 0) {
+			// TODO: might be removed later if options are chopped by player
 			playerSideChop.draw(this.x,this.y, 1, (this.direction != EAST));
 			if (playerSideChop.currentFrameIndex == contactFrame) {
 				if (this.axeLevel == MAX) {
 					axeWhirl.currentTime = 0;
-					chopTimer = 0;
+					this.chopTimer = 0;
 					var axeProjectile = new projectileClass(this.x,this.y, this.direction);
 					objectList.push(axeProjectile);
 					this.state.chopping = false;
@@ -220,7 +230,7 @@ function playerClass() {
 					this.chopTrees(this.direction);
 				}
 			}
-			chopTimer--;
+			this.chopTimer--;
 		} else {
 			if (this.state.walking) {
 
@@ -233,7 +243,7 @@ function playerClass() {
 			}
 		}
 
-		if (chopTimer <= 0) {
+		if (this.chopTimer <= 0) {
 			if (this.axeLevel == MAX) {
 				for (var j = 0; j < objectList.length; j++) {
 					if (objectList[j].returned) {

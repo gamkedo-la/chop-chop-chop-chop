@@ -108,9 +108,7 @@ function keyPressed(evt) {
 			downKeyHeld = true;
 			break;
 		case SPACEBAR:
-			if (!havingAMoment) {
-				spacebarKeyHeld = true;
-			}
+			spacebarKeyHeld = true;
 			break;
 		case NUMBER_PAD_PLUS:
 		case KEY_PLUS:
