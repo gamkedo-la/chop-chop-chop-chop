@@ -5,7 +5,7 @@ var cutsceneDialogueIndex = 0;
 var needNewString = false;
 
 var displayTimer = 0; // counter 
-var displayTimerLength = 55; // time in frames before new string is typed (game is at 30 frames per second)
+var displayTimerLength = 60; // time in frames before new string is typed (game is at 30 frames per second)
 
 var currentScene = null;
 
@@ -60,6 +60,10 @@ function playCutscene(data) {
 }
 
 function cutsceneDialogue (data) {
+	if (data.stringToDisplay[cutsceneDialogueIndex] == "no animal hit") {
+		cutsceneDialogueIndex++
+		return;
+	}
 	if (data.stringToDisplay[cutsceneDialogueIndex] == undefined || 
 		cutsceneDialogueIndex == data.stringToDisplay.length) {
 		drawPixelfontCentered(wordsToShow, canvas.width/2, canvas.height/6);

@@ -15,7 +15,7 @@ function playerClass() {
 	
 	// stats
 	this.swingCount = 0;
-	this.chopCount = 98;
+	this.chopCount = 90;
 	this.stepCount = 0;
 	this.treeCount = 0;
 	this.attackCount = 0;
@@ -46,6 +46,8 @@ function playerClass() {
 	this.chopTimer = 0;
 	this.hitbox = new colliderClass(this.x, this.y, this.width/2, this.height,
 											0, 0);
+	this.hitAnAnimal = false;
+
 	this.currentFrustration = 18;
 	this.invincible = false;
 	this.invincibiltyTimer = 0;
@@ -172,6 +174,16 @@ function playerClass() {
 					this.chopCount++; // add to score on GUI
 					this.swingCount++; // a successful chop counts as a swing, too
 				}
+			}
+		}
+		for (var j = 0; j < animalList.length; j++) {
+			var animal = animalList[j];
+			if (this.axeHitbox.isCollidingWith(animal.hitbox)) {
+				this.hitAnAnimal = true;
+				hit = true; 
+				console.log("HIT AN ANIMAL! >:C");
+				// TODO: badSound.play();
+				this.gotHit(animal.attackPower)
 			}
 		}
 		if (!hit) {

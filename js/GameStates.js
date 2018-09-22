@@ -91,16 +91,24 @@ let randomFrustratedSayingsIndex = () => {
 }	
 
 var FrustratedScene = {}; 
+var hitAnAnimalStringFirst = "no animal hit";
+var hitAnAnimalStringSecond = "no animal hit";
 
 function getNewFrustratedScene() { // called in PlayerClass.js this.gotHit();
 	FrustratedScene = {};
 	randomFrustratedSayingsIndex();
+	if (player.hitAnAnimal) {
+		hitAnAnimalStringFirst = '"I don' + "'" + 't want to hurt any animal friends either..."';
+		hitAnAnimalStringSecond = "Why did I do that?...";
+	}
 	// edits to this scene will display in the game
 	FrustratedScene = {
-		displayLength: 60,
+		displayLength: 70,
 		stringToDisplay: [
 						firstFrustratedSayingsString, 
-						secondFrustratedSayingsString,
+						secondFrustratedSayingsString, 
+						hitAnAnimalStringFirst,
+						hitAnAnimalStringSecond,
 						'"I should just go home..."',
 						'"Maybe' + firstRelaxingIdeasString,
 						'"Then' + secondRelaxingIdeasString,
@@ -165,8 +173,13 @@ let gameOverOptions = () => {
 			currentScene = null;
 			needNewString = false;
 			// TODO: Wrap these changes and relevant others into resetGame function
+			countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
+			countdownTimerPaused = false;
 			openingMenuIsRunning = true;
+			currentLevelIndex = 0; // back to level one
+			worldGrid = Array.from(allLevels[currentLevelIndex].layout);
 			particleList = [];
+			animalList = [];
 			player.x = 20;
 			player.y = 40;
 			player.invincible = false;
