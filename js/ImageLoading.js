@@ -37,7 +37,7 @@ function loadImages() {
         { varName: "debris2", theFile: "debris2.png"}, 
 
         //Font
-        { varName: "fontSheet", theFile: "ChopChopFontFontv2.png"},
+        { varName: "fontSheet", theFile: "ChopChopFontFontv3.png"}, // v3 has a 1px black stroke
 
         //World Tile Pics
         { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" },
