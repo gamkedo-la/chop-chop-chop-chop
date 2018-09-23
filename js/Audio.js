@@ -8,6 +8,7 @@ let birdSound = new Audio();
 let deathMeow = new Audio();
 let bugSound = new Audio();
 let playerHurt = new Audio();
+let animalHit = new Audio();
 
 let arrayOfSounds = [backgroundMusic,chop1,chop2,axeWhirl,missedSwing,campfireSFX,
 					birdSound,deathMeow,pincherBug,
@@ -66,6 +67,8 @@ birdSound.src = "SFX/BirdSound" + sourceExtension;
 birdSound.volume = 0.6;
 bugSound.src = "SFX/BugSound" + sourceExtension;
 playerHurt.src = "SFX/PlayerHurt" + sourceExtension;
+animalHit.src = "SFX/AnimalHit" + sourceExtension;
+animalHit.volume = 0.6;
 
 /*let decreaseMasterVolume = () => {
   for ( let arrayOfSoundsIndex = 0; arrayOfSoundsIndex < arrayOfSounds.length; arrayOfSoundsIndex++ ) {

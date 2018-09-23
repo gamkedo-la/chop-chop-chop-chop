@@ -155,9 +155,12 @@ let gameOverOptions = () => {
 			currentScene = null;
 			needNewString = false;
 			// TODO: Wrap these changes and relevant others into resetLevel function
-			worldGrid = Array.from(allLevels[currentLevelIndex].layout);
+			worldGrid = allLevels[currentLevelIndex].originalLayout;
 			particleList = [];
 			animalList = [];
+			backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+			backgroundMusic.volume = 0.4;
+			backgroundMusic.play();
 			countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
 			countdownTimerPaused = false;
 			player.x = 20;
@@ -176,8 +179,11 @@ let gameOverOptions = () => {
 			countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
 			countdownTimerPaused = false;
 			openingMenuIsRunning = true;
+			backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
+			backgroundMusic.volume = 0.4;
+			backgroundMusic.play();
 			currentLevelIndex = 0; // back to level one
-			worldGrid = Array.from(allLevels[currentLevelIndex].layout);
+			worldGrid = allLevels[currentLevelIndex].originalLayout;
 			particleList = [];
 			animalList = [];
 			player.x = 20;

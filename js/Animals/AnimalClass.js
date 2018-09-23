@@ -3,8 +3,8 @@ function animalClass (newAnimal) {
 	this.animal = newAnimal;
 	this.home = newAnimal.home;
 	this.img = newAnimal.img;
-	this.width = this.img.spriteSheet.width/this.img.animationColFrames;
-	this.height = this.img.spriteSheet.height/this.img.animationRowFrames;
+	this.width = newAnimal.width;
+	this.height = newAnimal.height;
 	this.speed = newAnimal.speed;
 	this.arrayIndex = newAnimal.arrayIndex;
 	this.tileType = newAnimal.tileType;
@@ -34,12 +34,12 @@ function animalClass (newAnimal) {
 	this.playerDetectedSoundPlayed = false;
 	this.playingChaseMusic = false;
 
-	var colliderWidth = this.width;
-	var colliderHeight = this.height/2;
-	var colliderOffsetX = 0;
-	var colliderOffsetY = this.height/8;
+	this.colliderWidth = newAnimal.colliderWidth;
+	this.colliderHeight = newAnimal.colliderHeight;
+	this.colliderOffsetX = newAnimal.colliderOffsetX;
+	this.colliderOffsetY = newAnimal.colliderOffsetY;
 	this.hitbox = new colliderClass(this.x,this.y,
-		colliderWidth,colliderHeight,colliderOffsetX,colliderOffsetY);
+		this.colliderWidth,this.colliderHeight,this.colliderOffsetX,this.colliderOffsetY);
 
 	this.draw = function () {
 		if (worldGrid[this.arrayIndex] != TILE_REPLACE_ANIMAL &&
@@ -322,6 +322,11 @@ function spawnAnimalBasedOnTile(tileType, arrayIndex) {
 			break;
 		case TILE_PINCHER_BUG:
 			animal = new pincherBug(arrayIndex,tileType);
+			animalList.push(animal);
+			worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
+			break;
+		case TILE_BEAR:
+			animal = new bearClass(arrayIndex,tileType);
 			animalList.push(animal);
 			worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
 			break;

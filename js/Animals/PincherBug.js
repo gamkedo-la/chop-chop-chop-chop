@@ -12,6 +12,8 @@ function pincherBug (arrayIndex,worldTileType) {
 		loops: true
 	});
 	this.img = pincherBugMovement;
+	this.width = this.img.spriteSheet.width/this.img.animationColFrames;
+	this.height = this.img.spriteSheet.height/this.img.animationRowFrames;
 	this.speed = 2;
 	this.detectionRadius = 150;
 	this.homeRadius = 300;
@@ -23,6 +25,10 @@ function pincherBug (arrayIndex,worldTileType) {
 	var idleTimerFull = this.idleTimer;
 	this.idlePosition = {x: this.home.x, y: this.home.y};
 	this.attackPower = 5;
+	this.colliderWidth = this.width;
+	this.colliderHeight = this.height - 12;
+	this.colliderOffsetX = 0;
+	this.colliderOffsetY = 0;
 
 	this.collidableTiles = standardCollisionTiles;
 

@@ -12,6 +12,8 @@ function alligatorClass (arrayIndex,worldTileType) {
 		loops: true
 	});
 	this.img = alligator;
+	this.width = this.img.spriteSheet.width/this.img.animationColFrames;
+	this.height = this.img.spriteSheet.height/this.img.animationRowFrames;
 	this.speed = 2;
 	this.detectionRadius = 100;
 	this.homeRadius = 200;
@@ -23,6 +25,10 @@ function alligatorClass (arrayIndex,worldTileType) {
 	var idleTimerFull = this.idleTimer;
 	this.idlePosition = {x: this.home.x, y: this.home.y};
 	this.attackPower = 2;
+	this.colliderWidth = this.width;
+	this.colliderHeight = this.height/2 - 6;
+	this.colliderOffsetX = 0;
+	this.colliderOffsetY = this.height/3;
 
 	this.collidableTiles = [TILE_EXTEND_COLLISION,TILE_SMALL_TREE, TILE_NOTHING,
 	TILE_SMALL_TREE_ALT,TILE_TALL_TREE,TILE_STALAGMITE,TILE_REPLACE_TREE,

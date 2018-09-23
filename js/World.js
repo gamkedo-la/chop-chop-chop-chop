@@ -115,6 +115,7 @@ const TILE_RABBIT = 802;
 const TILE_JUMPING_FISH = 803;
 const TILE_ALLIGATOR = 804;
 const TILE_PINCHER_BUG = 805;
+const TILE_BEAR = 806;
 
 var allLevels = [mountainBase,testLevel];
 var currentLevelIndex = 0; // FIXME TODO: put back to zero when not testing level 2
@@ -126,7 +127,7 @@ var worldGrid = [];
 
 console.log("Current level: " + currentLevelIndex + " size: " + worldCols + 'x' + worldRows); 
 
-worldGrid = Array.from(allLevels[currentLevelIndex].layout);
+worldGrid = allLevels[currentLevelIndex].layout;
 
 var water = 0;
 var waterfallBottomLeft = 1;
@@ -204,6 +205,20 @@ function isTileTypeAnObject(tileType) {
 	}
 }
 
+function isTileTypeAnimated(tileType) {
+	switch (tileType) {
+		case TILE_WATER:
+		case TILE_WATERFALL_BOTTOM_LEFT:
+		case TILE_WATERFALL_BOTTOM_CENTER:
+		case TILE_WATERFALL_BOTTOM_RIGHT:
+		case TILE_CAMERA:
+		case TILE_CAMPFIRE:
+		case TILE_DS_BONFIRE:
+			return true;
+			break;
+	}
+}
+
 function returnAnimatedTileSprites(tileKindHere) {
 	switch (tileKindHere) {
 		case TILE_WATER:
@@ -230,23 +245,8 @@ function returnAnimatedTileSprites(tileKindHere) {
 	}
 }
 
-function isTileTypeAnimated(tileType) {
-	switch (tileType) {
-		case TILE_WATER:
-		case TILE_WATERFALL_BOTTOM_LEFT:
-		case TILE_WATERFALL_BOTTOM_CENTER:
-		case TILE_WATERFALL_BOTTOM_RIGHT:
-		case TILE_CAMERA:
-		case TILE_CAMPFIRE:
-		case TILE_DS_BONFIRE:
-			return true;
-			break;
-	}
-}
-
 function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 	var animatedTile = returnAnimatedTileSprites(tileType);
-	var fromWhichRowToAnimate = 1;
 	switch (animatedTile) {
 		case water:
 			newAnimatedTile = new AnimatedSpriteClass({
@@ -361,6 +361,7 @@ function isTileTypeAnAnimal(tileType) {
 		case TILE_JUMPING_FISH:
 		case TILE_ALLIGATOR:
 		case TILE_PINCHER_BUG:
+		case TILE_BEAR:
 			return true;
 		break;
 	}
@@ -502,14 +503,16 @@ function drawGridOfTiles(x, y) {
 	canvasContext.strokeRect(x, y, TILE_W, TILE_H);
 }
 
-function advanceLevel(){
+function advanceLevel() {
 	animalList = [];
 	objectList = [];
-	//console.log(objectList);
+	animatedTileList = [];
+	particleList = [];
 	currentLevelIndex = (currentLevelIndex + 1) % allLevels.length;
-	worldGrid = Array.from(allLevels[currentLevelIndex].layout);
-	worldCols = allLevels[currentLevelIndex].columns; //
+	worldGrid = /*Array.from(*/allLevels[currentLevelIndex].originalLayout//);
+	worldCols = allLevels[currentLevelIndex].columns; 
 	worldRows = allLevels[currentLevelIndex].rows;
+	//console.log(objectList);
 	player.x = 20;
 	player.y = 40;
 	resetCountdownTimer();

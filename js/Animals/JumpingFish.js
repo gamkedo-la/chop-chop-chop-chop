@@ -25,10 +25,10 @@ function jumpingFish (arrayIndex,worldTileType) {
 	this.underwaterTimer = 0;
 	this.underwaterTimerFinish = 60;
 	this.attackPower = 4;
-	var colliderWidth = this.width;
-	var colliderHeight = this.height/2;
+	var colliderWidth = this.width/2 + 2;
+	var colliderHeight = this.height - 6;
 	var colliderOffsetX = 0;
-	var colliderOffsetY = this.height/8;
+	var colliderOffsetY = 0;
 	this.hitbox = new colliderClass(this.x,this.y,
 		colliderWidth,colliderHeight,colliderOffsetX,colliderOffsetY);
 

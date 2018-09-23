@@ -28,6 +28,7 @@ function loadImages() {
         { varName: "jumpingFish", theFile: "jumping_fish_sheet.png"},
         { varName: "alligatorSheet", theFile: "alligator_sheet.png"},
         { varName: "pincherBugSheet", theFile: "pincher_bug_sheet.png"},
+        { varName: "bearSheet", theFile: "bear_sheet.png"},
 
         // Particle Effects
         { varName: "leaf", theFile: "leaf.png"},
@@ -91,7 +92,6 @@ function loadImages() {
         { worldType: TILE_PATH_CORNER_IN_BOTTOM_RIGHT, theFile: "path_dirt_cornerIN_bottom_right.png" },
         { worldType: TILE_PATH_CORNER_IN_BOTTOM_LEFT, theFile: "path_dirt_cornerIN_bottom_left.png" },
 
-
         { worldType: TILE_SMALL_TREE, theFile: "tree1.png" },
         { worldType: TILE_SMALL_TREE_ALT, theFile: "tree2.png" },
         { worldType: TILE_LOLLIPOP, theFile: "lollipop.png" },
@@ -118,6 +118,7 @@ function loadImages() {
         { worldType: TILE_JUMPING_FISH, theFile: "jumping_fish.png" },
         { worldType: TILE_ALLIGATOR, theFile: "alligator.png" },
         { worldType: TILE_PINCHER_BUG, theFile: "pincher_bug.png" },
+        { worldType: TILE_BEAR, theFile: "bear.png" },
         { worldType: TILE_REPLACE_ANIMAL, theFile: "nothing.png" },
 
         { worldType: TILE_CLIFF_TOP_LEFT, theFile: "cliff_top_left.png" },

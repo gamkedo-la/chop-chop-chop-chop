@@ -182,7 +182,7 @@ function playerClass() {
 				this.hitAnAnimal = true;
 				hit = true; 
 				console.log("HIT AN ANIMAL! >:C");
-				// TODO: badSound.play();
+				animalHit.play();
 				this.gotHit(animal.attackPower)
 			}
 		}

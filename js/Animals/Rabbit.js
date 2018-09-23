@@ -17,6 +17,8 @@ function rabbitClass (arrayIndex,worldTileType) {
 	var randomFrameIndex = getRoundedRandomNumberBetweenMinMax(0,rabbitMovement.animationColFrames);
 	rabbitMovement.currentFrameIndex = randomFrameIndex;
 	this.img = rabbitMovement;
+	this.width = this.img.spriteSheet.width/this.img.animationColFrames;
+	this.height = this.img.spriteSheet.height/this.img.animationRowFrames;
 	this.speed = 2;
 	this.detectionRadius = 0;
 	this.homeRadius = 40;
@@ -28,6 +30,10 @@ function rabbitClass (arrayIndex,worldTileType) {
 	var idleTimerFull = this.idleTimer;
 	this.idlePosition = {x: this.home.x, y: this.home.y};
 	this.attackPower = 5;
+	this.colliderWidth = this.width;
+	this.colliderHeight = this.height;
+	this.colliderOffsetX = 0;
+	this.colliderOffsetY = 0;
 
 	this.collidableTiles = standardCollisionTiles;
 
