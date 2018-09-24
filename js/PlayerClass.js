@@ -15,7 +15,7 @@ function playerClass() {
 	
 	// stats
 	this.swingCount = 0;
-	this.chopCount = 90;
+	this.chopCount = 98;
 	this.stepCount = 0;
 	this.treeCount = 0;
 	this.attackCount = 0;
@@ -302,9 +302,6 @@ function checkTileCollision (x,y,movementX,movementY) {
 function isTileTypeCollidable(tileType) {
 	switch (tileType) {
 		case TILE_EXTEND_COLLISION:
-		case TILE_SMALL_TREE:
-		case TILE_SMALL_TREE_ALT:
-		case TILE_TALL_TREE:
 		case TILE_REPLACE_TREE:
 		case TILE_REPLACE_WATER:
 		case TILE_REPLACE_WATERFALL:
@@ -350,6 +347,7 @@ function isTileTypeCollidable(tileType) {
 		case TILE_BOULDER_BOTTOM_RIGHT:
 			return true;
 			break;
+		return false;
 	}
 }
 

@@ -143,7 +143,15 @@ function keyPressed(evt) {
    				+ "5 for water tiles" + "\n"
    				+ "8 for animal tiles" + "\n");
 			}
-			if (!worldEditor) console.log("worldEditor OFF...");
+			if (!worldEditor) {
+				worldGrid = [];
+				animalList = [];
+				objectList = [];
+				animatedTileSet = [];
+				worldGrid = Array.from(allLevels[currentLevelIndex].layout);
+				drawWorld();
+				console.log("worldEditor OFF...");
+			}
 		break;
 		case X_KEY:
 			if (worldEditor) {

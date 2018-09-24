@@ -63,6 +63,7 @@ function editTileOnMouseClick() {
    			return;
    		}*/
    		worldGrid[tileUnderMouse] = currentlySelectedSet[currentSetIndex];
+   		allLevels[currentLevelIndex].layout[tileUnderMouse] = currentlySelectedSet[currentSetIndex];
     }
 }
 

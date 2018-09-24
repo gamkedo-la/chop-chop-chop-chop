@@ -127,7 +127,7 @@ var worldGrid = [];
 
 console.log("Current level: " + currentLevelIndex + " size: " + worldCols + 'x' + worldRows); 
 
-worldGrid = allLevels[currentLevelIndex].layout;
+worldGrid = Array.from(allLevels[currentLevelIndex].layout);
 
 var water = 0;
 var waterfallBottomLeft = 1;
@@ -509,7 +509,7 @@ function advanceLevel() {
 	animatedTileList = [];
 	particleList = [];
 	currentLevelIndex = (currentLevelIndex + 1) % allLevels.length;
-	worldGrid = /*Array.from(*/allLevels[currentLevelIndex].originalLayout//);
+	worldGrid = Array.from(allLevels[currentLevelIndex].originalLayout);
 	worldCols = allLevels[currentLevelIndex].columns; 
 	worldRows = allLevels[currentLevelIndex].rows;
 	//console.log(objectList);
