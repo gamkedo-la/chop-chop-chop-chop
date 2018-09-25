@@ -5,7 +5,9 @@ function animalClass (newAnimal) {
 	this.img = newAnimal.img;
 	this.width = newAnimal.width;
 	this.height = newAnimal.height;
-	this.speed = newAnimal.speed;
+	this.speed = newAnimal.speed - 1;
+	this.rangeOssiclator = 0;
+	this.rangeOssiclatorHitLimit = false;
 	this.arrayIndex = newAnimal.arrayIndex;
 	this.tileType = newAnimal.tileType;
 	this.detectionRadius = newAnimal.detectionRadius;
@@ -17,11 +19,19 @@ function animalClass (newAnimal) {
 	var idleTimerFull = this.idleTimer;
 	this.attackPower = newAnimal.attackPower;
 	this.collidableTiles = newAnimal.collidableTiles;
+
 	const EAST = "east";
 	const WEST = "west";
 	this.direction = WEST;
 	this.x = this.home.x;
 	this.y = this.home.y;
+
+	this.stuckOnBothAxisCounter = 0;
+	this.gettingUnstuckTimer = 0;
+	this.gettingUnstuckTimerFull = 6;
+	this.getUnstuckOnY = false;
+	this.getUnstuckOnX = false;
+
 	this.idlePosition = {x: this.home.x, y: this.home.y};
 	
 	this.centerX = this.x - this.width / 2;
@@ -98,21 +108,45 @@ function animalClass (newAnimal) {
 				this.playerDetectedSoundPlayed = true;
 				player.attackCount++;
 			}
+			if (this.img.data.name === "bear" && this.playerDetectedSoundPlayed === false) {
+				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfRoarSFXs.length - 1);
+				arrayOfRoarSFXs[random].play();
+				this.playerDetectedSoundPlayed = true;
+				player.attackCount++;
+			}
 			this.meander = false;
 			this.img.framesUntilNext = 8;
 			var moveXTowardPlayer = this.x < player.x ? this.speed : -this.speed;
 			var moveYTowardPlayer = this.y < player.y ? this.speed : -this.speed;
+
+			if (this.rangeOssiclatorIncreasing) {
+				this.rangeOssiclator += 0.1;
+			} else {
+				this.rangeOssiclator -= 0.1;
+			}
+			if (this.rangeOssiclator >= (Math.PI/2)) {
+				this.rangeOssiclatorIncreasing = false;
+			} else if (this.rangeOssiclator <= -(Math.PI/2)) {
+				this.rangeOssiclatorIncreasing = true;
+			}
+
+			var randomMovement = (Math.sin(this.rangeOssiclator) * Math.random());
+			var randomMovementOffset = this.speed < 0 ? -randomMovement : randomMovement;
+
+			moveXTowardPlayer += randomMovementOffset;
+			moveXTowardPlayer += randomMovementOffset;
+
 			if (this.checkTileCollision(this.x,this.y,moveXTowardPlayer,moveYTowardPlayer)) {
 				moveXTowardPlayer = 0;
 				moveYTowardPlayer = 0;
 			}
 			if (this.x <= player.x + closeToHome &&
 			    this.x >= player.x - closeToHome) {
-				moveXTowardPlayer = 0;
+				moveXTowardPlayer = null;
 			}
 			if (this.y <= player.y + closeToHome &&
 			    this.y >= player.y - closeToHome) {
-				moveYTowardPlayer = 0;
+				moveYTowardPlayer = null;
 			}
 			if (moveXTowardPlayer == -this.speed) {
 				this.direction = WEST;
@@ -121,8 +155,18 @@ function animalClass (newAnimal) {
 			} else if (moveXTowardPlayer == 0) {
 				this.direction = this.direction;
 			}
-			this.x += moveXTowardPlayer;
-			this.y += moveYTowardPlayer;
+
+			if (moveYTowardPlayer == 0 && moveXTowardPlayer == 0) {
+				this.stuckOnBothAxisCounter++;
+				if (this.stuckOnBothAxisCounter >= 14) {
+					this.getUnstuck();
+				}
+			} else {
+				this.stuckOnBothAxisCounter = 0;
+				this.x += moveXTowardPlayer;
+				this.y += moveYTowardPlayer; 
+			}
+
 			this.hitbox.update(this.x,this.y);
 			if (this.hitbox.isCollidingWith(player.hitbox)) {
 				if (this.neutral) {
@@ -131,6 +175,7 @@ function animalClass (newAnimal) {
 					player.gotHit(this.attackPower);
 				}
 			}
+
 		} else if (this.waiting) { // else wait
 				if (this.waitingTimer == 0) {
 					//this.img.framesUntilNext = 25;
@@ -264,6 +309,41 @@ function animalClass (newAnimal) {
 			return true;
 		}
 	}
+
+	this.getUnstuck = function() {
+		console.log("stuck");
+		var moveXGetUnstuck = this.x < player.x ? this.speed : -this.speed;
+		var moveYGetUnstuck = this.y < player.y ? this.speed : -this.speed;
+		for (var t = 0; t <= (this.gettingUnstuckTimerFull * 16); t++) {
+			this.gettingUnstuckTimer++
+			if (this.gettingUnstuckTimer >= this.gettingUnstuckTimerFull) {
+				this.x -= moveXGetUnstuck/2;
+				this.y += moveYGetUnstuck;
+				this.gettingUnstuckTimer = 0;
+				if (this.checkTileCollision(this.x,this.y,moveXGetUnstuck/2,-moveYGetUnstuck)) {
+					console.log("stuck");
+				} else {
+					return;
+				}
+			}
+			if (t == ((this.gettingUnstuckTimerFul * 16) - 1)) {
+				for (var u = 0; u < (this.gettingUnstuckTimerFull * 16); u++) {
+					this.gettingUnstuckTimer++
+					if (this.gettingUnstuckTimer >= this.gettingUnstuckTimerFull) {
+						this.x += moveXGetUnstuck;
+						this.y -= moveYGetUnstuck/2;
+						this.gettingUnstuckTimer = 0;
+						if ((this.checkTileCollision(this.x,this.y,moveXGetUnstuck,-moveYGetUnstuck/2))) {
+							console.log("stuck");
+						} else {
+							return
+						}
+					}	
+				}
+			}
+		} // end of for t loop 
+	} // end of getUnstuck
+
 } // end of animal class
 
 var standardCollisionTiles = [TILE_EXTEND_COLLISION,TILE_SMALL_TREE,

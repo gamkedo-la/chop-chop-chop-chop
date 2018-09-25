@@ -7,20 +7,27 @@ let campfireSFX = new Audio();
 let birdSound = new Audio();
 let deathMeow = new Audio();
 let bugSound = new Audio();
+let bearRoar1 = new Audio();
+let bearRoar2 = new Audio();
+let bearRoar3 = new Audio();
 let playerHurt = new Audio();
 let animalHit = new Audio();
 
 let arrayOfSounds = [backgroundMusic,chop1,chop2,axeWhirl,missedSwing,campfireSFX,
-					birdSound,deathMeow,pincherBug,
+					birdSound,deathMeow,pincherBug,bearRoar1,bearRoar2,bearRoar3,
 					playerHurt];
 
 let arrayOfMusic = [backgroundMusic];
-let arrayOfSFXs = [chop1,chop2,axeWhirl,missedSwing,campfireSFX,birdSound,deathMeow,pincherBug,playerHurt];
+let arrayOfSFXs = [chop1,chop2,axeWhirl,missedSwing,campfireSFX,
+					birdSound,deathMeow,pincherBug,
+					bearRoar1,bearRoar2,bearRoar3,
+					playerHurt];
 
 let audioType = undefined;
 let sourceExtension = undefined;
 
 let arrayOfChopSFXs = [chop1,chop2];
+let arrayOfRoarSFXs = [bearRoar1,bearRoar2,bearRoar3];
 
 let setAudioTypeAndSourceExtension = () => {
   if (backgroundMusic.canPlayType('audio/ogg;')) {
@@ -69,6 +76,9 @@ bugSound.src = "SFX/BugSound" + sourceExtension;
 playerHurt.src = "SFX/PlayerHurt" + sourceExtension;
 animalHit.src = "SFX/AnimalHit" + sourceExtension;
 animalHit.volume = 0.6;
+bearRoar1.src = "SFX/BearRoar01" + sourceExtension;
+bearRoar2.src = "SFX/BearRoar02" + sourceExtension;
+bearRoar3.src = "SFX/BearRoar03" + sourceExtension;
 
 /*let decreaseMasterVolume = () => {
   for ( let arrayOfSoundsIndex = 0; arrayOfSoundsIndex < arrayOfSounds.length; arrayOfSoundsIndex++ ) {
