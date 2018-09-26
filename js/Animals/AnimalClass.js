@@ -27,10 +27,9 @@ function animalClass (newAnimal) {
 	this.y = this.home.y;
 
 	this.stuckOnBothAxisCounter = 0;
+	this.stuckOnBothAxisCounterFull = 12;
 	this.gettingUnstuckTimer = 0;
-	this.gettingUnstuckTimerFull = 6;
-	this.getUnstuckOnY = false;
-	this.getUnstuckOnX = false;
+	this.gettingUnstuckTimerFull = 2;
 
 	this.idlePosition = {x: this.home.x, y: this.home.y};
 	
@@ -38,7 +37,7 @@ function animalClass (newAnimal) {
 	this.centerY = this.y - this.height / 2;
 	
 	this.waiting = false;
-	this.meander = true;
+	this.returning = true;
 	this.neutral = newAnimal.neutral;
 	this.playerDetected = false;
 	this.playerDetectedSoundPlayed = false;
@@ -56,15 +55,16 @@ function animalClass (newAnimal) {
 			worldGrid[this.arrayIndex] != TILE_REPLACE_WATER) {
 			return;
 		}
-		if (this.meander || this.playerDetected || this.waiting) {
-			this.img.draw(this.x,this.y, 1, (this.direction != WEST));
-		} 
+
+		this.img.draw(this.x,this.y, 1, (this.direction != WEST));
+
 		if (worldEditor) {
 			canvasContext.strokeStyle = "teal";
 			canvasContext.lineWidth = 1;
 			canvasContext.strokeRect(this.home.x - TILE_W/2, this.home.y - TILE_H/2, TILE_W, TILE_H);
 			colorText("Home" + "\n" + this.img.name, this.home.x, this.home.y, "teal", "Verdana", "center");
 		}
+
 		if (debug) {
 			drawRect(this.x,this.y, 2,2, "yellow")
 			this.hitbox.draw("green");
@@ -114,7 +114,7 @@ function animalClass (newAnimal) {
 				this.playerDetectedSoundPlayed = true;
 				player.attackCount++;
 			}
-			this.meander = false;
+			this.returning = false;
 			this.img.framesUntilNext = 8;
 			var moveXTowardPlayer = this.x < player.x ? this.speed : -this.speed;
 			var moveYTowardPlayer = this.y < player.y ? this.speed : -this.speed;
@@ -142,31 +142,35 @@ function animalClass (newAnimal) {
 			}
 			if (this.x <= player.x + closeToHome &&
 			    this.x >= player.x - closeToHome) {
-				moveXTowardPlayer = null;
+				moveXTowardPlayer = 0;
 			}
 			if (this.y <= player.y + closeToHome &&
 			    this.y >= player.y - closeToHome) {
-				moveYTowardPlayer = null;
+				moveYTowardPlayer = 0;
 			}
-			if (moveXTowardPlayer == -this.speed) {
+
+			if (moveXTowardPlayer < 0) {
 				this.direction = WEST;
-			} else if (moveXTowardPlayer == this.speed) {
+			} else if (moveXTowardPlayer > 0) {
 				this.direction = EAST;
 			} else if (moveXTowardPlayer == 0) {
 				this.direction = this.direction;
 			}
 
 			if (moveYTowardPlayer == 0 && moveXTowardPlayer == 0) {
-				this.stuckOnBothAxisCounter++;
-				if (this.stuckOnBothAxisCounter >= 14) {
+				this.stuckOnBothAxisCounter++ 
+				if (this.stuckOnBothAxisCounter >= this.stuckOnBothAxisCounterFull || this.stuck) {
 					this.getUnstuck();
 				}
 			} else {
 				this.stuckOnBothAxisCounter = 0;
 				this.x += moveXTowardPlayer;
-				this.y += moveYTowardPlayer; 
+				this.y += moveYTowardPlayer;
+				if (this.collidableTiles.indexOf(getTileTypeAtPixelCoord(this.x, this.y)) > -1) {
+					this.x -= moveXTowardPlayer;
+					this.y -= moveYTowardPlayer;
+				}
 			}
-
 			this.hitbox.update(this.x,this.y);
 			if (this.hitbox.isCollidingWith(player.hitbox)) {
 				if (this.neutral) {
@@ -179,10 +183,10 @@ function animalClass (newAnimal) {
 		} else if (this.waiting) { // else wait
 				if (this.waitingTimer == 0) {
 					//this.img.framesUntilNext = 25;
-					this.meander = true;
 					this.playerDetected = false;
 					this.playerDetectedSoundPlayed = false;
 					this.waiting = false;
+					this.returning = true;
 					this.img.framesUntilNext = 25;
 					this.waitingTimer = waitingTimerFull;
 					this.idlePosition.x = this.home.x;
@@ -192,16 +196,64 @@ function animalClass (newAnimal) {
 					this.waitingTimer--;
 					return;
 				}
-		} else { // else return home
-			this.playerDetected = false;
-			if (this.playingChaseMusic) {
-				this.playingChaseMusic = false;
-				backgroundMusic.pause();
-				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
-				backgroundMusic.play();
+		} else if (this.returning) { // else return home
+				if (this.playingChaseMusic) {
+					this.playingChaseMusic = false;
+					backgroundMusic.pause();
+					backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+					backgroundMusic.play();
+				}
+
+				var moveXTowardHome = this.x < this.idlePosition.x ? this.speed : -this.speed;
+				var moveYTowardHome = this.y < this.idlePosition.y ? this.speed : -this.speed;
+
+				if (this.checkTileCollision(this.x,this.y,moveXTowardHome,moveYTowardHome)) {
+					moveXTowardHome = 0;
+					moveYTowardHome = 0;
+					this.stuckOnBothAxisCounter++ 
+					if (this.stuckOnBothAxisCounter >= this.stuckOnBothAxisCounterFull || this.stuck) {
+						this.getUnstuck();
+					}
+				} else {
+					if (this.x <= this.idlePosition.x + closeToHome &&
+					    this.x >= this.idlePosition.x - closeToHome) {
+						moveXTowardHome = 0;
+					}
+					if (this.y <= this.idlePosition.y + closeToHome &&
+					    this.y >= this.idlePosition.y - closeToHome) {
+						moveYTowardHome = 0;
+					}
+					if (moveXTowardHome == 0 && moveYTowardHome == 0) {
+						this.returning = false;
+					}
+				}
+
+				this.x += moveXTowardHome;
+				this.y += moveYTowardHome;
+				this.hitbox.update(this.x,this.y);
+
+		} else { //animal is home, begin idling
+			this.idleTimer--;
+			if(this.idleTimer == 0) {
+				let radians = getRandomNumberBetweenMinMax(0, 360) * DEGREES_TO_RADIANS;
+				let radius = getRandomNumberBetweenMinMax(0, this.idleRadius);
+				this.idlePosition.x = Math.cos(radians) * radius + this.home.x;
+				this.idlePosition.y = Math.sin(radians) * radius + this.home.y;
+				this.idleTimer = idleTimerFull;
 			}
-			var moveXTowardHome = this.x < this.idlePosition.x ? this.speed : -this.speed;
-			var moveYTowardHome = this.y < this.idlePosition.y ? this.speed : -this.speed;
+
+			moveXTowardHome = this.x < this.idlePosition.x ? this.speed : -this.speed;
+			moveYTowardHome = this.y < this.idlePosition.y ? this.speed : -this.speed;
+
+			if (this.checkTileCollision(this.x,this.y,moveXTowardHome,moveYTowardHome) || this.stuck) {
+				moveXTowardHome = 0;
+		 		moveYTowardHome = 0;
+				this.stuckOnBothAxisCounter++ 
+				if (this.stuckOnBothAxisCounter >= this.stuckOnBothAxisCounterFull) {
+					this.getUnstuck();
+				}
+			}
+
 			if (this.x <= this.idlePosition.x + closeToHome &&
 			    this.x >= this.idlePosition.x - closeToHome) {
 				moveXTowardHome = 0;
@@ -209,25 +261,6 @@ function animalClass (newAnimal) {
 			if (this.y <= this.idlePosition.y + closeToHome &&
 			    this.y >= this.idlePosition.y - closeToHome) {
 				moveYTowardHome = 0;
-			} // end of check if animal.y is home.y
-
-			if (moveXTowardHome == 0 && moveYTowardHome == 0) {
-				//animal is home, begin idling
-				this.meander = true;
-				this.idleTimer--;
-				if(this.idleTimer == 0) {
-					let radians = getRandomNumberBetweenMinMax(0, 360) * DEGREES_TO_RADIANS;
-					let radius = getRandomNumberBetweenMinMax(0, this.idleRadius);
-					this.idlePosition.x = Math.cos(radians) * radius + this.home.x;
-					this.idlePosition.y = Math.sin(radians) * radius + this.home.y;
-					this.idleTimer = idleTimerFull;
-				}
-			}
-
-			if (this.checkTileCollision(this.x,this.y,moveXTowardHome,moveYTowardHome)) {
-				moveXTowardHome = 0;
-		 		moveYTowardHome = 0;
-				this.idlePosition = {x: this.x, y: this.y};
 			}
 
 			if (moveXTowardHome < 0) {
@@ -240,8 +273,51 @@ function animalClass (newAnimal) {
 			this.x += moveXTowardHome;
 			this.y += moveYTowardHome;
 			this.hitbox.update(this.x,this.y);
-		} // end of else return home
+		} // end of else begin idling
 	} // end of move funtion
+
+
+	this.getUnstuck = function() {
+		var moveXTowardGoal = 0;
+		var moveYTowardGoal = 0;
+		if (!this.stuck) {
+			var goalX = this.playerDetected ? player.x : this.idlePosition.x;
+			var goalY = this.playerDetected ? player.y : this.idlePosition.y;
+			moveXGetUnstuck = this.x < goalX ? this.speed : -this.speed;
+			moveYGetUnstuck = this.y < goalY ? this.speed : -this.speed;
+		}
+		this.stuck = true;
+		if (this.stuck) {
+			this.stuckOnBothAxisCounter++;
+			if (this.stuckOnBothAxisCounter >= this.stuckOnBothAxisCounterFull) {
+				if (this.checkTileCollision(this.x,this.y,moveXGetUnstuck,moveYTowardGoal)) {
+					//console.log("Stuck On X axis");
+				} else {
+					this.x += moveXGetUnstuck;
+				} 
+				if (this.checkTileCollision(this.x,this.y,moveXTowardGoal,moveYGetUnstuck)) {
+					//console.log("Stuck On Y axis");
+				} else {
+					this.y += moveYGetUnstuck;
+				} 
+			}
+			if (this.checkTileCollision(this.x,this.y,moveXGetUnstuck,moveYGetUnstuck)) {
+				return;
+			} else {
+				if (this.checkTileCollision(this.x,this.y,moveXGetUnstuck,moveYTowardGoal)) {
+					//console.log("Stuck On X axis");
+				} else {
+					this.x += moveXGetUnstuck;
+				} 
+				if (this.checkTileCollision(this.x,this.y,moveXTowardGoal,moveYGetUnstuck)) {
+					//console.log("Stuck On Y axis");
+				} else {
+					this.y += moveYGetUnstuck;
+				} 
+				this.stuck = false;
+			}
+		}
+	} // end of this.getUnstuck
 
 	this.detectionRadiusTrigger = function() {
 		if (this.neutral) {
@@ -309,40 +385,6 @@ function animalClass (newAnimal) {
 			return true;
 		}
 	}
-
-	this.getUnstuck = function() {
-		console.log("stuck");
-		var moveXGetUnstuck = this.x < player.x ? this.speed : -this.speed;
-		var moveYGetUnstuck = this.y < player.y ? this.speed : -this.speed;
-		for (var t = 0; t <= (this.gettingUnstuckTimerFull * 16); t++) {
-			this.gettingUnstuckTimer++
-			if (this.gettingUnstuckTimer >= this.gettingUnstuckTimerFull) {
-				this.x -= moveXGetUnstuck/2;
-				this.y += moveYGetUnstuck;
-				this.gettingUnstuckTimer = 0;
-				if (this.checkTileCollision(this.x,this.y,moveXGetUnstuck/2,-moveYGetUnstuck)) {
-					console.log("stuck");
-				} else {
-					return;
-				}
-			}
-			if (t == ((this.gettingUnstuckTimerFul * 16) - 1)) {
-				for (var u = 0; u < (this.gettingUnstuckTimerFull * 16); u++) {
-					this.gettingUnstuckTimer++
-					if (this.gettingUnstuckTimer >= this.gettingUnstuckTimerFull) {
-						this.x += moveXGetUnstuck;
-						this.y -= moveYGetUnstuck/2;
-						this.gettingUnstuckTimer = 0;
-						if ((this.checkTileCollision(this.x,this.y,moveXGetUnstuck,-moveYGetUnstuck/2))) {
-							console.log("stuck");
-						} else {
-							return
-						}
-					}	
-				}
-			}
-		} // end of for t loop 
-	} // end of getUnstuck
 
 } // end of animal class
 

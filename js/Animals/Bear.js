@@ -34,4 +34,4 @@ function bearClass (arrayIndex,worldTileType) {
 
 	return new animalClass(this);
 
-} // end of bigBird
+} // end of bearClass

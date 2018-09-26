@@ -102,6 +102,4 @@ function jumpingFish (arrayIndex,worldTileType) {
 		}
 	}
 
-	new animalClass(this);
-
 } // end of jumpingFish
