@@ -93,6 +93,8 @@ function drawAll() {
 			player.y = Math.round(canvas.height / 2);
 			//player.draw();
 			cutsceneAnimation.draw(player.x, player.y, 1, false);
+			if (Math.random()>0.75) spawnParticles("grindstone_sparks", player.x-8, player.y-3);
+			drawParticles();
 		}
 	}
 }
