@@ -12,7 +12,7 @@ function bigBird (arrayIndex,worldTileType) {
 	this.img = stebsBird;
 	this.width = this.img.spriteSheet.width/this.img.animationColFrames;
 	this.height = this.img.spriteSheet.height/this.img.animationRowFrames;
-	this.speed = 5;
+	this.speed = 4;
 	this.detectionRadius = 240;
 	this.homeRadius = 600;
 	this.idleRadius = 40;
