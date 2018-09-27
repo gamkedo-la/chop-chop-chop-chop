@@ -55,27 +55,31 @@ function jumpingFish (arrayIndex,worldTileType) {
 	// same as standard but minus water and plus nothing/ground; 
 
 	this.move = function() {
-		if (this.underwater) {
-			if (this.underwaterTimer >= this.underwaterTimerFinish) {
-				this.underwaterTimer = 0;
-				this.underwater = false;
-				this.changedDirection = false;
-				this.splashDown = false;
-				spawnParticles("splash", this.x, this.y);
+		if (havingAMoment) {
+			return;
+		} else {
+			if (this.underwater) {
+				if (this.underwaterTimer >= this.underwaterTimerFinish) {
+					this.underwaterTimer = 0;
+					this.underwater = false;
+					this.changedDirection = false;
+					this.splashDown = false;
+					spawnParticles("splash", this.x, this.y);
+				}
+			} else if (!this.changedDirection && !this.underwater) {
+				this.y -= this.speed;
+				if (this.y < this.jumpThreshold && !this.changedDirection) {
+					this.changedDirection = true;
+				}
+			} else if (this.changedDirection && !this.underwater){
+				this.y += this.speed;
 			}
-		} else if (!this.changedDirection && !this.underwater) {
-			this.y -= this.speed;
-			if (this.y < this.jumpThreshold && !this.changedDirection) {
-				this.changedDirection = true;
+			if (this.y > this.home.y + 1 && this.changedDirection) {
+				this.underwater = true;
+				this.underwaterTimer++;
 			}
-		} else if (this.changedDirection && !this.underwater){
-			this.y += this.speed;
+			this.hitbox.update(this.x,this.y);
 		}
-		if (this.y > this.home.y + 1 && this.changedDirection) {
-			this.underwater = true;
-			this.underwaterTimer++;
-		}
-		this.hitbox.update(this.x,this.y);
 	}
 
 	this.draw = function() {

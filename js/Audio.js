@@ -81,13 +81,7 @@ bearRoar1.src = "SFX/BearRoar01" + sourceExtension;
 bearRoar2.src = "SFX/BearRoar02" + sourceExtension;
 bearRoar3.src = "SFX/BearRoar03" + sourceExtension;
 cutsceneSound.src = "SFX/cutscene" + sourceExtension;
-cutsceneSound.volume = 0.25;
-
-/*let decreaseMasterVolume = () => {
-  for ( let arrayOfSoundsIndex = 0; arrayOfSoundsIndex < arrayOfSounds.length; arrayOfSoundsIndex++ ) {
-    arrayOfSounds[arrayOfSoundsIndex].volume -= 0.1;
-  }
-};*/
+cutsceneSound.volume = 0.075;
 
 let decreaseMusicVolume = () => {
   for ( let arrayOfMusicIndex = 0; arrayOfMusicIndex < arrayOfMusic.length; arrayOfMusicIndex++ ) {

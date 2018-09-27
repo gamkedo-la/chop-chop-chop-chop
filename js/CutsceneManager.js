@@ -23,7 +23,6 @@ var upgradeLevelThreeScene = {
 function playCutscene(data) {
 	if (havingAMoment) {
 		if (data.isGameOver) {
-			// play frustrated chop-chop animation
 			gameOverOptions();
 		}
 		countdownTimerPaused = true;
@@ -49,6 +48,7 @@ function playCutscene(data) {
 				stringIndex = 0;
 				cutsceneDialogueIndex = 0;
 				currentScene = null;
+				particleList = [];
 				player.x = player.oldX;
 				player.y = player.oldY;
 				needNewString = false;
@@ -128,6 +128,12 @@ function upgradeCheck() {
 function prepareCutscene(scene) {
 	framesFromGameStart = 0;
 	havingAMoment = true;
+	particleList = [];
 	currentScene = scene;
 	cutsceneSound.play();
+	backgroundMusic.pause();
+	if (scene.isGameOver) {
+		backgroundMusic.src = "music/ChopChop-GameOverLoop_v1" + sourceExtension;
+		backgroundMusic.play();
+	}
 }

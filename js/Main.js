@@ -86,12 +86,9 @@ function drawAll() {
 			endCameraPan();
 			drawGUI();
 		} else {
-			// draw cut scene
-			backgroundMusic.pause();
 			drawRect(0, 0, canvas.width, canvas.height, "black");
-			player.x = Math.round(canvas.width / 2);
-			player.y = Math.round(canvas.height / 2);
-			//player.draw();
+			player.x = Math.round(canvas.width / 2) - ((cutsceneAnimation.spriteSheet.width/cutsceneAnimation.animationColFrames)/2);
+			player.y = Math.round(canvas.height / 2) - ((cutsceneAnimation.spriteSheet.height/cutsceneAnimation.animationRowFrames)/2);
 			cutsceneAnimation.draw(player.x, player.y, 1, false);
 			if (Math.random()>0.75) spawnParticles("grindstone_sparks", player.x-8, player.y-3);
 			drawParticles();

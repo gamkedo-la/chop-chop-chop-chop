@@ -158,6 +158,7 @@ let gameOverOptions = () => {
 			worldGrid = allLevels[currentLevelIndex].originalLayout;
 			particleList = [];
 			animalList = [];
+			backgroundMusic.pause();
 			backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
 			backgroundMusic.volume = 0.4;
 			backgroundMusic.play();
@@ -179,6 +180,7 @@ let gameOverOptions = () => {
 			countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
 			countdownTimerPaused = false;
 			openingMenuIsRunning = true;
+			backgroundMusic.pause();
 			backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
 			backgroundMusic.volume = 0.4;
 			backgroundMusic.play();
