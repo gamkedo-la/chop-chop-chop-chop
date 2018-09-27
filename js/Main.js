@@ -73,23 +73,26 @@ function drawAll() {
 		drawOpeningMenu();
 	} else if (gameIsRunning) {
 		if (!havingAMoment) {
-		cameraPan();
-		drawWorld();
-		drawAnimatedTiles();
-		drawAndRemoveAllObjects();
-		drawAllAnimals();
-		if (!worldEditor) {
-			player.draw();
-		}
-		drawParticles();
-		endCameraPan();
-		drawGUI();
+			// draw game scene
+			cameraPan();
+			drawWorld();
+			drawAnimatedTiles();
+			drawAndRemoveAllObjects();
+			drawAllAnimals();
+			if (!worldEditor) {
+				player.draw();
+			}
+			drawParticles();
+			endCameraPan();
+			drawGUI();
 		} else {
+			// draw cut scene
 			backgroundMusic.pause();
 			drawRect(0, 0, canvas.width, canvas.height, "black");
-			player.draw();
-			player.x = canvas.width / 2;
-			player.y = canvas.height / 2;
+			player.x = Math.round(canvas.width / 2);
+			player.y = Math.round(canvas.height / 2);
+			//player.draw();
+			cutsceneAnimation.draw(player.x, player.y, 1, false);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 var playerWalking;
 var playerSideChop;
+var cutsceneAnimation;
 var animatedWaterTiles;
 var placeholderDeathCatMeander;
 var stebsBird;
@@ -32,6 +33,15 @@ function makeAnimatedSprites() {
 		animationColFrames: 4,
 		framesUntilNext: 1,
 	});
+	cutsceneAnimation = new AnimatedSpriteClass({
+		name: "cutsceneAnimation",
+		spriteSheet: gamePics.cutscene,
+		animationColFrames: 4,
+		currentFrameIndex: 0,
+		framesUntilNext: 1,
+		loops: true
+	});
+
 };
 
 function AnimatedSpriteClass(data) {
