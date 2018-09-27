@@ -353,6 +353,14 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 	}
 }
 
+function getArrayIndexFromList(tileTypeToCheck, ListToCheck) {
+	for (var i = 0; i < ListToCheck.length; i++) {
+		if (ListToCheck[i].tileType === tileTypeToCheck) {
+			return ListToCheck[i].arrayIndex;
+		}
+	}
+}
+
 function isTileTypeAnAnimal(tileType) {
 	switch (tileType) {
 		case TILE_DEATH_CAT:

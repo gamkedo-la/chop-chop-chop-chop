@@ -15,10 +15,13 @@ function bearClass (arrayIndex,worldTileType) {
 	this.width = this.img.spriteSheet.width/this.img.animationColFrames;
 	this.height = this.img.spriteSheet.height/this.img.animationRowFrames;
 	this.speed = 3;
-	this.detectionRadius = 100;
-	this.homeRadius = 75;
-	this.idleRadius = 50;
+	this.detectionRadius = 150;
+	this.homeRadius = 350;
+	this.idleRadius = 75;
+	this.goalRadius = 75;
 	this.neutral = false;
+	var goalArrayIndex = getArrayIndexFromList(TILE_JUMPING_FISH, animalList);
+	this.goal = indexToCenteredXY(goalArrayIndex);
 	this.waitingTimer = 45; // frames
 	var waitingTimerFull = this.waitingTimer; // frames
 	this.idleTimer = 90; // frames

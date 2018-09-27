@@ -100,8 +100,8 @@ function jumpingFish (arrayIndex,worldTileType) {
 			colorText("Home" + "\n" + this.img.name, this.home.x, this.home.y, "teal", "Verdana", "center");
 		}
 		if (debug) {
-			drawRect(this.x,this.y,2,2,"yellow");
-			drawRect(this.home.x,this.home.y,2,2,"teal");
+			drawRect(this.x,this.y,2,2,"Aqua");
+			drawRect(this.home.x,this.home.y,2,2,"Blue");
 			this.hitbox.draw("green");
 		}
 	}

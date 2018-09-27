@@ -15,7 +15,7 @@ function playerClass() {
 	
 	// stats
 	this.swingCount = 0;
-	this.chopCount = 98;
+	this.chopCount = 0;
 	this.stepCount = 0;
 	this.treeCount = 0;
 	this.attackCount = 0;
@@ -48,7 +48,7 @@ function playerClass() {
 											0, 0);
 	this.hitAnAnimal = false;
 
-	this.currentFrustration = 18;
+	this.currentFrustration = 0;
 	this.invincible = false;
 	this.invincibiltyTimer = 0;
 	this.invincibiltyTimerFull = 45;

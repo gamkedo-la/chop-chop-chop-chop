@@ -1,44 +1,56 @@
 var animalList = [];
 function animalClass (newAnimal) {
 	this.animal = newAnimal;
+
+	this.arrayIndex = newAnimal.arrayIndex;
+	this.tileType = newAnimal.tileType;
 	this.home = newAnimal.home;
+
 	this.img = newAnimal.img;
 	this.width = newAnimal.width;
 	this.height = newAnimal.height;
+
 	this.speed = newAnimal.speed;
+
 	this.rangeOssiclator = 0;
 	this.rangeOssiclatorHitLimit = false;
-	this.arrayIndex = newAnimal.arrayIndex;
-	this.tileType = newAnimal.tileType;
+
 	this.detectionRadius = newAnimal.detectionRadius;
 	this.homeRadius = newAnimal.homeRadius;
-	this.waitingTimer = newAnimal.waitingTimer; // frames
-	var waitingTimerFull = this.waitingTimer;
+
+	this.goalRadius = newAnimal.goalRadius === undefined ? 0 : newAnimal.goalRadius;
+	this.atGoal = false;
+	this.goal = newAnimal.goal === undefined ? {x: -(TILE_W * allLevels[currentLevelIndex].columns), y: 
+												-(TILE_H * allLevels[currentLevelIndex].rows)} 
+												: newAnimal.goal;
+
 	this.idleRadius = newAnimal.idleRadius;
 	this.idleTimer = newAnimal.idleTimer; // frames
 	var idleTimerFull = this.idleTimer;
-	this.attackPower = newAnimal.attackPower;
-	this.collidableTiles = newAnimal.collidableTiles;
+	this.idlePosition = {x: this.home.x, y: this.home.y};
 
 	const EAST = "east";
 	const WEST = "west";
 	this.direction = WEST;
 	this.x = this.home.x;
 	this.y = this.home.y;
+	this.centerX = this.x - this.width / 2; // 
+	this.centerY = this.y - this.height / 2; // stationary, set here and never double checked
 
+	this.collidableTiles = newAnimal.collidableTiles;
 	this.stuckOnBothAxisCounter = 0;
 	this.stuckOnBothAxisCounterFull = 15;
 	this.gettingUnstuckTimer = 0;
 	this.gettingUnstuckTimerFull = 1;
-
-	this.idlePosition = {x: this.home.x, y: this.home.y};
-	
-	this.centerX = this.x - this.width / 2;
-	this.centerY = this.y - this.height / 2;
 	
 	this.waiting = false;
+	this.waitingTimer = newAnimal.waitingTimer; // frames
+	var waitingTimerFull = this.waitingTimer;
+
 	this.returning = true;
+
 	this.neutral = newAnimal.neutral;
+
 	this.playerDetected = false;
 	this.playerDetectedSoundPlayed = false;
 	this.playingChaseMusic = false;
@@ -49,6 +61,7 @@ function animalClass (newAnimal) {
 	this.colliderOffsetY = newAnimal.colliderOffsetY;
 	this.hitbox = new colliderClass(this.x,this.y,
 		this.colliderWidth,this.colliderHeight,this.colliderOffsetX,this.colliderOffsetY);
+	this.attackPower = newAnimal.attackPower;
 
 	this.draw = function () {
 		if (worldGrid[this.arrayIndex] != TILE_REPLACE_ANIMAL &&
@@ -66,10 +79,13 @@ function animalClass (newAnimal) {
 		}
 
 		if (debug) {
-			drawRect(this.x,this.y, 2,2, "yellow")
-			this.hitbox.draw("green");
+			drawRect(this.x - 2,this.y - 2, 4,4, "Aqua");
+			drawRect(this.goal.x - 2,this.goal.y - 2, 4,4, "BlueViolet");
+			this.hitbox.draw("Green");
 			outlineCircle(this.x,this.y, this.detectionRadius, "green",1);
-			outlineCircle(this.home.x,this.home.y, this.homeRadius, "blue",1);
+			outlineCircle(this.x,this.y, this.goalRadius, "Yellow",1);
+			outlineCircle(this.home.x,this.home.y, this.homeRadius, "Blue",1);
+			outlineCircle(this.home.x,this.home.y, this.idleRadius, "Pink",1);
 		}
 	} // end of draw function
 
@@ -81,6 +97,7 @@ function animalClass (newAnimal) {
 		}
 		this.detectionRadiusTrigger();
 		this.homeRadiusTrigger();
+		this.goalRadiusTrigger();
 		var closeToHome = this.speed;
 		if (this.playerDetected) { // chasing player
 			if (!this.playingChaseMusic) {
@@ -171,11 +188,14 @@ function animalClass (newAnimal) {
 				}
 			} else {
 				if (moveYTowardPlayer == 0 && moveXTowardPlayer == 0) {
-					/*this.stuckOnBothAxisCounter++ 
-					if (this.stuckOnBothAxisCounter >= this.stuckOnBothAxisCounterFull || this.stuck) {
-						this.stuckOnBothAxisCounter = 0;*/
-						this.getUnstuck();
-					//}
+					if (this.x <= player.x + closeToHome &&
+			    		this.x >= player.x - closeToHome ||
+			    		this.y <= player.y + closeToHome &&
+			  		 	this.y >= player.y - closeToHome) {
+						// lets not and say we didn't
+						} else {
+							this.getUnstuck();
+						}
 				} else {
 					this.stuckOnBothAxisCounter = 0;
 					this.x += moveXTowardPlayer;
@@ -272,11 +292,11 @@ function animalClass (newAnimal) {
 			}
 
 			if (this.x <= this.idlePosition.x + closeToHome &&
-			    this.x >= this.idlePosition.x - closeToHome) {
+			    this.x >= this.idlePosition.x - closeToHome || this.atGoal) {
 				moveXTowardHome = 0;
 			}
 			if (this.y <= this.idlePosition.y + closeToHome &&
-			    this.y >= this.idlePosition.y - closeToHome) {
+			    this.y >= this.idlePosition.y - closeToHome || this.atGoal) {
 				moveYTowardHome = 0;
 			}
 
@@ -343,13 +363,36 @@ function animalClass (newAnimal) {
 			// don't detect the player
 		} else {
 			var radius = this.detectionRadius;
-			var distX = Math.abs((this.x - this.width / 2) - player.x);
-			var distY = Math.abs((this.y - this.height / 2) - player.y);
+			var distX = Math.abs((this.x) - player.x);
+			var distY = Math.abs((this.y) - player.y);
 			var diffX = distX - player.width/4;
 			var diffY = distY - player.height/2;
 
-			if ((diffX*diffX+diffY*diffY)<=(radius*radius)) {
+			if ((diffX*diffX+diffY*diffY) <= (radius*radius)) {
 				this.playerDetected = true;
+			}
+		}
+	}
+
+	this.goalRadiusTrigger = function() {
+		if (this.neutral) {
+			// don't check if close to goal
+		} else {
+			var radius = this.goalRadius;
+			var distX = Math.abs((this.x) - this.goal.x);
+			var distY = Math.abs((this.y) - this.goal.y);
+			var diffX = distX - (TILE_W/8);
+			var diffY = distY - (TILE_H/8);
+
+
+			if ((diffX*diffX+diffY*diffY) <= (radius*radius)) {
+				console.log("found goal!");
+				this.neutral = true;
+				this.atGoal = true;
+				this.waiting = false;
+				this.meandering = false;
+				this.playerDetected = false;
+				this.img.framesUntilNext = 45;
 			}
 		}
 	}
@@ -364,7 +407,7 @@ function animalClass (newAnimal) {
 			var diffX = distX - player.width/4;
 			var diffY = distY - player.height/2;
 
-			if ((diffX*diffX+diffY*diffY)>(radius*radius)) {
+			if ((diffX*diffX + diffY*diffY) > (radius*radius)) {
 				if (this.playerDetected) {
 					this.waiting = true;
 				}
