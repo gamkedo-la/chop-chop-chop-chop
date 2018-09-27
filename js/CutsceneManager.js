@@ -129,4 +129,5 @@ function prepareCutscene(scene) {
 	framesFromGameStart = 0;
 	havingAMoment = true;
 	currentScene = scene;
+	cutsceneSound.play();
 }
