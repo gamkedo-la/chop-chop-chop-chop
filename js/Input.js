@@ -182,6 +182,8 @@ function keyPressed(evt) {
 			if (worldEditor) {
 				pickASet(groundSet);
 				console.log("groundSet selected");
+			} else {
+				player.powerupActive = !player.powerupActive;
 			}
 		break;
 		case TWO_KEY:

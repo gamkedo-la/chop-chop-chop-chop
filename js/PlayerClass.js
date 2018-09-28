@@ -3,6 +3,9 @@ const MID = 2;
 const MAX = 3;
 const MAX_FRUSTATION = 20;
 
+const NORMAL_SPEED = 6;
+const TORNADO_SPEED = 9;
+
 var upgradeLevelTwo = false;
 var upgradeLevelThree = false;
 
@@ -11,7 +14,7 @@ function playerClass() {
 	this.y = 40;
 	this.oldX = this.x;
 	this.oldY = this.y;
-	this.speed = 6;
+	this.speed = NORMAL_SPEED;
 	
 	// stats
 	this.swingCount = 0;
@@ -43,6 +46,7 @@ function playerClass() {
 	this.axeSharpness = 0;
 	this.axeLevel = LOW; // higher levels unlock increased power and abilities;
 	this.axePower = 1; // how much health the player takes from trees
+	this.restoreAxePower = this.axePower;
 	this.chopTimer = 0;
 	this.hitbox = new colliderClass(this.x, this.y, this.width/2, this.height,
 											0, 0);
@@ -77,6 +81,30 @@ function playerClass() {
 		if (havingAMoment) {
 			return;
 		}
+
+		if (this.powerupActive) {
+			tornadoSwoosh.play();
+			var buffer = 1;
+			if (tornadoSwoosh.currentTime > tornadoSwoosh.duration - buffer) {
+				tornadoSwoosh.play();
+			}
+			this.speed = TORNADO_SPEED;
+			//this.axePower = this.tornadoPower;
+			for (var i = 0; i < objectList.length; i++) {
+				var object = objectList[i];
+				if (object.hasHitbox) {
+					if (this.hitbox.isCollidingWith(object.hitbox)) {
+						var objectPosition = indexToCenteredXY(object.arrayIndex)
+						spawnParticles('chop', objectPosition.x, objectPosition.y);
+						object.gotHit(this.axePower);
+					}
+				}
+			} // end of for objects in list loop
+		} else {
+			this.speed = NORMAL_SPEED;
+			tornadoSwoosh.pause();
+		}
+
 		this.oldX = this.x;
 		this.oldY = this.y;
 		var movementX = 0;
@@ -133,6 +161,7 @@ function playerClass() {
 				this.state.walking = false;
 				this.invincible = true;
 				this.invincibiltyTimer = 0;
+				tornadoSwoosh.pause();
 				getNewFrustratedScene();
     			prepareCutscene(FrustratedScene);
     			return;
@@ -197,8 +226,6 @@ function playerClass() {
 
 	this.draw = function() {
 		if (havingAMoment) {
-			playerIdle.draw(player.x,player.y)
-			this.chopTimer = 0;
 			return;
 		}
 
@@ -210,6 +237,16 @@ function playerClass() {
 			if (this.invincibiltyTimer <= 0 && this.invincible) {
 				this.invincible = false;
 			}
+		}
+
+		if (this.powerupActive) {
+			tornadoPowerup.draw(this.x,this.y,1,(this.direction != EAST));
+			this.leaveTrail();
+			if (debug) {
+				drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");
+				this.hitbox.draw("red");
+			}
+			return;
 		}
 
 		var contactFrame = 15;
@@ -228,7 +265,6 @@ function playerClass() {
 		}
 
 		if (this.chopTimer > 0) {
-			// TODO: might be removed later if options are chopped by player
 			playerSideChop.draw(this.x,this.y, 1, (this.direction != EAST));
 			if (playerSideChop.currentFrameIndex == contactFrame) {
 				if (this.axeLevel == MAX) {
@@ -266,12 +302,12 @@ function playerClass() {
 			} else {
 				this.state.chopping = false;
 			}
-		} 
+		}
 
 		if (debug) {
 			drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");
 			this.hitbox.draw("red");
-		}
+		} 
 	}
 } // end of playerClass
 

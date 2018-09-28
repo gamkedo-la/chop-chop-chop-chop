@@ -10,7 +10,6 @@ function makeAnimatedSprites() {
 		name: "playerIdle",
 		spriteSheet: gamePics.playerWalkingSheet,
 		animationColFrames: 8,
-		currentFrameIndex: 0,
 		framesUntilNext: 1,
 		loops: false
 	});
@@ -18,7 +17,6 @@ function makeAnimatedSprites() {
 		name: "playerWalking",
 		spriteSheet: gamePics.playerWalkingSheet,
 		animationColFrames: 8,
-		currentFrameIndex: 0,
 		framesUntilNext: 3,
 	});
 	playerSideChop = new AnimatedSpriteClass({
@@ -26,6 +24,12 @@ function makeAnimatedSprites() {
 		spriteSheet: gamePics.playerSideChopSheet,
 		animationColFrames: 16,
 		framesUntilNext: 1,
+	}); 
+	tornadoPowerup = new AnimatedSpriteClass({
+		name: "tornadoPowerup",
+		spriteSheet: gamePics.tornadoSpritesheet,
+		animationColFrames: 4,
+		framesUntilNext: 4,
 	});
 	maxAxeProjectile = new AnimatedSpriteClass({
 		name: "maxAxeProjectile",
@@ -37,9 +41,7 @@ function makeAnimatedSprites() {
 		name: "cutsceneAnimation",
 		spriteSheet: gamePics.cutscene,
 		animationColFrames: 4,
-		currentFrameIndex: 0,
 		framesUntilNext: 1,
-		loops: true
 	});
 
 };

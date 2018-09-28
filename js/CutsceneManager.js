@@ -99,12 +99,14 @@ function upgradeCheck() {
 	const LEVEL_TWO_CHOPS = 100;
 	const LEVEL_THREE_CHOPS = 104;
 
-	if (player.chopCount >= LEVEL_TWO_CHOPS && !upgradeLevelTwo) {
+	if (player.chopCount >= LEVEL_TWO_CHOPS && !upgradeLevelTwo && 
+		player.chopTimer === 0) {
 		prepareCutscene(upgradeLevelTwoScene);
 		upgradeLevelTwo = true;
 		player.axeLevel = MID;
 		player.axeSharpness += 1;
-		player.axePower += player.axeSharpness
+		player.axePower += player.axeSharpness;
+		player.axePower = player.restoreAxePower;
 		player.state = {
 		chopping: false,
 		walking: false,
@@ -112,7 +114,8 @@ function upgradeCheck() {
 		};
 		//console.log("level up!");
 	}
-	if (player.chopCount >= LEVEL_THREE_CHOPS && !upgradeLevelThree) {
+	if (player.chopCount >= LEVEL_THREE_CHOPS && !upgradeLevelThree && 
+		player.chopTimer === 0) {
 		prepareCutscene(upgradeLevelThreeScene);
 		upgradeLevelThree = true;
 		player.axeLevel = MAX;

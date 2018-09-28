@@ -4,6 +4,7 @@ let chop2 = new Audio();
 let axeWhirl = new Audio();
 let missedSwing = new Audio();
 let campfireSFX = new Audio();
+let tornadoSwoosh = new Audio();
 let birdSound = new Audio();
 let deathMeow = new Audio();
 let bugSound = new Audio();
@@ -14,15 +15,15 @@ let playerHurt = new Audio();
 let animalHit = new Audio();
 let cutsceneSound = new Audio();
 
-let arrayOfSounds = [backgroundMusic,chop1,chop2,axeWhirl,missedSwing,campfireSFX,
+let arrayOfSounds = [backgroundMusic,chop1,chop2,axeWhirl,missedSwing,tornadoSwoosh,
 					birdSound,deathMeow,pincherBug,bearRoar1,bearRoar2,bearRoar3,
-					playerHurt,cutsceneSound];
+					playerHurt,cutsceneSound,campfireSFX];
 
 let arrayOfMusic = [backgroundMusic];
-let arrayOfSFXs = [chop1,chop2,axeWhirl,missedSwing,campfireSFX,
+let arrayOfSFXs = [chop1,chop2,axeWhirl,missedSwing,tornadoSwoosh,
 					birdSound,deathMeow,pincherBug,
 					bearRoar1,bearRoar2,bearRoar3,
-					playerHurt,cutsceneSound];
+					playerHurt,cutsceneSound,campfireSFX];
 
 let audioType = undefined;
 let sourceExtension = undefined;
@@ -82,6 +83,7 @@ bearRoar2.src = "SFX/BearRoar02" + sourceExtension;
 bearRoar3.src = "SFX/BearRoar03" + sourceExtension;
 cutsceneSound.src = "SFX/cutscene" + sourceExtension;
 cutsceneSound.volume = 0.075;
+tornadoSwoosh.src = "SFX/Tornado" + sourceExtension;
 
 let decreaseMusicVolume = () => {
   for ( let arrayOfMusicIndex = 0; arrayOfMusicIndex < arrayOfMusic.length; arrayOfMusicIndex++ ) {
