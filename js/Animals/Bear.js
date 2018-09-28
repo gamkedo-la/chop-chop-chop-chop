@@ -20,8 +20,6 @@ function bearClass (arrayIndex,worldTileType) {
 	this.idleRadius = 75;
 	this.goalRadius = 75;
 	this.neutral = false;
-	var goalArrayIndex = getArrayIndexFromList(TILE_JUMPING_FISH, animalList);
-	this.goal = indexToCenteredXY(goalArrayIndex);
 	this.waitingTimer = 45; // frames
 	var waitingTimerFull = this.waitingTimer; // frames
 	this.idleTimer = 90; // frames

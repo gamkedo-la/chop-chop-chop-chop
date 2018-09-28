@@ -19,10 +19,9 @@ function animalClass (newAnimal) {
 	this.homeRadius = newAnimal.homeRadius;
 
 	this.goalRadius = newAnimal.goalRadius === undefined ? 0 : newAnimal.goalRadius;
+	this.hasGoal = this.goalRadius > 0 ? true : false;
 	this.atGoal = false;
-	this.goal = newAnimal.goal === undefined ? {x: -(TILE_W * allLevels[currentLevelIndex].columns), y: 
-												-(TILE_H * allLevels[currentLevelIndex].rows)} 
-												: newAnimal.goal;
+	this.goal = undefined;
 
 	this.idleRadius = newAnimal.idleRadius;
 	this.idleTimer = newAnimal.idleTimer; // frames
@@ -80,7 +79,9 @@ function animalClass (newAnimal) {
 
 		if (debug) {
 			drawRect(this.x - 2,this.y - 2, 4,4, "Aqua");
-			drawRect(this.goal.x - 2,this.goal.y - 2, 4,4, "BlueViolet");
+			if (this.hasGoal) {
+				drawRect(this.goal.x - 2,this.goal.y - 2, 4,4, "BlueViolet");
+			}
 			this.hitbox.draw("Green");
 			outlineCircle(this.x,this.y, this.detectionRadius, "green",1);
 			outlineCircle(this.x,this.y, this.goalRadius, "Yellow",1);
@@ -375,9 +376,19 @@ function animalClass (newAnimal) {
 	}
 
 	this.goalRadiusTrigger = function() {
-		if (this.neutral) {
+		if (this.neutral || !this.hasGoal) {
 			// don't check if close to goal
 		} else {
+			var goalArrayIndex = -1;
+			if (this.goal === undefined && this.hasGoal) {
+				if (this.img.name === "bear") {
+					var goalArrayIndex = getArrayIndexFromList(TILE_JUMPING_FISH, animalList);
+					this.goal = indexToCenteredXY(goalArrayIndex);
+				} else if (this.img.name === "stebsBird") {
+					var goalArrayIndex = getArrayIndexFromList(TILE_CAMERA, animatedTileList);
+					this.goal = indexToCenteredXY(goalArrayIndex);
+				}
+			}
 			var radius = this.goalRadius;
 			var distX = Math.abs((this.x) - this.goal.x);
 			var distY = Math.abs((this.y) - this.goal.y);

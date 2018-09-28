@@ -18,8 +18,6 @@ function bigBird (arrayIndex,worldTileType) {
 	this.idleRadius = 40;
 	this.goalRadius = 50;
 	this.neutral = false;
-	var goalArrayIndex = getArrayIndexFromList(TILE_CAMERA, animatedTileList);
-	this.goal = indexToCenteredXY(goalArrayIndex);
 	this.waitingTimer = 30; // frames
 	var waitingTimerFull = this.waitingTimer; // frames
 	this.idleTimer = 75; // frames
