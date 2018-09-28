@@ -79,7 +79,7 @@ function animalClass (newAnimal) {
 
 		if (debug) {
 			drawRect(this.x - 2,this.y - 2, 4,4, "Aqua");
-			if (this.hasGoal) {
+			if (this.hasGoal && this.goal != undefined) {
 				drawRect(this.goal.x - 2,this.goal.y - 2, 4,4, "BlueViolet");
 			}
 			this.hitbox.draw("Green");
@@ -388,6 +388,7 @@ function animalClass (newAnimal) {
 					var goalArrayIndex = getArrayIndexFromList(TILE_CAMERA, animatedTileList);
 					this.goal = indexToCenteredXY(goalArrayIndex);
 				}
+				return;
 			}
 			var radius = this.goalRadius;
 			var distX = Math.abs((this.x) - this.goal.x);

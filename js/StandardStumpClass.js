@@ -11,5 +11,10 @@ function standardStumpClass (worldTileType,arrayIndex,hiddenTile) {
 	this.health = 2;
 	this.hasHitbox = false;
 
+	if (worldTileType == TILE_NORMAL_STUMP_ALT) {
+		this.x = position.x - this.width/4;
+		this.y = position.y - 1;
+	}
+
 	return new objectClass(this);
 }

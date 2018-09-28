@@ -42,5 +42,15 @@ function standardTreeClass (worldTileType,arrayIndex,hiddenTile) {
 		this.colliderOffsetX = this.width/4 + 1;
 	}
 
+	if (worldTileType == TILE_NORMAL_TREE_ALT) {
+		this.hasLeaves = true;
+		this.health = 1;
+		this.x = position.x - this.width/4;
+		this.y = position.y - 1;
+		this.colliderWidth = TILE_W/2 - 2;
+		this.colliderHeight = this.height - 14;
+		this.colliderOffsetX = this.width/4 + 1;
+	}
+
 	return new objectClass(this);
 }

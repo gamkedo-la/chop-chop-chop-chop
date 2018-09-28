@@ -95,6 +95,9 @@ function loadImages() {
 
         { worldType: TILE_SMALL_TREE, theFile: "tree1.png" },
         { worldType: TILE_SMALL_TREE_ALT, theFile: "tree2.png" },
+        { worldType: TILE_NORMAL_TREE, theFile: "normal_tree.png" },
+        { worldType: TILE_NORMAL_TREE_ALT, theFile: "another_tree.png" },
+        { worldType: TILE_PUFFY_TREE, theFile: "p_tree.png" },
         { worldType: TILE_LOLLIPOP, theFile: "lollipop.png" },
         { worldType: TILE_TALL_TREE, theFile: "tall_tree.png" },
         { worldType: TILE_STALAGMITE, theFile: "stalagmite.png" },
@@ -102,6 +105,9 @@ function loadImages() {
 
         { worldType: TILE_STUMP, theFile: "stump1.png" },
         { worldType: TILE_STUMP_ALT, theFile: "stump2.png" },
+        { worldType: TILE_NORMAL_STUMP, theFile: "normal_treestump.png" },
+        { worldType: TILE_NORMAL_STUMP_ALT, theFile: "another_treestump.png" },
+        { worldType: TILE_PUFFY_STUMP, theFile: "p_stump.png" },
         { worldType: TILE_LOLLIPOP_STUMP, theFile: "lollipop_stump.png" },
         { worldType: TILE_STALAGMITE_STUMP, theFile: "stalagmite_stump.png" },
         { worldType: TILE_REPLACE_STUMP, theFile: "nothing.png" },

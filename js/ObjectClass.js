@@ -4,17 +4,12 @@ const HIT_SHAKE_SPEED = 0.1; // 0.1=fast, 5=slow
 const HIT_SHAKE_SIZE = 2; // size of wobble
 
 var objectList = [];
-var trees = [
-TILE_SMALL_TREE,
-TILE_SMALL_TREE_ALT,
-TILE_TALL_TREE,
-TILE_LOLLIPOP,
-TILE_STALAGMITE];
-var stumps = [
-TILE_STUMP_ALT,
-TILE_STUMP,
-TILE_LOLLIPOP_STUMP,
-TILE_STALAGMITE_STUMP];
+var trees = [TILE_SMALL_TREE,TILE_SMALL_TREE_ALT,TILE_TALL_TREE,
+				TILE_LOLLIPOP,TILE_STALAGMITE,TILE_NORMAL_TREE,
+				TILE_NORMAL_TREE_ALT,TILE_PUFFY_TREE];
+var stumps = [TILE_STUMP_ALT,TILE_STUMP,TILE_LOLLIPOP_STUMP,
+				TILE_STALAGMITE_STUMP,TILE_NORMAL_STUMP,TILE_NORMAL_STUMP_ALT,
+				TILE_PUFFY_STUMP];
 var replacements = [
 TILE_REPLACE_TREE,
 TILE_REPLACE_STUMP]
@@ -107,12 +102,18 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 		case TILE_TALL_TREE:
 		case TILE_LOLLIPOP:
 		case TILE_STALAGMITE:
+		case TILE_NORMAL_TREE:
+		case TILE_NORMAL_TREE_ALT:
+		case TILE_PUFFY_TREE:
 			newObject = new standardTreeClass(tileType, arrayIndex, hiddenTile);
 			break;
 		case TILE_STUMP:
 		case TILE_STUMP_ALT:
 		case TILE_LOLLIPOP_STUMP:
 		case TILE_STALAGMITE_STUMP:
+		case TILE_NORMAL_STUMP:
+		case TILE_NORMAL_STUMP_ALT:
+		case TILE_PUFFY_STUMP:
 			newObject = new standardStumpClass(tileType, arrayIndex, hiddenTile);
 			break;
 	}
@@ -129,24 +130,30 @@ function replaceTiles(arrayIndex) {
 }
 
 function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {
+	worldGrid[arrayIndex - worldCols] = hiddenTile;
 	switch (tileType) {
 		case TILE_SMALL_TREE:
-			worldGrid[arrayIndex - worldCols] = hiddenTile;
 			worldGrid[arrayIndex] = TILE_STUMP;
 		break;
 		case TILE_SMALL_TREE_ALT:
 		case TILE_TALL_TREE:
-			worldGrid[arrayIndex - worldCols] = hiddenTile;
 			worldGrid[arrayIndex] = TILE_STUMP_ALT;
 		break;
 		case TILE_LOLLIPOP:
-			worldGrid[arrayIndex - worldCols] = hiddenTile;
 			worldGrid[arrayIndex] = TILE_LOLLIPOP_STUMP;
 		break;
 		case TILE_STALAGMITE:
-			worldGrid[arrayIndex - worldCols] = hiddenTile;
 			worldGrid[arrayIndex] = TILE_STALAGMITE_STUMP;
 		break;
+		case TILE_NORMAL_TREE:
+			worldGrid[arrayIndex] = TILE_NORMAL_STUMP;
+			break;
+		case TILE_NORMAL_TREE_ALT:
+			worldGrid[arrayIndex] = TILE_NORMAL_STUMP_ALT;
+			break;
+		case TILE_PUFFY_TREE:
+			worldGrid[arrayIndex] = TILE_PUFFY_STUMP;
+			break;
 	}
 }
 
@@ -156,6 +163,8 @@ function addTilesForCollisionBasedOnTileType(tileType, x, y) {
 		case TILE_SMALL_TREE:
 		case TILE_SMALL_TREE_ALT:
 		case TILE_TALL_TREE:
+		case TILE_PUFFY_TREE:
+		case TILE_NORMAL_TREE:
 			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_COLLISION;
 			break;
 	}
