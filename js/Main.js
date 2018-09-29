@@ -10,7 +10,6 @@ var framesFromGameStart = 0;
 var player;
 
 var debug = false;
-var firstTime = true;
 
 var havingAMoment = false;
 
@@ -27,7 +26,6 @@ window.onload = function () {
 	setupInput();
 	loadImages();
 	makeAnimatedSprites();
-	setOriginalLayouts(firstTime);
 };
 
 function loadingDoneSoStartGame() {

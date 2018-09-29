@@ -6,6 +6,8 @@ const MAX_FRUSTATION = 20;
 const NORMAL_SPEED = 6;
 const TORNADO_SPEED = 9;
 
+const TORNADO_POWER = 10;
+
 var upgradeLevelTwo = false;
 var upgradeLevelThree = false;
 
@@ -39,6 +41,12 @@ function playerClass() {
 		walking: false,
 		waiting: false,
 	};
+
+	this.powerupActive = false;
+	this.powerupTimer = 0;
+	this.powerupAlmostOver = 240;
+	this.powerupTimerFull = 300;
+
 	var axeHitboxWidth = 9;
 	var axeHitboxHeight = 5;
 	var axeOffsetX = ((playerSideChop.spriteSheet.width/2) - 35)/playerSideChop.animationColFrames;
@@ -52,7 +60,6 @@ function playerClass() {
 	this.hitbox = new colliderClass(this.x, this.y, this.width/2, this.height,
 											0, 0);
 	this.hitAnAnimal = false;
-
 	this.currentFrustration = 0;
 	this.invincible = false;
 	this.invincibiltyTimer = 0;
@@ -84,6 +91,7 @@ function playerClass() {
 		}
 
 		if (this.powerupActive) {
+			this.invincible = true;
 			tornadoSwoosh.play();
 			var buffer = 1;
 			if (tornadoSwoosh.currentTime > tornadoSwoosh.duration - buffer) {
@@ -97,7 +105,7 @@ function playerClass() {
 					if (this.hitbox.isCollidingWith(object.hitbox)) {
 						var objectPosition = indexToCenteredXY(object.arrayIndex)
 						spawnParticles('chop', objectPosition.x, objectPosition.y);
-						object.gotHit(this.axePower);
+						object.gotHit(TORNADO_POWER);
 					}
 				}
 			} // end of for objects in list loop
@@ -143,8 +151,9 @@ function playerClass() {
 
 		if (checkTileCollision(this.x,this.y,movementX,movementY)) {
 			movementX = 0;
-	 		movementY = 0;
+			movementY = 0;
 		}
+
 		this.x += movementX;
 		this.y += movementY;
 		this.hitbox.update(this.x, this.y);
@@ -162,7 +171,6 @@ function playerClass() {
 				this.state.walking = false;
 				this.invincible = true;
 				this.invincibiltyTimer = 0;
-				tornadoSwoosh.pause();
 				getNewFrustratedScene();
     			prepareCutscene(FrustratedScene);
     			return;
@@ -241,7 +249,21 @@ function playerClass() {
 		}
 
 		if (this.powerupActive) {
-			tornadoPowerup.draw(this.x,this.y,1,(this.direction != EAST));
+			this.powerupTimer++;
+			if (this.powerupTimer > this.powerupAlmostOver) {
+				if (this.powerupTimer % 10) {
+					tornadoPowerup.draw(this.x,this.y,1,(this.direction != EAST));	
+				} else {
+					playerWalking.draw(this.x, this.y, 1, (this.direction != EAST));
+				}
+			} else {
+				tornadoPowerup.draw(this.x,this.y,1,(this.direction != EAST));
+			}
+			if (this.powerupTimer > this.powerupTimerFull) {
+				this.powerupActive = false;
+				this.powerupTimer = 0;
+				return;
+			}
 			this.leaveTrail();
 			if (debug) {
 				drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");
@@ -345,6 +367,12 @@ function isTileTypeCollidable(tileType) {
 	switch (tileType) {
 		case TILE_EXTEND_COLLISION:
 		case TILE_REPLACE_TREE:
+			if (player.powerupActive) {
+				return false;
+			} else {
+				return true;
+			}
+		break;
 		case TILE_REPLACE_WATER:
 		case TILE_REPLACE_WATERFALL:
 		case TILE_CLIFF_TOP_LEFT:

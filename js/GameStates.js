@@ -155,7 +155,7 @@ let gameOverOptions = () => {
 			currentScene = null;
 			needNewString = false;
 			// TODO: Wrap these changes and relevant others into resetLevel function
-			worldGrid = allLevels[currentLevelIndex].originalLayout;
+			worldGrid = Array.from(allLevels[currentLevelIndex].layout);
 			particleList = [];
 			animalList = [];
 			backgroundMusic.pause();
@@ -185,7 +185,7 @@ let gameOverOptions = () => {
 			backgroundMusic.volume = 0.4;
 			backgroundMusic.play();
 			currentLevelIndex = 0; // back to level one
-			worldGrid = allLevels[currentLevelIndex].originalLayout;
+			worldGrid = Array.from(allLevels[currentLevelIndex].layout);
 			particleList = [];
 			animalList = [];
 			player.x = 20;

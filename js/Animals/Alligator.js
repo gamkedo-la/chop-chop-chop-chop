@@ -16,7 +16,7 @@ function alligatorClass (arrayIndex,worldTileType) {
 	this.height = this.img.spriteSheet.height/this.img.animationRowFrames;
 	this.speed = 2;
 	this.detectionRadius = 150;
-	this.homeRadius = 500;
+	this.homeRadius = 250;
 	this.idleRadius = 60;
 	this.neutral = false;
 	this.waitingTimer = 30; // frames
