@@ -10,6 +10,7 @@ function loadImages() {
         // Player Pic
         { varName: "playerWalkingSheet", theFile: "player_run.png" },
         { varName: "playerSideChopSheet", theFile: "player_chop.png" },
+        { varName: "playerSideChopMaxSheet", theFile: "player_chop_max.png" },
         { varName: "maxAxeProjectileSheet", theFile: "max_axe_upgrade_projectile.png" },
         { varName: "tornadoSpritesheet", theFile: "tornado_spritesheet.png" },
         { varName: "cutscene", theFile: "cutscene.png" },

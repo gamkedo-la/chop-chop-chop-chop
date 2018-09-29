@@ -106,7 +106,6 @@ function upgradeCheck() {
 		player.axeLevel = MID;
 		player.axeSharpness += 1;
 		player.axePower += player.axeSharpness;
-		player.axePower = player.restoreAxePower;
 		player.state = {
 		chopping: false,
 		walking: false,

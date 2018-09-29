@@ -9,6 +9,8 @@ const TORNADO_SPEED = 9;
 var upgradeLevelTwo = false;
 var upgradeLevelThree = false;
 
+var contactFrame = 15;
+
 function playerClass() {
 	this.x = 20;
 	this.y = 40;
@@ -46,7 +48,6 @@ function playerClass() {
 	this.axeSharpness = 0;
 	this.axeLevel = LOW; // higher levels unlock increased power and abilities;
 	this.axePower = 1; // how much health the player takes from trees
-	this.restoreAxePower = this.axePower;
 	this.chopTimer = 0;
 	this.hitbox = new colliderClass(this.x, this.y, this.width/2, this.height,
 											0, 0);
@@ -249,14 +250,12 @@ function playerClass() {
 			return;
 		}
 
-		var contactFrame = 15;
-
 		if (spacebarKeyHeld && this.chopTimer <= 0 && !this.state.waiting) {
 			if (this.axeLevel == MAX) {
 				this.state.chopping = true;
-				contactFrame = playerSideChop.animationColFrames - 2;
-				this.chopTimer = playerSideChop.animationColFrames - 1;
-				playerSideChop.currentFrameIndex = 0;
+				contactFrame = playerSideChopMax.animationColFrames - 1;
+				this.chopTimer = playerSideChopMax.animationColFrames - 1;
+				playerSideChopMax.currentFrameIndex = 0;
 			} else {
 				this.state.chopping = true;
 				this.chopTimer = playerSideChop.animationColFrames - 1;
@@ -265,29 +264,34 @@ function playerClass() {
 		}
 
 		if (this.chopTimer > 0) {
-			playerSideChop.draw(this.x,this.y, 1, (this.direction != EAST));
+			if (this.axeLevel < MAX) {
+				playerSideChop.draw(this.x,this.y, 1, (this.direction != EAST));
+			} else {
+				playerSideChopMax.draw(this.x,this.y, 1, (this.direction != EAST));
+			}
+			if (playerSideChopMax.currentFrameIndex == contactFrame) {
+				axeWhirl.currentTime = 0;
+				this.chopTimer = 0;
+				var axeProjectile = new projectileClass(this.x,this.y, this.direction);
+				objectList.push(axeProjectile);
+				this.state.chopping = false;
+				this.state.waiting = true;
+				playerSideChopMax.currentFrameIndex = playerSideChopMax.animationColFrames;
+			}
 			if (playerSideChop.currentFrameIndex == contactFrame) {
-				if (this.axeLevel == MAX) {
-					axeWhirl.currentTime = 0;
-					this.chopTimer = 0;
-					var axeProjectile = new projectileClass(this.x,this.y, this.direction);
-					objectList.push(axeProjectile);
-					this.state.chopping = false;
-					this.state.waiting = true;
-				} else {
-					this.chopTrees(this.direction);
-				}
+				this.chopTrees(this.direction);
 			}
 			this.chopTimer--;
 		} else {
-			if (this.state.walking) {
 
-			playerWalking.draw(this.x, this.y, 1, (this.direction != EAST));
-			
+			if (this.state.waiting) {
+				playerSideChopMax.loops = false;
+				playerSideChopMax.currentFrameIndex = contactFrame;
+				playerSideChopMax.draw(this.x,this.y, 1, (this.direction != EAST));
+			} else if (this.state.walking) {
+				playerWalking.draw(this.x, this.y, 1, (this.direction != EAST));
 			} else { // idle
-
-			playerIdle.draw(this.x, this.y, 1, (this.direction != EAST));
-
+				playerIdle.draw(this.x, this.y, 1, (this.direction != EAST));
 			}
 		}
 
@@ -297,6 +301,8 @@ function playerClass() {
 					if (objectList[j].returned) {
 						objectList[j].remove = true;
 						this.state.waiting = false;
+						playerSideChopMax.loops = true;
+						playerSideChopMax.currentFrameIndex = 0;
 					}
 				}
 			} else {

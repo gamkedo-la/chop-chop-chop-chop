@@ -24,7 +24,13 @@ function makeAnimatedSprites() {
 		spriteSheet: gamePics.playerSideChopSheet,
 		animationColFrames: 16,
 		framesUntilNext: 1,
-	}); 
+	});
+	playerSideChopMax = new AnimatedSpriteClass({
+		name: "playerSideChopMax",
+		spriteSheet: gamePics.playerSideChopMaxSheet,
+		animationColFrames: 17,
+		framesUntilNext: 1,
+	});  
 	tornadoPowerup = new AnimatedSpriteClass({
 		name: "tornadoPowerup",
 		spriteSheet: gamePics.tornadoSpritesheet,
