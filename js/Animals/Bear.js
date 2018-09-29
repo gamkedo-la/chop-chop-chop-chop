@@ -18,7 +18,7 @@ function bearClass (arrayIndex,worldTileType) {
 	this.detectionRadius = 150;
 	this.homeRadius = 350;
 	this.idleRadius = 75;
-	this.goalRadius = 75;
+	this.goalRadius = 125;
 	this.neutral = false;
 	this.waitingTimer = 45; // frames
 	var waitingTimerFull = this.waitingTimer; // frames

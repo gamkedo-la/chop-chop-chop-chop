@@ -14,8 +14,9 @@ var upgradeLevelThree = false;
 var contactFrame = 15;
 
 function playerClass() {
-	this.x = 20;
-	this.y = 40;
+	var levelStartPosition = indexToCenteredXY(allLevels[currentLevelIndex].playerStartArrayIndex);
+	this.x = levelStartPosition.x;
+	this.y = levelStartPosition.y;
 	this.oldX = this.x;
 	this.oldY = this.y;
 	this.speed = NORMAL_SPEED;

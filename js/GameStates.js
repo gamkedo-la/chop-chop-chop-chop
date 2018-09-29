@@ -164,8 +164,9 @@ let gameOverOptions = () => {
 			backgroundMusic.play();
 			countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
 			countdownTimerPaused = false;
-			player.x = 20;
-			player.y = 40;
+			var levelStartPosition = indexToCenteredXY(allLevels[currentLevelIndex].playerStartArrayIndex);
+			player.x = levelStartPosition.x;
+			player.y = levelStartPosition.y;
 			player.invincible = false;
 			spacebarKeyHeld = false;
 			player.chopTimer = 0;
@@ -188,8 +189,9 @@ let gameOverOptions = () => {
 			worldGrid = Array.from(allLevels[currentLevelIndex].layout);
 			particleList = [];
 			animalList = [];
-			player.x = 20;
-			player.y = 40;
+			var levelStartPosition = indexToCenteredXY(allLevels[currentLevelIndex].playerStartArrayIndex);
+			player.x = levelStartPosition.x;
+			player.y = levelStartPosition.y;
 			player.invincible = false;
 			spacebarKeyHeld = false;
 			player.chopTimer = 0;
