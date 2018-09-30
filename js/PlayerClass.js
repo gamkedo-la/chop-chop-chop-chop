@@ -170,7 +170,7 @@ function playerClass() {
 				this.currentFrustration = 0;
 				this.state.chopping = false;
 				this.state.walking = false;
-				this.invincible = true;
+				this.invincible = false;
 				this.invincibiltyTimer = 0;
 				getNewFrustratedScene();
     			prepareCutscene(FrustratedScene);
@@ -376,6 +376,8 @@ function isTileTypeCollidable(tileType) {
 		break;
 		case TILE_REPLACE_WATER:
 		case TILE_REPLACE_WATERFALL:
+		case TILE_REPLACE_ANIMATED_TILE:
+		case TILE_THORN:
 		case TILE_CLIFF_TOP_LEFT:
 		case TILE_CLIFF_TOP_LEFT_2:
 		case TILE_CLIFF_TOP_LEFT_3:
