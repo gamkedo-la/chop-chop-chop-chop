@@ -9,7 +9,8 @@ const TILE_REPLACE_STUMP = -02;
 const TILE_EXTEND_COLLISION = -01;
 
 const TILE_NOTHING = 000;
-const TILE_NEXT_LEVEL = 001;
+const TILE_MOON_NOTHING = 001;
+const TILE_NEXT_LEVEL = 002;
 
 // Ground Objects
 const TILE_FLOWER = 100;
@@ -123,7 +124,7 @@ const TILE_ALLIGATOR = 804;
 const TILE_PINCHER_BUG = 805;
 const TILE_BEAR = 806;
 
-var allLevels = [mountainBase,testLevel];
+var allLevels = [mainMenu,mountainBase,testLevel];
 var currentLevelIndex = 0; // FIXME TODO: put back to zero when not testing level 2
 
 var worldCols = allLevels[currentLevelIndex].columns; //

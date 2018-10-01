@@ -1,7 +1,7 @@
 var worldEditor = false;
 var tileUnderMouse = null;
 
-var nothingSet = [000];
+var nothingSet = [000,001];
 var groundSet = arrayWithRange(100, startAt = 100); // 100 to 199
 var treeSet = arrayWithRange(100, startAt = 200); // 200 to 299
 var cliffSet = arrayWithRange(100, startAt = 300); // 300 to 399

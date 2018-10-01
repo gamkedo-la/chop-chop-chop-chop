@@ -194,13 +194,7 @@ function playerClass() {
 		}
 	}
 
-	this.chopTrees = function(direction) {
-		var currentChoppingDirection = direction;
-		if (currentChoppingDirection == EAST) {
-			this.axeHitbox.update(this.x,this.y);
-		} else if (currentChoppingDirection == WEST) {
-			this.axeHitbox.update(this.x - axeOffsetX * 2,this.y);
-		}
+	this.chopTrees = function() {
 		var hit = false;
 		for (var i = 0; i < objectList.length; i++) {
 			var object = objectList[i];
@@ -309,7 +303,19 @@ function playerClass() {
 				playerSideChopMax.currentFrameIndex = playerSideChopMax.animationColFrames;
 			}
 			if (playerSideChop.currentFrameIndex == contactFrame) {
-				this.chopTrees(this.direction);
+				var currentChoppingDirection = this.direction;
+				if (currentChoppingDirection == EAST) {
+					this.axeHitbox.update(this.x,this.y);
+				} else if (currentChoppingDirection == WEST) {
+					this.axeHitbox.update(this.x - axeOffsetX * 2,this.y);
+				}
+				var arrayIndexUnderAxe = getTileIndexAtPixelCoord(this.axeHitbox.x,this.axeHitbox.y);
+				if (worldGrid[arrayIndexUnderAxe] == TILE_PUMPKIN) {
+					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+					arrayOfChopSFXs[random].play();
+					worldGrid[arrayIndexUnderAxe] = TILE_JACK_O;
+				}
+				this.chopTrees();
 			}
 			this.chopTimer--;
 		} else {

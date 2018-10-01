@@ -21,7 +21,7 @@ window.onload = function () {
 	canvas.width = SCREEN_W;
 	canvas.height = SCREEN_H;
 	canvasContext.imageSmoothingEnabled = false;
-	drawRect(0, 0, canvas.width, canvas.height, "blue");
+	drawRect(0, 0, canvas.width, canvas.height, "black");
 	colorText("Loading. . .", canvas.width / 2, canvas.height / 2, "white", "30px Courier New", "center");
 	setupInput();
 	loadImages();
@@ -31,25 +31,23 @@ window.onload = function () {
 function loadingDoneSoStartGame() {
 	console.log("All assets loaded! Starting update loop.");
 	canvas.onclick = function() {
-	    if (openingMenuIsRunning) {
+		if (openingMenuIsRunning) {
 			countdownTimerPaused = false;
-	    	openingMenuIsRunning = false;
-	    	gameIsRunning = true;
-				backgroundMusic.pause();
-				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
-				backgroundMusic.volume = 0.4;
-				backgroundMusic.play();
+			openingMenuIsRunning = false; 
+			gameIsRunning = true;
+			advanceLevel();
+			backgroundMusic.pause();
+			backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+			backgroundMusic.volume = 0.4;
+			backgroundMusic.play();
 	    }
 	}
+	worldGrid = allLevels[currentLevelIndex].layout;
 	backgroundMusic.play();
 	gameUpdate = setInterval(update, 1000 / framesPerSecond);
 	resetCountdownTimer();
 	player = new playerClass();
 };
-
-/*function startGame() {
-
-}*/
 
 function update() {
 	upgradeCheck();
@@ -68,7 +66,14 @@ function update() {
 
 function drawAll() {
 	if (openingMenuIsRunning) {
+		cameraPan();
+		drawWorld();
+		drawAnimatedTiles();
+		drawAndRemoveAllObjects();
+		player.draw();
 		drawOpeningMenu();
+		drawParticles();
+		endCameraPan();
 	} else if (gameIsRunning) {
 		if (!havingAMoment) {
 			// draw game scene
