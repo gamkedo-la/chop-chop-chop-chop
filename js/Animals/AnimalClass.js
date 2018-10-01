@@ -413,6 +413,9 @@ function animalClass (newAnimal) {
 				this.meandering = false;
 				this.playerDetected = false;
 				this.img.framesUntilNext = 45;
+				backgroundMusic.pause();
+				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+				backgroundMusic.play();
 			}
 		}
 	}

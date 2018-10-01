@@ -25,7 +25,6 @@ function playCutscene(data) {
 		if (data.isGameOver) {
 			gameOverOptions();
 		}
-		countdownTimerPaused = true;
 		cutsceneDialogue(data);
 		if (needNewString) {
 			if (data.isGameOver && cutsceneDialogueIndex == data.stringToDisplay.length) {

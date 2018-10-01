@@ -150,6 +150,7 @@ function keyPressed(evt) {
 				animatedTileSet = [];
 				worldGrid = Array.from(allLevels[currentLevelIndex].layout);
 				drawWorld();
+				player.invincible = false;
 				console.log("worldEditor OFF...");
 			}
 		break;
@@ -182,8 +183,6 @@ function keyPressed(evt) {
 			if (worldEditor) {
 				pickASet(groundSet);
 				console.log("groundSet selected");
-			} else {
-				player.powerupActive = !player.powerupActive;
 			}
 		break;
 		case TWO_KEY:

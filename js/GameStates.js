@@ -33,10 +33,12 @@ function drawPauseScreen() {
 let togglePauseGame = () => {
 	if (!gameIsPaused) {
 		gameIsPaused = true;
+		countdownTimerPaused = true;
 		windowOnBlur();
 		drawPauseScreen();
 	} else {
 		gameIsPaused = false;
+		countdownTimerPaused = false
 		windowOnFocus();
 	}
 }

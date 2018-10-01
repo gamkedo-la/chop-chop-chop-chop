@@ -529,11 +529,13 @@ function advanceLevel() {
 	animatedTileList = [];
 	particleList = [];
 	currentLevelIndex = (currentLevelIndex + 1) % allLevels.length;
-	worldGrid = Array.from(allLevels[currentLevelIndex].originalLayout);
+	worldGrid = Array.from(allLevels[currentLevelIndex].layout);
 	worldCols = allLevels[currentLevelIndex].columns; 
 	worldRows = allLevels[currentLevelIndex].rows;
+	treesCutThisLevel = 0;
 	//console.log(objectList);
-	player.x = 20;
-	player.y = 40;
+	var levelStartPosition = indexToCenteredXY(allLevels[currentLevelIndex].playerStartArrayIndex);
+	player.x = levelStartPosition.x;
+	player.y = levelStartPosition.y;
 	resetCountdownTimer();
 }

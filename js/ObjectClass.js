@@ -69,6 +69,14 @@ function objectClass (newObject) {
 		if (this.health <= 0) {
 			//console.log("Tree falling!");
 			player.treeCount++; // add to stats for GUI
+			treesCutThisLevel++
+			if (treesCutThisLevel >= allLevels[currentLevelIndex].treesToCut) {
+				for (var i = 0; i < worldGrid.length; i++) {
+					if (worldGrid[i] === TILE_THORN) {
+						worldGrid[i] = TILE_NOTHING
+					}
+				}
+			}
 			
 			var yoffset = 0; // to make things come from higher up if reqd
 			var prefix = ""; // to change "leaf" to "tall_leaf"

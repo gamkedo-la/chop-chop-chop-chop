@@ -12,6 +12,7 @@ var upgradeLevelTwo = false;
 var upgradeLevelThree = false;
 
 var contactFrame = 15;
+var treesCutThisLevel = 0;
 
 function playerClass() {
 	var levelStartPosition = indexToCenteredXY(allLevels[currentLevelIndex].playerStartArrayIndex);
@@ -172,6 +173,7 @@ function playerClass() {
 				this.state.walking = false;
 				this.invincible = false;
 				this.invincibiltyTimer = 0;
+				countdownTimerPaused = true;
 				getNewFrustratedScene();
     			prepareCutscene(FrustratedScene);
     			return;

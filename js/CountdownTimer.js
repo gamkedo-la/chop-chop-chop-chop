@@ -16,6 +16,7 @@ function updateCountdownTimer(dt=1) {
     countdownTimeRemaining -= dt;
     if (countdownTimeRemaining <= 0 && !countdownFinished) {
         onTimerComplete();
+        countdownTimerPaused = true;
         countdownFinished = true;
     }
 }
