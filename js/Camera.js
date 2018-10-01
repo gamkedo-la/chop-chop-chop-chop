@@ -2,7 +2,7 @@ var cameraPanX = 0;
 var cameraPanY = 0;
 
 var cameraMovementSpeed = 16; // for World Editor
-//test comment for practice using git.  Will remove -Loren
+
 function cameraPan() {
 	var cameraRightBoundary = worldCols * TILE_W - canvas.width;
 	var cameraBottomBoundary = worldRows * TILE_H - canvas.height;
