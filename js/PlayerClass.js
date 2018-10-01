@@ -377,6 +377,28 @@ function checkTileCollision (x,y,movementX,movementY) {
 	}
 }
 
+var standardCollisionTiles = [TILE_EXTEND_COLLISION,TILE_REPLACE_TREE,TILE_REPLACE_WATER,TILE_REPLACE_ANIMATED_TILE,
+	TILE_THORN,TILE_PUMPKIN,TILE_JACK_O,
+	TILE_CLIFF_TOP_LEFT,TILE_CLIFF_TOP,TILE_CLIFF_TOP_RIGHT,
+	TILE_CLIFF_LEFT,TILE_CLIFF_RIGHT,
+	TILE_CLIFF_BOTTOM_LEFT,TILE_CLIFF_BOTTOM,TILE_CLIFF_BOTTOM_RIGHT,
+	TILE_PIT_TOP_LEFT, TILE_PIT_TOP, TILE_PIT_TOP_RIGHT,
+	TILE_PIT_LEFT, TILE_PIT_RIGHT, TILE_PIT_BOTTOM_LEFT,
+	TILE_PIT_BOTTOM, TILE_PIT_BOTTOM_RIGHT,
+	TILE_CLIFF_TOP_LEFT_2, TILE_CLIFF_TOP_LEFT_3,
+	TILE_CLIFF_TOP_RIGHT_2, TILE_CLIFF_TOP_RIGHT_3,
+	TILE_CLIFF_BOTTOM_RIGHT_2, TILE_CLIFF_BOTTOM_RIGHT_3,
+	TILE_CLIFF_BOTTOM_LEFT_2, TILE_CLIFF_BOTTOM_LEFT_3,
+	TILE_BOULDER_TOP_LEFT, TILE_BOULDER_TOP, TILE_BOULDER_TOP_RIGHT,
+	TILE_BOULDER_MIDDLE_LEFT, TILE_BOULDER_MIDDLE, TILE_BOULDER_MIDDLE_RIGHT,
+	TILE_BOULDER_BOTTOM_LEFT, TILE_BOULDER_BOTTOM, TILE_BOULDER_BOTTOM_RIGHT,
+	TILE_CLIFF_VIEW_LEFT,TILE_CLIFF_VIEW_MIDDLE,TILE_CLIFF_VIEW_RIGHT,
+	TILE_PIT_TOP_LEFT,TILE_PIT_TOP,TILE_PIT_TOP_RIGHT,
+	TILE_PIT_RIGHT,TILE_PIT_LEFT,
+	TILE_PIT_BOTTOM_RIGHT,TILE_PIT_BOTTOM,TILE_PIT_BOTTOM_LEFT,
+	TILE_WATERFALL_BOTTOM_LEFT, TILE_WATERFALL_BOTTOM_CENTER,TILE_WATERFALL_BOTTOM_RIGHT,
+	TILE_ROCK_PILE_ROUGH,TILE_ROCK_PILE_ROUGH_ALT,TILE_ROCK_PILE_SMOOTH,TILE_ROCK_PILE_SMOOTH_ALT];
+
 function isTileTypeCollidable(tileType) {
 	switch (tileType) {
 		case TILE_EXTEND_COLLISION:
@@ -391,6 +413,8 @@ function isTileTypeCollidable(tileType) {
 		case TILE_REPLACE_WATERFALL:
 		case TILE_REPLACE_ANIMATED_TILE:
 		case TILE_THORN:
+		case TILE_PUMPKIN:
+		case TILE_JACK_O:
 		case TILE_CLIFF_TOP_LEFT:
 		case TILE_CLIFF_TOP_LEFT_2:
 		case TILE_CLIFF_TOP_LEFT_3:
@@ -447,3 +471,13 @@ function checkNextLevelTrigger(){
 	}
 	return false;
 }
+
+/*if ( standardCollisionTiles.indexOf(worldGrid[getTileIndexAtPixelCoord(player.hitbox.x, player.hitbox.y)]) > -1 ||
+		 standardCollisionTiles.indexOf(worldGrid[getTileIndexAtPixelCoord(player.hitbox.x+player.hitbox.width, player.hitbox.y)]) > -1 || 
+		 standardCollisionTiles.indexOf(worldGrid[getTileIndexAtPixelCoord(player.hitbox.x, player.hitbox.y+player.hitbox.height)]) > -1 ||
+		 standardCollisionTiles.indexOf(worldGrid[getTileIndexAtPixelCoord(player.hitbox.x+player.hitbox.width, player.hitbox.y+player.hitbox.height)]) > -1 )
+	{
+		return true;
+	}
+	return false;
+}*/
