@@ -243,6 +243,14 @@ function animalClass (newAnimal) {
 				var moveXTowardHome = this.x < this.idlePosition.x ? this.speed : -this.speed;
 				var moveYTowardHome = this.y < this.idlePosition.y ? this.speed : -this.speed;
 
+				if (moveXTowardHome < 0) {
+					this.direction = WEST;
+				} else if (moveXTowardHome > 0) {
+					this.direction = EAST;
+				} else if (moveXTowardHome == 0) {
+					this.direction = this.direction;
+				}
+
 				if (this.checkTileCollision(this.x,this.y,moveXTowardHome,moveYTowardHome)) {
 					moveXTowardHome = 0;
 					moveYTowardHome = 0;

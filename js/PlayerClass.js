@@ -212,6 +212,10 @@ function playerClass() {
 					object.gotHit(this.axePower);
 					this.chopCount++; // add to score on GUI
 					this.swingCount++; // a successful chop counts as a swing, too
+					if (object.tileType == TILE_LOLLIPOP && object.health <=0) {
+						this.powerupActive = true;
+						this.state.chopping = false;
+					}
 				}
 			}
 		}
@@ -261,6 +265,7 @@ function playerClass() {
 				tornadoPowerup.draw(this.x,this.y,1,(this.direction != EAST));
 			}
 			if (this.powerupTimer > this.powerupTimerFull) {
+				this.invincible = false;
 				this.powerupActive = false;
 				this.powerupTimer = 0;
 				return;
