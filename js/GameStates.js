@@ -2,11 +2,34 @@ let openingMenuIsRunning = true;
 let gameIsRunning = false;
 let gameIsPaused = false;
 
+var titleScreenHitboxes = [];
+
 //add background image for opening menu
 function drawOpeningMenu() {
-	drawPixelfont("Chop  Chop,Chop-Chop!", canvas.width / 3 - 120, canvas.height / 2 - 20, 30, 30);
+	/*var xoffset = 0;
+	if (pendingShakes) { 
+		xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
+		pendingShakes--;
+	}*/
+	drawPixelfont("Chop  Chop,Chop-Chop!", (canvas.width / 3 - 120), canvas.height / 2 - 20, 30, 30);
+	var titleHitbox = new colliderClass(canvas.width/2 + 25,
+										canvas.height / 2 - 4, 
+										measurePixelfont("Chop  Chop,Chop-Chop!") * 2.65, 32,
+										0,0);
+	titleHitbox.draw("red");
 	drawPixelfontCentered("New Game", canvas.width / 2, canvas.height / 2 + 40);
+	var newGameHitbox = new colliderClass(canvas.width/2 - 4,
+										canvas.height / 2 + 45, 
+										measurePixelfont("New Game") - 2, 10,
+										0,0);
+	newGameHitbox.draw("red");
 	drawPixelfontCentered("Options", canvas.width / 2, canvas.height / 2 + 80);
+	var optionsHitbox = new colliderClass(canvas.width/2 - 4,
+										canvas.height / 2 + 85, 
+										measurePixelfont("Options") - 2, 10,
+										0,0);
+	optionsHitbox.draw("red");
+	titleScreenHitboxes = [titleHitbox,newGameHitbox,optionsHitbox];
 }
 
 function drawPauseScreen() {

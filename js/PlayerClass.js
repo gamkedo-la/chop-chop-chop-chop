@@ -195,9 +195,36 @@ function playerClass() {
 	}
 
 	this.chopTrees = function() {
+		if (openingMenuIsRunning) {
+			var title = titleScreenHitboxes[0];
+			var newGame = titleScreenHitboxes[1];
+			var options = titleScreenHitboxes[2];
+			if (this.axeHitbox.isCollidingWith(title) || this.axeHitbox.isCollidingWith(options) ) {
+				console.log("hit title screen!");
+				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+				arrayOfChopSFXs[random].play();
+			} 
+			if (this.axeHitbox.isCollidingWith(newGame)) {
+				console.log("hit new game!");
+				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+				arrayOfChopSFXs[random].play();
+				// TODO: Transition? Intro?
+				countdownTimerPaused = false;
+				openingMenuIsRunning = false; 
+				gameIsRunning = true;
+				advanceLevel();
+				backgroundMusic.pause();
+				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+				backgroundMusic.volume = 0.4;
+				backgroundMusic.play();
+			} 
+			return;
+		}
 		var hit = false;
-		for (var i = 0; i < objectList.length; i++) {
-			var object = objectList[i];
+		for (var j = 0; j < objectList.length; j++) {
+			var object = objectList[j];
 			if (object.hasHitbox) {
 				if (this.axeHitbox.isCollidingWith(object.hitbox)) {
 					hit = true;
@@ -215,8 +242,8 @@ function playerClass() {
 				}
 			}
 		}
-		for (var j = 0; j < animalList.length; j++) {
-			var animal = animalList[j];
+		for (var k = 0; k < animalList.length; k++) {
+			var animal = animalList[k];
 			if (this.axeHitbox.isCollidingWith(animal.hitbox)) {
 				this.hitAnAnimal = true;
 				hit = true; 

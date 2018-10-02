@@ -30,19 +30,7 @@ window.onload = function () {
 
 function loadingDoneSoStartGame() {
 	console.log("All assets loaded! Starting update loop.");
-	canvas.onclick = function() {
-		if (openingMenuIsRunning) {
-			countdownTimerPaused = false;
-			openingMenuIsRunning = false; 
-			gameIsRunning = true;
-			advanceLevel();
-			backgroundMusic.pause();
-			backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
-			backgroundMusic.volume = 0.4;
-			backgroundMusic.play();
-	    }
-	}
-	worldGrid = allLevels[currentLevelIndex].layout;
+	worldGrid = Array.from(allLevels[currentLevelIndex].layout);
 	backgroundMusic.play();
 	gameUpdate = setInterval(update, 1000 / framesPerSecond);
 	resetCountdownTimer();
@@ -70,8 +58,8 @@ function drawAll() {
 		drawWorld();
 		drawAnimatedTiles();
 		drawAndRemoveAllObjects();
-		player.draw();
 		drawOpeningMenu();
+		player.draw();
 		drawParticles();
 		endCameraPan();
 	} else if (gameIsRunning) {

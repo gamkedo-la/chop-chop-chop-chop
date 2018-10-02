@@ -6,13 +6,13 @@ var countdownFinished = false;
 var countdownTimerPaused = true;
 
 function resetCountdownTimer() {
-    console.log("resetTimer() countdownTimeRemaining:" + GAME_COUNTDOWN_LENGTH);
+    // console.log("resetTimer() countdownTimeRemaining:" + GAME_COUNTDOWN_LENGTH);
     countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
 }
 
 function updateCountdownTimer(dt=1) {
 	if(countdownTimerPaused) return;
-    //console.log("updateTimer");
+    // console.log("updateTimer");
     countdownTimeRemaining -= dt;
     if (countdownTimeRemaining <= 0 && !countdownFinished) {
         onTimerComplete();
