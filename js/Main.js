@@ -53,12 +53,18 @@ function update() {
 }
 
 function drawAll() {
-	if (openingMenuIsRunning) {
+	if (openingMenuIsRunning || optionsMenu) {
 		cameraPan();
 		drawWorld();
 		drawAnimatedTiles();
+		if (optionsMenu) {
+			drawOptionsMenu();
+		//} else if (creditsMenu) {
+			// drawCreditsMenu():
+		} else {
+			drawOpeningMenu();
+		}
 		drawAndRemoveAllObjects();
-		drawOpeningMenu();
 		player.draw();
 		drawParticles();
 		endCameraPan();
@@ -93,4 +99,8 @@ function moveAll() {
 	}
 	moveAllAnimals();
 	moveParticles();
+}
+
+let toggleDebug = () => {
+	debug = !debug;
 }

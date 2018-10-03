@@ -195,34 +195,54 @@ function playerClass() {
 	}
 
 	this.chopTrees = function() {
+		var hit = false; // prevents the swing sfx from playing if true
+		var chopTitle = titleScreenHitboxes[0];
+		var newGame = titleScreenHitboxes[1];
+		var options = titleScreenHitboxes[2];
+		var optionsTitle = optionScreenHitBoxes[0];
 		if (openingMenuIsRunning) {
-			var title = titleScreenHitboxes[0];
-			var newGame = titleScreenHitboxes[1];
-			var options = titleScreenHitboxes[2];
-			if (this.axeHitbox.isCollidingWith(title) || this.axeHitbox.isCollidingWith(options) ) {
+			if (this.axeHitbox.isCollidingWith(chopTitle)) {
+				hit = true;
+				hitTitle = true;
+				pendingShakes = HIT_SHAKE_COUNT * 2;
 				console.log("hit title screen!");
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 				arrayOfChopSFXs[random].play();
-			} 
-			if (this.axeHitbox.isCollidingWith(newGame)) {
-				console.log("hit new game!");
+				return;
+			}
+			if (this.axeHitbox.isCollidingWith(options)) {
+				hit = true;
+				console.log("hit options screen!");
+				hitOptions = true;
+				pendingShakes = HIT_SHAKE_COUNT * 2;
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 				arrayOfChopSFXs[random].play();
-				// TODO: Transition? Intro?
-				countdownTimerPaused = false;
-				openingMenuIsRunning = false; 
-				gameIsRunning = true;
-				advanceLevel();
-				backgroundMusic.pause();
-				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
-				backgroundMusic.volume = 0.4;
-				backgroundMusic.play();
-			} 
-			return;
+				return;
+			}  
+			if (this.axeHitbox.isCollidingWith(newGame)) {
+				hit = true;
+				console.log("hit new game!");
+				hitNewGame = true;
+				pendingShakes = HIT_SHAKE_COUNT * 2;
+				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+				arrayOfChopSFXs[random].play();
+				return;
+			}
+		} else if (optionsMenu) {
+			if (this.axeHitbox.isCollidingWith(optionsTitle)) {
+				hit = true;
+				hitTitle = true;
+				pendingShakes = HIT_SHAKE_COUNT * 2;
+				console.log("hit title screen!");
+				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+				arrayOfChopSFXs[random].play();
+				return;
+			}
 		}
-		var hit = false;
 		for (var j = 0; j < objectList.length; j++) {
 			var object = objectList[j];
 			if (object.hasHitbox) {
@@ -251,6 +271,18 @@ function playerClass() {
 				animalHit.play();
 				this.gotHit(animal.attackPower)
 			}
+		}
+		var arrayIndexUnderAxe = getTileIndexAtPixelCoord(this.axeHitbox.x,this.axeHitbox.y);
+		if (worldGrid[arrayIndexUnderAxe] == TILE_PUMPKIN) {
+			var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+			arrayOfChopSFXs[random].play();
+			worldGrid[arrayIndexUnderAxe] = TILE_JACK_O;
+			spawnParticles('debris0', this.axeHitbox.x, this.axeHitbox.y);
+			spawnParticles('debris2', this.axeHitbox.x, this.axeHitbox.y);
+			spawnParticles('debris1', this.axeHitbox.x, this.axeHitbox.y);
+			spawnParticles('debris2', this.axeHitbox.x, this.axeHitbox.y);
+			spawnParticles('debris0', this.axeHitbox.x, this.axeHitbox.y);
+			hit = true;
 		}
 		if (!hit) {
 			//console.log("missed all trees!");
@@ -335,12 +367,6 @@ function playerClass() {
 					this.axeHitbox.update(this.x,this.y);
 				} else if (currentChoppingDirection == WEST) {
 					this.axeHitbox.update(this.x - axeOffsetX * 2,this.y);
-				}
-				var arrayIndexUnderAxe = getTileIndexAtPixelCoord(this.axeHitbox.x,this.axeHitbox.y);
-				if (worldGrid[arrayIndexUnderAxe] == TILE_PUMPKIN) {
-					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
-					arrayOfChopSFXs[random].play();
-					worldGrid[arrayIndexUnderAxe] = TILE_JACK_O;
 				}
 				this.chopTrees();
 			}

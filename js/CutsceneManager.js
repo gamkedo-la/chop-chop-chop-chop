@@ -19,6 +19,86 @@ var upgradeLevelThreeScene = {
 	stringToDisplay: ["Through a burst of insight and creativity...", "Chop-Chop has improved their technique...",
 					"...", '"What if I threw my axe?"']
 };
+var relaxingIdeas = [' take a nice bath..."', ' have a cup of cocoa..."', ' dance like no one is watching..."',
+						' eat a whole cake..."', ' play some video games..."', ' take a long nap..."',
+						' watch my favorite movie..."', ' make a tasty soup..."', ' read a book..."',
+						' eat a whole pizza..."', ' veg out..."',' sharpen my axe..."'];
+
+var frustratedSayings = ['"I am so frustrated..."', '"I feel stumped..."', 
+							'"Everything is working against me..."'];
+
+var firstRandomRelaxingIdeasIndex = 0;
+var secondRandomRelaxingIdeasIndex = 0;
+var firstRelaxingIdeasString = "";
+var secondRelaxingIdeasString = "";
+
+var firstRandomFrustratedSayingsIndex = 0;
+var secondRandomFrustratedSayingsIndex = 0;
+var firstFrustratedSayingsString = "";
+var secondFrustratedSayingsString = "";
+
+let randomFrustratedSayingsIndex = () => {
+	firstRandomFrustratedSayingsIndex = getRoundedRandomNumberBetweenMinMax(0,frustratedSayings.length -1);
+	firstFrustratedSayingsString = frustratedSayings[firstRandomFrustratedSayingsIndex];
+	secondRandomFrustratedSayingsIndex = getRoundedRandomNumberBetweenMinMax(0,frustratedSayings.length -1);
+	secondFrustratedSayingsString = frustratedSayings[secondRandomFrustratedSayingsIndex];
+	if (secondRandomFrustratedSayingsIndex == firstRandomFrustratedSayingsIndex) {
+		console.log("duplicate furstationSayings... Remedying");
+		var savingArrayForLater = frustratedSayings.slice();
+		frustratedSayings.splice(firstRandomFrustratedSayingsIndex,1);
+		secondRandomFrustratedSayingsIndex = getRoundedRandomNumberBetweenMinMax(0,frustratedSayings.length -1)
+		secondFrustratedSayingsString = frustratedSayings[secondRandomFrustratedSayingsIndex];
+		frustratedSayings = savingArrayForLater;
+	}
+	firstRandomRelaxingIdeasIndex = getRoundedRandomNumberBetweenMinMax(0,relaxingIdeas.length -1);
+	firstRelaxingIdeasString = relaxingIdeas[firstRandomRelaxingIdeasIndex];
+	secondRandomRelaxingIdeasIndex = getRoundedRandomNumberBetweenMinMax(0,relaxingIdeas.length -1);
+	secondRelaxingIdeasString = relaxingIdeas[secondRandomRelaxingIdeasIndex];
+	if (secondRandomRelaxingIdeasIndex == firstRandomRelaxingIdeasIndex) {
+		console.log("duplicate relaxingIdeas... Remedying");
+		var savingArrayForLater = relaxingIdeas.slice();
+		frustratedSayings.splice(firstRandomRelaxingIdeasIndex,1);
+		secondRandomRelaxingIdeasIndex = getRoundedRandomNumberBetweenMinMax(0,relaxingIdeas.length -1)
+		secondRelaxingIdeasString = relaxingIdeas[secondRandomRelaxingIdeasIndex];
+		frustratedSayings = savingArrayForLater;
+	}
+}	
+
+var FrustratedScene = {}; 
+var hitAnAnimalStringFirst = "no animal hit";
+var hitAnAnimalStringSecond = "no animal hit";
+
+function getNewFrustratedScene() { // called in PlayerClass.js this.gotHit();
+	FrustratedScene = {};
+	randomFrustratedSayingsIndex();
+	if (player.hitAnAnimal) {
+		hitAnAnimalStringFirst = '"I don' + "'" + 't want to hurt any animal friends either..."';
+		hitAnAnimalStringSecond = "Why did I do that?...";
+	}
+	// edits to this scene will display in the game
+	FrustratedScene = {
+		displayLength: 70,
+		stringToDisplay: [
+						firstFrustratedSayingsString, 
+						secondFrustratedSayingsString, 
+						hitAnAnimalStringFirst,
+						hitAnAnimalStringSecond,
+						'"I should just go home..."',
+						'"Maybe' + firstRelaxingIdeasString,
+						'"Then' + secondRelaxingIdeasString,
+						'"Yeah, that sounds good..."', '"But..."', '"Maybe I should try again?"'
+						],
+		isGameOver: true
+	}; 
+}
+
+var OutOfTimeScene = {
+	displayLength: 90,
+	stringToDisplay: ["The flow of time is always cruel..."],
+	isGameOver: true
+};
+
+var leftPosition = true;
 
 function playCutscene(data) {
 	if (havingAMoment) {
@@ -137,4 +217,109 @@ function prepareCutscene(scene) {
 		backgroundMusic.src = "music/ChopChop-GameOverLoop_v1" + sourceExtension;
 		backgroundMusic.play();
 	}
+}
+
+let gameOverOptions = () => {
+	var continueX = canvas.width/3 - 100;
+	var quitX = canvas.width/2 + 100;
+	var optionsY = canvas.height - 100;
+	var selectorXContinue = continueX - 10;
+	var selectorXQuit = continueX - 10 + (canvas.width/2 - 67);
+	var selectorY = optionsY + 6;
+	var	selectorX = selectorXContinue;
+
+	if (leftKeyHeld) {
+		leftPosition = true;
+	} else if (rightKeyHeld) {
+		leftPosition = false;
+	}
+
+	if (leftPosition) {
+		// do nothing
+	} else {
+		selectorX = selectorXQuit
+	}
+	
+	if (spacebarKeyHeld) {
+		if (selectorX == selectorXContinue) {
+			wordsToShow = "";
+			stringIndex = 0;
+			cutsceneDialogueIndex = 0;
+			currentScene = null;
+			needNewString = false;
+			// TODO: Wrap these changes and relevant others into resetLevel function
+			worldGrid = Array.from(allLevels[currentLevelIndex].layout);
+			particleList = [];
+			animalList = [];
+			objectList = [];
+			particleList = [];
+			animatedTileList = [];
+			backgroundMusic.pause();
+			backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+			backgroundMusic.volume = 0.4;
+			backgroundMusic.play();
+			countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
+			countdownTimerPaused = false;
+			var levelStartPosition = indexToCenteredXY(allLevels[currentLevelIndex].playerStartArrayIndex);
+			player.x = levelStartPosition.x;
+			player.y = levelStartPosition.y;
+			player.invincible = false;
+			spacebarKeyHeld = false;
+			player.chopTimer = 0;
+			havingAMoment = false;
+		} else if (selectorX == selectorXQuit) {
+			wordsToShow = " ";
+			stringIndex = 0;
+			cutsceneDialogueIndex = 0;
+			currentScene = null;
+			needNewString = false;
+			// TODO: Wrap these changes and relevant others into resetGame function
+			countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
+			countdownTimerPaused = false;
+			openingMenuIsRunning = true;
+			backgroundMusic.pause();
+			backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
+			backgroundMusic.volume = 0.4;
+			backgroundMusic.play();
+			currentLevelIndex = 0; // back to main menu
+			worldGrid = Array.from(allLevels[currentLevelIndex].layout);
+			worldCols = allLevels[currentLevelIndex].columns;
+			worldRows = allLevels[currentLevelIndex].rows;
+			particleList = [];
+			animalList = [];
+			objectList = [];
+			particleList = [];
+			animatedTileList = [];
+			var levelStartPosition = indexToCenteredXY(allLevels[currentLevelIndex].playerStartArrayIndex);
+			player.x = levelStartPosition.x;
+			player.y = levelStartPosition.y;
+			player.invincible = false;
+			spacebarKeyHeld = false;
+			player.chopTimer = 0;
+			havingAMoment = false;
+		}
+	}
+
+	const BLINK_RATE = 16;
+	if (selectorX == selectorXContinue) {
+		if (framesFromGameStart % BLINK_RATE <= (BLINK_RATE/2-1)) {
+			// blinking
+		} else {
+			drawPixelfont("Continue!", continueX, optionsY, 20,20);
+		}
+	} else {
+		drawPixelfont("Continue!", continueX, optionsY, 20,20);
+	}
+
+	if (selectorX == selectorXQuit) {
+		if (framesFromGameStart % BLINK_RATE <= (BLINK_RATE/2-1)) {
+			// blinking
+		} else {
+			drawPixelfont("Quit...", quitX, optionsY, 20,20);
+		}
+	} else {		
+		drawPixelfont("Quit...", quitX, optionsY, 20,20);
+	}
+
+	drawRect(selectorX, selectorY, 6,6, "white");
 }
