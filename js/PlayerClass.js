@@ -200,6 +200,7 @@ function playerClass() {
 		var newGame = titleScreenHitboxes[1];
 		var options = titleScreenHitboxes[2];
 		var optionsTitle = optionScreenHitBoxes[0];
+		var back = optionScreenHitBoxes[1];
 		if (openingMenuIsRunning) {
 			if (this.axeHitbox.isCollidingWith(chopTitle)) {
 				hit = true;
@@ -234,7 +235,17 @@ function playerClass() {
 		} else if (optionsMenu) {
 			if (this.axeHitbox.isCollidingWith(optionsTitle)) {
 				hit = true;
-				hitTitle = true;
+				hitOptionsTitle = true;
+				pendingShakes = HIT_SHAKE_COUNT * 2;
+				console.log("hit title screen!");
+				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+				arrayOfChopSFXs[random].play();
+				return;
+			}
+			if (this.axeHitbox.isCollidingWith(back)) {
+				hit = true;
+				hitBack = true;
 				pendingShakes = HIT_SHAKE_COUNT * 2;
 				console.log("hit title screen!");
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);

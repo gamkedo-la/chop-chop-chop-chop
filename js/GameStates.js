@@ -8,14 +8,16 @@ var optionScreenHitBoxes = [];
 var hitTitle = false;
 var hitNewGame = false;
 var hitOptions = false;
-var titleX = 800 / 3 - 120;
-var newGameX = 800 / 2;
-var optionsX = 800 / 2;
+var hitOptionsTitle = false;
+var hitBack = false;
 var pendingShakes = 0;
 var waitBuffer = 0;
 
 //add background image for opening menu
 function drawOpeningMenu() {
+	var titleX = canvas.width / 3 - 120;
+	var newGameX = canvas.width / 2 - 25;
+	var optionsX = canvas.width / 2 - 24;
 	var xoffset = 0;
 	if (hitTitle) {
 		if (pendingShakes) { 
@@ -31,7 +33,7 @@ function drawOpeningMenu() {
 										canvas.height / 2 - 4, 
 										measurePixelfont("Chop  Chop,Chop-Chop!") * 2.65, 32,
 										0,0);
-	titleHitbox.draw("blue");
+	//titleHitbox.draw("blue");
 	if (hitNewGame) {
 		if (pendingShakes) { 
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
@@ -54,12 +56,12 @@ function drawOpeningMenu() {
 			}
 		}
 	}
-	drawPixelfontCentered("New Game", newGameX, canvas.height / 2 + 40);
-	var newGameHitbox = new colliderClass(canvas.width/2 - 4,
-										canvas.height / 2 + 45, 
-										measurePixelfont("New Game") - 2, 10,
+	drawPixelfont("New Game", newGameX, canvas.height / 2 + 40,16,16);
+	var newGameHitbox = new colliderClass(newGameX + ((measurePixelfont("New Game") * 1.38)/2),
+										canvas.height / 2 + 47, 
+										measurePixelfont("New Game") * 1.38, 14,
 										0,0);
-	newGameHitbox.draw("blue");
+	//newGameHitbox.draw("blue");
 	if (hitOptions) {
 		if (pendingShakes) { 
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
@@ -75,33 +77,56 @@ function drawOpeningMenu() {
 			}
 		}
 	}
-	drawPixelfontCentered("Options", optionsX, canvas.height / 2 + 80);
-	var optionsHitbox = new colliderClass(canvas.width/2 - 4,
-										canvas.height / 2 + 85, 
-										measurePixelfont("Options") - 2, 10,
+	drawPixelfont("Options", optionsX, canvas.height / 2 + 80,16,16);
+	var optionsHitbox = new colliderClass(optionsX + ((measurePixelfont("Options") * 1.47)/2),
+										canvas.height / 2 + 87, 
+										measurePixelfont("Options") * 1.47, 14,
 										0,0);
-	optionsHitbox.draw("blue");
+	//optionsHitbox.draw("blue");
 	titleScreenHitboxes = [titleHitbox,newGameHitbox,optionsHitbox];
 }
 
 function drawOptionsMenu() {
+	var optionsTitleX = canvas.width / 3 + 35;
+	var backX = canvas.width / 3 + 100
 	var xoffset = 0;
-	if (hitTitle) {
+	if (hitOptionsTitle) {
 		if (pendingShakes) { 
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
-			titleX += xoffset;
+			optionsTitleX += xoffset;
 			pendingShakes--;
 		} else {
-			hitTitle = false;
+			hitOptionsTitle = false;
 		}
 	}
-	drawPixelfont("Options", titleX, canvas.height / 2 - 20, 30, 30); 
-	var optionsTitleHitbox = new colliderClass(canvas.width/2 + 25,
-										canvas.height / 2 - 4, 
-										measurePixelfont("Options") * 2.65, 32,
+	drawPixelfont("Options", optionsTitleX, canvas.height / 2 - 75, 30, 30); 
+	var optionsTitleHitbox = new colliderClass(optionsTitleX + ((measurePixelfont("Options") * 2.87)/2),
+										canvas.height / 2 - 59 /*Pixelfont Y + half hitbox height*/, 
+										measurePixelfont("Options") * 2.87, 32,
 										0,0);
-	optionsTitleHitbox.draw("blue");
-	optionScreenHitBoxes = [optionsTitleHitbox];
+	//optionsTitleHitbox.draw("blue");
+	if (hitBack) {
+		if (pendingShakes) { 
+			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
+			backX += xoffset;
+			pendingShakes--;
+		} else {
+			waitBuffer++
+			if (waitBuffer >= 10) {
+			openingMenuIsRunning = true;
+			optionsMenu = false;
+			hitBack = false;
+			waitBuffer = 0;
+			}
+		}
+	}
+	drawPixelfont("back", backX, canvas.height - 150); 
+	var backHitbox = new colliderClass(backX + measurePixelfont("back")/2,
+										canvas.height - 145 /*Pixelfont Y + half hitbox height*/, 
+										measurePixelfont("back"), 10,
+										0,0);
+	backHitbox.draw("blue");
+	optionScreenHitBoxes = [optionsTitleHitbox,backHitbox];
 	}
 
 
