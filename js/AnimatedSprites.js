@@ -85,7 +85,7 @@ function AnimatedSpriteClass(data) {
 	this.draw = function (x,y, currentAxisIndexOfAnimation = 1,
 							flipped = false, rotated = false, degrees,
 							offsetInRelationToRotationX,offsetInRelationToRotationY,
-	 						opacity = 1, streched = false, strechX = 1, strechY = 1,
+	 						opacity = canvasContext.globalAlpha, streched = false, strechX = 1, strechY = 1,
 	 						loopsToEndAndBack = false) {
 		let additionalWidth;
 		let additionalHeight;

@@ -12,6 +12,7 @@ var player;
 var debug = false;
 
 var havingAMoment = false;
+var savedAlpha = 0;
 
 window.onload = function () {
 	canvas = document.createElement("canvas");
@@ -54,20 +55,48 @@ function update() {
 
 function drawAll() {
 	if (openingMenuIsRunning || optionsMenu) {
-		cameraPan();
-		drawWorld();
-		drawAnimatedTiles();
-		if (optionsMenu) {
-			drawOptionsMenu();
-		//} else if (creditsMenu) {
-			// drawCreditsMenu():
+		if (hitNewGame && pendingShakes == 0) {
+			waitBuffer++
+			if (waitBuffer >= 10 && waitBuffer < 60) {
+				if (waitBuffer % 6 == 0) {
+					particleList = [];
+					savedAlpha += 0.07;
+					if (savedAlpha >= 1) {
+						savedAlpha = 1;
+					}
+					console.log(savedAlpha);
+					drawRect(0,0,1600,1600,"black", savedAlpha);
+				}
+			} else if (waitBuffer >= 60) {
+				// TODO: Transition? Intro?
+				canvasContext.globalAlpha = 1.0;
+				countdownTimerPaused = false;
+				openingMenuIsRunning = false; 
+				gameIsRunning = true;
+				advanceLevel();
+				backgroundMusic.pause();
+				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+				backgroundMusic.volume = 0.4;
+				backgroundMusic.play();
+				hitNewGame = false;
+				waitBuffer = 0;
+			}
 		} else {
-			drawOpeningMenu();
+			cameraPan();
+			drawWorld();
+			drawAnimatedTiles();
+			if (optionsMenu) {
+				drawOptionsMenu();
+			//} else if (creditsMenu) {
+				// drawCreditsMenu():
+			} else {
+				drawOpeningMenu();
+			}
+			drawAndRemoveAllObjects();
+			player.draw();
+			drawParticles();
+			endCameraPan();
 		}
-		drawAndRemoveAllObjects();
-		player.draw();
-		drawParticles();
-		endCameraPan();
 	} else if (gameIsRunning) {
 		if (!havingAMoment) {
 			// draw game scene

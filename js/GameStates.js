@@ -12,11 +12,11 @@ var hitOptionsTitle = false;
 var hitBack = false;
 var pendingShakes = 0;
 var waitBuffer = 0;
+var newGameX = 800 / 2 - 25;
 
 //add background image for opening menu
 function drawOpeningMenu() {
 	var titleX = canvas.width / 3 - 120;
-	var newGameX = canvas.width / 2 - 25;
 	var optionsX = canvas.width / 2 - 24;
 	var xoffset = 0;
 	if (hitTitle) {
@@ -39,21 +39,6 @@ function drawOpeningMenu() {
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
 			newGameX += xoffset;
 			pendingShakes--;
-		} else {
-			waitBuffer++
-			if (waitBuffer >= 10) {
-			// TODO: Transition? Intro?
-			countdownTimerPaused = false;
-			openingMenuIsRunning = false; 
-			gameIsRunning = true;
-			advanceLevel();
-			backgroundMusic.pause();
-			backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
-			backgroundMusic.volume = 0.4;
-			backgroundMusic.play();
-			hitNewGame = false;
-			waitBuffer = 0;
-			}
 		}
 	}
 	drawPixelfont("New Game", newGameX, canvas.height / 2 + 40,16,16);

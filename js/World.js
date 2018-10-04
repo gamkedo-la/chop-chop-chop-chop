@@ -117,6 +117,11 @@ const TILE_NORMAL_STUMP_ALT = 605;
 const TILE_PUFFY_STUMP = 606;
 const TILE_WILLOW_STUMP = 607;
 
+// Moon Tils
+const TILE_MOON_CRATERS_1 = 700;
+const TILE_MOON_CRATERS_2 = 701;
+const TILE_MOON_CRATERS_3 = 702;
+
 // Animals
 const TILE_DEATH_CAT = 800;
 const TILE_STEBS_BIRD = 801;
@@ -472,17 +477,14 @@ function drawAnimatedTiles() {
 			worldGrid[animatedTileList[i].arrayIndex] == TILE_REPLACE_WATER) {
 			if (animatedTileList[i].tileType == TILE_WATER) {
 				fromWhichRowToAnimate = determineWaterTileSurroundings(animatedTileList[i].arrayIndex);
+				opacity = canvasContext.globalAlpha;
 				animatedTileList[i].draw(animatedTileList[i].x,animatedTileList[i].y, fromWhichRowToAnimate,
 				false,false,
 				0,0,0,
-				1,false,1,1,
+				opacity,false,1,1,
 				true);
 			} else {
-				animatedTileList[i].draw(animatedTileList[i].x,animatedTileList[i].y, fromWhichRowToAnimate,
-				false,false,
-				0,0,0,
-				1,false,1,1,
-				false);
+				animatedTileList[i].draw(animatedTileList[i].x,animatedTileList[i].y);
 			}
 			if (animatedTileList[i].makesNoise) {
 				var radius = 128;

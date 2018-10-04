@@ -7,6 +7,7 @@ var treeSet = arrayWithRange(100, startAt = 200); // 200 to 299
 var cliffSet = arrayWithRange(100, startAt = 300); // 300 to 399
 var waterSet = arrayWithRange(100, startAt = 400); // 400 to 499
 var pathSet = arrayWithRange(100, startAt = 500); // 400 to 499
+var moonSet = arrayWithRange(100, startAt = 700); // 400 to 499
 var animalSet = arrayWithRange(100, startAt = 800);  // 800 to 899
 
 var currentlySelectedSet = nothingSet;
@@ -92,18 +93,6 @@ function copyToClipboard() {
 					}
 				}
 			}
-		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_STUMP) {
-			for (var k = 0; k < objectList.length; k++) {
-				if (objectList[k].arrayIndex == i) {
-					var stumpType = objectList[k].tileType;
-					if (stumpType == TILE_STUMP) {
-						numberPrintOut = TILE_SMALL_TREE;
-					} else if (stumpType == TILE_STUMP_ALT) {
-						numberPrintOut = TILE_SMALL_TREE_ALT;
-					}
-				}
-			}
-			layoutString += "" + numberPrintOut + ",";
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_WATER) {
 			numberPrintOut = "400";
 			for (var n = 0; n < animalList.length; n++) {

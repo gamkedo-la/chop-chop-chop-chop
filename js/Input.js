@@ -209,6 +209,12 @@ function keyPressed(evt) {
 				console.log("pathSet selected");
 			}
 		break;
+		case SEVEN_KEY:
+			if (worldEditor) {
+				pickASet(moonSet);
+				console.log("moonSet selected");
+			}
+		break;
 		case EIGHT_KEY:
 			if (worldEditor) {
 				pickASet(animalSet);

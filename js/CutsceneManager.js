@@ -296,6 +296,7 @@ let gameOverOptions = () => {
 			player.invincible = false;
 			spacebarKeyHeld = false;
 			player.chopTimer = 0;
+			savedAlpha = 0;
 			havingAMoment = false;
 		}
 	}

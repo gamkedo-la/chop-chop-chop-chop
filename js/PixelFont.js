@@ -263,7 +263,7 @@ function npcText(message, x, y, starttime, endtime, faceImage) {
             4, // dw
             32); // dh
 
-        canvasContext.globalAlpha = 1.0;
+        //canvasContext.globalAlpha = 1.0;
     }
 
     //console.log("npc_text:["+message+"] pos:"+x+","+y+" "+~~starttime+" to "+~~endtime+" now="+~~now+" percent:"+~~percent*100);

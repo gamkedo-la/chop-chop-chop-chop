@@ -96,6 +96,10 @@ function loadImages() {
         { worldType: TILE_PATH_CORNER_IN_BOTTOM_RIGHT, theFile: "path_dirt_cornerIN_bottom_right.png" },
         { worldType: TILE_PATH_CORNER_IN_BOTTOM_LEFT, theFile: "path_dirt_cornerIN_bottom_left.png" },
 
+        { worldType: TILE_MOON_CRATERS_1, theFile: "moon_small_craters_1.png" },
+        { worldType: TILE_MOON_CRATERS_2, theFile: "moon_small_craters_2.png" },
+        { worldType: TILE_MOON_CRATERS_3, theFile: "moon_small_craters_3.png" },
+
         { worldType: TILE_SMALL_TREE, theFile: "tree1.png" },
         { worldType: TILE_SMALL_TREE_ALT, theFile: "tree2.png" },
         { worldType: TILE_WILLOW_TREE, theFile: "tree3.png"},
