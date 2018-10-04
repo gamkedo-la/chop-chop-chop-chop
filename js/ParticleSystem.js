@@ -84,6 +84,7 @@ function pfx() {
 		} 
 		else { // normal square particle:
 			drawRect(Math.floor(this.x), Math.floor(this.y), PARTICLE_W, PARTICLE_H, this.color, 0.8);
+			canvasContext.globalAlpha = 1;
 		}
 	}
 

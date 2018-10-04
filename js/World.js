@@ -131,7 +131,7 @@ const TILE_ALLIGATOR = 804;
 const TILE_PINCHER_BUG = 805;
 const TILE_BEAR = 806;
 
-var allLevels = [mainMenu,mountainBase,testLevel];
+var allLevels = [mainMenu,mountainBase,mountainTop,testLevel];
 var currentLevelIndex = 0; // FIXME TODO: put back to zero when not testing level 2
 
 var worldCols = allLevels[currentLevelIndex].columns; //
@@ -408,7 +408,8 @@ function determineWaterTileSurroundings(arrayIndex) {
 	var waterUp = false;
 	var waterDown = false;
 	for (var i = 0; i < crossOfTiles.length; i++) {
-		if (crossOfTiles[i] == TILE_WATER || crossOfTiles[i] == TILE_REPLACE_WATER) {
+		if (crossOfTiles[i] == TILE_WATER || crossOfTiles[i] == TILE_REPLACE_WATER ||
+			crossOfTiles[i] == undefined) {
 			if (i == 0) {
 				waterLeft = true;
 			}
@@ -433,9 +434,6 @@ function determineWaterTileSurroundings(arrayIndex) {
 		) {
 		return 1; // first Row
 	}
-/*	if (crossOfTiles == [0,0,0,0]) { 
-		return 2; // second Row
-	}*/
 	if (waterLeft == true && waterRight == true &&
 		waterUp == false && waterDown == true) {
 		return 3; // and so on...
