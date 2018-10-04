@@ -56,6 +56,7 @@ const TILE_STALAGMITE = 204;
 const TILE_NORMAL_TREE = 205;
 const TILE_NORMAL_TREE_ALT = 206;
 const TILE_PUFFY_TREE = 207;
+const TILE_WILLOW_TREE = 208
 
 // Cliffs,Pits and Waterfalls
 const TILE_CLIFF_TOP_LEFT = 300;
@@ -114,6 +115,7 @@ const TILE_STALAGMITE_STUMP = 603;
 const TILE_NORMAL_STUMP = 604;
 const TILE_NORMAL_STUMP_ALT = 605;
 const TILE_PUFFY_STUMP = 606;
+const TILE_WILLOW_STUMP = 607;
 
 // Animals
 const TILE_DEATH_CAT = 800;
@@ -205,6 +207,7 @@ function isTileTypeAnObject(tileType) {
 		case TILE_STALAGMITE:
 		case TILE_NORMAL_TREE:
 		case TILE_NORMAL_TREE_ALT:
+		case TILE_WILLOW_TREE:
 		case TILE_PUFFY_TREE:
 		case TILE_STUMP:
 		case TILE_STUMP_ALT:
@@ -212,6 +215,7 @@ function isTileTypeAnObject(tileType) {
 		case TILE_STALAGMITE_STUMP:
 		case TILE_NORMAL_STUMP:
 		case TILE_NORMAL_STUMP_ALT:
+		case TILE_WILLOW_STUMP:
 		case TILE_PUFFY_STUMP:
 			return true;
 			break;

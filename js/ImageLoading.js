@@ -98,6 +98,7 @@ function loadImages() {
 
         { worldType: TILE_SMALL_TREE, theFile: "tree1.png" },
         { worldType: TILE_SMALL_TREE_ALT, theFile: "tree2.png" },
+        { worldType: TILE_WILLOW_TREE, theFile: "tree3.png"},
         { worldType: TILE_NORMAL_TREE, theFile: "normal_tree.png" },
         { worldType: TILE_NORMAL_TREE_ALT, theFile: "another_tree.png" },
         { worldType: TILE_PUFFY_TREE, theFile: "p_tree.png" },
@@ -108,6 +109,7 @@ function loadImages() {
 
         { worldType: TILE_STUMP, theFile: "stump1.png" },
         { worldType: TILE_STUMP_ALT, theFile: "stump2.png" },
+        { worldType: TILE_WILLOW_STUMP, theFile: "stump3.png" },
         { worldType: TILE_NORMAL_STUMP, theFile: "normal_treestump.png" },
         { worldType: TILE_NORMAL_STUMP_ALT, theFile: "another_treestump.png" },
         { worldType: TILE_PUFFY_STUMP, theFile: "p_stump.png" },

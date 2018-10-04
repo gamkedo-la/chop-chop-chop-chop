@@ -6,10 +6,10 @@ const HIT_SHAKE_SIZE = 2; // size of wobble
 var objectList = [];
 var trees = [TILE_SMALL_TREE,TILE_SMALL_TREE_ALT,TILE_TALL_TREE,
 				TILE_LOLLIPOP,TILE_STALAGMITE,TILE_NORMAL_TREE,
-				TILE_NORMAL_TREE_ALT,TILE_PUFFY_TREE];
+				TILE_NORMAL_TREE_ALT,TILE_PUFFY_TREE, TILE_WILLOW_TREE];
 var stumps = [TILE_STUMP_ALT,TILE_STUMP,TILE_LOLLIPOP_STUMP,
 				TILE_STALAGMITE_STUMP,TILE_NORMAL_STUMP,TILE_NORMAL_STUMP_ALT,
-				TILE_PUFFY_STUMP];
+				TILE_PUFFY_STUMP, TILE_WILLOW_STUMP];
 var replacements = [
 TILE_REPLACE_TREE,
 TILE_REPLACE_STUMP]
@@ -107,16 +107,18 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 	switch (tileType) {
 		case TILE_SMALL_TREE:
 		case TILE_SMALL_TREE_ALT:
+		case TILE_WILLOW_TREE:
 		case TILE_TALL_TREE:
 		case TILE_LOLLIPOP:
 		case TILE_STALAGMITE:
 		case TILE_NORMAL_TREE:
-		case TILE_NORMAL_TREE_ALT:
+		case TILE_NORMAL_TREE_ALT:		
 		case TILE_PUFFY_TREE:
 			newObject = new standardTreeClass(tileType, arrayIndex, hiddenTile);
 			break;
 		case TILE_STUMP:
 		case TILE_STUMP_ALT:
+		case TILE_WILLOW_STUMP:
 		case TILE_LOLLIPOP_STUMP:
 		case TILE_STALAGMITE_STUMP:
 		case TILE_NORMAL_STUMP:
@@ -143,9 +145,12 @@ function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {
 		case TILE_SMALL_TREE:
 			worldGrid[arrayIndex] = TILE_STUMP;
 		break;
-		case TILE_SMALL_TREE_ALT:
+		case TILE_SMALL_TREE_ALT:		
 		case TILE_TALL_TREE:
 			worldGrid[arrayIndex] = TILE_STUMP_ALT;
+		break;
+		case TILE_WILLOW_TREE:
+			worldGrid[arrayIndex] = TILE_WILLOW_STUMP;
 		break;
 		case TILE_LOLLIPOP:
 			worldGrid[arrayIndex] = TILE_LOLLIPOP_STUMP;
@@ -170,6 +175,7 @@ function addTilesForCollisionBasedOnTileType(tileType, x, y) {
 	switch (tileType) {
 		case TILE_SMALL_TREE:
 		case TILE_SMALL_TREE_ALT:
+		case TILE_WILLOW_TREE:
 		case TILE_TALL_TREE:
 		case TILE_PUFFY_TREE:
 		case TILE_NORMAL_TREE:
@@ -194,6 +200,7 @@ function tileTypeGetsHitbox(tileType) {
 	switch (tileType) {
 		case TILE_SMALL_TREE:
 		case TILE_SMALL_TREE_ALT:
+		case TILE_WILLOW_TREE:
 		case TILE_TALL_TREE:
 		case TILE_LOLLIPOP:
 		case TILE_STALAGMITE:
