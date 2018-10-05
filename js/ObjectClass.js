@@ -73,7 +73,7 @@ function objectClass (newObject) {
 			if (treesCutThisLevel >= allLevels[currentLevelIndex].treesToCut) {
 				for (var i = 0; i < worldGrid.length; i++) {
 					if (worldGrid[i] === TILE_THORN) {
-						worldGrid[i] = TILE_NOTHING
+						worldGrid[i] = TILE_TERRAIN
 					}
 				}
 			}

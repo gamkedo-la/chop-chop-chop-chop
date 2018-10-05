@@ -32,7 +32,7 @@ function jumpingFish (arrayIndex,worldTileType) {
 	this.hitbox = new colliderClass(this.x,this.y,
 		colliderWidth,colliderHeight,colliderOffsetX,colliderOffsetY);
 
-	this.collidableTiles = [TILE_EXTEND_COLLISION,TILE_SMALL_TREE, TILE_NOTHING,
+	this.collidableTiles = [TILE_EXTEND_COLLISION,TILE_SMALL_TREE, TILE_TERRAIN,
 	TILE_SMALL_TREE_ALT,TILE_TALL_TREE,TILE_STALAGMITE,TILE_REPLACE_TREE,
 	TILE_CLIFF_TOP_LEFT,TILE_CLIFF_TOP,TILE_CLIFF_TOP_RIGHT,
 	TILE_CLIFF_LEFT,TILE_CLIFF_RIGHT,

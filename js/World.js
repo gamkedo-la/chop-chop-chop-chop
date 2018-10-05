@@ -8,9 +8,10 @@ const TILE_REPLACE_TREE = -03;
 const TILE_REPLACE_STUMP = -02;
 const TILE_EXTEND_COLLISION = -01;
 
-const TILE_NOTHING = 000;
-const TILE_MOON_NOTHING = 001;
-const TILE_NEXT_LEVEL = 002;
+const TILE_TERRAIN = 000;
+const TILE_MOON_TERRAIN = 001;
+const TILE_MOON_TERRAIN_2 = 002;
+const TILE_NEXT_LEVEL = 003;
 
 // Ground Objects
 const TILE_FLOWER = 100;
@@ -127,7 +128,7 @@ const TILE_NORMAL_STUMP_ALT = 605;
 const TILE_PUFFY_STUMP = 606;
 const TILE_WILLOW_STUMP = 607;
 
-// Moon Tils
+// Moon Tiles
 const TILE_MOON_CRATERS_1 = 700;
 const TILE_MOON_CRATERS_2 = 701;
 const TILE_MOON_CRATERS_3 = 702;
@@ -161,6 +162,7 @@ var waterfallBottomCenter = 3;
 var camera = 4;
 var campfire = 5;
 var dsBonfire = 6;
+var nextLevel = 7;
 var animatedTileList = [];
 
 function drawWorld() {
@@ -175,7 +177,7 @@ function drawWorld() {
 			if (isTileTypeAnimated(tileKindHere)) {
 				setupAnimatedTiles(tileKindHere,drawTileX,drawTileY,arrayIndex);
 			} else if (isTileTypeAnObject(tileKindHere)) {
-				canvasContext.drawImage(worldPics[TILE_NOTHING], drawTileX, drawTileY);
+				canvasContext.drawImage(worldPics[TILE_TERRAIN], drawTileX, drawTileY);
 				spawnObjectBasedOnTile(tileKindHere, arrayIndex, worldGrid[arrayIndex - worldCols])
 				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX, drawTileY);
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
@@ -247,6 +249,7 @@ function isTileTypeAnimated(tileType) {
 		case TILE_CAMERA:
 		case TILE_CAMPFIRE:
 		case TILE_DS_BONFIRE:
+		case TILE_NEXT_LEVEL:
 			return true;
 			break;
 	}
@@ -274,6 +277,9 @@ function returnAnimatedTileSprites(tileKindHere) {
 		break;
 		case TILE_DS_BONFIRE:
 			return dsBonfire;
+		break;
+		case TILE_NEXT_LEVEL:
+			return nextLevel;
 		break;
 	}
 }
@@ -379,6 +385,20 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 				y: drawTileY + TILE_H/2,
 				arrayIndex: arrayIndex,
 				tileType: TILE_DS_BONFIRE
+			});
+			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
+			animatedTileList.push(newAnimatedTile);
+			break;
+		case nextLevel:
+			newAnimatedTile = new AnimatedSpriteClass({
+				name: "nextLevel",
+				spriteSheet: gamePics.nextLevelSpritesheet,
+				animationColFrames: 2,
+				framesUntilNext: 15,
+				x: drawTileX + TILE_W/2,
+				y: drawTileY + TILE_H/2,
+				arrayIndex: arrayIndex,
+				tileType: TILE_NEXT_LEVEL
 			});
 			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
 			animatedTileList.push(newAnimatedTile);
