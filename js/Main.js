@@ -57,17 +57,31 @@ function drawAll() {
 	if (openingMenuIsRunning || optionsMenu) {
 		if (hitNewGame && pendingShakes == 0) {
 			waitBuffer++
-			if (waitBuffer >= 10 && waitBuffer < 60) {
+			if (waitBuffer < 35) {
+				cameraPan();
+				drawWorld();
+				drawAnimatedTiles();
+				if (optionsMenu) {
+					drawOptionsMenu();
+				//} else if (creditsMenu) {
+					// drawCreditsMenu():
+				} else {
+					drawOpeningMenu();
+				}
+				drawAndRemoveAllObjects();
+				player.draw();
+				drawParticles();
+				endCameraPan();
+		}
+			if (waitBuffer >= 35 && waitBuffer < 85) {
 				if (waitBuffer % 6 == 0) {
-					particleList = [];
 					savedAlpha += 0.07;
 					if (savedAlpha >= 1) {
 						savedAlpha = 1;
 					}
-					console.log(savedAlpha);
 					drawRect(0,0,1600,1600,"black", savedAlpha);
 				}
-			} else if (waitBuffer >= 60) {
+			} else if (waitBuffer >= 85) {
 				// TODO: Transition? Intro?
 				canvasContext.globalAlpha = 1.0;
 				countdownTimerPaused = false;

@@ -133,6 +133,7 @@ function keyPressed(evt) {
 		case KEY_TILDE:
 			worldEditor = !worldEditor;
 			if (worldEditor) {
+				countdownTimerPaused = true;
 				console.log("worldEditor ON!");
 				console.log("Please select a set of tiles using:" + "\n"
    				+ "0 for nothing" + "\n"
@@ -144,6 +145,7 @@ function keyPressed(evt) {
    				+ "8 for animal tiles" + "\n");
 			}
 			if (!worldEditor) {
+				countdownTimerPaused = false;
 				worldGrid = [];
 				animalList = [];
 				objectList = [];

@@ -406,7 +406,7 @@ function animalClass (newAnimal) {
 
 
 			if ((diffX*diffX+diffY*diffY) <= (radius*radius)) {
-				console.log("found goal!");
+				//console.log("found goal!");
 				this.neutral = true;
 				this.atGoal = true;
 				this.waiting = false;

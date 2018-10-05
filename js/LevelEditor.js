@@ -128,7 +128,6 @@ function copyToClipboard() {
 	}
 
 	layoutString = layoutString.slice(0,-1);
-	layoutString = "var " + allLevels[currentLevelIndex].name + "= [ \n" + layoutString  + "];"
 	if (worldEditor) {
 		console.log("Level layout data:" + "\n" + "\n");
 		console.log(layoutString);

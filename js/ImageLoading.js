@@ -25,7 +25,7 @@ function loadImages() {
         { varName: "dsBonfireSpritesheet", theFile: "ds_bonfire_spritesheet.png" },
 
         // Animated Animal Sheets
-        { varName: "placeholderDeathCatMeanderSheet", theFile: "placeholderDeathCatMeanderSheet2a.png"},
+        { varName: "placeholderDeathCatMeanderSheet", theFile: "death_cat_sheet.png"},
         { varName: "stebsBird", theFile: "stebsbirdsheet.png"},
         { varName: "rabbitSheet", theFile: "rabbitsheet.png"},
         { varName: "jumpingFish", theFile: "jumping_fish_sheet.png"},
@@ -130,7 +130,7 @@ function loadImages() {
         { worldType: TILE_REPLACE_WATERFALL, theFile: "clear.png" },
 
         { worldType: TILE_STEBS_BIRD, theFile: "stebsbird.png" },
-        { worldType: TILE_DEATH_CAT, theFile: "placeholderDeathCatMeanderSheet1.png" },
+        { worldType: TILE_DEATH_CAT, theFile: "death_cat.png" },
         { worldType: TILE_RABBIT, theFile: "rabbit.png" },
         { worldType: TILE_JUMPING_FISH, theFile: "jumping_fish.png" },
         { worldType: TILE_ALLIGATOR, theFile: "alligator.png" },
