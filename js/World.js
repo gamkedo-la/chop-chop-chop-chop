@@ -121,6 +121,7 @@ const TILE_WILLOW_STUMP = 607;
 const TILE_MOON_CRATERS_1 = 700;
 const TILE_MOON_CRATERS_2 = 701;
 const TILE_MOON_CRATERS_3 = 702;
+const TILE_MOON_REFLECTOR = 703;
 
 // Animals
 const TILE_DEATH_CAT = 800;
@@ -131,7 +132,7 @@ const TILE_ALLIGATOR = 804;
 const TILE_PINCHER_BUG = 805;
 const TILE_BEAR = 806;
 
-var allLevels = [mainMenu,mountainBase,mountainTop,testLevel];
+var allLevels = [mainMenu,mountainBase,mountainTop,moon,testLevel];
 var currentLevelIndex = 0; // FIXME TODO: put back to zero when not testing level 2
 
 var worldCols = allLevels[currentLevelIndex].columns; //

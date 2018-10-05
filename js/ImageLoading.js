@@ -99,6 +99,7 @@ function loadImages() {
         { worldType: TILE_MOON_CRATERS_1, theFile: "moon_small_craters_1.png" },
         { worldType: TILE_MOON_CRATERS_2, theFile: "moon_small_craters_2.png" },
         { worldType: TILE_MOON_CRATERS_3, theFile: "moon_small_craters_3.png" },
+        { worldType: TILE_MOON_REFLECTOR, theFile: "moon_reflector.png" },
 
         { worldType: TILE_SMALL_TREE, theFile: "tree1.png" },
         { worldType: TILE_SMALL_TREE_ALT, theFile: "tree2.png" },
