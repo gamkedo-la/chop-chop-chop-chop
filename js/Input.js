@@ -36,7 +36,6 @@ const KEY_LEFT_BRACKET = 219; // to lower SFX volume
 
 var mouseX = 0;
 var mouseY = 0;
-var mouseHeld = false;
 var mouseCanvasY = 0;
 var mouseCanvasX = 0;
 
@@ -55,11 +54,10 @@ function setupInput() {
     document.addEventListener("keyup", keyReleased);
    	canvas.addEventListener('mousemove', updateMousePos);
 	canvas.addEventListener('mousedown',function() {
-		mousePressed();
+		interval = setInterval(editTileOnMouseClick, 1);
 	});
 	canvas.addEventListener('mouseup',function() {
-		mouseReleased();
-		editTileOnMouseClick();
+		clearInterval(interval)
 	});
 };
 
@@ -168,7 +166,14 @@ function keyPressed(evt) {
 			if (worldEditor) {
 				currentSetIndex--;
 				if (currentSetIndex < 0) {
-					currentSetIndex = 0;
+					for (var i = 100; i > -1; i--) {
+						if (worldPics[currentlySelectedSet[i]] == undefined) {
+							continue;
+						} else {
+							currentSetIndex = i;
+							break;
+						}
+					}
 				}
 			}
 		break;
@@ -248,11 +253,3 @@ function keyReleased(evt) {
             break;
 	}
 };
-
-function mousePressed(evt) {
-	mouseHeld = true;
-}
-
-function mouseReleased(evt) {
-	mouseHeld = false;
-}
