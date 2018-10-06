@@ -31,6 +31,8 @@ let sourceExtension = undefined;
 let arrayOfChopSFXs = [chop1,chop2];
 let arrayOfRoarSFXs = [bearRoar1,bearRoar2,bearRoar3];
 
+let volumeDefault = 0.5;
+
 let setAudioTypeAndSourceExtension = () => {
   if (backgroundMusic.canPlayType('audio/ogg;')) {
       audioType = 'audio/ogg';
@@ -50,6 +52,7 @@ setAudioTypeAndSourceExtension();
 let assignAudioTypes = () => {
   for ( let arrayOfSoundsIndex = 0; arrayOfSoundsIndex < arrayOfSounds.length; arrayOfSoundsIndex++ ) {
     arrayOfSounds[arrayOfSoundsIndex].type = audioType;
+    arrayOfSounds[arrayOfSoundsIndex].volume = volumeDefault;
   }
 };
 assignAudioTypes();
@@ -63,21 +66,19 @@ backgroundMusic.addEventListener('timeupdate', function(){
         this.play();
 }}, false);
 
-let volumeDefault = 1;
-
 chop1.src = "SFX/Chop1" + sourceExtension;
 chop2.src = "SFX/Chop2" + sourceExtension;
 axeWhirl.src = "SFX/AxeWhirl2" + sourceExtension;
 missedSwing.src = "SFX/MissedSwing" + sourceExtension;
 campfireSFX.src = "SFX/Fire" + sourceExtension;
 deathMeow.src = "SFX/DeathMeow" + sourceExtension;
-deathMeow.volume = 0.5;
+//deathMeow.volume = 0.5;
 birdSound.src = "SFX/BirdSound" + sourceExtension;
-birdSound.volume = 0.6;
+//birdSound.volume = 0.6;
 bugSound.src = "SFX/BugSound" + sourceExtension;
 playerHurt.src = "SFX/PlayerHurt" + sourceExtension;
 animalHit.src = "SFX/AnimalHit" + sourceExtension;
-animalHit.volume = 0.6;
+//animalHit.volume = 0.6;
 bearRoar1.src = "SFX/BearRoar01" + sourceExtension;
 bearRoar2.src = "SFX/BearRoar02" + sourceExtension;
 bearRoar3.src = "SFX/BearRoar03" + sourceExtension;
@@ -87,24 +88,40 @@ tornadoSwoosh.src = "SFX/Tornado" + sourceExtension;
 
 let decreaseMusicVolume = () => {
   for ( let arrayOfMusicIndex = 0; arrayOfMusicIndex < arrayOfMusic.length; arrayOfMusicIndex++ ) {
-    arrayOfMusic[arrayOfMusicIndex].volume -= 0.1;
+  	if (arrayOfMusic[arrayOfMusicIndex].volume <= 0.1) {
+    	arrayOfMusic[arrayOfMusicIndex].volume = 0;
+    } else {
+    	arrayOfMusic[arrayOfMusicIndex].volume -= 0.1;
+	}
   }
 };
 
 let decreaseSFXVolume = () => {
   for ( let arrayOfSoundsIndex = 0; arrayOfSoundsIndex < arrayOfSFXs.length; arrayOfSoundsIndex++ ) {
-    arrayOfSFXs[arrayOfSoundsIndex].volume -= 0.1;
+  	if (arrayOfSFXs[arrayOfSoundsIndex].volume <= 0.1) {
+    	arrayOfSFXs[arrayOfSoundsIndex].volume = 0;
+    } else {
+    	arrayOfSFXs[arrayOfSoundsIndex].volume -= 0.1;
+	}
   }
 };
 
 let increaseMusicVolume = () => {
   for ( let arrayOfMusicIndex = 0; arrayOfMusicIndex < arrayOfMusic.length; arrayOfMusicIndex++ ) {
-    arrayOfMusic[arrayOfMusicIndex].volume += 0.1;
+  	if (arrayOfMusic[arrayOfMusicIndex].volume >= 0.9) {
+    	arrayOfMusic[arrayOfMusicIndex].volume = 1;
+    } else {
+    	arrayOfMusic[arrayOfMusicIndex].volume += 0.1;
+	}
   }
 };
 
 let increaseSFXVolume = () => {
   for ( let arrayOfSoundsIndex = 0; arrayOfSoundsIndex < arrayOfSFXs.length; arrayOfSoundsIndex++ ) {
-    arrayOfSFXs[arrayOfSoundsIndex].volume += 0.1;
+    if (arrayOfSFXs[arrayOfSoundsIndex].volume >= 0.9) {
+    	arrayOfSFXs[arrayOfSoundsIndex].volume = 1;
+    } else {
+    	arrayOfSFXs[arrayOfSoundsIndex].volume += 0.1;
+	}
   }
 };

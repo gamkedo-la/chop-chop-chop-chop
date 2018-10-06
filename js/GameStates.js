@@ -1,7 +1,5 @@
 let openingMenuIsRunning = true;
 let optionsMenu = false;
-let musicOptions = false;
-let sfxOptions = false;
 let gameIsRunning = false;
 let gameIsPaused = false;
 
@@ -16,10 +14,10 @@ var hitOptionsTitle = false;
 var hitMusic = false;
 var hitSFX = false;
 var hitBack = false;
-var hitMusicB1 = false;
-var hitMusicB2 = false;
-var hitSfxB1 = false;
-var hitSfxB2 = false;
+var hitMusicPlus = false;
+var hitMusicMinus = false;
+var hitSfxPlus = false;
+var hitSfxMinus = false;
 var pendingShakes = 0;
 var waitBuffer = 0;
 var newGameX = 800 / 2 - 25;
@@ -83,7 +81,7 @@ function drawOpeningMenu() {
 
 function drawOptionsMenu() {
 	var optionsTitleX = canvas.width / 3 + 35;
-	var musicX = canvas.width / 3 + 35;
+	var musicX = canvas.width / 3 + 20;
 	var sfxX = canvas.width / 3 + 35;
 	var backX = canvas.width / 3 + 100
 	var xoffset = 0;
@@ -102,7 +100,6 @@ function drawOptionsMenu() {
 										measurePixelfont("Options") * 2.87, 32,
 										0,0);
 	//optionsTitleHitbox.draw("blue");
-
 	if (hitMusic) {
 		if (pendingShakes) { 
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
@@ -110,17 +107,15 @@ function drawOptionsMenu() {
 			pendingShakes--;
 		} else {
 			hitMusic = false;
-			musicOptions = true;
-			sfxOptions = false;
 		}
 	}
-	drawPixelfont("Music", musicX, canvas.height/2 - 20, 16, 16); 
-	var musicHitbox = new colliderClass(musicX + ((measurePixelfont("Music") * 1.47)/2),
+
+	drawPixelfont("Music: " + Math.trunc(Math.round(backgroundMusic.volume * 10)), musicX, canvas.height/2 - 20, 16, 16); 
+	var musicHitbox = new colliderClass(musicX + ((measurePixelfont("Music: " + Math.trunc(Math.round(backgroundMusic.volume * 10))) * 1.39)/2),
 				           /*Pixelfont Y + half hitbox height*/ canvas.height / 2 - 12, 
-										measurePixelfont("Music") * 1.47, 14,
+										measurePixelfont("Music: " + Math.trunc(Math.round(backgroundMusic.volume * 10))) * 1.39, 14,
 										0,0);
 	//musicHitbox.draw("blue");
-
 	if (hitSFX) {
 		if (pendingShakes) { 
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
@@ -128,17 +123,15 @@ function drawOptionsMenu() {
 			pendingShakes--;
 		} else {
 			hitSFX = false;
-			musicOptions = false;
-			sfxOptions = true;
 		}
 	}
-	drawPixelfont("SFX", sfxX+15, canvas.height/2 + 40, 16, 16); 
-	var sfxHitbox = new colliderClass(sfxX+15 + ((measurePixelfont("SFX") * 1.47)/2),
+
+	drawPixelfont("SFX: " + Math.trunc(Math.round(chop1.volume * 10)), sfxX, canvas.height/2 + 40, 16, 16); 
+	var sfxHitbox = new colliderClass(sfxX + ((measurePixelfont("SFX: " + Math.trunc(Math.round(chop1.volume * 10))) * 1.32)/2),
 				           /*Pixelfont Y + half hitbox height*/ canvas.height /2 + 47, 
-										measurePixelfont("SFX") * 1.47, 15,
+										measurePixelfont("SFX: " + Math.trunc(Math.round(chop1.volume * 10))) * 1.32, 15,
 										0,0);
 	//sfxHitbox.draw("blue");	
-
 	if (hitBack) {
 		if (pendingShakes) { 
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
@@ -154,13 +147,13 @@ function drawOptionsMenu() {
 			}
 		}
 	}
-	drawPixelfont("back", backX, canvas.height - 150); 
-	var backHitbox = new colliderClass(backX + measurePixelfont("back")/2,
-										canvas.height - 145 /*Pixelfont Y + half hitbox height*/, 
-										measurePixelfont("back"), 10,
+
+	drawPixelfont("back", backX, canvas.height - 150,13,13); 
+	var backHitbox = new colliderClass(backX + measurePixelfont("back") * 1.25/2,
+										canvas.height - 144 /*Pixelfont Y + half hitbox height*/, 
+										measurePixelfont("back") * 1.25, 13,
 										0,0);
 	//backHitbox.draw("blue");
-
 	optionScreenHitBoxes = [optionsTitleHitbox,musicHitbox,sfxHitbox,backHitbox];
 	drawMusicAndSfxOptions();
 	}
@@ -171,68 +164,73 @@ function drawMusicAndSfxOptions() {
 	var b1SfxX = canvas.width / 3 + 150;
 	var b2SfxX = canvas.width / 3 + 200;
 	var xoffset = 0;
-	if (hitMusicB1) {
+
+	if (hitMusicPlus) {
 		if (pendingShakes) { 
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
 			b1MusicX += xoffset;
 			pendingShakes--;
 		} else {
-			hitMusicB1 = false;
+			increaseMusicVolume();
+			hitMusicPlus = false;
 		}
 	}
-	drawPixelfont("B1", b1MusicX, canvas.height/2 - 18, 13, 13); 
-	var musicB1Hitbox = new colliderClass(b1MusicX + ((measurePixelfont("B1") * 1.15)/2),
+	drawPixelfont("+", b1MusicX, canvas.height/2 - 18, 13, 13); 
+	var musicB1Hitbox = new colliderClass(b1MusicX + ((measurePixelfont("+") * 1.15)/2),
 					/*Pixelfont Y + half hitbox height*/    canvas.height / 2 - 12, 
-										measurePixelfont("B1") * 1.15, 13,
+										measurePixelfont("+") * 1.5, 16,
 										0,0);
 	//musicB1Hitbox.draw("blue");	
 
-	if (hitMusicB2) {
+	if (hitMusicMinus) {
 		if (pendingShakes) { 
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
 			b2MusicX += xoffset;
 			pendingShakes--;
 		} else {
-			hitMusicB2 = false;
+			decreaseMusicVolume();
+			hitMusicMinus = false;
 		}
 	}
-	drawPixelfont("B2", b2MusicX, canvas.height/2 - 18, 13, 13); 
-	var musicB2Hitbox = new colliderClass(b2MusicX + ((measurePixelfont("B2") * 1.20)/2),
+	drawPixelfont("-", b2MusicX, canvas.height/2 - 18, 13, 13); 
+	var musicB2Hitbox = new colliderClass(b2MusicX + ((measurePixelfont("-") * 1.20)/2),
 					/*Pixelfont Y + half hitbox height*/    canvas.height / 2 - 12, 
-										measurePixelfont("B2") * 1.20, 13,
+										measurePixelfont("-") * 1.5, 16,
 										0,0);
 	//musicB2Hitbox.draw("blue");
 	musicHitboxes = [musicB1Hitbox,musicB2Hitbox];
 
-	if (hitSfxB1) {
+	if (hitSfxPlus) {
 		if (pendingShakes) { 
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
 			b1SfxX += xoffset;
 			pendingShakes--;
 		} else {
-			hitSfxB1 = false;
+			increaseSFXVolume();
+			hitSfxPlus = false;
 		}
 	}
-	drawPixelfont("B1", b1SfxX, canvas.height/2 + 42, 13, 13); 
-	var sfxB1Hitbox = new colliderClass(b1SfxX + ((measurePixelfont("B1") * 1.15)/2),
+	drawPixelfont("+", b1SfxX, canvas.height/2 + 41, 13, 13); 
+	var sfxB1Hitbox = new colliderClass(b1SfxX + ((measurePixelfont("+") * 1.15)/2),
 					/*Pixelfont Y + half hitbox height*/    canvas.height / 2 + 47, 
-										measurePixelfont("B1") * 1.15, 13,
+										measurePixelfont("+") * 1.5, 16,
 										0,0);
 	//sfxB1Hitbox.draw("blue");	
 
-	if (hitSfxB2) {
+	if (hitSfxMinus) {
 		if (pendingShakes) { 
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
 			b2SfxX += xoffset;
 			pendingShakes--;
 		} else {
-			hitSfxB2 = false;
+			decreaseSFXVolume();
+			hitSfxMinus = false;
 		}
 	}
-	drawPixelfont("B2", b2SfxX, canvas.height/2 + 42, 13, 13); 
-	var sfxB2Hitbox = new colliderClass(b2SfxX + ((measurePixelfont("B2") * 1.20)/2),
+	drawPixelfont("-", b2SfxX, canvas.height/2 + 41, 13, 13); 
+	var sfxB2Hitbox = new colliderClass(b2SfxX + ((measurePixelfont("-") * 1.20)/2),
 					/*Pixelfont Y + half hitbox height*/    canvas.height / 2 + 47, 
-										measurePixelfont("B2") * 1.20, 13,
+										measurePixelfont("-") * 1.5, 16,
 										0,0);
 	//sfxB2Hitbox.draw("blue");
 	sfxHitboxes = [sfxB1Hitbox,sfxB2Hitbox];

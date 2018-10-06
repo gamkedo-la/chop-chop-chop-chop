@@ -162,6 +162,39 @@ function playerClass() {
 		//console.log("player direction: " + this.direction);
 	}
 
+	this.checkNextLevelTrigger = function() {
+		var detectedX = -64;
+		var detectedY = -64;
+		if(	getTileTypeAtPixelCoord(this.x - this.hitbox.width/2, this.y - this.hitbox.height/2) == TILE_REPLACE_ANIMATED_TILE) {
+				detectedX = this.x - this.hitbox.width/2;
+				detectedY = this.y - this.hitbox.height/2;
+			} else if (getTileTypeAtPixelCoord(this.x + this.hitbox.width/2, this.y - this.hitbox.height/2) == TILE_REPLACE_ANIMATED_TILE) {
+				detectedX = this.x + this.hitbox.width/2;
+				detectedY = this.y - this.hitbox.height/2;
+			} else if (getTileTypeAtPixelCoord(this.x - this.hitbox.width/2, this.y + this.hitbox.height/2) == TILE_REPLACE_ANIMATED_TILE) {
+				detectedX = this.x - this.hitbox.width/2;
+				detectedY = this.y + this.hitbox.height/2;
+			} else if (getTileTypeAtPixelCoord(this.x + this.hitbox.width/2, this.y + this.hitbox.height/2) == TILE_REPLACE_ANIMATED_TILE) {
+				detectedX = this.x + this.hitbox.width/2;
+				detectedY = this.y + this.hitbox.height/2;
+			}
+
+		if (detectedX == -64) {
+			return false
+		}
+
+		var detectedArrayIndex = getTileIndexAtPixelCoord(detectedX,detectedY);
+
+		for (var a = 0; a < animatedTileList.length; a++) {
+			if (animatedTileList[a].arrayIndex == detectedArrayIndex) {
+				if (animatedTileList[a].tileType == TILE_NEXT_LEVEL) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}	
+
 	this.gotHit = function(addedFrustration) {
 		if (this.invincible) {
 			return;
@@ -279,52 +312,48 @@ function playerClass() {
 				arrayOfChopSFXs[random].play();
 				return;
 			}
-			if (musicOptions) {
-				if (this.axeHitbox.isCollidingWith(musicB1)) {
-					hit = true;
-					hitMusicB1 = true;
-					pendingShakes = HIT_SHAKE_COUNT * 2;
-					console.log("hit music button 1 screen!");
-					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
-					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
-					arrayOfChopSFXs[random].play();
-					return;
-				}
-				if (this.axeHitbox.isCollidingWith(musicB2)) {
-					hit = true;
-					hitMusicB2 = true;
-					pendingShakes = HIT_SHAKE_COUNT * 2;
-					console.log("hit music button 2 screen!");
-					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
-					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
-					arrayOfChopSFXs[random].play();
-					return;
-				}
-			} if (sfxOptions) {
-				if (this.axeHitbox.isCollidingWith(sfxB1)) {
-					hit = true;
-					hitSfxB1 = true;
-					pendingShakes = HIT_SHAKE_COUNT * 2;
-					console.log("hit sfx button 1 screen!");
-					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
-					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
-					arrayOfChopSFXs[random].play();
-					return;
-				}
-				if (this.axeHitbox.isCollidingWith(sfxB2)) {
-					hit = true;
-					hitSfxB2 = true;
-					pendingShakes = HIT_SHAKE_COUNT * 2;
-					console.log("hit sfx button 2 screen!");
-					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
-					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
-					arrayOfChopSFXs[random].play();
-					return;
-				}
+			if (this.axeHitbox.isCollidingWith(musicB1)) {
+				hit = true;
+				hitMusicPlus = true;
+				pendingShakes = HIT_SHAKE_COUNT * 2;
+				console.log("hit music button 1 screen!");
+				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+				arrayOfChopSFXs[random].play();
+				return;
 			}
-
-
+			if (this.axeHitbox.isCollidingWith(musicB2)) {
+				hit = true;
+				hitMusicMinus = true;
+				pendingShakes = HIT_SHAKE_COUNT * 2;
+				console.log("hit music button 2 screen!");
+				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+				arrayOfChopSFXs[random].play();
+				return;
+			}
+			if (this.axeHitbox.isCollidingWith(sfxB1)) {
+				hit = true;
+				hitSfxPlus = true;
+				pendingShakes = HIT_SHAKE_COUNT * 2;
+				console.log("hit sfx button 1 screen!");
+				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+				arrayOfChopSFXs[random].play();
+				return;
+			}
+			if (this.axeHitbox.isCollidingWith(sfxB2)) {
+				hit = true;
+				hitSfxMinus = true;
+				pendingShakes = HIT_SHAKE_COUNT * 2;
+				console.log("hit sfx button 2 screen!");
+				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+				arrayOfChopSFXs[random].play();
+				return;
+			}
 		}
+
 		for (var j = 0; j < objectList.length; j++) {
 			var object = objectList[j];
 			if (object.hasHitbox) {
@@ -607,17 +636,6 @@ function isTileTypeCollidable(tileType) {
 			break;
 		return false;
 	}
-}
-
-function checkNextLevelTrigger(){
-	if(	getTileTypeAtPixelCoord(player.hitbox.x, player.hitbox.y) == TILE_NEXT_LEVEL ||
-		getTileTypeAtPixelCoord(player.hitbox.x+player.hitbox.w, player.hitbox.y) == TILE_NEXT_LEVEL ||
-		getTileTypeAtPixelCoord(player.hitbox.x, player.hitbox.y+player.hitbox.h) == TILE_NEXT_LEVEL ||
-		getTileTypeAtPixelCoord(player.hitbox.x+player.hitbox.w, player.hitbox.y+player.hitbox.h) == TILE_NEXT_LEVEL)
-	{
-		return true;
-	}
-	return false;
 }
 
 /*if ( standardCollisionTiles.indexOf(worldGrid[getTileIndexAtPixelCoord(player.hitbox.x, player.hitbox.y)]) > -1 ||
