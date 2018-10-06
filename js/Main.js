@@ -65,7 +65,7 @@ function drawAll() {
 					drawOptionsMenu();
 				//} else if (creditsMenu) {
 					// drawCreditsMenu():
-				} else {
+				}else {
 					drawOpeningMenu();
 				}
 				drawAndRemoveAllObjects();

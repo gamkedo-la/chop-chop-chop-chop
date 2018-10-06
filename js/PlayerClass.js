@@ -200,7 +200,13 @@ function playerClass() {
 		var newGame = titleScreenHitboxes[1];
 		var options = titleScreenHitboxes[2];
 		var optionsTitle = optionScreenHitBoxes[0];
-		var back = optionScreenHitBoxes[1];
+		var music = optionScreenHitBoxes[1];
+		var sfx = optionScreenHitBoxes[2]
+		var back = optionScreenHitBoxes[3];
+		var musicB1 = musicHitboxes[0];
+		var musicB2 = musicHitboxes[1];
+		var sfxB1 = sfxHitboxes[0];
+		var sfxB2 = sfxHitboxes[1];
 		if (openingMenuIsRunning) {
 			if (this.axeHitbox.isCollidingWith(chopTitle)) {
 				hit = true;
@@ -243,6 +249,26 @@ function playerClass() {
 				arrayOfChopSFXs[random].play();
 				return;
 			}
+			if (this.axeHitbox.isCollidingWith(music)) {
+				hit = true;
+				hitMusic = true;
+				pendingShakes = HIT_SHAKE_COUNT * 2;
+				console.log("hit music screen!");
+				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+				arrayOfChopSFXs[random].play();
+				return;
+			}
+			if (this.axeHitbox.isCollidingWith(sfx)) {
+				hit = true;
+				hitSFX = true;
+				pendingShakes = HIT_SHAKE_COUNT * 2;
+				console.log("hit sfx screen!");
+				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+				arrayOfChopSFXs[random].play();
+				return;
+			}
 			if (this.axeHitbox.isCollidingWith(back)) {
 				hit = true;
 				hitBack = true;
@@ -253,6 +279,51 @@ function playerClass() {
 				arrayOfChopSFXs[random].play();
 				return;
 			}
+			if (musicOptions) {
+				if (this.axeHitbox.isCollidingWith(musicB1)) {
+					hit = true;
+					hitMusicB1 = true;
+					pendingShakes = HIT_SHAKE_COUNT * 2;
+					console.log("hit music button 1 screen!");
+					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+					arrayOfChopSFXs[random].play();
+					return;
+				}
+				if (this.axeHitbox.isCollidingWith(musicB2)) {
+					hit = true;
+					hitMusicB2 = true;
+					pendingShakes = HIT_SHAKE_COUNT * 2;
+					console.log("hit music button 2 screen!");
+					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+					arrayOfChopSFXs[random].play();
+					return;
+				}
+			} if (sfxOptions) {
+				if (this.axeHitbox.isCollidingWith(sfxB1)) {
+					hit = true;
+					hitSfxB1 = true;
+					pendingShakes = HIT_SHAKE_COUNT * 2;
+					console.log("hit sfx button 1 screen!");
+					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+					arrayOfChopSFXs[random].play();
+					return;
+				}
+				if (this.axeHitbox.isCollidingWith(sfxB2)) {
+					hit = true;
+					hitSfxB2 = true;
+					pendingShakes = HIT_SHAKE_COUNT * 2;
+					console.log("hit sfx button 2 screen!");
+					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+					arrayOfChopSFXs[random].play();
+					return;
+				}
+			}
+
+
 		}
 		for (var j = 0; j < objectList.length; j++) {
 			var object = objectList[j];
