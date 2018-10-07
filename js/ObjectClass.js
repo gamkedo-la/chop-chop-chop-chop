@@ -10,9 +10,11 @@ var trees = [TILE_SMALL_TREE,TILE_SMALL_TREE_ALT,TILE_TALL_TREE,
 var stumps = [TILE_STUMP_ALT,TILE_STUMP,TILE_LOLLIPOP_STUMP,
 				TILE_STALAGMITE_STUMP,TILE_NORMAL_STUMP,TILE_NORMAL_STUMP_ALT,
 				TILE_PUFFY_STUMP, TILE_WILLOW_STUMP];
+var moonObjects = [TILE_MOON_LARGE_CRATER_1,TILE_MOON_LARGE_CRATER_2];
 var replacements = [
 TILE_REPLACE_TREE,
-TILE_REPLACE_STUMP]
+TILE_REPLACE_STUMP,
+TILE_MOON_OBJECT]
 
 function objectClass (newObject) {
 	this.object = newObject;
@@ -124,6 +126,8 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 		case TILE_NORMAL_STUMP:
 		case TILE_NORMAL_STUMP_ALT:
 		case TILE_PUFFY_STUMP:
+		case TILE_MOON_LARGE_CRATER_1:
+		case TILE_MOON_LARGE_CRATER_2:
 			newObject = new standardStumpClass(tileType, arrayIndex, hiddenTile);
 			break;
 	}
@@ -136,6 +140,8 @@ function replaceTiles(arrayIndex) {
 		worldGrid[arrayIndex] = TILE_REPLACE_TREE;
 	} else if (stumps.indexOf(worldGrid[arrayIndex]) > -1) {
 		worldGrid[arrayIndex] = TILE_REPLACE_STUMP;
+	} else if (moonObjects.indexOf(worldGrid[arrayIndex]) > -1) {
+		worldGrid[arrayIndex] = TILE_MOON_OBJECT;
 	}
 }
 

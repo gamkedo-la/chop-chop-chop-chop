@@ -38,6 +38,7 @@ var mouseX = 0;
 var mouseY = 0;
 var mouseCanvasY = 0;
 var mouseCanvasX = 0;
+var continuousClick;
 
 var leftKeyHeld = false;
 var upKeyHeld = false;
@@ -54,10 +55,13 @@ function setupInput() {
     document.addEventListener("keyup", keyReleased);
    	canvas.addEventListener('mousemove', updateMousePos);
 	canvas.addEventListener('mousedown',function() {
-		interval = setInterval(editTileOnMouseClick, 1);
+		continuousClick = setInterval(editTileOnMouseClick, 1);
 	});
 	canvas.addEventListener('mouseup',function() {
-		clearInterval(interval)
+		clearInterval(continuousClick);
+	});
+	canvas.addEventListener('mouseout',function() {
+		clearInterval(continuousClick);
 	});
 };
 
@@ -66,6 +70,9 @@ function updateMousePos(evt) {
 	var root = document.documentElement;
 	mouseX = evt.clientX - rect.left;
 	mouseY = evt.clientY - rect.top;
+	if (mouseX > canvas.width || mouseY > canvas.height) {
+		clearInterval(continuousClick);
+	}
 	mouseCanvasX = mouseX + cameraPanX;
 	mouseCanvasY = mouseY + cameraPanY;
 }
@@ -76,6 +83,7 @@ function keyHoldState(keyHeld, setTo) {
 
 function windowOnBlur() {
 	clearInterval(gameUpdate);
+	clearInterval(continuousClick);
 	gameUpdate = null;
 }
 

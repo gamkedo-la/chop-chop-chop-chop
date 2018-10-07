@@ -1,5 +1,6 @@
 const TILE_W = TILE_H = 32;
 
+const TILE_MOON_OBJECT = -09;
 const TILE_REPLACE_ANIMATED_TILE = -08;
 const TILE_REPLACE_WATERFALL = -07;
 const TILE_REPLACE_WATER = -05;
@@ -132,7 +133,9 @@ const TILE_WILLOW_STUMP = 607;
 const TILE_MOON_CRATERS_1 = 700;
 const TILE_MOON_CRATERS_2 = 701;
 const TILE_MOON_CRATERS_3 = 702;
-const TILE_MOON_REFLECTOR = 703;
+const TILE_MOON_LARGE_CRATER_1 = 703;
+const TILE_MOON_LARGE_CRATER_2 = 704;
+const TILE_MOON_REFLECTOR = 705;
 
 // Animals
 const TILE_DEATH_CAT = 800;
@@ -177,7 +180,11 @@ function drawWorld() {
 			if (isTileTypeAnimated(tileKindHere)) {
 				setupAnimatedTiles(tileKindHere,drawTileX,drawTileY,arrayIndex);
 			} else if (isTileTypeAnObject(tileKindHere)) {
-				canvasContext.drawImage(worldPics[TILE_TERRAIN], drawTileX, drawTileY);
+				if (currentLevelIndex == 3) {
+					canvasContext.drawImage(worldPics[TILE_MOON_TERRAIN], drawTileX, drawTileY);
+				} else {
+					canvasContext.drawImage(worldPics[TILE_TERRAIN], drawTileX, drawTileY);
+				}
 				spawnObjectBasedOnTile(tileKindHere, arrayIndex, worldGrid[arrayIndex - worldCols])
 				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX, drawTileY);
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
@@ -235,6 +242,8 @@ function isTileTypeAnObject(tileType) {
 		case TILE_NORMAL_STUMP_ALT:
 		case TILE_WILLOW_STUMP:
 		case TILE_PUFFY_STUMP:
+		case TILE_MOON_LARGE_CRATER_1:
+		case TILE_MOON_LARGE_CRATER_2:
 			return true;
 			break;
 	}
@@ -406,10 +415,10 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 	}
 }
 
-function getArrayIndexFromList(tileTypeToCheck, ListToCheck) {
-	for (var i = 0; i < ListToCheck.length; i++) {
-		if (ListToCheck[i].tileType === tileTypeToCheck) {
-			return ListToCheck[i].arrayIndex;
+function getArrayIndexFromList(tileTypeToCheck, listToCheck) {
+	for (var i = 0; i < listToCheck.length; i++) {
+		if (listToCheck[i].tileType === tileTypeToCheck) {
+			return listToCheck[i].arrayIndex;
 		}
 	}
 }

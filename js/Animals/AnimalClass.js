@@ -235,9 +235,11 @@ function animalClass (newAnimal) {
 		} else if (this.returning) { // else return home
 				if (this.playingChaseMusic) {
 					this.playingChaseMusic = false;
-					backgroundMusic.pause();
-					backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
-					backgroundMusic.play();
+					if (!havingAMoment) {
+						backgroundMusic.pause();
+						backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+						backgroundMusic.play();
+					}
 				}
 
 				var moveXTowardHome = this.x < this.idlePosition.x ? this.speed : -this.speed;
