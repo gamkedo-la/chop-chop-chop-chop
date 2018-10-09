@@ -118,6 +118,8 @@ function loadImages() {
         { worldType: TILE_PUFFY_TREE, theFile: "p_tree.png" },
         { worldType: TILE_LOLLIPOP, theFile: "lollipop.png" },
         { worldType: TILE_TALL_TREE, theFile: "tall_tree.png" },
+        { worldType: TILE_MOON_TREE_1, theFile: "moon_tree_1.png" },
+        { worldType: TILE_MOON_TREE_1_STUMP, theFile: "moon_tree_1_stump.png" },
         { worldType: TILE_STALAGMITE, theFile: "stalagmite.png" },
         { worldType: TILE_REPLACE_TREE, theFile: "terrain.png" }, 
 

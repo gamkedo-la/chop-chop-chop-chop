@@ -58,7 +58,9 @@ const TILE_STALAGMITE = 204;
 const TILE_NORMAL_TREE = 205;
 const TILE_NORMAL_TREE_ALT = 206;
 const TILE_PUFFY_TREE = 207;
-const TILE_WILLOW_TREE = 208
+const TILE_WILLOW_TREE = 208;
+const TILE_MOON_TREE_1 = 209;
+const TILE_MOON_TREE_1_STUMP = 210;
 
 // Cliffs,Pits and Waterfalls
 const TILE_CLIFF_TOP_LEFT = 300;

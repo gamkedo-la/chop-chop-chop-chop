@@ -4,10 +4,10 @@ const HIT_SHAKE_SPEED = 0.1; // 0.1=fast, 5=slow
 const HIT_SHAKE_SIZE = 2; // size of wobble
 
 var objectList = [];
-var trees = [TILE_SMALL_TREE,TILE_SMALL_TREE_ALT,TILE_TALL_TREE,
+var trees = [TILE_SMALL_TREE,TILE_SMALL_TREE_ALT,TILE_TALL_TREE,TILE_MOON_TREE_1,
 				TILE_LOLLIPOP,TILE_STALAGMITE,TILE_NORMAL_TREE,
 				TILE_NORMAL_TREE_ALT,TILE_PUFFY_TREE, TILE_WILLOW_TREE];
-var stumps = [TILE_STUMP_ALT,TILE_STUMP,TILE_LOLLIPOP_STUMP,
+var stumps = [TILE_STUMP_ALT,TILE_STUMP,TILE_LOLLIPOP_STUMP,TILE_MOON_TREE_1_STUMP,
 				TILE_STALAGMITE_STUMP,TILE_NORMAL_STUMP,TILE_NORMAL_STUMP_ALT,
 				TILE_PUFFY_STUMP, TILE_WILLOW_STUMP];
 var moonObjects = [TILE_MOON_LARGE_CRATER_1,TILE_MOON_LARGE_CRATER_2];
@@ -82,7 +82,8 @@ function objectClass (newObject) {
 			
 			var yoffset = 0; // to make things come from higher up if reqd
 			var prefix = ""; // to change "leaf" to "tall_leaf"
-			if (this.tileType == TILE_TALL_TREE) {
+			if (this.tileType == TILE_TALL_TREE || 
+				this.tileType == TILE_MOON_TREE_1) {
 				yoffset = -64;
 				prefix = "tall_";
 			}
@@ -111,6 +112,7 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 		case TILE_SMALL_TREE_ALT:
 		case TILE_WILLOW_TREE:
 		case TILE_TALL_TREE:
+		case TILE_MOON_TREE_1:
 		case TILE_LOLLIPOP:
 		case TILE_STALAGMITE:
 		case TILE_NORMAL_TREE:
@@ -122,6 +124,7 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 		case TILE_STUMP_ALT:
 		case TILE_WILLOW_STUMP:
 		case TILE_LOLLIPOP_STUMP:
+		case TILE_MOON_TREE_1_STUMP:
 		case TILE_STALAGMITE_STUMP:
 		case TILE_NORMAL_STUMP:
 		case TILE_NORMAL_STUMP_ALT:
@@ -154,6 +157,9 @@ function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {
 		case TILE_SMALL_TREE_ALT:		
 		case TILE_TALL_TREE:
 			worldGrid[arrayIndex] = TILE_STUMP_ALT;
+		break;
+		case TILE_MOON_TREE_1:
+			worldGrid[arrayIndex] = TILE_MOON_TREE_1_STUMP;
 		break;
 		case TILE_WILLOW_TREE:
 			worldGrid[arrayIndex] = TILE_WILLOW_STUMP;
