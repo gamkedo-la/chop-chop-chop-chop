@@ -105,6 +105,9 @@ function loadImages() {
         { worldType: TILE_MOON_REFLECTOR, theFile: "moon_reflector.png" }, 
         { worldType: TILE_MOON_LARGE_CRATER_1, theFile: "Moon_Crater_Short_Large_1.png"},
         { worldType: TILE_MOON_LARGE_CRATER_2, theFile: "Moon_Crater_Short_Small_1.png"},
+        { worldType: TILE_MOON_BOXES, theFile: "moon_crates.png"},
+        { worldType: TILE_MOON_FLAG, theFile: "moon_flag.png"},
+        { worldType: TILE_MOON_HOME, theFile: "moon_home.png"},
         { worldType: TILE_MOON_OBJECT, theFile: "moon_terrain.png" },
         
         { worldType: TILE_SMALL_TREE, theFile: "tree1.png" },

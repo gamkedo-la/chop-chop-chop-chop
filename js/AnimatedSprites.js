@@ -158,7 +158,7 @@ function AnimatedSpriteClass(data) {
 									this.spriteSheet.width/this.animationColFrames, 
 									this.spriteSheet.height/this.animationRowFrames,
 									offsetInRelationToRotationX, offsetInRelationToRotationY,
-									this.spriteSheet.width/this.animationColFrames, 
+									(this.spriteSheet.width/this.animationColFrames), 
 									this.spriteSheet.height/this.animationRowFrames);
 			} else if (flipped) {
 				canvasContext.drawImage(this.spriteSheet,

@@ -82,7 +82,7 @@ function drawAll() {
 					drawRect(0,0,1600,1600,"black", savedAlpha);
 				}
 			} else if (waitBuffer >= 85) {
-				// TODO: Transition? Intro?
+				// TODO: Intro?
 				canvasContext.globalAlpha = 1.0;
 				countdownTimerPaused = false;
 				openingMenuIsRunning = false; 
