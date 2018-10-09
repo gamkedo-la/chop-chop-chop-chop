@@ -119,6 +119,8 @@ function loadImages() {
         { worldType: TILE_LOLLIPOP, theFile: "lollipop.png" },
         { worldType: TILE_TALL_TREE, theFile: "tall_tree.png" },
         { worldType: TILE_STALAGMITE, theFile: "stalagmite.png" },
+        { worldType: TILE_MOON_TREE_2, theFile: "moon_tree_2.png" },
+
         { worldType: TILE_REPLACE_TREE, theFile: "terrain.png" }, 
 
         { worldType: TILE_STUMP, theFile: "stump1.png" },
@@ -129,6 +131,8 @@ function loadImages() {
         { worldType: TILE_PUFFY_STUMP, theFile: "p_stump.png" },
         { worldType: TILE_LOLLIPOP_STUMP, theFile: "lollipop_stump.png" },
         { worldType: TILE_STALAGMITE_STUMP, theFile: "stalagmite_stump.png" },
+        { worldType: TILE_MOON_TREE_2_STUMP, theFile: "moon_tree_2_stump.png" },
+
         { worldType: TILE_REPLACE_STUMP, theFile: "terrain.png" },
 
         { worldType: TILE_WATER, theFile: "water.png" },

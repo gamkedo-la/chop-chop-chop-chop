@@ -10,7 +10,8 @@ var trees = [TILE_SMALL_TREE,TILE_SMALL_TREE_ALT,TILE_TALL_TREE,
 var stumps = [TILE_STUMP_ALT,TILE_STUMP,TILE_LOLLIPOP_STUMP,
 				TILE_STALAGMITE_STUMP,TILE_NORMAL_STUMP,TILE_NORMAL_STUMP_ALT,
 				TILE_PUFFY_STUMP, TILE_WILLOW_STUMP];
-var moonObjects = [TILE_MOON_LARGE_CRATER_1,TILE_MOON_LARGE_CRATER_2];
+var moonObjects = [TILE_MOON_LARGE_CRATER_1,TILE_MOON_LARGE_CRATER_2,
+					TILE_MOON_TREE_2,TILE_MOON_TREE_2_STUMP];
 var replacements = [
 TILE_REPLACE_TREE,
 TILE_REPLACE_STUMP,
@@ -116,6 +117,7 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 		case TILE_NORMAL_TREE:
 		case TILE_NORMAL_TREE_ALT:		
 		case TILE_PUFFY_TREE:
+		case TILE_MOON_TREE_2:
 			newObject = new standardTreeClass(tileType, arrayIndex, hiddenTile);
 			break;
 		case TILE_STUMP:
@@ -128,6 +130,7 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 		case TILE_PUFFY_STUMP:
 		case TILE_MOON_LARGE_CRATER_1:
 		case TILE_MOON_LARGE_CRATER_2:
+		case TILE_MOON_TREE_2_STUMP:
 			newObject = new standardStumpClass(tileType, arrayIndex, hiddenTile);
 			break;
 	}
@@ -172,6 +175,9 @@ function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {
 			break;
 		case TILE_PUFFY_TREE:
 			worldGrid[arrayIndex] = TILE_PUFFY_STUMP;
+			break; 
+		case TILE_MOON_TREE_2:
+			worldGrid[arrayIndex] = TILE_MOON_TREE_2_STUMP;
 			break;
 	}
 }
@@ -201,20 +207,3 @@ function drawAndRemoveAllObjects() {
 		}
 	}
 }
-
-function tileTypeGetsHitbox(tileType) {
-	switch (tileType) {
-		case TILE_SMALL_TREE:
-		case TILE_SMALL_TREE_ALT:
-		case TILE_WILLOW_TREE:
-		case TILE_TALL_TREE:
-		case TILE_LOLLIPOP:
-		case TILE_STALAGMITE:
-			return true;
-			break;
-		default: 
-			return false;
-			break;
-	}
-}
-
