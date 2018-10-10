@@ -115,7 +115,7 @@ function keyPressed(evt) {
 			break;
 		case SPACEBAR:
 			spacebarKeyHeld = true;
-            toggleScrollText();
+            toggleScrollTextPause();
 			break;
 		case NUMBER_PAD_PLUS:
 		case KEY_PLUS:

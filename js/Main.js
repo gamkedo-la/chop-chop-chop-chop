@@ -17,7 +17,7 @@ var savedAlpha = 0;
 var scroll = 0;
 var scrollSpeed = 2;
 var pixelsSkipPerLine = 45;
-var pauseScrollText = false;
+var scrollingTextPaused = false;
 
 var testList = ["Hello there", "You can hold [Z] to make me go faster", "Am I going too fast? Spress [SPACE] to pause me"];
 
@@ -155,11 +155,11 @@ let toggleDebug = () => {
 	debug = !debug;
 }
 
-function toggleScrollText() {
-    pauseScrollText = !pauseScrollText;
-   if (pauseScrollText) {
+function toggleScrollTextPause() {
+    scrollingTextPaused = !scrollingTextPaused;
+   if (scrollingTextPaused) {
         scrollSpeed = 0;
-    } else if (!pauseScrollText) {
+    } else {
         scrollSpeed = 2;
     }
 }
@@ -176,19 +176,19 @@ function drawScrollingText(textList) {
 }
 
 function rewindScrollText() {
-    if (!pauseScrollText) {
+    if (!scrollingTextPaused) {
         scrollSpeed = -8; 
     }
 }
 
 function fastForwardScrollText() {
-    if (!pauseScrollText) {
+    if (!scrollingTextPaused) {
         scrollSpeed = 10;
     }
 }
 
 function resetScrollSpeed() {
-    if (!pauseScrollText) {
+    if (!scrollingTextPaused) {
         scrollSpeed = 2;
     }
 }
