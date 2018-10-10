@@ -14,9 +14,10 @@ var debug = false;
 var havingAMoment = false;
 var savedAlpha = 0;
 
-var step = 0;
+var scroll = 0;
 var scrollSpeed = 2;
 var pixelsSkipPerLine = 40;
+
 var testList = ["Hello there", "I'm an extra long second line to test how long I can go", "I'm another line. I'm not so sure why I'm here", "k bye"];
 
 window.onload = function () {
@@ -154,10 +155,10 @@ let toggleDebug = () => {
 }
 
 function scrollText(textList) {
-    step -= scrollSpeed;
+    scroll -= scrollSpeed;
     canvasContext.clearRect(0, 0, canvasContext.measureText(textList), canvasContext.measureText(textList));
     canvasContext.save();
-    canvasContext.translate(canvas.width / 2, step);
+    canvasContext.translate(canvas.width / 2, scroll);
     for(var i = 0; i < textList.length; i++) {
       colorText(textList[i], 0, canvas.height + i * pixelsSkipPerLine, "white", "20pt Verdana", "center", 1);
     }
