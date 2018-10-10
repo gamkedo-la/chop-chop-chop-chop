@@ -16,9 +16,10 @@ var savedAlpha = 0;
 
 var scroll = 0;
 var scrollSpeed = 2;
-var pixelsSkipPerLine = 40;
+var pixelsSkipPerLine = 45;
+var pauseScrollText = false;
 
-var testList = ["Hello there", "I'm an extra long second line to test how long I can go", "I'm another line. I'm not so sure why I'm here", "k bye"];
+var testList = ["Hello there", "You can hold [Z] to make me go faster", "Or you can press to [X] to rewind me", "Am I going too fast? Spress [SPACE] to pause me"];
 
 window.onload = function () {
 	canvas = document.createElement("canvas");
@@ -154,7 +155,15 @@ let toggleDebug = () => {
 	debug = !debug;
 }
 
-function scrollText(textList) {
+function toggleScrollText() {
+   if (pauseScrollText) {
+        scrollSpeed = 0;
+    } else if (!pauseScrollText) {
+        scrollSpeed = 2;
+    }
+}
+
+function drawScrollingText(textList) {
     scroll -= scrollSpeed;
     canvasContext.clearRect(0, 0, canvasContext.measureText(textList), canvasContext.measureText(textList));
     canvasContext.save();

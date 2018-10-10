@@ -115,7 +115,8 @@ function keyPressed(evt) {
 			break;
 		case SPACEBAR:
 			spacebarKeyHeld = true;
-            scrollSpeed = 10;
+            pauseScrollText = !pauseScrollText;
+            toggleScrollText();
 			break;
 		case NUMBER_PAD_PLUS:
 		case KEY_PLUS:
@@ -170,6 +171,10 @@ function keyPressed(evt) {
 					currentSetIndex = 0;
 				}
 			}
+            
+            if (!pauseScrollText) {
+                scrollSpeed = -10;
+            }
 		break;
 		case Z_KEY:
 			if (worldEditor) {
@@ -184,7 +189,11 @@ function keyPressed(evt) {
 						}
 					}
 				}
-			}
+			} 
+            
+            if (!pauseScrollText) {
+                scrollSpeed = 10; 
+            }
 		break;
 		case KEY_LEFT_SHIFT:
 			copyToClipboard();
@@ -259,7 +268,16 @@ function keyReleased(evt) {
             downKeyHeld = false;
         case SPACEBAR:
 			spacebarKeyHeld = false;
-            scrollSpeed = 2;
+            break;
+        case Z_KEY:
+            if (!pauseScrollText) {
+               scrollSpeed = 2; 
+            }
+            break;
+        case X_KEY:
+             if (!pauseScrollText) {
+                scrollSpeed = 2;
+            }
             break;
 	}
 };
