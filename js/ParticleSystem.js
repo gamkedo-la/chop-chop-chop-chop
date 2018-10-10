@@ -27,6 +27,7 @@ var particleDefs = [
 	{type: 'tall_debris0', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 22+112, isLeaf:true, sprite:"debris0" },
 	{type: 'tall_debris1', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 28+112, isLeaf:true, sprite:"debris1" },
 	{type: 'tall_debris2', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 24+112, isLeaf:true, sprite:"debris2" },
+	{type: 'moon_tree_1_leaf', howMany: 1, startSpeed: 0.65, howLong: 1000, gravity: 0.010, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 48, isLeaf:true, sprite:"spore" },
 	{type: 'grindstone_sparks', howMany: 1, startSpeed: 2, howLong: 150, gravity: 0.06, startAng: -200, angSpreadDeg: 25, color: 'white', floorDist: 24},				
 
 ];

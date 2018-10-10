@@ -11,6 +11,7 @@ var stumps = [TILE_STUMP_ALT,TILE_STUMP,TILE_LOLLIPOP_STUMP,
 				TILE_STALAGMITE_STUMP,TILE_NORMAL_STUMP,TILE_NORMAL_STUMP_ALT,
 				TILE_PUFFY_STUMP, TILE_WILLOW_STUMP];
 var moonObjects = [TILE_MOON_LARGE_CRATER_1,TILE_MOON_LARGE_CRATER_2,
+					TILE_MOON_TREE_1, TILE_MOON_TREE_1_STUMP,
 					TILE_MOON_TREE_2,TILE_MOON_TREE_2_STUMP];
 var replacements = [
 TILE_REPLACE_TREE,
@@ -83,9 +84,14 @@ function objectClass (newObject) {
 			
 			var yoffset = 0; // to make things come from higher up if reqd
 			var prefix = ""; // to change "leaf" to "tall_leaf"
-			if (this.tileType == TILE_TALL_TREE) {
+			if (this.tileType == TILE_TALL_TREE || 
+				this.tileType == TILE_MOON_TREE_1) {
 				yoffset = -64;
 				prefix = "tall_";
+			}
+
+			if (this.tileType == TILE_MOON_TREE_2) {
+				prefix = "moon_tree_1_";
 			}
 			
 			var leavesToSpawn = 12;
@@ -112,6 +118,7 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 		case TILE_SMALL_TREE_ALT:
 		case TILE_WILLOW_TREE:
 		case TILE_TALL_TREE:
+		case TILE_MOON_TREE_1:
 		case TILE_LOLLIPOP:
 		case TILE_STALAGMITE:
 		case TILE_NORMAL_TREE:
@@ -124,6 +131,7 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 		case TILE_STUMP_ALT:
 		case TILE_WILLOW_STUMP:
 		case TILE_LOLLIPOP_STUMP:
+		case TILE_MOON_TREE_1_STUMP:
 		case TILE_STALAGMITE_STUMP:
 		case TILE_NORMAL_STUMP:
 		case TILE_NORMAL_STUMP_ALT:
@@ -157,6 +165,9 @@ function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {
 		case TILE_SMALL_TREE_ALT:		
 		case TILE_TALL_TREE:
 			worldGrid[arrayIndex] = TILE_STUMP_ALT;
+		break;
+		case TILE_MOON_TREE_1:
+			worldGrid[arrayIndex] = TILE_MOON_TREE_1_STUMP;
 		break;
 		case TILE_WILLOW_TREE:
 			worldGrid[arrayIndex] = TILE_WILLOW_STUMP;
