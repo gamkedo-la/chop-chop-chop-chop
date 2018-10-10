@@ -82,7 +82,9 @@ function copyToClipboard() {
 			layoutString += "00" + allLevels[currentLevelIndex].layout[i].toString() + ",";
 		} else if (allLevels[currentLevelIndex].layout[i] == 1) {
 			layoutString += "00" + allLevels[currentLevelIndex].layout[i].toString() + ",";
-		} else if (allLevels[currentLevelIndex].layout[i] == TILE_EXTEND_COLLISION) {
+		} else if (allLevels[currentLevelIndex].layout[i] == 2) {
+			layoutString += "00" + allLevels[currentLevelIndex].layout[i].toString() + ",";
+		/*} else if (allLevels[currentLevelIndex].layout[i] == TILE_EXTEND_COLLISION) {
 			for (var j = 0; j < objectList.length; j++) {
 				if (objectList[j].arrayIndex == (i + worldCols)) {
 					numberPrintOut = objectList[j].hiddenTile;
@@ -92,7 +94,7 @@ function copyToClipboard() {
 						layoutString += "" + numberPrintOut + ",";
 					}
 				}
-			}
+			}*/
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_WATER) {
 			numberPrintOut = "400";
 			for (var n = 0; n < animalList.length; n++) {
