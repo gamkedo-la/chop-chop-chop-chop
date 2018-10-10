@@ -15,6 +15,7 @@ var havingAMoment = false;
 var savedAlpha = 0;
 
 var step = 0;
+var scrollSpeed = 2;
 
 window.onload = function () {
 	canvas = document.createElement("canvas");
@@ -158,8 +159,8 @@ function initScroll() {
     step = 0;
 }
  
-function scrollText(enterText, speed) {
-    step -= 2;
+function scrollText(enterText) {
+    step -= scrollSpeed;
     canvasContext.clearRect(0, 0, canvasContext.measureText(enterText), canvasContext.measureText(enterText));
     canvasContext.save();
     canvasContext.translate(canvas.width / 2, step);
