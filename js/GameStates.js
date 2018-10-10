@@ -49,6 +49,7 @@ function drawOpeningMenu() {
 			pendingShakes--;
 		}
 	}
+    scrollText("Wow, look at me go!");
 	drawPixelfont("New Game", newGameX, canvas.height / 2 + 40,16,16);
 	var newGameHitbox = new colliderClass(newGameX + ((measurePixelfont("New Game") * 1.38)/2),
 										canvas.height / 2 + 47, 
@@ -216,7 +217,6 @@ function drawMusicAndSfxOptions() {
 										measurePixelfont("+") * 1.5, 16,
 										0,0);
 	//sfxB1Hitbox.draw("blue");	
-
 	if (hitSfxMinus) {
 		if (pendingShakes) { 
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);

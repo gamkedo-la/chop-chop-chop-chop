@@ -14,6 +14,8 @@ var debug = false;
 var havingAMoment = false;
 var savedAlpha = 0;
 
+var step = 0;
+
 window.onload = function () {
 	canvas = document.createElement("canvas");
 	canvasContext = canvas.getContext("2d");
@@ -27,6 +29,7 @@ window.onload = function () {
 	setupInput();
 	loadImages();
 	makeAnimatedSprites();
+    initScroll();
 };
 
 function loadingDoneSoStartGame() {
@@ -146,4 +149,21 @@ function moveAll() {
 
 let toggleDebug = () => {
 	debug = !debug;
+}
+
+function initScroll() {
+    canvasContext.fillStyle = "white";
+    canvasContext.font = "20pt Verdana";
+    canvasContext.textAlign = "center";
+    step = 0;
+}
+ 
+function scrollText(enterText, speed) {
+    step -= 2;
+    canvasContext.clearRect(0, 0, canvasContext.measureText(enterText), canvasContext.measureText(enterText));
+    canvasContext.save();
+    canvasContext.translate(canvas.width / 2, step);
+    canvasContext.fillText(enterText, 0, canvas.height);
+    canvasContext.restore();     
+    
 }
