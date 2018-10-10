@@ -30,7 +30,6 @@ window.onload = function () {
 	setupInput();
 	loadImages();
 	makeAnimatedSprites();
-    initScroll();
 };
 
 function loadingDoneSoStartGame() {
@@ -152,19 +151,11 @@ let toggleDebug = () => {
 	debug = !debug;
 }
 
-function initScroll() {
-    canvasContext.fillStyle = "white";
-    canvasContext.font = "20pt Verdana";
-    canvasContext.textAlign = "center";
-    step = 0;
-}
- 
 function scrollText(enterText) {
     step -= scrollSpeed;
     canvasContext.clearRect(0, 0, canvasContext.measureText(enterText), canvasContext.measureText(enterText));
     canvasContext.save();
     canvasContext.translate(canvas.width / 2, step);
-    canvasContext.fillText(enterText, 0, canvas.height);
+    colorText(enterText, 0, canvas.height, "white", "20pt Verdana", "center", 1);
     canvasContext.restore();     
-    
 }
