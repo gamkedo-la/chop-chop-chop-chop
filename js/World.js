@@ -62,6 +62,7 @@ const TILE_PUFFY_TREE = 207;
 const TILE_WILLOW_TREE = 208;
 const TILE_MOON_TREE_1 = 209;
 const TILE_MOON_TREE_2 = 210;
+const TILE_MOON_TREE_3 = 211;
 
 // Cliffs,Pits and Waterfalls
 const TILE_CLIFF_TOP_LEFT = 300;
@@ -133,6 +134,7 @@ const TILE_PUFFY_STUMP = 606;
 const TILE_WILLOW_STUMP = 607;
 const TILE_MOON_TREE_1_STUMP = 608;
 const TILE_MOON_TREE_2_STUMP = 609;
+const TILE_MOON_TREE_3_STUMP = 610;
 
 // Moon Tiles
 const TILE_MOON_CRATERS_1 = 700;
@@ -244,6 +246,7 @@ function isTileTypeAnObject(tileType) {
 		case TILE_PUFFY_TREE:
 		case TILE_MOON_TREE_1:
 		case TILE_MOON_TREE_2:
+		case TILE_MOON_TREE_3:
 		case TILE_STUMP:
 		case TILE_STUMP_ALT:
 		case TILE_LOLLIPOP_STUMP:
@@ -254,6 +257,7 @@ function isTileTypeAnObject(tileType) {
 		case TILE_PUFFY_STUMP:
 		case TILE_MOON_TREE_1_STUMP:
 		case TILE_MOON_TREE_2_STUMP:
+		case TILE_MOON_TREE_3_STUMP:
 		case TILE_MOON_LARGE_CRATER_1:
 		case TILE_MOON_LARGE_CRATER_2:
 			return true;

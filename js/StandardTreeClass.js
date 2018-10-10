@@ -36,6 +36,15 @@ function standardTreeClass (worldTileType,arrayIndex,hiddenTile) {
 		this.hasLeaves = false;
 	}
 
+	if (worldTileType == TILE_MOON_TREE_3) {
+		this.hasLeaves = false;
+		this.health = 3;
+		this.colliderWidth = this.width/4;
+		this.colliderHeight = this.height/2;
+		this.colliderOffsetY = 12;
+		this.colliderOffsetX -= 3;
+	}
+
 	if (worldTileType == TILE_LOLLIPOP) {
 		this.hasLeaves = false;
 		this.colliderWidth = TILE_W/4 - 4;
@@ -53,7 +62,6 @@ function standardTreeClass (worldTileType,arrayIndex,hiddenTile) {
 	}
 
 	if (worldTileType == TILE_NORMAL_TREE_ALT) {
-		this.hasLeaves = true;
 		this.health = 1;
 		this.x = position.x - this.width/4;
 		this.y = position.y - 1;

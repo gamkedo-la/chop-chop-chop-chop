@@ -122,6 +122,7 @@ function loadImages() {
         { worldType: TILE_STALAGMITE, theFile: "stalagmite.png" },
         { worldType: TILE_MOON_TREE_1, theFile: "moon_tree_1.png" },
         { worldType: TILE_MOON_TREE_2, theFile: "moon_tree_2.png" },
+        { worldType: TILE_MOON_TREE_3, theFile: "moon_tree_3.png" },
 
         { worldType: TILE_REPLACE_MOON_TREE, theFile: "moon_terrain.png" }, 
         { worldType: TILE_REPLACE_TREE, theFile: "terrain.png" }, 
@@ -136,6 +137,7 @@ function loadImages() {
         { worldType: TILE_STALAGMITE_STUMP, theFile: "stalagmite_stump.png" },
         { worldType: TILE_MOON_TREE_1_STUMP, theFile: "moon_tree_1_stump.png" },
         { worldType: TILE_MOON_TREE_2_STUMP, theFile: "moon_tree_2_stump.png" },
+        { worldType: TILE_MOON_TREE_3_STUMP, theFile: "moon_tree_3_stump.png" },
 
         { worldType: TILE_REPLACE_STUMP, theFile: "terrain.png" },
 
