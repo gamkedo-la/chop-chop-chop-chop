@@ -19,7 +19,7 @@ var scrollSpeed = 2;
 var pixelsSkipPerLine = 45;
 var pauseScrollText = false;
 
-var testList = ["Hello there", "You can hold [Z] to make me go faster", "Or you can press to [X] to rewind me", "Am I going too fast? Spress [SPACE] to pause me"];
+var testList = ["Hello there", "You can hold [Z] to make me go faster", "Am I going too fast? Spress [SPACE] to pause me"];
 
 window.onload = function () {
 	canvas = document.createElement("canvas");
@@ -156,6 +156,7 @@ let toggleDebug = () => {
 }
 
 function toggleScrollText() {
+    pauseScrollText = !pauseScrollText;
    if (pauseScrollText) {
         scrollSpeed = 0;
     } else if (!pauseScrollText) {
@@ -172,4 +173,22 @@ function drawScrollingText(textList) {
       colorText(textList[i], 0, canvas.height + i * pixelsSkipPerLine, "white", "20pt Verdana", "center", 1);
     }
     canvasContext.restore();
+}
+
+function rewindScrollText() {
+    if (!pauseScrollText) {
+        scrollSpeed = -8; 
+    }
+}
+
+function fastForwardScrollText() {
+    if (!pauseScrollText) {
+        scrollSpeed = 10;
+    }
+}
+
+function resetScrollSpeed() {
+    if (!pauseScrollText) {
+        scrollSpeed = 2;
+    }
 }
