@@ -115,6 +115,7 @@ function keyPressed(evt) {
 			break;
 		case SPACEBAR:
 			spacebarKeyHeld = true;
+            scrollSpeed = 10;
 			break;
 		case NUMBER_PAD_PLUS:
 		case KEY_PLUS:
@@ -258,6 +259,7 @@ function keyReleased(evt) {
             downKeyHeld = false;
         case SPACEBAR:
 			spacebarKeyHeld = false;
+            scrollSpeed = 2;
             break;
 	}
 };
