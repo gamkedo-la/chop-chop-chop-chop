@@ -39,7 +39,7 @@ function loadImages() {
         { varName: "debris0", theFile: "debris0.png"},
         { varName: "debris1", theFile: "debris1.png"},
         { varName: "debris2", theFile: "debris2.png"},
-        { varName: "spore", theFile: "spore.png"},  
+        { varName: "spore", theFile: "spore.png"},
 
         //Font
         { varName: "fontSheet", theFile: "ChopChopFontFontv3.png"}, // v3 has a 1px black stroke
@@ -109,7 +109,7 @@ function loadImages() {
         { worldType: TILE_MOON_BOXES, theFile: "moon_crates.png"},
         { worldType: TILE_MOON_FLAG, theFile: "moon_flag.png"},
         { worldType: TILE_MOON_HOME, theFile: "moon_home.png"},
-        { worldType: TILE_MOON_OBJECT, theFile: "moon_terrain.png" },
+        { worldType: TILE_REPLACE_MOON_OBJECT, theFile: "moon_terrain.png" },
         
         { worldType: TILE_SMALL_TREE, theFile: "tree1.png" },
         { worldType: TILE_SMALL_TREE_ALT, theFile: "tree2.png" },
@@ -123,6 +123,7 @@ function loadImages() {
         { worldType: TILE_MOON_TREE_1, theFile: "moon_tree_1.png" },
         { worldType: TILE_MOON_TREE_2, theFile: "moon_tree_2.png" },
 
+        { worldType: TILE_REPLACE_MOON_TREE, theFile: "moon_terrain.png" }, 
         { worldType: TILE_REPLACE_TREE, theFile: "terrain.png" }, 
 
         { worldType: TILE_STUMP, theFile: "stump1.png" },

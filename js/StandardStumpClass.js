@@ -16,5 +16,11 @@ function standardStumpClass (worldTileType,arrayIndex,hiddenTile) {
 		this.y = position.y - 1;
 	}
 
+	if (this.worldTileType == TILE_MOON_LARGE_CRATER_1 ||
+		this.worldTileType == TILE_MOON_LARGE_CRATER_2) {
+		this.x = position.x;
+		this.y = position.y;
+	}
+
 	return new objectClass(this);
 }

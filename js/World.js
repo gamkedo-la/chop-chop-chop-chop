@@ -1,6 +1,7 @@
 const TILE_W = TILE_H = 32;
 
-const TILE_MOON_OBJECT = -09;
+const TILE_REPLACE_MOON_TREE = -10;
+const TILE_REPLACE_MOON_OBJECT = -09;
 const TILE_REPLACE_ANIMATED_TILE = -08;
 const TILE_REPLACE_WATERFALL = -07;
 const TILE_REPLACE_WATER = -05;
@@ -193,7 +194,6 @@ function drawWorld() {
 					canvasContext.drawImage(worldPics[TILE_TERRAIN], drawTileX, drawTileY);
 				}
 				spawnObjectBasedOnTile(tileKindHere, arrayIndex, worldGrid[arrayIndex - worldCols])
-				addTilesForCollisionBasedOnTileType(tileKindHere, drawTileX, drawTileY);
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
 				spawnAnimalBasedOnTile(tileKindHere,arrayIndex);
 			} else if (tileKindHere == TILE_EXTEND_COLLISION) {
@@ -205,6 +205,12 @@ function drawWorld() {
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 			} else {
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
+				if ((getArrayIndexFromList(TILE_CAMPFIRE, animatedTileList) == arrayIndex ||
+					getArrayIndexFromList(TILE_DS_BONFIRE, animatedTileList) == arrayIndex) &&
+					framesFromGameStart % 4 == 0) {
+					spawnParticles('sparks', drawTileX + TILE_W/2, drawTileY + TILE_H/2);
+					//particles, emit objects, etc.;
+				}
 				if(debug && tileKindHere == TILE_NEXT_LEVEL){
 					drawRect(drawTileX, drawTileY, TILE_W, TILE_H, 'yellow');
 				}
@@ -216,11 +222,6 @@ function drawWorld() {
 			// uncomment to use
 			// helps visualize the tile grid
 			// and gives info about what tile is where (use either arrayIndex or tileKindHere)
-
-			// add world tile effects
-			/*if (tileKindHere === TILE_WHATEVER) {
-				particles, emit objects, etc.;
-			}*/
 
 			drawTileX += TILE_W;
 			arrayIndex++;

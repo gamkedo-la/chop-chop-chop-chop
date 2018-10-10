@@ -18,7 +18,8 @@ var particleDefs = [
 	{type: 'chop', howMany: 15, startSpeed: 2, howLong: 50, gravity: 0.2, startAng: -90, angSpreadDeg: 90, color: 'white', floorDist: 32},				
 	{type: 'fireworks', howMany: 15, startSpeed: 7, howLong: 30, gravity: 0.1, startAng: 0, angSpreadDeg: 180, color: 'white'},
 	{type: 'footstep', howMany: 3, startSpeed: 0.5, howLong: 20, gravity: 0.02, startAng: -90, angSpreadDeg: 90, color: 'white'},
-	{type: 'splash', howMany: 30, startSpeed: 2, howLong: 35, gravity: 0.015, startAng: -90, angSpreadDeg: 45, color: 'white', floorDist: 100},
+	{type: 'sparks', howMany: 1, startSpeed: 1, howLong: 25, gravity: 0.015, startAng: -90, angSpreadDeg: 45, color: 'white'},
+	{type: 'splash', howMany: 30, startSpeed: 2, howLong: 35, gravity: 0.015, startAng: -90, angSpreadDeg: 45, color: 'white'},
 	{type: 'leaf', howMany: 1, startSpeed: 0.75, howLong: 1000, gravity: 0.015, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 48, isLeaf:true, sprite:"leaf" },
 	{type: 'debris0', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 22, isLeaf:true, sprite:"debris0" },
 	{type: 'debris1', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 28, isLeaf:true, sprite:"debris1" },
@@ -27,7 +28,10 @@ var particleDefs = [
 	{type: 'tall_debris0', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 22+112, isLeaf:true, sprite:"debris0" },
 	{type: 'tall_debris1', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 28+112, isLeaf:true, sprite:"debris1" },
 	{type: 'tall_debris2', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 24+112, isLeaf:true, sprite:"debris2" },
-	{type: 'moon_tree_1_leaf', howMany: 1, startSpeed: 0.65, howLong: 1000, gravity: 0.010, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 48, isLeaf:true, sprite:"spore" },
+	{type: 'moon_tree_2_leaf', howMany: 1, startSpeed: 0.65, howLong: 1000, gravity: 0.010, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 48, isLeaf:true, sprite:"spore" },
+	{type: 'moon_tree_2_debris0', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 22, isLeaf:true, sprite:"debris0" },
+	{type: 'moon_tree_2_debris1', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 28, isLeaf:true, sprite:"debris1" },
+	{type: 'moon_tree_2_debris2', howMany: 1, startSpeed: 3, howLong: 1000, gravity: 0.3, startAng: -90, angSpreadDeg: 180, color: 'white', floorDist: 24, isLeaf:true, sprite:"debris2" },
 	{type: 'grindstone_sparks', howMany: 1, startSpeed: 2, howLong: 150, gravity: 0.06, startAng: -200, angSpreadDeg: 25, color: 'white', floorDist: 24},				
 
 ];

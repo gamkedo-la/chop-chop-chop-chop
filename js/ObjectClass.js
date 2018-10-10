@@ -10,13 +10,13 @@ var trees = [TILE_SMALL_TREE,TILE_SMALL_TREE_ALT,TILE_TALL_TREE,
 var stumps = [TILE_STUMP_ALT,TILE_STUMP,TILE_LOLLIPOP_STUMP,
 				TILE_STALAGMITE_STUMP,TILE_NORMAL_STUMP,TILE_NORMAL_STUMP_ALT,
 				TILE_PUFFY_STUMP, TILE_WILLOW_STUMP];
+var moonTrees = [TILE_MOON_TREE_1,TILE_MOON_TREE_2]
 var moonObjects = [TILE_MOON_LARGE_CRATER_1,TILE_MOON_LARGE_CRATER_2,
-					TILE_MOON_TREE_1, TILE_MOON_TREE_1_STUMP,
-					TILE_MOON_TREE_2,TILE_MOON_TREE_2_STUMP];
+					TILE_MOON_TREE_1_STUMP,TILE_MOON_TREE_2_STUMP];
 var replacements = [
 TILE_REPLACE_TREE,
 TILE_REPLACE_STUMP,
-TILE_MOON_OBJECT]
+TILE_REPLACE_MOON_OBJECT,TILE_REPLACE_MOON_TREE]
 
 function objectClass (newObject) {
 	this.object = newObject;
@@ -91,7 +91,7 @@ function objectClass (newObject) {
 			}
 
 			if (this.tileType == TILE_MOON_TREE_2) {
-				prefix = "moon_tree_1_";
+				prefix = "moon_tree_2_";
 			}
 			
 			var leavesToSpawn = 12;
@@ -152,7 +152,9 @@ function replaceTiles(arrayIndex) {
 	} else if (stumps.indexOf(worldGrid[arrayIndex]) > -1) {
 		worldGrid[arrayIndex] = TILE_REPLACE_STUMP;
 	} else if (moonObjects.indexOf(worldGrid[arrayIndex]) > -1) {
-		worldGrid[arrayIndex] = TILE_MOON_OBJECT;
+		worldGrid[arrayIndex] = TILE_REPLACE_MOON_OBJECT;
+	} else if (moonTrees.indexOf(worldGrid[arrayIndex]) > -1) {
+		worldGrid[arrayIndex] = TILE_REPLACE_MOON_TREE;
 	}
 }
 
@@ -189,20 +191,6 @@ function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {
 			break; 
 		case TILE_MOON_TREE_2:
 			worldGrid[arrayIndex] = TILE_MOON_TREE_2_STUMP;
-			break;
-	}
-}
-
-function addTilesForCollisionBasedOnTileType(tileType, x, y) {
-	var arrayIndex = getTileIndexAtPixelCoord(x, y)
-	switch (tileType) {
-		case TILE_SMALL_TREE:
-		case TILE_SMALL_TREE_ALT:
-		case TILE_WILLOW_TREE:
-		case TILE_TALL_TREE:
-		case TILE_PUFFY_TREE:
-		case TILE_NORMAL_TREE:
-			worldGrid[arrayIndex - worldCols] = TILE_EXTEND_COLLISION;
 			break;
 	}
 }
