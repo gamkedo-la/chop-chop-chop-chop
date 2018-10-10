@@ -19,7 +19,7 @@ var scrollSpeed = 2;
 var pixelsSkipPerLine = 45;
 var scrollingTextPaused = false;
 
-var testList = ["Hello there", "You can hold [Z] to make me go faster", "Am I going too fast? Spress [SPACE] to pause me"];
+var testList = ["Hello there", "You can hold - Z - to make me go faster", "Am I going too fast? Press - SPACE - to pause me"];
 
 window.onload = function () {
 	canvas = document.createElement("canvas");
@@ -165,25 +165,26 @@ function toggleScrollTextPause() {
 }
 
 function drawScrollingText(textList) {
+    var scrollTextX = -55;
     scroll -= scrollSpeed;
     canvasContext.clearRect(0, 0, canvasContext.measureText(textList), canvasContext.measureText(textList));
     canvasContext.save();
     canvasContext.translate(canvas.width / 2, scroll);
     for(var i = 0; i < textList.length; i++) {
-      colorText(textList[i], 0, canvas.height + i * pixelsSkipPerLine, "white", "20pt Verdana", "center", 1);
+        drawPixelfontCentered(textList[i], scrollTextX, canvas.height + i * pixelsSkipPerLine, 16, 16);
     }
     canvasContext.restore();
 }
 
 function rewindScrollText() {
     if (!scrollingTextPaused) {
-        scrollSpeed = -8; 
+        scrollSpeed = -5; 
     }
 }
 
 function fastForwardScrollText() {
     if (!scrollingTextPaused) {
-        scrollSpeed = 10;
+        scrollSpeed = 7;
     }
 }
 
