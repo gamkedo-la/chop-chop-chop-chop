@@ -47,9 +47,12 @@ function drawOpeningMenu() {
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
 			newGameX += xoffset;
 			pendingShakes--;
+		} else {
+			if (scrollingTextPaused) {
+				toggleScrollTextPause();
+			}
 		}
 	}
-    //drawScrollingText(testList);
 	drawPixelfont("New Game", newGameX, canvas.height / 2 + 40,16,16);
 	var newGameHitbox = new colliderClass(newGameX + ((measurePixelfont("New Game") * 1.38)/2),
 										canvas.height / 2 + 47, 

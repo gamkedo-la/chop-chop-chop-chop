@@ -409,7 +409,9 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 				x: drawTileX + TILE_W/2,
 				y: drawTileY + TILE_H/2,
 				arrayIndex: arrayIndex,
-				tileType: TILE_DS_BONFIRE
+				tileType: TILE_DS_BONFIRE,
+				makesNoise: true,
+				noise: campfireSFX
 			});
 			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
 			animatedTileList.push(newAnimatedTile);

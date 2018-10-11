@@ -79,7 +79,7 @@ function drawAll() {
 				player.draw();
 				drawParticles();
 				endCameraPan();
-		}
+			}
 			if (waitBuffer >= 35 && waitBuffer < 85) {
 				if (waitBuffer % 6 == 0) {
 					savedAlpha += 0.07;
@@ -89,18 +89,23 @@ function drawAll() {
 					drawRect(0,0,1600,1600,"black", savedAlpha);
 				}
 			} else if (waitBuffer >= 85) {
-				// TODO: Intro?
-				canvasContext.globalAlpha = 1.0;
-				countdownTimerPaused = false;
-				openingMenuIsRunning = false; 
-				gameIsRunning = true;
-				advanceLevel();
-				backgroundMusic.pause();
-				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
-				backgroundMusic.volume = 0.4;
-				backgroundMusic.play();
-				hitNewGame = false;
-				waitBuffer = 0;
+				if (scroll > -canvas.height * 1.25) {
+					canvasContext.globalAlpha = 1.0;
+					drawRect(0,0,1600,1600,"black");
+					drawScrollingText(testList);
+				} else {
+					canvasContext.globalAlpha = 1.0;
+					countdownTimerPaused = false;
+					openingMenuIsRunning = false; 
+					gameIsRunning = true;
+					advanceLevel();
+					backgroundMusic.pause();
+					backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+					backgroundMusic.volume = 0.4;
+					backgroundMusic.play();
+					hitNewGame = false;
+					waitBuffer = 0;
+				}
 			}
 		} else {
 			cameraPan();
