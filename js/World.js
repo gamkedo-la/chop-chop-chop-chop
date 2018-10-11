@@ -195,7 +195,7 @@ function drawWorld() {
 				} else {
 					canvasContext.drawImage(worldPics[TILE_TERRAIN], drawTileX, drawTileY);
 				}
-				spawnObjectBasedOnTile(tileKindHere, arrayIndex, worldGrid[arrayIndex - worldCols])
+				spawnObjectBasedOnTile(tileKindHere, arrayIndex, worldGrid[arrayIndex - worldCols]);
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
 				spawnAnimalBasedOnTile(tileKindHere,arrayIndex);
 			} else if (tileKindHere == TILE_EXTEND_COLLISION) {
@@ -589,6 +589,7 @@ function drawGridOfTiles(x, y) {
 function advanceLevel() {
 	animalList = [];
 	objectList = [];
+	objectList.push(player);
 	animatedTileList = [];
 	particleList = [];
 	currentLevelIndex = (currentLevelIndex + 1) % allLevels.length;

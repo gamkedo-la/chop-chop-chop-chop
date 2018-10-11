@@ -43,6 +43,7 @@ function loadingDoneSoStartGame() {
 	gameUpdate = setInterval(update, 1000 / framesPerSecond);
 	resetCountdownTimer();
 	player = new playerClass();
+	objectList.push(player);
 };
 
 function update() {
@@ -72,11 +73,11 @@ function drawAll() {
 					drawOptionsMenu();
 				//} else if (creditsMenu) {
 					// drawCreditsMenu():
-				}else {
+				} else {
 					drawOpeningMenu();
 				}
 				drawAndRemoveAllObjects();
-				player.draw();
+				//player.draw();
 				drawParticles();
 				endCameraPan();
 			}
@@ -87,6 +88,9 @@ function drawAll() {
 						savedAlpha = 1;
 					}
 					drawRect(0,0,1600,1600,"black", savedAlpha);
+				}
+				if (scrollingTextPaused) {
+					toggleScrollTextPause();
 				}
 			} else if (waitBuffer >= 85) {
 				if (scroll > -canvas.height * 1.25) {
@@ -119,7 +123,7 @@ function drawAll() {
 				drawOpeningMenu();
 			}
 			drawAndRemoveAllObjects();
-			player.draw();
+			//player.draw();
 			drawParticles();
 			endCameraPan();
 		}
@@ -132,7 +136,7 @@ function drawAll() {
 			drawAndRemoveAllObjects();
 			drawAllAnimals();
 			if (!worldEditor) {
-				player.draw();
+				//player.draw();
 			}
 			drawParticles();
 			endCameraPan();
@@ -150,8 +154,9 @@ function drawAll() {
 
 function moveAll() {
 	if (!worldEditor && !havingAMoment) {
-		player.move();
+		objectList[0].move();
 	}
+	moveAllObjects();
 	moveAllAnimals();
 	moveParticles();
 }

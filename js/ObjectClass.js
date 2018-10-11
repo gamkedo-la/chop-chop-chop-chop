@@ -201,9 +201,14 @@ function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {
 	}
 }
 
+function moveAllObjects() {
+	for (var i = 1; i < objectList.length; i++) {
+		objectList[i].move();
+	}
+}
+
 function drawAndRemoveAllObjects() {
 	for (var i = 0; i < objectList.length; i++) {
-		objectList[i].move();
 		objectList[i].draw();
 	}
 	for(var i = objectList.length - 1; i >= 0; i--) {

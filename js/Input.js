@@ -155,7 +155,10 @@ function keyPressed(evt) {
 				countdownTimerPaused = false;
 				worldGrid = [];
 				animalList = [];
+				particleList = [];
 				objectList = [];
+				objectList.push(player);
+				animatedTileList = [];
 				animatedTileSet = [];
 				worldGrid = Array.from(allLevels[currentLevelIndex].layout);
 				drawWorld();

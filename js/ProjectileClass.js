@@ -75,5 +75,17 @@ function projectileClass (x,y, direction) {
 				} // end of if axeHitbox connects with object hitbox
 			} // end of if object.hasHitbox (error would throw for non-hitbox having objects such as stumps)
 		} // end of for loop for incrementing array index
+		var arrayIndexUnderAxe = getTileIndexAtPixelCoord(this.axeHitbox.x,this.axeHitbox.y);
+		if (worldGrid[arrayIndexUnderAxe] == TILE_PUMPKIN) {
+			var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+			arrayOfChopSFXs[random].play();
+			worldGrid[arrayIndexUnderAxe] = TILE_JACK_O;
+			spawnParticles('debris0', this.axeHitbox.x, this.axeHitbox.y);
+			spawnParticles('debris2', this.axeHitbox.x, this.axeHitbox.y);
+			spawnParticles('debris1', this.axeHitbox.x, this.axeHitbox.y);
+			spawnParticles('debris2', this.axeHitbox.x, this.axeHitbox.y);
+			spawnParticles('debris0', this.axeHitbox.x, this.axeHitbox.y);
+			hit = true;
+		}
 	} // end of collisionChecks function
 } // end of projectileClass

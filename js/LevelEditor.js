@@ -1,7 +1,7 @@
 var worldEditor = false;
 var tileUnderMouse = null;
 
-var nothingSet = [TILE_TERRAIN,TILE_MOON_TERRAIN,TILE_MOON_TERRAIN_2];
+var nothingSet = [TILE_TERRAIN,TILE_MOON_TERRAIN,TILE_MOON_TERRAIN_2,TILE_NEXT_LEVEL];
 var groundSet = arrayWithRange(100, startAt = 100); // 100 to 199
 var treeSet = arrayWithRange(100, startAt = 200); // 200 to 299
 var cliffSet = arrayWithRange(100, startAt = 300); // 300 to 399
@@ -78,11 +78,8 @@ function copyToClipboard() {
 		if (i==0) {
 			layoutString += "	";
 		}
-		if (allLevels[currentLevelIndex].layout[i] == 0) {
-			layoutString += "00" + allLevels[currentLevelIndex].layout[i].toString() + ",";
-		} else if (allLevels[currentLevelIndex].layout[i] == 1) {
-			layoutString += "00" + allLevels[currentLevelIndex].layout[i].toString() + ",";
-		} else if (allLevels[currentLevelIndex].layout[i] == 2) {
+		if (allLevels[currentLevelIndex].layout[i] >= TILE_TERRAIN && 
+			allLevels[currentLevelIndex].layout[i] <= TILE_NEXT_LEVEL) {
 			layoutString += "00" + allLevels[currentLevelIndex].layout[i].toString() + ",";
 		/*} else if (allLevels[currentLevelIndex].layout[i] == TILE_EXTEND_COLLISION) {
 			for (var j = 0; j < objectList.length; j++) {
