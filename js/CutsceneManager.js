@@ -252,6 +252,7 @@ let gameOverOptions = () => {
 			particleList = [];
 			animalList = [];
 			objectList = [];
+			objectList.push(player);
 			particleList = [];
 			animatedTileList = [];
 			backgroundMusic.pause();
@@ -288,6 +289,7 @@ let gameOverOptions = () => {
 			particleList = [];
 			animalList = [];
 			objectList = [];
+			objectList.push(player);
 			particleList = [];
 			animatedTileList = [];
 			var levelStartPosition = indexToCenteredXY(allLevels[currentLevelIndex].playerStartArrayIndex);
