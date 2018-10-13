@@ -133,8 +133,8 @@ function drawAll() {
 			cameraPan();
 			drawWorld();
 			drawAnimatedTiles();
-			drawAndRemoveAllObjects();
 			drawAllAnimals();
+			drawAndRemoveAllObjects();
 			if (!worldEditor) {
 				//player.draw();
 			}

@@ -109,6 +109,7 @@ function loadImages() {
         { worldType: TILE_MOON_BOXES, theFile: "moon_crates.png"},
         { worldType: TILE_MOON_FLAG, theFile: "moon_flag.png"},
         { worldType: TILE_MOON_HOME, theFile: "moon_home.png"},
+        { worldType: TILE_MOON_WHEEL, theFile: "moon_wheel.png"},
         { worldType: TILE_REPLACE_MOON_OBJECT, theFile: "moon_terrain.png" },
         
         { worldType: TILE_SMALL_TREE, theFile: "tree1.png" },

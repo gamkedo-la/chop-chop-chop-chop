@@ -270,6 +270,43 @@ let togglePauseGame = () => {
 }
 
 
-let resetGame = () => {
-	
+let resetGame = (levelIndex) => {
+	wordsToShow = "";
+	stringIndex = 0;
+	cutsceneDialogueIndex = 0;
+	currentScene = null;
+	needNewString = false;
+	cutsceneSound.pause();
+	cutsceneSound.currentTime = 0;
+	currentLevelIndex = levelIndex;
+	worldGrid = Array.from(allLevels[currentLevelIndex].layout);
+	worldCols = allLevels[currentLevelIndex].columns;
+	worldRows = allLevels[currentLevelIndex].rows;
+	animalList = [];
+	objectList = [];
+	objectList.push(player);
+	particleList = [];
+	animatedTileList = [];
+	backgroundMusic.pause();
+	if (currentLevelIndex == 0) { // main menu
+		backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
+		openingMenuIsRunning = true;
+	} else if (currentLevelIndex == 3) { // moon level
+		backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+	} else {
+		backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+	}
+	backgroundMusic.volume = volumeDefault; // found in Audio.js
+	backgroundMusic.play();
+	countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
+	countdownTimerPaused = false;
+	var levelStartPosition = indexToCenteredXY(allLevels[currentLevelIndex].playerStartArrayIndex);
+	player.x = levelStartPosition.x;
+	player.y = levelStartPosition.y;
+	player.invincible = false;
+	spacebarKeyHeld = false;
+	player.chopTimer = 0;
+	scroll = 0;
+	savedAlpha = 0;
+	havingAMoment = false;
 }

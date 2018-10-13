@@ -175,8 +175,8 @@ function cutsceneDialogue (data) {
 }
 
 function upgradeCheck() {
-	const LEVEL_TWO_CHOPS = 100;
-	const LEVEL_THREE_CHOPS = 104;
+	const LEVEL_TWO_CHOPS = 50;
+	const LEVEL_THREE_CHOPS = 125;
 
 	if (player.chopCount >= LEVEL_TWO_CHOPS && !upgradeLevelTwo && 
 		player.chopTimer === 0) {
@@ -242,64 +242,9 @@ let gameOverOptions = () => {
 	
 	if (spacebarKeyHeld) {
 		if (selectorX == selectorXContinue) {
-			wordsToShow = "";
-			stringIndex = 0;
-			cutsceneDialogueIndex = 0;
-			currentScene = null;
-			needNewString = false;
-			// TODO: Wrap these changes and relevant others into resetLevel function
-			worldGrid = Array.from(allLevels[currentLevelIndex].layout);
-			particleList = [];
-			animalList = [];
-			objectList = [];
-			objectList.push(player);
-			particleList = [];
-			animatedTileList = [];
-			backgroundMusic.pause();
-			backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
-			backgroundMusic.volume = 0.4;
-			backgroundMusic.play();
-			countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
-			countdownTimerPaused = false;
-			var levelStartPosition = indexToCenteredXY(allLevels[currentLevelIndex].playerStartArrayIndex);
-			player.x = levelStartPosition.x;
-			player.y = levelStartPosition.y;
-			player.invincible = false;
-			spacebarKeyHeld = false;
-			player.chopTimer = 0;
-			havingAMoment = false;
+			resetGame(currentLevelIndex);
 		} else if (selectorX == selectorXQuit) {
-			wordsToShow = " ";
-			stringIndex = 0;
-			cutsceneDialogueIndex = 0;
-			currentScene = null;
-			needNewString = false;
-			// TODO: Wrap these changes and relevant others into resetGame function
-			countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
-			countdownTimerPaused = false;
-			openingMenuIsRunning = true;
-			backgroundMusic.pause();
-			backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
-			backgroundMusic.volume = 0.4;
-			backgroundMusic.play();
-			currentLevelIndex = 0; // back to main menu
-			worldGrid = Array.from(allLevels[currentLevelIndex].layout);
-			worldCols = allLevels[currentLevelIndex].columns;
-			worldRows = allLevels[currentLevelIndex].rows;
-			particleList = [];
-			animalList = [];
-			objectList = [];
-			objectList.push(player);
-			particleList = [];
-			animatedTileList = [];
-			var levelStartPosition = indexToCenteredXY(allLevels[currentLevelIndex].playerStartArrayIndex);
-			player.x = levelStartPosition.x;
-			player.y = levelStartPosition.y;
-			player.invincible = false;
-			spacebarKeyHeld = false;
-			player.chopTimer = 0;
-			savedAlpha = 0;
-			havingAMoment = false;
+			resetGame(0); // allLevels[0] = main menu
 		}
 	}
 

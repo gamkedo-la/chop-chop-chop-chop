@@ -146,6 +146,7 @@ const TILE_MOON_REFLECTOR = 705;
 const TILE_MOON_BOXES = 706;
 const TILE_MOON_FLAG = 707;
 const TILE_MOON_HOME = 708;
+const TILE_MOON_WHEEL = 709;
 
 // Animals
 const TILE_DEATH_CAT = 800;
@@ -156,7 +157,7 @@ const TILE_ALLIGATOR = 804;
 const TILE_PINCHER_BUG = 805;
 const TILE_BEAR = 806;
 
-var allLevels = [mainMenu,mountainBase,mountainTop,moon,testLevel];
+var allLevels = [mainMenu,mountainBase,mountainTop,moon/*,testLevel*/];
 var currentLevelIndex = 0; // FIXME TODO: put back to zero when not testing level 2
 
 var worldCols = allLevels[currentLevelIndex].columns; //
@@ -190,11 +191,6 @@ function drawWorld() {
 			if (isTileTypeAnimated(tileKindHere)) {
 				setupAnimatedTiles(tileKindHere,drawTileX,drawTileY,arrayIndex);
 			} else if (isTileTypeAnObject(tileKindHere)) {
-				if (currentLevelIndex == 3) {
-					canvasContext.drawImage(worldPics[TILE_MOON_TERRAIN], drawTileX, drawTileY);
-				} else {
-					canvasContext.drawImage(worldPics[TILE_TERRAIN], drawTileX, drawTileY);
-				}
 				spawnObjectBasedOnTile(tileKindHere, arrayIndex, worldGrid[arrayIndex - worldCols]);
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
 				spawnAnimalBasedOnTile(tileKindHere,arrayIndex);
@@ -206,12 +202,16 @@ function drawWorld() {
 				}
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 			} else {
+				if (currentLevelIndex == 3) { // moon level
+					canvasContext.drawImage(worldPics[TILE_MOON_TERRAIN], drawTileX, drawTileY);
+				} else {
+					canvasContext.drawImage(worldPics[TILE_TERRAIN], drawTileX, drawTileY);
+				}
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 				if ((getArrayIndexFromList(TILE_CAMPFIRE, animatedTileList) == arrayIndex ||
 					getArrayIndexFromList(TILE_DS_BONFIRE, animatedTileList) == arrayIndex) &&
 					framesFromGameStart % 4 == 0) {
 					spawnParticles('sparks', drawTileX + TILE_W/2, drawTileY + TILE_H/2);
-					//particles, emit objects, etc.;
 				}
 				if(debug && tileKindHere == TILE_NEXT_LEVEL){
 					drawRect(drawTileX, drawTileY, TILE_W, TILE_H, 'yellow');

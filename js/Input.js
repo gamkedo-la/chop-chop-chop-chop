@@ -161,7 +161,6 @@ function keyPressed(evt) {
 				animatedTileList = [];
 				animatedTileSet = [];
 				worldGrid = Array.from(allLevels[currentLevelIndex].layout);
-				drawWorld();
 				player.invincible = false;
 				console.log("worldEditor OFF...");
 			}
