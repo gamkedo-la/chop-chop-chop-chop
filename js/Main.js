@@ -19,15 +19,11 @@ var scrollSpeed = 2;
 var pixelsSkipPerLine = 45;
 var scrollingTextPaused = false;
 var scrollingTextSkipped = false;
-
-var introText = ["chop-chop, intrepid  lumberjack, has  decided", "to  make  it  thier  mission", "to  chop  down  all  trees  in  the  land",
-				"", "", "you  know . . .", "for fun"];
+var introText = ["chop-chop, intrepid  lumberjack, has  decided", "to  make  it  their  mission", "to  chop  down  every  tree",  "far  and  wide",
+				"", "to  see  if  it  can  really  be  done","and  to  know  what  it  feels  like","when  you  do"];
 
 var outroText = ["Wow!", "Look at all I've chopped.", "But now all the beautiful trees are missing.", "And no one else can have fun chopping...",
 "Time to plant-plant, plant-plant", "Coming soon... maybe" ];
-
-//You can hold - Z - to make me go faster
-// Am I going too fast? Press - SPACE - to pause me
 
 window.onload = function () {
 	canvas = document.createElement("canvas");
@@ -85,7 +81,6 @@ function drawAll() {
 					drawOpeningMenu();
 				}
 				drawAndRemoveAllObjects();
-				//player.draw();
 				drawParticles();
 				endCameraPan();
 			}
@@ -115,6 +110,7 @@ function drawAll() {
 					backgroundMusic.play();
 					hitNewGame = false;
 					waitBuffer = 0;
+					scroll = 0;
 				}
 			}
 		} else {
@@ -140,14 +136,11 @@ function drawAll() {
 			drawAnimatedTiles();
 			drawAllAnimals();
 			drawAndRemoveAllObjects();
-			if (!worldEditor) {
-				//player.draw();
-			}
 			drawParticles();
 			endCameraPan();
 			drawGUI();
 			if (endSequence) {
-				canvasContext.clearRect(0,0, canvas.width,canvas.height);
+				drawRect(0,0, canvas.width,canvas.height, "black");
 				waitBuffer += 2;
 				if (waitBuffer < 200) {
 					canvasContext.globalAlpha = waitBuffer/250;
@@ -196,7 +189,7 @@ function drawScrollingText(textList) {
     for(var i = 0; i < textList.length; i++) {
         drawPixelfontCentered(textList[i], scrollTextX, canvas.height + i * pixelsSkipPerLine, 16, 16);
         if (i == textList.length-1) {
-    		if (scroll < (canvas.height + i * pixelsSkipPerLine) * -1 - bufferSpace) {
+    		if (scroll < (canvas.height + ((i * -pixelsSkipPerLine) - bufferSpace))) {
     			canvasContext.restore();
     			drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
     			drawPixelfont("-W-  fast forward   -S-  rewind   -Space-  pause   -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
