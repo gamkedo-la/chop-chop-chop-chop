@@ -152,7 +152,12 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 			newObject = new standardStumpClass(tileType, arrayIndex, hiddenTile);
 			break;
 	}
-	objectList.push(newObject);
+	if (newObject.tileType == TILE_MOON_LARGE_CRATER_1 ||
+		newObject.tileType == TILE_MOON_LARGE_CRATER_2) {
+		objectList.unshift(newObject);
+	} else {
+		objectList.push(newObject);
+	}
 	replaceTiles(arrayIndex);
 }
 

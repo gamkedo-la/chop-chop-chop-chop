@@ -108,10 +108,12 @@ function keyPressed(evt) {
 		case UP_ARROW_KEY:
 		case W_KEY:
 			upKeyHeld = true;
+			fastForwardScrollText();
 			break;
 		case DOWN_ARROW_KEY:
 		case S_KEY:
 			downKeyHeld = true;
+			rewindScrollText();
 			break;
 		case SPACEBAR:
 			spacebarKeyHeld = true;
@@ -173,7 +175,7 @@ function keyPressed(evt) {
 					currentSetIndex = 0;
 				}
 			} 
-            rewindScrollText();
+			scrollingTextSkipped = true; 
 		break;
 		case Z_KEY:
 			if (worldEditor) {
@@ -189,7 +191,6 @@ function keyPressed(evt) {
 					}
 				}
 			} 
-            fastForwardScrollText();
 		break;
 		case KEY_LEFT_SHIFT:
 			copyToClipboard();
@@ -258,18 +259,18 @@ function keyReleased(evt) {
         case UP_ARROW_KEY:
 		case W_KEY:
             upKeyHeld = false;
+            resetScrollSpeed();
             break;
         case DOWN_ARROW_KEY:
 		case S_KEY:
             downKeyHeld = false;
+            resetScrollSpeed();
         case SPACEBAR:
 			spacebarKeyHeld = false;
             break;
         case Z_KEY:
-            resetScrollSpeed();
             break;
         case X_KEY:
-             resetScrollSpeed();
             break;
 	}
 };

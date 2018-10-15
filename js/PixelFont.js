@@ -59,7 +59,7 @@ function pixelfont_dy(char) {
     return row * pixelfont_h;
 }
 
-function measurePixelfont(str) {
+function measurePixelfont(str,pixelfont_w = 10) {
     var w = 0;
     var index = 0;
     var max = 0; // multiple lines count from 0
@@ -82,7 +82,7 @@ function handleEmote(emoteCode) {
 }
 
 function drawPixelfontCentered(str, x, y, pixelfont_new_w = 10, pixelfont_new_h = 10) {
-    drawPixelfont(str, x - Math.round(measurePixelfont(str) / 2), y, pixelfont_new_w, pixelfont_new_h);
+    drawPixelfont(str, x - Math.round(measurePixelfont(str) / 2, pixelfont_new_w), y, pixelfont_new_w, pixelfont_new_h);
 }
 
 function drawPixelfont(str, x, y, pixelfont_new_w = 10, pixelfont_new_h = 10) {

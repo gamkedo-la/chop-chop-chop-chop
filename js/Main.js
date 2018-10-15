@@ -18,8 +18,13 @@ var scroll = 0;
 var scrollSpeed = 2;
 var pixelsSkipPerLine = 45;
 var scrollingTextPaused = false;
+var scrollingTextSkipped = false;
 
-var testList = ["Hello there", "You can hold - Z - to make me go faster", "Am I going too fast? Press - SPACE - to pause me"];
+var introText = ["chop-chop, intrepid  lumberjack, has  decided", "to  make  it  thier  mission", "to  chop  down  all  trees  in  the  land", 
+				"", "", "you  know . . .", "for fun"];
+
+//You can hold - Z - to make me go faster
+// Am I going too fast? Press - SPACE - to pause me
 
 window.onload = function () {
 	canvas = document.createElement("canvas");
@@ -93,11 +98,9 @@ function drawAll() {
 					toggleScrollTextPause();
 				}
 			} else if (waitBuffer >= 85) {
-				if (scroll > -canvas.height * 1.25) {
-					canvasContext.globalAlpha = 1.0;
-					drawRect(0,0,1600,1600,"black");
-					drawScrollingText(testList);
-				} else {
+				canvasContext.globalAlpha = 1.0;
+				drawRect(0,0,1600,1600,"black");
+				if (drawScrollingText(introText)) {
 					canvasContext.globalAlpha = 1.0;
 					countdownTimerPaused = false;
 					openingMenuIsRunning = false; 
@@ -123,7 +126,6 @@ function drawAll() {
 				drawOpeningMenu();
 			}
 			drawAndRemoveAllObjects();
-			//player.draw();
 			drawParticles();
 			endCameraPan();
 		}
@@ -176,14 +178,25 @@ function toggleScrollTextPause() {
 
 function drawScrollingText(textList) {
     var scrollTextX = -55;
+    var bufferSpace = 64;
     scroll -= scrollSpeed;
-    canvasContext.clearRect(0, 0, canvasContext.measureText(textList), canvasContext.measureText(textList));
     canvasContext.save();
     canvasContext.translate(canvas.width / 2, scroll);
     for(var i = 0; i < textList.length; i++) {
         drawPixelfontCentered(textList[i], scrollTextX, canvas.height + i * pixelsSkipPerLine, 16, 16);
+        if (i == textList.length-1) {
+    		if (scroll < (canvas.height + i * pixelsSkipPerLine) * -1 - bufferSpace) {
+    			canvasContext.restore();
+    			return true
+    		} else if (scrollingTextSkipped) {
+    			canvasContext.restore();
+    			return true
+    		}
+    	} 
     }
     canvasContext.restore();
+    drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
+    drawPixelfont("-W- fast forward   -S- rewind   -Space- pause   -X- skip", 32, canvas.height - canvas.height/20, 12,12);
 }
 
 function rewindScrollText() {
