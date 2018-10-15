@@ -198,16 +198,20 @@ function drawScrollingText(textList) {
         if (i == textList.length-1) {
     		if (scroll < (canvas.height + i * pixelsSkipPerLine) * -1 - bufferSpace) {
     			canvasContext.restore();
-    			return true
+    			drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
+    			drawPixelfont("-W-  fast forward   -S-  rewind   -Space-  pause   -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+    			return true;
     		} else if (scrollingTextSkipped) {
     			canvasContext.restore();
-    			return true
+    			drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
+    			drawPixelfont("-W-  fast forward   -S-  rewind   -Space-  pause   -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+    			return true;
     		}
     	}
     }
     canvasContext.restore();
-    drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
-    drawPixelfont("-W- fast forward   -S- rewind   -Space- pause   -X- skip", 32, canvas.height - canvas.height/20, 12,12);
+ 	drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
+    drawPixelfont("-W-  fast forward   -S-  rewind   -Space-  pause   -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
 }
 
 function rewindScrollText() {

@@ -292,8 +292,16 @@ let resetGame = (levelIndex) => {
 	if (currentLevelIndex == 0) { // main menu
 		backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
 		openingMenuIsRunning = true;
+		player.axeLevel = LOW;
+		player.swingCount = 0;
+		player.stepCount = 0;
+		player.treeCount = 0;
+		player.attackCount = 0;
+		player.chopCount = 0;
+		upgradeLevelTwo = false;
+		upgradeLevelThree = false;
 	} else if (currentLevelIndex == 3) { // moon level
-		backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+		backgroundMusic.src = "music/dark_side_of_the_chop" + sourceExtension;
 	} else {
 		backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
 	}
@@ -304,10 +312,12 @@ let resetGame = (levelIndex) => {
 	var levelStartPosition = indexToCenteredXY(allLevels[currentLevelIndex].playerStartArrayIndex);
 	player.x = levelStartPosition.x;
 	player.y = levelStartPosition.y;
+	player.currentFrustration = 0; 
 	player.invincible = false;
 	spacebarKeyHeld = false;
 	player.chopTimer = 0;
 	scroll = 0;
 	savedAlpha = 0;
 	havingAMoment = false;
+	scrollingTextSkipped = false;
 }
