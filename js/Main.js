@@ -20,8 +20,11 @@ var pixelsSkipPerLine = 45;
 var scrollingTextPaused = false;
 var scrollingTextSkipped = false;
 
-var introText = ["chop-chop, intrepid  lumberjack, has  decided", "to  make  it  thier  mission", "to  chop  down  all  trees  in  the  land", 
+var introText = ["chop-chop, intrepid  lumberjack, has  decided", "to  make  it  thier  mission", "to  chop  down  all  trees  in  the  land",
 				"", "", "you  know . . .", "for fun"];
+
+var outroText = ["Wow!", "Look at all I've chopped.", "But now all the beautiful trees are missing.", "And no one else can have fun chopping...",
+"Time to plant-plant, plant-plant", "Coming soon... maybe" ];
 
 //You can hold - Z - to make me go faster
 // Am I going too fast? Press - SPACE - to pause me
@@ -103,7 +106,7 @@ function drawAll() {
 				if (drawScrollingText(introText)) {
 					canvasContext.globalAlpha = 1.0;
 					countdownTimerPaused = false;
-					openingMenuIsRunning = false; 
+					openingMenuIsRunning = false;
 					gameIsRunning = true;
 					advanceLevel();
 					backgroundMusic.pause();
@@ -129,7 +132,7 @@ function drawAll() {
 			drawParticles();
 			endCameraPan();
 		}
-	} else if (gameIsRunning) {
+	} /*end of openingMenuIsRunning || optionsMenu*/ else if (gameIsRunning) {
 		if (!havingAMoment) {
 			// draw game scene
 			cameraPan();
@@ -143,6 +146,14 @@ function drawAll() {
 			drawParticles();
 			endCameraPan();
 			drawGUI();
+			if (endSequence) {
+				canvasContext.clearRect(0,0, canvas.width,canvas.height);
+				waitBuffer += 2;
+				if (waitBuffer < 200) {
+					canvasContext.globalAlpha = waitBuffer/250;
+				}
+				drawScrollingText(outroText);
+			}
 		} else {
 			drawRect(0, 0, canvas.width, canvas.height, "black");
 			player.x = Math.round(canvas.width / 2) - ((cutsceneAnimation.spriteSheet.width/cutsceneAnimation.animationColFrames)/2);
@@ -150,9 +161,9 @@ function drawAll() {
 			cutsceneAnimation.draw(player.x, player.y, 1, false);
 			if (Math.random()>0.75) spawnParticles("grindstone_sparks", player.x-8, player.y-3);
 			drawParticles();
-		}
-	}
-}
+		} //end of cut scene animations
+	} //end of game is running
+} //end of draw all
 
 function moveAll() {
 	if (!worldEditor && !havingAMoment) {
@@ -192,7 +203,7 @@ function drawScrollingText(textList) {
     			canvasContext.restore();
     			return true
     		}
-    	} 
+    	}
     }
     canvasContext.restore();
     drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
@@ -201,7 +212,7 @@ function drawScrollingText(textList) {
 
 function rewindScrollText() {
     if (!scrollingTextPaused) {
-        scrollSpeed = -5; 
+        scrollSpeed = -5;
     }
 }
 

@@ -25,7 +25,7 @@ const KEY_TILDE = 192; // Access World Editor
 const X_KEY = 88; // for increasing currentSetIndex in World Editor
 const Z_KEY = 90; // for decreasing currentSetIndex in World Editor
 
-const KEY_LEFT_SHIFT = 16; 
+const KEY_LEFT_SHIFT = 16;
 const SPACEBAR = 32;
 const NUMBER_PAD_PLUS = 107; // to raise overall audio volume
 const NUMBER_PAD_MINUS = 109; // to lower overall audio volume
@@ -33,6 +33,8 @@ const KEY_PLUS = 187; // to raise Music volume
 const KEY_MINUS = 189; // to lower Music volume
 const KEY_RIGHT_BRACKET = 221; // to raise SFX volume
 const KEY_LEFT_BRACKET = 219; // to lower SFX volume
+
+const E_KEY = 69; // skip to end sequence
 
 var mouseX = 0;
 var mouseY = 0;
@@ -174,8 +176,8 @@ function keyPressed(evt) {
 				if (worldPics[currentlySelectedSet[currentSetIndex]] == undefined) {
 					currentSetIndex = 0;
 				}
-			} 
-			scrollingTextSkipped = true; 
+			}
+			scrollingTextSkipped = true;
 		break;
 		case Z_KEY:
 			if (worldEditor) {
@@ -190,7 +192,7 @@ function keyPressed(evt) {
 						}
 					}
 				}
-			} 
+			}
 		break;
 		case KEY_LEFT_SHIFT:
 			copyToClipboard();
@@ -243,6 +245,14 @@ function keyPressed(evt) {
 				console.log("animalSet selected");
 			}
 		break;
+    case E_KEY:
+      if (gameIsRunning) {
+        waitBuffer = 0;
+        canvasContext.globalAlpha = 0;
+        opacity = 0;
+        endSequence = true;
+      }
+    break;
     }
 };
 
