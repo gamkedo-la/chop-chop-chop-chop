@@ -22,5 +22,11 @@ function standardStumpClass (worldTileType,arrayIndex,hiddenTile) {
 		this.y = position.y;
 	}
 
+	if (worldTileType == TILE_MOON_CHEESE_STUMP) {
+		this.x = position.x - this.width/4;
+		this.y = position.y - this.height/2;
+		this.hasLeaves = false;
+	}
+
 	return new objectClass(this);
 }

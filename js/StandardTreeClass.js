@@ -43,6 +43,16 @@ function standardTreeClass (worldTileType,arrayIndex,hiddenTile) {
 		this.colliderHeight = this.height/2;
 		this.colliderOffsetY = 12;
 		this.colliderOffsetX -= 3;
+	} 
+
+	if (worldTileType == TILE_MOON_CHEESE_TREE) {
+		this.x = position.x - this.width/4;
+		this.y = position.y - this.height/2;
+		this.hasLeaves = false;
+		this.health = 3;
+		this.colliderWidth = this.width/3;
+		this.colliderHeight = this.height/2 - 20;
+		this.colliderOffsetY = this.height/2 - 10;
 	}
 
 	if (worldTileType == TILE_LOLLIPOP) {

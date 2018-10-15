@@ -6,8 +6,8 @@ var groundSet = arrayWithRange(100, startAt = 100); // 100 to 199
 var treeSet = arrayWithRange(100, startAt = 200); // 200 to 299
 var cliffSet = arrayWithRange(100, startAt = 300); // 300 to 399
 var waterSet = arrayWithRange(100, startAt = 400); // 400 to 499
-var pathSet = arrayWithRange(100, startAt = 500); // 400 to 499
-var moonSet = arrayWithRange(100, startAt = 700); // 400 to 499
+var pathSet = arrayWithRange(100, startAt = 500); // 500 to 599
+var moonSet = arrayWithRange(100, startAt = 700); // 700 to 799
 var animalSet = arrayWithRange(100, startAt = 800);  // 800 to 899
 
 var currentlySelectedSet = nothingSet;
@@ -46,23 +46,10 @@ function editTileOnMouseClick() {
    		canvasContext.lineWidth = 4;
 
    		var tileKindHere = worldGrid[tileUnderMouse];
-   		//console.log(tileKindHere);
    		if (currentlySelectedSet[currentSetIndex] == undefined) {
    			console.log("undefined");
-   			/*console.log("undefined: Please select a set of tiles using:" + "\n"
-   				+ "0 for nothing" + "\n"
-   				+ "1 for ground tiles" + "\n"
-   				+ "2 for tree tiles" + "\n"
-   				+ "3 for cliff tiles" + "\n"
-   				+ "4 for water tiles" + "\n"
-   				+ "8 for animal tiles" + "\n");*/
    			return;
    		}
-   		/*if (worldPics[currentlySelectedSet[currentSetIndex]] == undefined) {
-   			currentSetIndex = 0;
-   			console.log("index not found in set, returning to index 0");
-   			return;
-   		}*/
    		worldGrid[tileUnderMouse] = currentlySelectedSet[currentSetIndex];
    		allLevels[currentLevelIndex].layout[tileUnderMouse] = currentlySelectedSet[currentSetIndex];
     }
