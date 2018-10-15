@@ -8,17 +8,22 @@ var displayTimer = 0; // counter
 var displayTimerLength = 60; // time in frames before new string is typed (game is at 30 frames per second)
 
 var currentScene = null;
+var skipCutscene = false;
 
 var upgradeLevelTwoScene = {
 	displayLength: displayTimerLength,
 	stringToDisplay: ["Through a burst of insight and creativity...", "Chop-Chop has improved their technique...",
-					"...", '"What if I chopped harder?"']
+					"...", '"What if I chopped harder?"'],
+	isGameOver: false
 };
+
 var upgradeLevelThreeScene = {
 	displayLength: displayTimerLength,
 	stringToDisplay: ["Through a burst of insight and creativity...", "Chop-Chop has improved their technique...",
-					"...", '"What if I threw my axe?"']
+					"...", '"What if I threw my axe?"'],
+	isGameOver: false
 };
+
 var relaxingIdeas = [' take a nice bath..."', ' have a cup of cocoa..."', ' dance like no one is watching..."',
 						' eat a whole cake..."', ' play some video games..."', ' take a long nap..."',
 						' watch my favorite movie..."', ' make a tasty soup..."', ' read a book..."',
@@ -118,11 +123,13 @@ function playCutscene(data) {
 				wordsToShow = "";
 			}
 		}
-		if (cutsceneDialogueIndex >= data.stringToDisplay.length) {
+		if (cutsceneDialogueIndex >= data.stringToDisplay.length ||
+			skipCutscene == true) {
 			if (data.isGameOver) {
 				// do nothing - wait for input from player
 			} else {
 				havingAMoment = false;
+				skipCutscene = false;
 				wordsToShow = "";
 				stringIndex = 0;
 				cutsceneDialogueIndex = 0;
@@ -135,6 +142,13 @@ function playCutscene(data) {
 				backgroundMusic.play();
 			}
 		}
+		if (data.isGameOver) {
+		drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
+		drawPixelfont("-SPACE-  select", 32, canvas.height - canvas.height/20, 12,12);
+		} else {
+		drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
+		drawPixelfont("-SPACE-  skip", 32, canvas.height - canvas.height/20, 12,12);
+		}
 	}
 }
 
@@ -146,6 +160,7 @@ function cutsceneDialogue (data) {
 	if (data.stringToDisplay[cutsceneDialogueIndex] == undefined || 
 		cutsceneDialogueIndex == data.stringToDisplay.length) {
 		drawPixelfontCentered(wordsToShow, canvas.width/2, canvas.height/6);
+		skipCutscene = false;
 		return;
 	} else {
 		var choppedUpString = data.stringToDisplay[cutsceneDialogueIndex].split("");

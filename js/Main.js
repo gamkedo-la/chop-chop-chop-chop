@@ -17,6 +17,7 @@ var savedAlpha = 0;
 var scroll = 0;
 var scrollSpeed = 2;
 var pixelsSkipPerLine = 45;
+var scrollingText = false;
 var scrollingTextPaused = false;
 var scrollingTextSkipped = false;
 var introText = ["chop-chop, intrepid  lumberjack, has  decided", "to  make  it  their  mission", "to  chop  down  every  tree",  "far  and  wide",
@@ -98,7 +99,10 @@ function drawAll() {
 			} else if (waitBuffer >= 85) {
 				canvasContext.globalAlpha = 1.0;
 				drawRect(0,0,1600,1600,"black");
+				scrollingText = true;
 				if (drawScrollingText(introText)) {
+					scrollingText = false;
+					scrollingTextSkipped = false;
 					canvasContext.globalAlpha = 1.0;
 					countdownTimerPaused = false;
 					openingMenuIsRunning = false;
@@ -189,22 +193,22 @@ function drawScrollingText(textList) {
     for(var i = 0; i < textList.length; i++) {
         drawPixelfontCentered(textList[i], scrollTextX, canvas.height + i * pixelsSkipPerLine, 16, 16);
         if (i == textList.length-1) {
-    		if (scroll < (canvas.height + ((i * -pixelsSkipPerLine) - bufferSpace))) {
+    		if (scroll < (canvas.height + i * pixelsSkipPerLine) * - 1 - bufferSpace) {
     			canvasContext.restore();
     			drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
-    			drawPixelfont("-W-  fast forward   -S-  rewind   -Space-  pause   -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+    			drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
     			return true;
     		} else if (scrollingTextSkipped) {
     			canvasContext.restore();
     			drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
-    			drawPixelfont("-W-  fast forward   -S-  rewind   -Space-  pause   -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+    			drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
     			return true;
     		}
     	}
     }
     canvasContext.restore();
  	drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
-    drawPixelfont("-W-  fast forward   -S-  rewind   -Space-  pause   -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+    drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
 }
 
 function rewindScrollText() {

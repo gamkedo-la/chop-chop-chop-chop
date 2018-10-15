@@ -118,8 +118,12 @@ function keyPressed(evt) {
 			rewindScrollText();
 			break;
 		case SPACEBAR:
+			if (havingAMoment) {
+				skipCutscene = true;
+			} else {
 			spacebarKeyHeld = true;
             toggleScrollTextPause();
+            }
 			break;
 		case NUMBER_PAD_PLUS:
 		case KEY_PLUS:
@@ -177,7 +181,9 @@ function keyPressed(evt) {
 					currentSetIndex = 0;
 				}
 			}
-			scrollingTextSkipped = true;
+			if (scrollingText) {
+				scrollingTextSkipped = true;
+			}
 		break;
 		case Z_KEY:
 			if (worldEditor) {
