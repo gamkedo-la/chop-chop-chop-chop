@@ -20,11 +20,8 @@ var pixelsSkipPerLine = 45;
 var scrollingTextPaused = false;
 var scrollingTextSkipped = false;
 
-var introText = ["chop-chop, intrepid  lumberjack, has  decided", "to  make  it  thier  mission", "to  chop  down  all  trees  in  the  land", 
-				"", "", "you  know . . .", "for fun"];
-
-//You can hold - Z - to make me go faster
-// Am I going too fast? Press - SPACE - to pause me
+var introText = ["chop-chop, intrepid  lumberjack, has  decided", "to  make  it  their  mission", "to  chop  down  every  tree",  "far  and  wide",
+				"", "to  see  if  it  can  really  be  done","and  to  know  what  it  feels  like","when  you  do"];
 
 window.onload = function () {
 	canvas = document.createElement("canvas");
@@ -187,16 +184,20 @@ function drawScrollingText(textList) {
         if (i == textList.length-1) {
     		if (scroll < (canvas.height + i * pixelsSkipPerLine) * -1 - bufferSpace) {
     			canvasContext.restore();
-    			return true
+    			drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
+    			drawPixelfont("-W-  fast forward   -S-  rewind   -Space-  pause   -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+    			return true;
     		} else if (scrollingTextSkipped) {
     			canvasContext.restore();
-    			return true
+    			drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
+    			drawPixelfont("-W-  fast forward   -S-  rewind   -Space-  pause   -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+    			return true;
     		}
     	} 
     }
     canvasContext.restore();
-    drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
-    drawPixelfont("-W- fast forward   -S- rewind   -Space- pause   -X- skip", 32, canvas.height - canvas.height/20, 12,12);
+ 	drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
+    drawPixelfont("-W-  fast forward   -S-  rewind   -Space-  pause   -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
 }
 
 function rewindScrollText() {
