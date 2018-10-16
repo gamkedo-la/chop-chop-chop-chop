@@ -24,7 +24,7 @@ var mainMenu = {
 	treesToCut: 5,
 	columns: 25,
 	rows: 19,
-	name: "mainMenu"
+	name: "Main Menu"
 };
 
 var mountainBase = {
@@ -74,7 +74,7 @@ var mountainBase = {
 	treesToCut: 35,
 	columns: 40,
 	rows: 40,
-	name: "mountainBase"
+	name: "Mountain Base"
 };
 
 var mountainTop = {
@@ -129,7 +129,7 @@ var mountainTop = {
 	treesToCut: 85,
 	columns: 60,
 	rows: 45,
-	name: "mountainTop"
+	name: "Mountain Top"
 };
 
 var moon = {
@@ -225,7 +225,7 @@ var moon = {
 	000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000
 	],*/
 
-var testLevel = {
+/*var testLevel = {
 	layout: [
 	000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,
 	000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,
@@ -252,7 +252,7 @@ var testLevel = {
 	columns: 25,
 	rows: 20,
 	name: 'testLevel'
-}
+}*/
 
 var randomForest = sproutRandomTrees(mountainBase);
 

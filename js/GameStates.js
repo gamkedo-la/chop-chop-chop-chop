@@ -289,7 +289,7 @@ let resetGame = (levelIndex) => {
 	particleList = [];
 	animatedTileList = [];
 	backgroundMusic.pause();
-	if (currentLevelIndex == 0) { // main menu
+	if (allLevels[currentLevelIndex].name == "Main Menu") { 
 		backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
 		openingMenuIsRunning = true;
 		player.axeLevel = LOW;
@@ -300,9 +300,9 @@ let resetGame = (levelIndex) => {
 		player.chopCount = 0;
 		upgradeLevelTwo = false;
 		upgradeLevelThree = false;
-	} else if (currentLevelIndex == 3) { // moon level
+	} else if (allLevels[currentLevelIndex].name == "Moon") {
 		backgroundMusic.src = "music/dark_side_of_the_chop" + sourceExtension;
-	} else {
+	} else { // all other levels
 		backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
 	}
 	backgroundMusic.volume = volumeDefault; // found in Audio.js

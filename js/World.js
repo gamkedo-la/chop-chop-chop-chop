@@ -159,11 +159,11 @@ const TILE_ALLIGATOR = 804;
 const TILE_PINCHER_BUG = 805;
 const TILE_BEAR = 806;
 
-var allLevels = [mainMenu,mountainBase,mountainTop,moon/*,testLevel*/];
-var currentLevelIndex = 0; // FIXME TODO: put back to zero when not testing level 2
+var allLevels = [mainMenu,mountainBase,mountainTop,moon];
+var currentLevelIndex = 0; 
 
-var worldCols = allLevels[currentLevelIndex].columns; //
-var worldRows = allLevels[currentLevelIndex].rows; // both of these depend on level, these numbers are for level 1
+var worldCols = allLevels[currentLevelIndex].columns; // both of these depend on level,
+var worldRows = allLevels[currentLevelIndex].rows; // these numbers are for level 1
 
 var worldGrid = [];
 
@@ -204,7 +204,7 @@ function drawWorld() {
 				}
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 			} else {
-				if (currentLevelIndex == 3) { // moon level
+				if (allLevels[currentLevelIndex].name == "Moon") {
 					canvasContext.drawImage(worldPics[TILE_MOON_TERRAIN], drawTileX, drawTileY);
 				} else {
 					canvasContext.drawImage(worldPics[TILE_TERRAIN], drawTileX, drawTileY);
@@ -597,7 +597,7 @@ function advanceLevel() {
 	animatedTileList = [];
 	particleList = [];
 	currentLevelIndex = (currentLevelIndex + 1) % allLevels.length;
-	if (currentLevelIndex == 3) {
+	if (allLevels[currentLevelIndex].name == "Moon") {
 		backgroundMusic.pause();
 		backgroundMusic.src = "music/dark_side_of_the_chop" + sourceExtension;
 		backgroundMusic.play();
@@ -606,7 +606,6 @@ function advanceLevel() {
 	worldCols = allLevels[currentLevelIndex].columns; 
 	worldRows = allLevels[currentLevelIndex].rows;
 	treesCutThisLevel = 0;
-	//console.log(objectList);
 	var levelStartPosition = indexToCenteredXY(allLevels[currentLevelIndex].playerStartArrayIndex);
 	player.x = levelStartPosition.x;
 	player.y = levelStartPosition.y;
