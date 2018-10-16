@@ -193,6 +193,12 @@ function drawWorld() {
 			if (isTileTypeAnimated(tileKindHere)) {
 				setupAnimatedTiles(tileKindHere,drawTileX,drawTileY,arrayIndex);
 			} else if (isTileTypeAnObject(tileKindHere)) {
+				if (allLevels[currentLevelIndex].name == "Moon" || 
+					worldGrid === moonMainMenu) {
+					canvasContext.drawImage(worldPics[TILE_MOON_TERRAIN], drawTileX, drawTileY);
+				} else {
+					canvasContext.drawImage(worldPics[TILE_TERRAIN], drawTileX, drawTileY);
+				}
 				spawnObjectBasedOnTile(tileKindHere, arrayIndex, worldGrid[arrayIndex - worldCols]);
 			} else if (isTileTypeAnAnimal(tileKindHere)) {
 				spawnAnimalBasedOnTile(tileKindHere,arrayIndex);
@@ -204,11 +210,6 @@ function drawWorld() {
 				}
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 			} else {
-				if (allLevels[currentLevelIndex].name == "Moon") {
-					canvasContext.drawImage(worldPics[TILE_MOON_TERRAIN], drawTileX, drawTileY);
-				} else {
-					canvasContext.drawImage(worldPics[TILE_TERRAIN], drawTileX, drawTileY);
-				}
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 				if ((getArrayIndexFromList(TILE_CAMPFIRE, animatedTileList) == arrayIndex ||
 					getArrayIndexFromList(TILE_DS_BONFIRE, animatedTileList) == arrayIndex) &&

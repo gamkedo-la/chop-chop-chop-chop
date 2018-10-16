@@ -111,9 +111,6 @@ function playerClass() {
 					}
 				}
 			} // end of for objects in list loop
-		} else {
-			this.speed = NORMAL_SPEED;
-			tornadoSwoosh.pause();
 		}
 
 		this.oldX = this.x;
@@ -122,7 +119,7 @@ function playerClass() {
         var movementY = 0;
 		this.state.walking = false;
 
-        if (!this.state.chopping && !this.state.waiting) {
+        if (!this.state.chopping && !this.state.waiting && !scrollingText) {
 			if (leftKeyHeld) {
 				movementX -= this.speed;
 				this.direction = WEST;
@@ -236,7 +233,9 @@ function playerClass() {
 		var optionsTitle = optionScreenHitBoxes[0];
 		var music = optionScreenHitBoxes[1];
 		var sfx = optionScreenHitBoxes[2]
-		var back = optionScreenHitBoxes[3];
+		var soundTest = optionScreenHitBoxes[3];
+		var musicTest = optionScreenHitBoxes[4];
+		var back = optionScreenHitBoxes[5];
 		var musicB1 = musicHitboxes[0];
 		var musicB2 = musicHitboxes[1];
 		var sfxB1 = sfxHitboxes[0];
@@ -246,7 +245,7 @@ function playerClass() {
 				hit = true;
 				hitTitle = true;
 				pendingShakes = HIT_SHAKE_COUNT * 2;
-				console.log("hit title screen!");
+				//console.log("hit game title!");
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 				arrayOfChopSFXs[random].play();
@@ -254,7 +253,7 @@ function playerClass() {
 			}
 			if (this.axeHitbox.isCollidingWith(options)) {
 				hit = true;
-				console.log("hit options screen!");
+				//console.log("hit options!");
 				hitOptions = true;
 				pendingShakes = HIT_SHAKE_COUNT * 2;
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
@@ -264,7 +263,7 @@ function playerClass() {
 			}  
 			if (this.axeHitbox.isCollidingWith(newGame)) {
 				hit = true;
-				console.log("hit new game!");
+				//console.log("hit new game!");
 				hitNewGame = true;
 				pendingShakes = HIT_SHAKE_COUNT * 2;
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
@@ -274,7 +273,7 @@ function playerClass() {
 			} 
 			if (this.axeHitbox.isCollidingWith(credits)) {
 				hit = true;
-				console.log("hit new game!");
+				//console.log("hit credits!");
 				hitCredits = true;
 				pendingShakes = HIT_SHAKE_COUNT * 2;
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
@@ -287,7 +286,7 @@ function playerClass() {
 				hit = true;
 				hitOptionsTitle = true;
 				pendingShakes = HIT_SHAKE_COUNT * 2;
-				console.log("hit title screen!");
+				//console.log("hit option title!");
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 				arrayOfChopSFXs[random].play();
@@ -297,7 +296,7 @@ function playerClass() {
 				hit = true;
 				hitMusic = true;
 				pendingShakes = HIT_SHAKE_COUNT * 2;
-				console.log("hit music screen!");
+				//console.log("hit music!");
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 				arrayOfChopSFXs[random].play();
@@ -307,17 +306,33 @@ function playerClass() {
 				hit = true;
 				hitSFX = true;
 				pendingShakes = HIT_SHAKE_COUNT * 2;
-				console.log("hit sfx screen!");
+				//console.log("hit sfx!");
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 				arrayOfChopSFXs[random].play();
+				return;
+			}
+			if (this.axeHitbox.isCollidingWith(soundTest)) {
+				hit = true;
+				hitSoundTest = true;
+				pendingShakes = HIT_SHAKE_COUNT * 2;
+				//console.log("hit sound test!");
+				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+				return;
+			}
+			if (this.axeHitbox.isCollidingWith(musicTest)) {
+				hit = true;
+				hitMusicTest = true;
+				pendingShakes = HIT_SHAKE_COUNT * 2;
+				//console.log("hit music test!");
+				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 				return;
 			}
 			if (this.axeHitbox.isCollidingWith(back)) {
 				hit = true;
 				hitBack = true;
 				pendingShakes = HIT_SHAKE_COUNT * 2;
-				console.log("hit title screen!");
+				//console.log("hit back!");
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 				arrayOfChopSFXs[random].play();
@@ -327,7 +342,7 @@ function playerClass() {
 				hit = true;
 				hitMusicPlus = true;
 				pendingShakes = HIT_SHAKE_COUNT * 2;
-				console.log("hit music button 1 screen!");
+				//console.log("hit music button 1 screen!");
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 				arrayOfChopSFXs[random].play();
@@ -337,7 +352,7 @@ function playerClass() {
 				hit = true;
 				hitMusicMinus = true;
 				pendingShakes = HIT_SHAKE_COUNT * 2;
-				console.log("hit music button 2 screen!");
+				//console.log("hit music button 2 screen!");
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 				arrayOfChopSFXs[random].play();
@@ -347,7 +362,7 @@ function playerClass() {
 				hit = true;
 				hitSfxPlus = true;
 				pendingShakes = HIT_SHAKE_COUNT * 2;
-				console.log("hit sfx button 1 screen!");
+				//console.log("hit sfx button 1 screen!");
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 				arrayOfChopSFXs[random].play();
@@ -357,7 +372,7 @@ function playerClass() {
 				hit = true;
 				hitSfxMinus = true;
 				pendingShakes = HIT_SHAKE_COUNT * 2;
-				console.log("hit sfx button 2 screen!");
+				//console.log("hit sfx button 2 screen!");
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 				arrayOfChopSFXs[random].play();
@@ -443,6 +458,8 @@ function playerClass() {
 			}
 			if (this.powerupTimer > this.powerupTimerFull) {
 				this.invincible = false;
+				this.speed = NORMAL_SPEED;
+				tornadoSwoosh.pause();
 				this.powerupActive = false;
 				this.powerupTimer = 0;
 				return;

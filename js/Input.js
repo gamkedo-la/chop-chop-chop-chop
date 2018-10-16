@@ -120,10 +120,10 @@ function keyPressed(evt) {
 		case SPACEBAR:
 			if (havingAMoment) {
 				skipCutscene = true;
-			} else {
-			spacebarKeyHeld = true;
-            toggleScrollTextPause();
+			} else if (scrollingText) {
+	            toggleScrollTextPause();
             }
+            spacebarKeyHeld = true;
 			break;
 		case NUMBER_PAD_PLUS:
 		case KEY_PLUS:

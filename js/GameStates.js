@@ -13,16 +13,23 @@ var hitTitle = false;
 var hitNewGame = false;
 var hitOptions = false;
 var hitCredits = false;
+
 var hitOptionsTitle = false;
 var hitMusic = false;
 var hitSFX = false;
+var hitSoundTest = false;
+var hitMusicTest = false;
 var hitBack = false;
+
 var hitMusicPlus = false;
 var hitMusicMinus = false;
 var hitSfxPlus = false;
 var hitSfxMinus = false;
+
 var pendingShakes = 0;
 var waitBuffer = 0;
+var currentTestSoundIndex = -1;
+var currentTestMusicIndex = 0;
 
 //add background image for opening menu
 function drawOpeningMenu() {
@@ -45,7 +52,6 @@ function drawOpeningMenu() {
 										canvas.height / 2 - 4,
 										measurePixelfont("Chop  Chop,Chop-Chop!") * 2.65, 32,
 										0,0);
-	//titleHitbox.draw("blue");
 	if (hitNewGame) {
 		if (pendingShakes) {
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
@@ -62,7 +68,6 @@ function drawOpeningMenu() {
 										canvas.height / 2 + 47,
 										measurePixelfont("New Game") * 1.38, 14,
 										0,0);
-	//newGameHitbox.draw("blue");
 	if (hitOptions) {
 		if (pendingShakes) {
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
@@ -83,7 +88,6 @@ function drawOpeningMenu() {
 										canvas.height / 2 + 87,
 										measurePixelfont("Options") * 1.47, 14,
 										0,0);
-	//optionsHitbox.draw("blue");
 	if (hitCredits) {
 		if (pendingShakes) {
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
@@ -103,14 +107,21 @@ function drawOpeningMenu() {
 										canvas.height / 2 + 128,
 										measurePixelfont("Credits") * 1.5, 16,
 										0,0);
-	//creditsHitbox.draw("blue");
 	titleScreenHitboxes = [titleHitbox,newGameHitbox,optionsHitbox,creditsHitbox];
+	if (debug) {
+		titleHitbox.draw("blue");
+		newGameHitbox.draw("blue");
+		optionsHitbox.draw("blue");
+		creditsHitbox.draw("blue");
+	}
 }
 
 function drawOptionsMenu() {
 	var optionsTitleX = canvas.width / 3 + 35;
 	var musicX = canvas.width / 3 + 20;
 	var sfxX = canvas.width / 3 + 35;
+	var soundTestX = canvas.width / 3 + 35;
+	var musicTestX = canvas.width / 3 + 35;
 	var backX = canvas.width / 3 + 100
 	var xoffset = 0;
 	if (hitOptionsTitle) {
@@ -127,7 +138,6 @@ function drawOptionsMenu() {
 										canvas.height / 2 - 59 /*Pixelfont Y + half hitbox height*/,
 										measurePixelfont("Options") * 2.87, 32,
 										0,0);
-	//optionsTitleHitbox.draw("blue");
 	if (hitMusic) {
 		if (pendingShakes) {
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
@@ -143,7 +153,6 @@ function drawOptionsMenu() {
 				           /*Pixelfont Y + half hitbox height*/ canvas.height / 2 - 12,
 										measurePixelfont("Music: " + Math.trunc(Math.round(backgroundMusic.volume * 10))) * 1.39, 14,
 										0,0);
-	//musicHitbox.draw("blue");
 	if (hitSFX) {
 		if (pendingShakes) {
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
@@ -154,12 +163,76 @@ function drawOptionsMenu() {
 		}
 	}
 
-	drawPixelfont("SFX: " + Math.trunc(Math.round(chop1.volume * 10)), sfxX, canvas.height/2 + 40, 16, 16);
+	drawPixelfont("SFX: " + Math.trunc(Math.round(chop1.volume * 10)), sfxX, canvas.height/2 + 20, 16, 16);
 	var sfxHitbox = new colliderClass(sfxX + ((measurePixelfont("SFX: " + Math.trunc(Math.round(chop1.volume * 10))) * 1.32)/2),
-				           /*Pixelfont Y + half hitbox height*/ canvas.height /2 + 47,
+				           /*Pixelfont Y + half hitbox height*/ canvas.height /2 + 27,
 										measurePixelfont("SFX: " + Math.trunc(Math.round(chop1.volume * 10))) * 1.32, 15,
 										0,0);
-	//sfxHitbox.draw("blue");
+
+	if (hitSoundTest) {
+		if (pendingShakes) {
+			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
+			soundTestX += xoffset;
+			pendingShakes--;
+		} else {
+			currentTestSoundIndex++;
+			if (currentTestSoundIndex == arrayOfSFXs.length - 1) {
+				arrayOfSFXs[currentTestSoundIndex - 1].pause();
+				arrayOfSFXs[currentTestSoundIndex].play();
+				currentTestSoundIndex = -1;
+			} else {
+				if (currentTestSoundIndex > 0) {
+					arrayOfSFXs[currentTestSoundIndex - 1].pause();
+				}
+				arrayOfSFXs[currentTestSoundIndex].play();
+			}
+			hitSoundTest = false;
+		}
+	}
+
+	drawPixelfont("sound  test: " + (currentTestSoundIndex + 1), soundTestX, canvas.height/2 + 60, 16, 16);
+	var soundTestHitbox = new colliderClass(soundTestX + ((measurePixelfont("sound  test: " + (currentTestSoundIndex + 1)) * 1.32)/2),
+				           				canvas.height/2 + 60 + (14/2),
+										measurePixelfont("sound  test: " + (currentTestSoundIndex + 1)) * 1.32, 15,
+										0,0);
+
+	if (hitMusicTest) {
+		if (pendingShakes) {
+			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
+			musicTestX += xoffset;
+			pendingShakes--;
+		} else {
+			currentTestMusicIndex++;
+			backgroundMusic.pause();
+			if (currentTestMusicIndex >= 5) {
+				currentTestMusicIndex = 0;
+			}
+			if (currentTestMusicIndex == 0) {
+				backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
+			}
+			if (currentTestMusicIndex == 1) {
+				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+			}
+			if (currentTestMusicIndex == 2) {
+				backgroundMusic.src = "music/animal_chase_v3" + sourceExtension;
+			}
+			if (currentTestMusicIndex == 3) {
+				backgroundMusic.src = "music/ChopChop-GameOverLoop_v1" + sourceExtension;
+			}
+			if (currentTestMusicIndex == 4) {
+				backgroundMusic.src = "music/dark_side_of_the_chop" + sourceExtension;
+			}
+			backgroundMusic.play();
+			hitMusicTest = false;
+		}
+	}
+
+	drawPixelfont("music  test: " + currentTestMusicIndex, musicTestX, canvas.height/2 + 80, 16, 16);
+	var musicTestHitbox = new colliderClass(musicTestX + ((measurePixelfont("music  test: " + currentTestMusicIndex) * 1.32)/2),
+				           				canvas.height/2 + 80 + (14/2),
+										measurePixelfont("music  test: " + currentTestMusicIndex) * 1.32, 15,
+										0,0);
+
 	if (hitBack) {
 		if (pendingShakes) {
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
@@ -168,10 +241,18 @@ function drawOptionsMenu() {
 		} else {
 			waitBuffer++
 			if (waitBuffer >= 10) {
-			openingMenuIsRunning = true;
-			optionsMenu = false;
-			hitBack = false;
-			waitBuffer = 0;
+				if (currentTestMusicIndex == 4) {
+					objectList = [];
+					objectList.push(player);
+					animatedTileList = [];
+					worldGrid = moonMainMenu;
+				}
+				hitBack = false;
+				optionsMenu = false;
+				openingMenuIsRunning = true;
+				waitBuffer = 0;	
+				currentTestSoundIndex = -1;
+				currentTestMusicIndex = 0; 
 			}
 		}
 	}
@@ -181,10 +262,20 @@ function drawOptionsMenu() {
 										canvas.height - 144 /*Pixelfont Y + half hitbox height*/,
 										measurePixelfont("back") * 1.25, 13,
 										0,0);
-	//backHitbox.draw("blue");
-	optionScreenHitBoxes = [optionsTitleHitbox,musicHitbox,sfxHitbox,backHitbox];
+	
+	optionScreenHitBoxes = [optionsTitleHitbox,musicHitbox,sfxHitbox,
+							soundTestHitbox,musicTestHitbox,backHitbox];
 	drawMusicAndSfxOptions();
+
+	if (debug) {
+		optionsTitleHitbox.draw("blue");
+		musicHitbox.draw("blue");
+		sfxHitbox.draw("blue");
+		soundTestHitbox.draw("blue");
+		musicTestHitbox.draw("blue");
+		backHitbox.draw("blue");
 	}
+}
 
 function drawMusicAndSfxOptions() {
 	var b1MusicX = canvas.width / 3 + 150;
@@ -204,11 +295,10 @@ function drawMusicAndSfxOptions() {
 		}
 	}
 	drawPixelfont("+", b1MusicX, canvas.height/2 - 18, 13, 13);
-	var musicB1Hitbox = new colliderClass(b1MusicX + ((measurePixelfont("+") * 1.15)/2),
+	var musicPlusHitbox = new colliderClass(b1MusicX + ((measurePixelfont("+") * 1.15)/2),
 					/*Pixelfont Y + half hitbox height*/    canvas.height / 2 - 12,
 										measurePixelfont("+") * 1.5, 16,
 										0,0);
-	//musicB1Hitbox.draw("blue");
 
 	if (hitMusicMinus) {
 		if (pendingShakes) {
@@ -221,12 +311,11 @@ function drawMusicAndSfxOptions() {
 		}
 	}
 	drawPixelfont("-", b2MusicX, canvas.height/2 - 18, 13, 13);
-	var musicB2Hitbox = new colliderClass(b2MusicX + ((measurePixelfont("-") * 1.20)/2),
+	var musicMinusHitbox = new colliderClass(b2MusicX + ((measurePixelfont("-") * 1.20)/2),
 					/*Pixelfont Y + half hitbox height*/    canvas.height / 2 - 12,
 										measurePixelfont("-") * 1.5, 16,
 										0,0);
-	//musicB2Hitbox.draw("blue");
-	musicHitboxes = [musicB1Hitbox,musicB2Hitbox];
+	musicHitboxes = [musicPlusHitbox,musicMinusHitbox];
 
 	if (hitSfxPlus) {
 		if (pendingShakes) {
@@ -238,12 +327,11 @@ function drawMusicAndSfxOptions() {
 			hitSfxPlus = false;
 		}
 	}
-	drawPixelfont("+", b1SfxX, canvas.height/2 + 41, 13, 13);
-	var sfxB1Hitbox = new colliderClass(b1SfxX + ((measurePixelfont("+") * 1.15)/2),
-					/*Pixelfont Y + half hitbox height*/    canvas.height / 2 + 47,
+	drawPixelfont("+", b1SfxX, canvas.height/2 + 21, 13, 13);
+	var sfxPlusHitbox = new colliderClass(b1SfxX + ((measurePixelfont("+") * 1.15)/2),
+					/*Pixelfont Y + half hitbox height*/    canvas.height / 2 + 27,
 										measurePixelfont("+") * 1.5, 16,
 										0,0);
-	//sfxB1Hitbox.draw("blue");
 	if (hitSfxMinus) {
 		if (pendingShakes) {
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
@@ -254,13 +342,18 @@ function drawMusicAndSfxOptions() {
 			hitSfxMinus = false;
 		}
 	}
-	drawPixelfont("-", b2SfxX, canvas.height/2 + 41, 13, 13);
-	var sfxB2Hitbox = new colliderClass(b2SfxX + ((measurePixelfont("-") * 1.20)/2),
-					/*Pixelfont Y + half hitbox height*/    canvas.height / 2 + 47,
+	drawPixelfont("-", b2SfxX, canvas.height/2 + 21, 13, 13);
+	var sfxMinusHitbox = new colliderClass(b2SfxX + ((measurePixelfont("-") * 1.20)/2),
+					/*Pixelfont Y + half hitbox height*/    canvas.height / 2 + 27,
 										measurePixelfont("-") * 1.5, 16,
 										0,0);
-	//sfxB2Hitbox.draw("blue");
-	sfxHitboxes = [sfxB1Hitbox,sfxB2Hitbox];
+	sfxHitboxes = [sfxPlusHitbox,sfxMinusHitbox];
+	if (debug) {
+		musicPlusHitbox.draw("blue");
+		musicMinusHitbox.draw("blue");
+		sfxPlusHitbox.draw("blue");
+		sfxMinusHitbox.draw("blue");
+	}
 }
 
 function drawCredits() {
@@ -269,7 +362,9 @@ function drawCredits() {
 		scrollingText = false;
 		creditsRunning = false;
 		endSequence = false;
-		resetGame(0);
+		if (allLevels[currentLevelIndex].name == "Moon") {
+			resetGame(0);
+		}
 	}
 }
 
@@ -323,6 +418,7 @@ let resetGame = (levelIndex) => {
 	backgroundMusic.pause();
 	if (allLevels[currentLevelIndex].name == "Main Menu") { 
 		backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
+		player.direction = EAST;
 		openingMenuIsRunning = true;
 		player.axeLevel = LOW;
 		player.swingCount = 0;

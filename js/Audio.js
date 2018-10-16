@@ -16,14 +16,14 @@ let animalHit = new Audio();
 let cutsceneSound = new Audio();
 
 let arrayOfSounds = [backgroundMusic,chop1,chop2,axeWhirl,missedSwing,tornadoSwoosh,
-					birdSound,deathMeow,pincherBug,bearRoar1,bearRoar2,bearRoar3,
-					playerHurt,cutsceneSound,campfireSFX];
+					birdSound,deathMeow,bugSound,bearRoar1,bearRoar2,bearRoar3,
+					playerHurt,animalHit,cutsceneSound,campfireSFX];
 
 let arrayOfMusic = [backgroundMusic];
 let arrayOfSFXs = [chop1,chop2,axeWhirl,missedSwing,tornadoSwoosh,
-					birdSound,deathMeow,pincherBug,
+					birdSound,deathMeow,bugSound,
 					bearRoar1,bearRoar2,bearRoar3,
-					playerHurt,cutsceneSound,campfireSFX];
+					playerHurt,animalHit,cutsceneSound,campfireSFX];
 
 let audioType = undefined;
 let sourceExtension = undefined;

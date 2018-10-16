@@ -46,6 +46,7 @@ function drawScrollingText(textList) {
     			drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
     			scroll = 0;
     			scrollingTextSkipped = false;
+    			scrollingTextPaused = false;
     			return true;
     		}
     	}
