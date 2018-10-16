@@ -84,7 +84,6 @@ function objectClass (newObject) {
 				if (allLevels[currentLevelIndex].name == "Moon") {
 			        waitBuffer = 0;
 			        canvasContext.globalAlpha = 0;
-			        //opacity = 0;
 			        if (scrollingTextPaused) {
 						toggleScrollTextPause();
 					}

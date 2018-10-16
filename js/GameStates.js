@@ -1,6 +1,7 @@
 let openingMenuIsRunning = true;
 let optionsMenu = false;
 let gameIsRunning = false;
+let creditsRunning = false;
 let gameIsPaused = false;
 let endSequence = false;
 
@@ -11,6 +12,7 @@ var sfxHitboxes = [];
 var hitTitle = false;
 var hitNewGame = false;
 var hitOptions = false;
+var hitCredits = false;
 var hitOptionsTitle = false;
 var hitMusic = false;
 var hitSFX = false;
@@ -21,12 +23,13 @@ var hitSfxPlus = false;
 var hitSfxMinus = false;
 var pendingShakes = 0;
 var waitBuffer = 0;
-var newGameX = 800 / 2 - 25;
 
 //add background image for opening menu
 function drawOpeningMenu() {
 	var titleX = canvas.width / 3 - 120;
+	var newGameX = canvas.width / 2 - 25;
 	var optionsX = canvas.width / 2 - 24;
+	var creditsX = canvas.width / 2 - 25;
 	var xoffset = 0;
 	if (hitTitle) {
 		if (pendingShakes) {
@@ -81,7 +84,27 @@ function drawOpeningMenu() {
 										measurePixelfont("Options") * 1.47, 14,
 										0,0);
 	//optionsHitbox.draw("blue");
-	titleScreenHitboxes = [titleHitbox,newGameHitbox,optionsHitbox];
+	if (hitCredits) {
+		if (pendingShakes) {
+			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
+			creditsX += xoffset;
+			pendingShakes--;
+		} else {
+			if (scrollingTextPaused) {
+				toggleScrollTextPause();
+			}
+			scrollingText = true;
+			creditsRunning = true;
+			hitCredits = false;
+		}
+	}
+	drawPixelfont("Credits", creditsX, canvas.height / 2 + 120,16,16);
+	var creditsHitbox = new colliderClass(creditsX + ((measurePixelfont("Credits") * 1.5)/2),
+										canvas.height / 2 + 128,
+										measurePixelfont("Credits") * 1.5, 16,
+										0,0);
+	//creditsHitbox.draw("blue");
+	titleScreenHitboxes = [titleHitbox,newGameHitbox,optionsHitbox,creditsHitbox];
 }
 
 function drawOptionsMenu() {
@@ -240,6 +263,16 @@ function drawMusicAndSfxOptions() {
 	sfxHitboxes = [sfxB1Hitbox,sfxB2Hitbox];
 }
 
+function drawCredits() {
+	drawRect(0,0,canvas.width,canvas.height, "black");
+	if (drawScrollingText(creditsText)) {
+		scrollingText = false;
+		creditsRunning = false;
+		endSequence = false;
+		resetGame(0);
+	}
+}
+
 function drawPauseScreen() {
 	drawAll();
 
@@ -269,7 +302,6 @@ let togglePauseGame = () => {
 		windowOnFocus();
 	}
 }
-
 
 let resetGame = (levelIndex) => {
 	wordsToShow = "";
@@ -320,4 +352,8 @@ let resetGame = (levelIndex) => {
 	savedAlpha = 0;
 	havingAMoment = false;
 	scrollingTextSkipped = false;
+}
+
+let toggleDebug = () => {
+	debug = !debug;
 }

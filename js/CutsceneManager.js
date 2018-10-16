@@ -1,3 +1,81 @@
+var scroll = 0;
+var scrollSpeed = 2;
+var pixelsSkipPerLine = 45;
+var scrollingText = false;
+var scrollingTextPaused = false;
+var scrollingTextSkipped = false;
+
+var introText = ["chop-chop, intrepid  lumberjack, has  decided", "to  make  it  their  mission", "to  chop  down  every  tree",  "far  and  wide",
+				"", "to  see  if  it  can  really  be  done","and  to  know  what  it  feels  like","when  you  do"];
+
+var outroText = ["Wow!", "Look at all I've chopped.", "But now all the beautiful trees are missing.", "And no one else can have fun chopping...",
+"Time to plant-plant, plant-plant", "Coming soon... maybe" ];
+
+var creditsText = ["Terrence McDonnell:","Lead","",
+					"Stebs:", "Cat - Art and SFXs,", 
+					"Eagle - Art and SFXs,",
+					"Moon Cheese Tree, Moon Music,","",];
+
+function toggleScrollTextPause() {
+    scrollingTextPaused = !scrollingTextPaused;
+   if (scrollingTextPaused) {
+        scrollSpeed = 0;
+    } else {
+        scrollSpeed = 2;
+    }
+}
+
+function drawScrollingText(textList) {
+    var scrollTextX = -55;
+    var bufferSpace = 64;
+    scroll -= scrollSpeed;
+    canvasContext.save();
+    canvasContext.translate(canvas.width / 2, scroll);
+    for(var i = 0; i < textList.length; i++) {
+        drawPixelfontCentered(textList[i], scrollTextX, canvas.height + i * pixelsSkipPerLine, 16, 16);
+        if (i == textList.length-1) {
+    		if (scroll < (canvas.height + i * pixelsSkipPerLine) * - 1 - bufferSpace) {
+    			canvasContext.restore();
+    			drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
+    			drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+    			scroll = 0;
+    			return true;
+    		} else if (scrollingTextSkipped) {
+    			canvasContext.restore();
+    			drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
+    			drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+    			scroll = 0;
+    			scrollingTextSkipped = false;
+    			return true;
+    		}
+    	}
+    }
+    canvasContext.restore();
+ 	drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
+    drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+}
+
+function rewindScrollText() {
+    if (!scrollingTextPaused) {
+        scrollSpeed = -5;
+    }
+    if (scroll >= 0) {
+    	scroll = 0;
+    }
+}
+
+function fastForwardScrollText() {
+    if (!scrollingTextPaused) {
+        scrollSpeed = 7;
+    }
+}
+
+function resetScrollSpeed() {
+    if (!scrollingTextPaused) {
+        scrollSpeed = 2;
+    }
+}
+
 var stringIndex = 0;
 var wordsToShow = "";
 

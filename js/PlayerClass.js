@@ -232,6 +232,7 @@ function playerClass() {
 		var chopTitle = titleScreenHitboxes[0];
 		var newGame = titleScreenHitboxes[1];
 		var options = titleScreenHitboxes[2];
+		var credits = titleScreenHitboxes[3];
 		var optionsTitle = optionScreenHitBoxes[0];
 		var music = optionScreenHitBoxes[1];
 		var sfx = optionScreenHitBoxes[2]
@@ -265,6 +266,16 @@ function playerClass() {
 				hit = true;
 				console.log("hit new game!");
 				hitNewGame = true;
+				pendingShakes = HIT_SHAKE_COUNT * 2;
+				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+				arrayOfChopSFXs[random].play();
+				return;
+			} 
+			if (this.axeHitbox.isCollidingWith(credits)) {
+				hit = true;
+				console.log("hit new game!");
+				hitCredits = true;
 				pendingShakes = HIT_SHAKE_COUNT * 2;
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
