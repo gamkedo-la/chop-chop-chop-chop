@@ -81,6 +81,16 @@ function objectClass (newObject) {
 			player.treeCount++; // add to stats for GUI
 			treesCutThisLevel++
 			if (treesCutThisLevel >= allLevels[currentLevelIndex].treesToCut) {
+				if (allLevels[currentLevelIndex].name == "Moon") {
+			        waitBuffer = 0;
+			        canvasContext.globalAlpha = 0;
+			        //opacity = 0;
+			        if (scrollingTextPaused) {
+						toggleScrollTextPause();
+					}
+					scrollingText = true;
+			        endSequence = true;
+				}
 				for (var i = 0; i < worldGrid.length; i++) {
 					if (worldGrid[i] === TILE_THORN) {
 						worldGrid[i] = TILE_TERRAIN

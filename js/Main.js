@@ -102,7 +102,6 @@ function drawAll() {
 				scrollingText = true;
 				if (drawScrollingText(introText)) {
 					scrollingText = false;
-					scrollingTextSkipped = false;
 					canvasContext.globalAlpha = 1.0;
 					countdownTimerPaused = false;
 					openingMenuIsRunning = false;
@@ -114,7 +113,6 @@ function drawAll() {
 					backgroundMusic.play();
 					hitNewGame = false;
 					waitBuffer = 0;
-					scroll = 0;
 				}
 			}
 		} else {
@@ -149,7 +147,11 @@ function drawAll() {
 				if (waitBuffer < 200) {
 					canvasContext.globalAlpha = waitBuffer/250;
 				}
-				drawScrollingText(outroText);
+				if (drawScrollingText(outroText)) {
+					endSequence = false;
+					scrollingText = false;
+					resetGame(0);
+				}
 			}
 		} else {
 			drawRect(0, 0, canvas.width, canvas.height, "black");
@@ -197,11 +199,14 @@ function drawScrollingText(textList) {
     			canvasContext.restore();
     			drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
     			drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+    			scroll = 0;
     			return true;
     		} else if (scrollingTextSkipped) {
     			canvasContext.restore();
     			drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
     			drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+    			scroll = 0;
+    			scrollingTextSkipped = false;
     			return true;
     		}
     	}

@@ -251,14 +251,8 @@ function keyPressed(evt) {
 				console.log("animalSet selected");
 			}
 		break;
-    case E_KEY:
-      if (gameIsRunning) {
-        waitBuffer = 0;
-        canvasContext.globalAlpha = 0;
-        opacity = 0;
-        endSequence = true;
-      }
-    break;
+	    case E_KEY:
+	    break;
     }
 };
 
