@@ -599,6 +599,7 @@ function advanceLevel() {
 	particleList = [];
 	currentLevelIndex = (currentLevelIndex + 1) % allLevels.length;
 	if (allLevels[currentLevelIndex].name == "Moon") {
+		player.direction = WEST;
 		backgroundMusic.pause();
 		backgroundMusic.src = "music/dark_side_of_the_chop" + sourceExtension;
 		backgroundMusic.play();
