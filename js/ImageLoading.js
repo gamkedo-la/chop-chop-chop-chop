@@ -125,6 +125,7 @@ function loadImages() {
         { worldType: TILE_MOON_TREE_2, theFile: "moon_tree_2.png" },
         { worldType: TILE_MOON_TREE_3, theFile: "moon_tree_3.png" },
         { worldType: TILE_MOON_CHEESE_TREE, theFile: "stebs_moon_tree.png" },
+        { worldType: TILE_MOON_CRASHED_SHIP, theFile: "crashed_wooden_ship.png" },
 
         { worldType: TILE_REPLACE_MOON_TREE, theFile: "moon_terrain.png" }, 
         { worldType: TILE_REPLACE_TREE, theFile: "terrain.png" }, 

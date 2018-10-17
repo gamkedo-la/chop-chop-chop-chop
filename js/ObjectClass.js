@@ -17,7 +17,7 @@ var moonTrees = [TILE_MOON_TREE_1,TILE_MOON_TREE_2,TILE_MOON_TREE_3,TILE_STALAGM
 
 var moonObjects = [TILE_MOON_LARGE_CRATER_1,TILE_MOON_LARGE_CRATER_2,
 					TILE_MOON_TREE_1_STUMP,TILE_MOON_TREE_2_STUMP,TILE_MOON_TREE_3_STUMP,
-					TILE_STALAGMITE_STUMP,TILE_MOON_CHEESE_STUMP];
+					TILE_STALAGMITE_STUMP,TILE_MOON_CHEESE_STUMP,TILE_MOON_CRASHED_SHIP];
 
 var replacements = [
 TILE_REPLACE_TREE,
@@ -157,6 +157,7 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 		case TILE_MOON_TREE_2_STUMP:
 		case TILE_MOON_TREE_3_STUMP:
 		case TILE_MOON_CHEESE_STUMP:
+		case TILE_MOON_CRASHED_SHIP:
 			newObject = new standardStumpClass(tileType, arrayIndex, hiddenTile);
 			break;
 	}

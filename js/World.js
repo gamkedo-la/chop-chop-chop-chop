@@ -149,6 +149,7 @@ const TILE_MOON_BOXES = 706;
 const TILE_MOON_FLAG = 707;
 const TILE_MOON_HOME = 708;
 const TILE_MOON_WHEEL = 709;
+const TILE_MOON_CRASHED_SHIP = 710;
 
 // Animals
 const TILE_DEATH_CAT = 800;
@@ -208,7 +209,7 @@ function drawWorld() {
 						useImg = worldPics[objectList[i].hiddenTile];
 					}
 				}
-				canvasContext.drawImage(useImg, drawTileX, drawTileY);
+				canvasContext.drawImage(useImg, drawTileX, drawTileY); 
 			} else {
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 				if ((getArrayIndexFromList(TILE_CAMPFIRE, animatedTileList) == arrayIndex ||
@@ -263,6 +264,7 @@ function isTileTypeAnObject(tileType) {
 		case TILE_MOON_TREE_2_STUMP:
 		case TILE_MOON_TREE_3_STUMP:
 		case TILE_MOON_CHEESE_STUMP:
+		case TILE_MOON_CRASHED_SHIP:
 		case TILE_MOON_LARGE_CRATER_1:
 		case TILE_MOON_LARGE_CRATER_2:
 			return true;
