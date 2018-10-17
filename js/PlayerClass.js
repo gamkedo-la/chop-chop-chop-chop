@@ -3,6 +3,11 @@ const MID = 2;
 const MAX = 3;
 const MAX_FRUSTATION = 20;
 
+const NORTH = "north";
+const EAST = "east";
+const WEST = "west";
+const SOUTH = "south";
+
 const NORMAL_SPEED = 6;
 const TORNADO_SPEED = 9;
 
@@ -33,10 +38,6 @@ function playerClass() {
 	this.sprite = playerWalking;
 	this.width = this.sprite.spriteSheet.width/this.sprite.animationColFrames;
 	this.height = this.sprite.spriteSheet.height/this.sprite.animationRowFrames;
-	const NORTH = "north";
-	const EAST = "east";
-	const WEST = "west";
-	const SOUTH = "south";
 	this.direction = EAST; // direction helps prioritize chop
 	this.state = {
 		chopping: false,

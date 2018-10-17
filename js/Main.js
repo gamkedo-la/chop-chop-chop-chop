@@ -84,7 +84,6 @@ function drawAll() {
 				}
 			} else if (waitBuffer >= 85) {
 				canvasContext.globalAlpha = 1.0;
-				drawRect(0,0,1600,1600,"black");
 				scrollingText = true;
 				if (drawScrollingText(introText)) {
 					scrollingText = false;
@@ -99,6 +98,7 @@ function drawAll() {
 					backgroundMusic.play();
 					hitNewGame = false;
 					waitBuffer = 0;
+					savedAlpha = 0;
 				}
 			}
 		} else {
@@ -119,7 +119,7 @@ function drawAll() {
 			endCameraPan();
 		}
 	} /*end of openingMenuIsRunning || optionsMenu*/ else if (gameIsRunning) {
-		if (!havingAMoment) {
+		if (!havingAMoment && !endSequence) {
 			// draw game scene
 			cameraPan();
 			drawWorld();
@@ -129,12 +129,30 @@ function drawAll() {
 			drawParticles();
 			endCameraPan();
 			drawGUI();
-			if (endSequence) {
-				drawRect(0,0, canvas.width,canvas.height, "black");
-				waitBuffer += 2;
-				if (waitBuffer < 200) {
-					canvasContext.globalAlpha = waitBuffer/250;
+		} else if (endSequence) {
+			waitBuffer++;
+			if (waitBuffer < 15) {
+				cameraPan();
+				drawWorld();
+				drawAnimatedTiles();
+				drawAllAnimals();
+				drawAndRemoveAllObjects();
+				drawParticles();
+				endCameraPan();
+				drawGUI();
+			} else if (waitBuffer >= 15 && waitBuffer < 65) {
+				if (waitBuffer % 6 == 0) {
+					savedAlpha += 0.07;
+					if (savedAlpha >= 1) {
+						savedAlpha = 1;
+					}	
+					drawRect(0,0,1600,1600,"black", savedAlpha);
 				}
+			} else if (waitBuffer >= 65 && waitBuffer < 200) {
+				canvasContext.globalAlpha = waitBuffer/250;
+			} 
+
+			if (waitBuffer > 100) {
 				if (drawScrollingText(outroText)) {
 					openingMenuIsRunning = true;
 					creditsRunning = true;

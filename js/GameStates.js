@@ -420,6 +420,7 @@ let resetGame = (levelIndex) => {
 		backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
 		player.direction = EAST;
 		openingMenuIsRunning = true;
+		gameIsRunning = false;
 		player.axeLevel = LOW;
 		player.swingCount = 0;
 		player.stepCount = 0;

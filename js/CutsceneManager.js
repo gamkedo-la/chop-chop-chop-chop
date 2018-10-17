@@ -26,12 +26,13 @@ function toggleScrollTextPause() {
 }
 
 function drawScrollingText(textList) {
-    var scrollTextX = -55;
-    var bufferSpace = 64;
-    scroll -= scrollSpeed;
-    canvasContext.save();
-    canvasContext.translate(canvas.width / 2, scroll);
-    for(var i = 0; i < textList.length; i++) {
+	var scrollTextX = -55;
+	var bufferSpace = 64;
+	scroll -= scrollSpeed;
+	drawRect(0, 0, canvas.width, canvas.height, "black");
+	canvasContext.save();
+	canvasContext.translate(canvas.width / 2, scroll);
+	for(var i = 0; i < textList.length; i++) {
         drawPixelfontCentered(textList[i], scrollTextX, canvas.height + i * pixelsSkipPerLine, 16, 16);
         if (i == textList.length-1) {
     		if (scroll < (canvas.height + i * pixelsSkipPerLine) * - 1 - bufferSpace) {

@@ -83,12 +83,11 @@ function objectClass (newObject) {
 			if (treesCutThisLevel >= allLevels[currentLevelIndex].treesToCut) {
 				if (allLevels[currentLevelIndex].name == "Moon") {
 			        waitBuffer = 0;
-			        canvasContext.globalAlpha = 0;
-			        if (scrollingTextPaused) {
-						toggleScrollTextPause();
-					}
 					scrollingText = true;
 			        endSequence = true;
+					if (scrollingTextPaused) {
+						toggleScrollTextPause();
+					}
 				}
 				for (var i = 0; i < worldGrid.length; i++) {
 					if (worldGrid[i] === TILE_THORN) {

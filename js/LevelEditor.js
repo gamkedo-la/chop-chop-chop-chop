@@ -68,17 +68,6 @@ function copyToClipboard() {
 		if (allLevels[currentLevelIndex].layout[i] >= TILE_TERRAIN && 
 			allLevels[currentLevelIndex].layout[i] <= TILE_NEXT_LEVEL) {
 			layoutString += "00" + allLevels[currentLevelIndex].layout[i].toString() + ",";
-		/*} else if (allLevels[currentLevelIndex].layout[i] == TILE_EXTEND_COLLISION) {
-			for (var j = 0; j < objectList.length; j++) {
-				if (objectList[j].arrayIndex == (i + worldCols)) {
-					numberPrintOut = objectList[j].hiddenTile;
-					if (numberPrintOut == 0) {
-						layoutString += "000,"
-					} else {
-						layoutString += "" + numberPrintOut + ",";
-					}
-				}
-			}*/
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_WATER) {
 			numberPrintOut = "400";
 			for (var n = 0; n < animalList.length; n++) {
