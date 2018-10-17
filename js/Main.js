@@ -140,7 +140,7 @@ function drawAll() {
 				drawParticles();
 				endCameraPan();
 				drawGUI();
-			} else if (waitBuffer >= 15 && waitBuffer < 65) {
+			} else if (waitBuffer >= 15 && waitBuffer < 52) {
 				if (waitBuffer % 6 == 0) {
 					savedAlpha += 0.07;
 					if (savedAlpha >= 1) {
@@ -148,11 +148,14 @@ function drawAll() {
 					}	
 					drawRect(0,0,1600,1600,"black", savedAlpha);
 				}
-			} else if (waitBuffer >= 65 && waitBuffer < 200) {
+				if (scrollingTextPaused) {
+					toggleScrollTextPause();
+				}
+			} else if (waitBuffer >= 52 && waitBuffer < 200) {
 				canvasContext.globalAlpha = waitBuffer/250;
 			} 
 
-			if (waitBuffer > 100) {
+			if (waitBuffer >= 52) {
 				if (drawScrollingText(outroText)) {
 					openingMenuIsRunning = true;
 					creditsRunning = true;

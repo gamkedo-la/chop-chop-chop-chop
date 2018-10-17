@@ -429,6 +429,7 @@ let resetGame = (levelIndex) => {
 		player.chopCount = 0;
 		upgradeLevelTwo = false;
 		upgradeLevelThree = false;
+		waitBuffer = 0;
 	} else if (allLevels[currentLevelIndex].name == "Moon") {
 		backgroundMusic.src = "music/dark_side_of_the_chop" + sourceExtension;
 	} else { // all other levels
