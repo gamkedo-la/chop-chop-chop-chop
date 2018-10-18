@@ -8,6 +8,8 @@ function standardTreeClass (worldTileType,arrayIndex,hiddenTile) {
 	this.img = worldPics[this.tileType];
 	this.width = this.img.width;
 	this.height = this.img.height;
+	this.depthGap = 10;
+	this.depthY = this.y + this.depthGap;
 	this.health = 2;
 	this.hasLeaves = true;
 	this.hasHitbox = true;

@@ -28,6 +28,7 @@ function objectClass (newObject) {
 	this.object = newObject;
 	this.x = newObject.x;
 	this.y = newObject.y;
+	this.depthY = newObject.depthY;
 	this.health = newObject.health;
 	this.pendingShakes = 0; // shake for a while when hit
 	this.arrayIndex = newObject.arrayIndex;
@@ -232,9 +233,14 @@ function moveAllObjects() {
 }
 
 function drawAndRemoveAllObjects() {
+	objectList.sort(function (a, b) {
+        return a.depthY - b.depthY;
+    });
+
 	for (var i = 0; i < objectList.length; i++) {
 		objectList[i].draw();
-	}
+	}	
+
 	for(var i = objectList.length - 1; i >= 0; i--) {
 		if (objectList[i].remove) {
 			objectList.splice(i,1);

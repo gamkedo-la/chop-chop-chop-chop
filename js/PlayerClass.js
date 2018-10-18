@@ -25,6 +25,7 @@ function playerClass() {
 	this.y = levelStartPosition.y;
 	this.oldX = this.x;
 	this.oldY = this.y;
+	this.depthY = 0;
 	this.speed = NORMAL_SPEED;
 	
 	// stats
@@ -156,6 +157,7 @@ function playerClass() {
 
 		this.x += movementX;
 		this.y += movementY;
+		this.depthY = this.y;
 		this.hitbox.update(this.x, this.y);
 		//console.log("player direction: " + this.direction);
 	}
@@ -542,7 +544,7 @@ function playerClass() {
 		if (debug) {
 			drawRect(this.x - 3/2,this.y - 3/2, 3,3, "red");
 			this.hitbox.draw("red");
-		} 
+		}
 	}
 } // end of playerClass
 
