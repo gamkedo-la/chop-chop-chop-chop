@@ -438,9 +438,15 @@ function playerClass() {
 			return;
 		}
 
+		const INVINCIBLE_BLINK_RATE = 8;
 		if (this.invincibiltyTimer > 0 && this.invincible) {
 			this.invincibiltyTimer--;
-			if (this.invincibiltyTimer % 3 == 0 && this.invincibiltyTimer > 0) {
+			if (this.invincibiltyTimer > 0) {
+				if (this.invincibiltyTimer % INVINCIBLE_BLINK_RATE <= (INVINCIBLE_BLINK_RATE/2-1)) {
+					//blinking;
+				} else {
+					this.sprite.draw(this.x, this.y, 1, (this.direction != EAST));
+				}
 				return;
 			}
 			if (this.invincibiltyTimer <= 0 && this.invincible) {
@@ -452,11 +458,14 @@ function playerClass() {
 			this.powerupTimer++;
 			if (this.powerupTimer > this.powerupAlmostOver) {
 				if (this.powerupTimer % 10) {
+					this.sprite = tornadoPowerup;
 					tornadoPowerup.draw(this.x,this.y,1,(this.direction != EAST));	
 				} else {
+					this.sprite = playerWalking;
 					playerWalking.draw(this.x, this.y, 1, (this.direction != EAST));
 				}
 			} else {
+				this.sprite = tornadoPowerup;
 				tornadoPowerup.draw(this.x,this.y,1,(this.direction != EAST));
 			}
 			if (this.powerupTimer > this.powerupTimerFull) {
@@ -490,8 +499,10 @@ function playerClass() {
 
 		if (this.chopTimer > 0) {
 			if (this.axeLevel < MAX) {
+				this.sprite = playerSideChop;
 				playerSideChop.draw(this.x,this.y, 1, (this.direction != EAST));
 			} else {
+				this.sprite = playerSideChopMax;
 				playerSideChopMax.draw(this.x,this.y, 1, (this.direction != EAST));
 			}
 			if (playerSideChopMax.currentFrameIndex == contactFrame) {
@@ -516,12 +527,15 @@ function playerClass() {
 		} else {
 
 			if (this.state.waiting) {
+				this.sprite = playerSideChopMax;
 				playerSideChopMax.loops = false;
 				playerSideChopMax.currentFrameIndex = contactFrame;
 				playerSideChopMax.draw(this.x,this.y, 1, (this.direction != EAST));
 			} else if (this.state.walking) {
+				this.sprite = playerWalking;
 				playerWalking.draw(this.x, this.y, 1, (this.direction != EAST));
 			} else { // idle
+				this.sprite = playerIdle;
 				playerIdle.draw(this.x, this.y, 1, (this.direction != EAST));
 			}
 		}

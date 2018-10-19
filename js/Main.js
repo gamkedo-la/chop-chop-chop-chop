@@ -45,7 +45,7 @@ function update() {
     if (worldEditor) {
         roomTileCoordinate();
   	}
-    framesFromGameStart++
+    framesFromGameStart++;
 	moveAll();
 	if (framesFromGameStart % (framesPerSecond + 8) == 0) {
 		updateCountdownTimer();

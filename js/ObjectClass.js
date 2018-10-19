@@ -234,12 +234,45 @@ function moveAllObjects() {
 
 function drawAndRemoveAllObjects() {
 	objectList.sort(function (a, b) {
+		if (a.depthY == b.depthY) {
+			a.depthY++;
+		}
         return a.depthY - b.depthY;
     });
 
-	for (var i = 0; i < objectList.length; i++) {
+	for (var i = 0; i < objectList.length; i++) {	
 		objectList[i].draw();
-	}	
+	}
+
+	if (framesFromGameStart % player.sprite.framesUntilNext == 0 && player.sprite != playerIdle) {
+		player.sprite.currentFrameIndex -= 1;
+		if (player.sprite.currentFrameIndex == -1) {
+			if (player.state.waiting) {
+				player.sprite.currentFrameIndex = playerSideChopMax.animationColFrames - 1;
+				player.sprite.draw(player.x,player.y,1, (player.direction != EAST), false, 0,
+									0,0,0.40);			
+			} else {
+				player.sprite.currentFrameIndex = player.sprite.numberOfColFrameIndexes;
+				player.sprite.draw(player.x,player.y,1, (player.direction != EAST), false, 0,
+									0,0,0.40);
+			}
+		} else {
+			if (player.state.waiting) {
+				player.sprite.currentFrameIndex = playerSideChopMax.animationColFrames - 1;
+				player.sprite.draw(player.x,player.y,1, (player.direction != EAST), false, 0,
+									0,0,0.40);			
+			} else {
+				player.sprite.draw(player.x,player.y,1, (player.direction != EAST), false, 0,
+									0,0,0.40);
+			}
+		}
+	} else {
+		if (player.state.waiting) {
+				player.sprite.currentFrameIndex = playerSideChopMax.animationColFrames - 1;			
+			}
+		player.sprite.draw(player.x,player.y,1, (player.direction != EAST), false, 0,
+							0,0,0.40);
+	}
 
 	for(var i = objectList.length - 1; i >= 0; i--) {
 		if (objectList[i].remove) {

@@ -78,14 +78,14 @@ function AnimatedSpriteClass(data) {
 		this.currentFrameIndex = frame;
 	}
 
-	this.getFrame = function(frame) {
+	this.getFrame = function() {
 		return this.currentFrameIndex;
 	}
 
 	this.draw = function (x,y, currentAxisIndexOfAnimation = 1,
 							flipped = false, rotated = false, degrees,
 							offsetInRelationToRotationX,offsetInRelationToRotationY,
-	 						opacity = canvasContext.globalAlpha, streched = false, strechX = 1, strechY = 1,
+	 						opacity = 1, streched = false, strechX = 1, strechY = 1,
 	 						loopsToEndAndBack = false) {
 		let additionalWidth;
 		let additionalHeight;
@@ -209,5 +209,6 @@ function AnimatedSpriteClass(data) {
 			}
 		}
 	canvasContext.restore();
+	canvasContext.globalAlpha = 1;
 	} // end of draw function
 }; //end of Animated Sprite Class
