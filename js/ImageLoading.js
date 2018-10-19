@@ -42,6 +42,7 @@ function loadImages() {
         { varName: "spore", theFile: "spore.png"},
 
         //Font
+        { varName: "logo", theFile: "logo_chopchopchopchop.png"},
         { varName: "fontSheet", theFile: "ChopChopFontFontv3.png"}, // v3 has a 1px black stroke
 
         //World Tile Pics
