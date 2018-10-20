@@ -48,7 +48,7 @@ function drawOpeningMenu() {
 		}
 	}
 	//drawPixelfont("Chop  Chop,Chop-Chop!", titleX, canvas.height / 2 - 20, 30, 30);
-	canvasContext.drawImage(gamePics["logo"],Math.round((canvas.width/2)-(gamePics["logo"].width/2)), Math.round((canvas.height/2)-(gamePics["logo"].height/2)));
+	canvasContext.drawImage(gamePics["logo"],Math.round((canvas.width/2)-(gamePics["logo"].width/2)), Math.round((canvas.height/2)-(gamePics["logo"].height/2))-20);
 
 	var titleHitbox = new colliderClass(canvas.width/2 + 25,
 										canvas.height / 2 - 4,
