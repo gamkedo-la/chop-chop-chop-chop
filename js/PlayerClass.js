@@ -389,7 +389,12 @@ function playerClass() {
 				if (this.axeHitbox.isCollidingWith(object.hitbox)) {
 					hit = true;
 					//console.log("hit an object!");
-					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+					if (allLevels[currentLevelIndex].name == "Moon") {
+						prefix = "moon_";
+					} else {
+						prefix = "";
+					}
+					spawnParticles(prefix + 'chop', this.axeHitbox.x, this.axeHitbox.y);
 					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 					arrayOfChopSFXs[random].play();
 					object.gotHit(this.axePower);

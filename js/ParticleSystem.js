@@ -15,7 +15,8 @@ const BOUNCE_SCALE = -0.5; // influence speed when we bounce off the floor
 const PARTICLE_SPEED_DAMPENING = 0.95;
 
 var particleDefs = [
-	{type: 'chop', howMany: 15, startSpeed: 2, howLong: 50, gravity: 0.2, startAng: -90, angSpreadDeg: 90, color: 'white', floorDist: 32},				
+	{type: 'chop', howMany: 15, startSpeed: 2, howLong: 50, gravity: 0.2, startAng: -90, angSpreadDeg: 90, color: 'white', floorDist: 32},
+	{type: 'moon_chop', howMany: 15, startSpeed: 2, howLong: 50, gravity: 0.2, startAng: -90, angSpreadDeg: 90, color: 'black', floorDist: 32, width: 2, height: 2 },				
 	{type: 'fireworks', howMany: 15, startSpeed: 7, howLong: 30, gravity: 0.1, startAng: 0, angSpreadDeg: 180, color: 'white'},
 	{type: 'footstep', howMany: 3, startSpeed: 0.5, howLong: 20, gravity: 0.02, startAng: -90, angSpreadDeg: 90, color: 'white'},
 	{type: 'sparks', howMany: 1, startSpeed: 1, howLong: 25, gravity: 0.015, startAng: -90, angSpreadDeg: 45, color: 'white'},
@@ -88,7 +89,7 @@ function pfx() {
 			canvasContext.drawImage(gamePics[this.sprite],Math.floor(this.x), Math.floor(this.y));
 		} 
 		else { // normal square particle:
-			drawRect(Math.floor(this.x), Math.floor(this.y), PARTICLE_W, PARTICLE_H, this.color, 0.8);
+			drawRect(Math.floor(this.x), Math.floor(this.y), this.width, this.height, this.color, 0.8);
 			canvasContext.globalAlpha = 1;
 		}
 	}
@@ -142,6 +143,8 @@ function spawnParticles(type, startX, startY) {
 		newPFX.gravity = pfxDef.gravity;
 		newPFX.isLeaf = pfxDef.isLeaf;
 		newPFX.sprite = pfxDef.sprite;
+		newPFX.width = (pfxDef.width == undefined) ? PARTICLE_W : pfxDef.width;
+		newPFX.height = (pfxDef.height == undefined) ? PARTICLE_H : pfxDef.height;
 
 		particleList.push(newPFX);
 	}	
