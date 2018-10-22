@@ -66,6 +66,7 @@ function playerClass() {
 	this.hitAnAnimal = false;
 	this.currentFrustration = 0;
 	this.invincible = false;
+	this.blinking = false;
 	this.invincibiltyTimer = 0;
 	this.invincibiltyTimerFull = 45;
 
@@ -199,10 +200,11 @@ function playerClass() {
 		if (this.invincible) {
 			return;
 		} else {
+			this.chopTimer = 0;
+			this.state.chopping = false;
 			this.currentFrustration += addedFrustration;
 			if (this.currentFrustration >= MAX_FRUSTATION) {
 				this.currentFrustration = 0;
-				this.state.chopping = false;
 				this.state.walking = false;
 				this.invincible = false;
 				this.invincibiltyTimer = 0;
@@ -216,8 +218,12 @@ function playerClass() {
 			var boopedX = Math.cos(radians) * this.speed * 10;
 			var boopedY = Math.sin(radians) * this.speed * 10;
 			if (checkTileCollision(this.x,this.y,boopedX,boopedY)) {
-				this.x -= boopedX;
-				this.y -= boopedY;
+				if (checkTileCollision(this.x,this.y,-boopedX,-boopedY)) {
+					// do nothing
+				} else {
+					this.x -= boopedX;
+					this.y -= boopedY;
+				}
 			} else {
 				this.x += boopedX;
 				this.y += boopedY;
@@ -448,14 +454,15 @@ function playerClass() {
 			this.invincibiltyTimer--;
 			if (this.invincibiltyTimer > 0) {
 				if (this.invincibiltyTimer % INVINCIBLE_BLINK_RATE <= (INVINCIBLE_BLINK_RATE/2-1)) {
-					//blinking;
+					this.blinking = true;
 				} else {
-					this.sprite.draw(this.x, this.y, 1, (this.direction != EAST));
+					this.blinking = false;
 				}
-				return;
+				//return;
 			}
 			if (this.invincibiltyTimer <= 0 && this.invincible) {
 				this.invincible = false;
+				this.blinking = false;
 			}
 		}
 
@@ -505,7 +512,11 @@ function playerClass() {
 		if (this.chopTimer > 0) {
 			if (this.axeLevel < MAX) {
 				this.sprite = playerSideChop;
-				playerSideChop.draw(this.x,this.y, 1, (this.direction != EAST));
+				if (this.blinking) {
+					// draw nothing
+				} else {
+					playerSideChop.draw(this.x,this.y, 1, (this.direction != EAST));
+				}
 			} else {
 				this.sprite = playerSideChopMax;
 				playerSideChopMax.draw(this.x,this.y, 1, (this.direction != EAST));
@@ -535,13 +546,26 @@ function playerClass() {
 				this.sprite = playerSideChopMax;
 				playerSideChopMax.loops = false;
 				playerSideChopMax.currentFrameIndex = contactFrame;
-				playerSideChopMax.draw(this.x,this.y, 1, (this.direction != EAST));
+				if (this.blinking) {
+					// draw nothing
+				} else {
+					playerSideChopMax.draw(this.x,this.y, 1, (this.direction != EAST));
+				}
 			} else if (this.state.walking) {
 				this.sprite = playerWalking;
-				playerWalking.draw(this.x, this.y, 1, (this.direction != EAST));
+				if (this.blinking) {
+					// draw nothing
+				} else {
+					playerWalking.draw(this.x, this.y, 1, (this.direction != EAST));
+				}
 			} else { // idle
 				this.sprite = playerIdle;
-				playerIdle.draw(this.x, this.y, 1, (this.direction != EAST));
+				if (this.blinking) {
+					// draw nothing
+				} else {
+					playerIdle.draw(this.x, this.y, 1, (this.direction != EAST));
+				}
+				
 			}
 		}
 
