@@ -50,10 +50,10 @@ function drawOpeningMenu() {
 	//drawPixelfont("Chop  Chop,Chop-Chop!", titleX, canvas.height / 2 - 20, 30, 30);
 	canvasContext.drawImage(gamePics["logo"],Math.round((canvas.width/2)-(gamePics["logo"].width/2)), Math.round((canvas.height/2)-(gamePics["logo"].height/2))-20);
 
-	var titleHitbox = new colliderClass(canvas.width/2 + 25,
-										canvas.height / 2 - 4,
-										measurePixelfont("Chop  Chop,Chop-Chop!") * 2.65, 32,
-										0,0);
+	var titleHitbox = new colliderClass(canvas.width/2,canvas.height / 2 - 6,
+					    measurePixelfont("Chop  Chop,Chop-Chop!") * 2.40, 35,
+					    0,0);
+
 	if (hitNewGame) {
 		if (pendingShakes) {
 			xoffset = Math.sin(pendingShakes / (HIT_SHAKE_SPEED * 10)) * (HIT_SHAKE_SIZE * 2);
