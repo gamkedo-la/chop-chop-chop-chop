@@ -35,7 +35,6 @@ function loadingDoneSoStartGame() {
 	backgroundMusic.play();
 	gameUpdate = setInterval(update, 1000 / framesPerSecond);
 	resetCountdownTimer();
-	countdownTimerPaused = true;
 	player = new playerClass();
 	objectList.push(player);
 };

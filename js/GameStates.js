@@ -432,17 +432,15 @@ let resetGame = (levelIndex) => {
 		upgradeLevelTwo = false;
 		upgradeLevelThree = false;
 		waitBuffer = 0;
-		countdownTimerPaused = true;
 	} else if (allLevels[currentLevelIndex].name == "Moon") {
 		backgroundMusic.src = "music/dark_side_of_the_chop" + sourceExtension;
-		countdownTimerPaused = false;
 	} else { // all other levels
 		backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
-		countdownTimerPaused = false;
 	}
 	backgroundMusic.volume = volumeDefault; // found in Audio.js
 	backgroundMusic.play();
-	resetCountdownTimer();
+	countdownTimeRemaining = GAME_COUNTDOWN_LENGTH;
+	countdownTimerPaused = false;
 	var levelStartPosition = indexToCenteredXY(allLevels[currentLevelIndex].playerStartArrayIndex);
 	player.x = levelStartPosition.x;
 	player.y = levelStartPosition.y;
