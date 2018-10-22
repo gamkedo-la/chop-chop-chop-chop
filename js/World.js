@@ -210,6 +210,8 @@ function drawWorld() {
 					}
 				}
 				canvasContext.drawImage(useImg, drawTileX, drawTileY); 
+			} else if (tileKindHere == TILE_REPLACE_ANIMAL && allLevels[currentLevelIndex].name == "Moon") {
+					canvasContext.drawImage(worldPics[TILE_MOON_TERRAIN], drawTileX, drawTileY);
 			} else {
 				canvasContext.drawImage(useImg, drawTileX, drawTileY);
 				if ((getArrayIndexFromList(TILE_CAMPFIRE, animatedTileList) == arrayIndex ||

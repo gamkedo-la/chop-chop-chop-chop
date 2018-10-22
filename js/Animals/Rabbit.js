@@ -2,16 +2,23 @@ function rabbitClass (arrayIndex,worldTileType) {
 	this.arrayIndex = arrayIndex;
 	this.tileType = worldTileType;
 	this.home = indexToCenteredXY(arrayIndex);
-	var randomPositionOffset = getRoundedRandomNumberBetweenMinMax(16,48);
-	this.home.x += randomPositionOffset;
-	this.home.y +=	randomPositionOffset;
+	var randomPositionOffset = getRoundedRandomNumberBetweenMinMax(16,24);
+	if (getRandomNumberBetweenMinMax(0, 1) > 0.5) {
+		randomPositionOffset *= -1;
+	}
+	if (getRandomNumberBetweenMinMax(0, 1) > 0.5) {
+		this.home.x += randomPositionOffset;
+	}
+	if (getRandomNumberBetweenMinMax(0, 1) > 0.5) {
+		this.home.y += randomPositionOffset;
+	}
 	var rabbitMovement = new AnimatedSpriteClass({
 		name: "rabbit",
 		spriteSheet: gamePics.rabbitSheet,
 		animationRowFrames: 1,
-		animationColFrames: 4,
+		animationColFrames: 16,
 		currentFrameIndex: 0,
-		framesUntilNext: 4,
+		framesUntilNext: 1,
 		loops: true
 	});
 	var randomFrameIndex = getRoundedRandomNumberBetweenMinMax(0,rabbitMovement.animationColFrames);

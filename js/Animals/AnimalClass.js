@@ -489,7 +489,7 @@ function spawnAnimalBasedOnTile(tileType, arrayIndex) {
 			break;
 		case TILE_RABBIT:
 			var rabbitsToSpawn = [];
-			rabbitsToSpawn = arrayWithRange(getRoundedRandomNumberBetweenMinMax(2, 4));
+			rabbitsToSpawn = arrayWithRange(getRoundedRandomNumberBetweenMinMax(3, 4));
 			//console.log(rabbitsToSpawn);
 			for (var r = 0; r < rabbitsToSpawn.length; r++) {
 				animal = new rabbitClass(arrayIndex,tileType);
