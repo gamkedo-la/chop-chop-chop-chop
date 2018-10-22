@@ -458,7 +458,6 @@ function playerClass() {
 				} else {
 					this.blinking = false;
 				}
-				//return;
 			}
 			if (this.invincibiltyTimer <= 0 && this.invincible) {
 				this.invincible = false;
@@ -519,7 +518,11 @@ function playerClass() {
 				}
 			} else {
 				this.sprite = playerSideChopMax;
-				playerSideChopMax.draw(this.x,this.y, 1, (this.direction != EAST));
+				if (this.blinking) {
+					// draw nothing
+				} else {
+					playerSideChopMax.draw(this.x,this.y, 1, (this.direction != EAST));
+				}
 			}
 			if (playerSideChopMax.currentFrameIndex == contactFrame) {
 				axeWhirl.currentTime = 0;

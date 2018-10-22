@@ -168,6 +168,7 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 	} else {
 		objectList.push(newObject);
 	}
+	
 	replaceTiles(arrayIndex);
 }
 
@@ -224,6 +225,9 @@ function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {
 			worldGrid[arrayIndex] = TILE_MOON_CHEESE_STUMP;
 			break;
 	}
+	var newTileType = worldGrid[arrayIndex];
+
+	spawnObjectBasedOnTile(newTileType, arrayIndex, hiddenTile);
 }
 
 function moveAllObjects() {
