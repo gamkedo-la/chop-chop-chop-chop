@@ -196,7 +196,7 @@ function animalClass (newAnimal) {
 			    		this.x >= player.x - closeToHome ||
 			    		this.y <= player.y + closeToHome &&
 			  		 	this.y >= player.y - closeToHome) {
-						// lets not and say we didn't
+							// lets not and say we didn't
 						} else {
 							this.getUnstuck();
 						}
@@ -428,7 +428,11 @@ function animalClass (newAnimal) {
 					playingChaseMusic = false;
 					console.log('trigger2');
 					backgroundMusic.pause();
-					backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+					if (allLevels[currentLevelIndex].name == "Moon") {
+						backgroundMusic.src = "music/dark_side_of_the_chop" + sourceExtension;
+					} else { // all other levels
+						backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+					}
 					backgroundMusic.play();
 				}
 			}
