@@ -1,4 +1,5 @@
 var animalList = [];
+var playingChaseMusic = false;
 function animalClass (newAnimal) {
 	this.animal = newAnimal;
 
@@ -52,7 +53,6 @@ function animalClass (newAnimal) {
 
 	this.playerDetected = false;
 	this.playerDetectedSoundPlayed = false;
-	this.playingChaseMusic = false;
 
 	this.colliderWidth = newAnimal.colliderWidth;
 	this.colliderHeight = newAnimal.colliderHeight;
@@ -92,6 +92,7 @@ function animalClass (newAnimal) {
 
 
 	this.move = function() {
+		if(this.img.name == 'pincherBug' && this.waiting == false && this.returning == true) console.log('test')
 		if (worldGrid[this.arrayIndex] != TILE_REPLACE_ANIMAL &&
 			worldGrid[this.arrayIndex] != TILE_REPLACE_WATER) {
 			return;
@@ -101,11 +102,11 @@ function animalClass (newAnimal) {
 		this.goalRadiusTrigger();
 		var closeToHome = this.speed;
 		if (this.playerDetected) { // chasing player
-			if (!this.playingChaseMusic) {
+			if (!playingChaseMusic) {
 				backgroundMusic.pause();
 				backgroundMusic.src = "music/animal_chase_v3" + sourceExtension;
 				backgroundMusic.play();
-				this.playingChaseMusic = true;
+				playingChaseMusic = true;
 			}
 			var buffer = .04;
 			if (backgroundMusic.currentTime > backgroundMusic.duration - buffer) {
@@ -233,9 +234,10 @@ function animalClass (newAnimal) {
 					return;
 				}
 		} else if (this.returning) { // else return home
-				if (this.playingChaseMusic) {
-					this.playingChaseMusic = false;
+				if (playingChaseMusic && !isAnAnimalChasingPlayer()){
+					playingChaseMusic = false;
 					if (!havingAMoment) {
+						console.log('trigger1', animalList);
 						backgroundMusic.pause();
 						backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
 						backgroundMusic.play();
@@ -271,7 +273,7 @@ function animalClass (newAnimal) {
 						moveYTowardHome = 0;
 					}
 					if (moveXTowardHome == 0 && moveYTowardHome == 0) {
-						this.returning = false;
+						//this.returning = false;
 					}
 				}
 
@@ -381,6 +383,7 @@ function animalClass (newAnimal) {
 
 			if ((diffX*diffX+diffY*diffY) <= (radius*radius)) {
 				this.playerDetected = true;
+				this.waitingTimer = waitingTimerFull;
 			}
 		}
 	}
@@ -415,9 +418,13 @@ function animalClass (newAnimal) {
 				this.meandering = false;
 				this.playerDetected = false;
 				this.img.framesUntilNext = 45;
-				backgroundMusic.pause();
-				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
-				backgroundMusic.play();
+				if(!isAnAnimalChasingPlayer()){
+					playingChaseMusic = false;
+					console.log('trigger2');
+					backgroundMusic.pause();
+					backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+					backgroundMusic.play();
+				}
 			}
 		}
 	}
@@ -530,4 +537,14 @@ function moveAllAnimals() {
 	for (var i = 0; i < animalList.length; i++) {
 		animalList[i].move();
 	}
+}
+
+function isAnAnimalChasingPlayer(){
+	let chasing = false;
+	for(let i = 0; i < animalList.length && chasing == false; ++i){
+		if(!animalList[i].neutral && (!animalList[i].returning || animalList[i].waiting)){
+			chasing = true;
+		}
+	}
+	return chasing;
 }
