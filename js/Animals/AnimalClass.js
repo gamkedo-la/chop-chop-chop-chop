@@ -1,5 +1,7 @@
 var animalList = [];
+
 var playingChaseMusic = false;
+
 function animalClass (newAnimal) {
 	this.animal = newAnimal;
 
@@ -239,7 +241,11 @@ function animalClass (newAnimal) {
 					if (!havingAMoment) {
 						console.log('trigger1', animalList);
 						backgroundMusic.pause();
-						backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+						if (allLevels[currentLevelIndex].name == "Moon") {
+							backgroundMusic.src = "music/dark_side_of_the_chop" + sourceExtension;
+						} else { // all other levels
+							backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+						}
 						backgroundMusic.play();
 					}
 				}
