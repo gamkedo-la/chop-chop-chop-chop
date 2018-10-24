@@ -447,6 +447,7 @@ function animalClass (newAnimal) {
 				this.waiting = false;
 				this.meandering = false;
 				this.playerDetected = false;
+				this.chasingPlayer = false;
 				this.img.framesUntilNext = 45;
 				if(!isAnAnimalChasingPlayer()){
 
