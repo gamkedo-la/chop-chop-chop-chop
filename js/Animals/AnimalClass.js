@@ -74,7 +74,7 @@ function animalClass (newAnimal) {
 
 		if (this.thoughtBubbleText != "" && this.thoughtBubbleFramesLeft > 0) {
 			this.thoughtBubbleFramesLeft--;
-			drawPixelfontCentered(this.thoughtBubbleText,this.x+THOUGHTBUBBLEX+Math.round(this.width / 2),this.y+THOUGHTBUBBLEY);
+			drawPixelfontCentered(this.thoughtBubbleText,this.x+THOUGHTBUBBLEX/*+Math.round(this.width / 2)*/,this.y+THOUGHTBUBBLEY);
 		}
 
 		if (worldGrid[this.arrayIndex] != TILE_REPLACE_ANIMAL &&
@@ -104,6 +104,10 @@ function animalClass (newAnimal) {
 		}
 	} // end of draw function
 
+	this.thinkAboutSomething = function(thought) {
+		this.thoughtBubbleText = thought; // alert the player
+		this.thoughtBubbleFramesLeft = THOUGHTBUBBLEFRAMES;
+	}
 
 	this.move = function() {
 		if(this.img.name == 'pincherBug' && this.waiting == false && this.returning == true) console.log('test')
@@ -118,8 +122,7 @@ function animalClass (newAnimal) {
 		if (this.playerDetected) { // chasing player
 			
 			if (this.playerDetectedSoundPlayed === false) { // just triggered?
-				this.thoughtBubbleText = "!"; // alert the player
-				this.thoughtBubbleFramesLeft = THOUGHTBUBBLEFRAMES;
+				this.thinkAboutSomething("!");
 			}
 		
 			if (!playingChaseMusic) {
@@ -255,6 +258,9 @@ function animalClass (newAnimal) {
 				}
 		} else if (this.returning) { // else return home
 				if (playingChaseMusic && !isAnAnimalChasingPlayer()){
+
+					this.thinkAboutSomething("zzz");
+
 					playingChaseMusic = false;
 					if (!havingAMoment) {
 						console.log('trigger1', animalList);
@@ -443,6 +449,9 @@ function animalClass (newAnimal) {
 				this.playerDetected = false;
 				this.img.framesUntilNext = 45;
 				if(!isAnAnimalChasingPlayer()){
+
+					this.thinkAboutSomething("!"); // FIXME: should this be a different thought?
+
 					playingChaseMusic = false;
 					console.log('trigger2');
 					backgroundMusic.pause();
