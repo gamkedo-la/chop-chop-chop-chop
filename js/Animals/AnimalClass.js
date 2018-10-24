@@ -48,6 +48,7 @@ function animalClass (newAnimal) {
 	var waitingTimerFull = this.waitingTimer;
 
 	this.returning = true;
+	this.chasingPlayer = false;
 
 	this.neutral = newAnimal.neutral;
 
@@ -92,7 +93,6 @@ function animalClass (newAnimal) {
 
 
 	this.move = function() {
-		if(this.img.name == 'pincherBug' && this.waiting == false && this.returning == true) console.log('test')
 		if (worldGrid[this.arrayIndex] != TILE_REPLACE_ANIMAL &&
 			worldGrid[this.arrayIndex] != TILE_REPLACE_WATER) {
 			return;
@@ -224,6 +224,7 @@ function animalClass (newAnimal) {
 					this.playerDetectedSoundPlayed = false;
 					this.waiting = false;
 					this.returning = true;
+					this.chasingPlayer = false;
 					this.img.framesUntilNext = 25;
 					this.waitingTimer = waitingTimerFull;
 					this.idlePosition.x = this.home.x;
@@ -237,7 +238,6 @@ function animalClass (newAnimal) {
 				if (playingChaseMusic && !isAnAnimalChasingPlayer()){
 					playingChaseMusic = false;
 					if (!havingAMoment) {
-						console.log('trigger1', animalList);
 						backgroundMusic.pause();
 						backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
 						backgroundMusic.play();
@@ -273,7 +273,7 @@ function animalClass (newAnimal) {
 						moveYTowardHome = 0;
 					}
 					if (moveXTowardHome == 0 && moveYTowardHome == 0) {
-						//this.returning = false;
+						this.returning = false;
 					}
 				}
 
@@ -383,7 +383,7 @@ function animalClass (newAnimal) {
 
 			if ((diffX*diffX+diffY*diffY) <= (radius*radius)) {
 				this.playerDetected = true;
-				this.waitingTimer = waitingTimerFull;
+				this.chasingPlayer = true;
 			}
 		}
 	}
@@ -420,7 +420,6 @@ function animalClass (newAnimal) {
 				this.img.framesUntilNext = 45;
 				if(!isAnAnimalChasingPlayer()){
 					playingChaseMusic = false;
-					console.log('trigger2');
 					backgroundMusic.pause();
 					backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
 					backgroundMusic.play();
@@ -442,6 +441,7 @@ function animalClass (newAnimal) {
 			if ((diffX*diffX + diffY*diffY) > (radius*radius)) {
 				if (this.playerDetected) {
 					this.waiting = true;
+					this.waitingTimer = waitingTimerFull;
 				}
 				this.playerDetected = false;
 			}
@@ -540,11 +540,10 @@ function moveAllAnimals() {
 }
 
 function isAnAnimalChasingPlayer(){
-	let chasing = false;
-	for(let i = 0; i < animalList.length && chasing == false; ++i){
-		if(!animalList[i].neutral && (!animalList[i].returning || animalList[i].waiting)){
-			chasing = true;
+	for(let i = 0; i < animalList.length; ++i){
+		if(animalList[i].chasingPlayer){
+			return true;
 		}
 	}
-	return chasing;
+	return false;
 }
