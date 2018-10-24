@@ -4,7 +4,13 @@ var playingChaseMusic = false;
 
 function animalClass (newAnimal) {
 	this.animal = newAnimal;
-
+	
+	this.thoughtBubbleText = "";
+	this.thoughtBubbleFramesLeft = 5555;
+	const THOUGHTBUBBLEX = 0; // centered by default
+	const THOUGHTBUBBLEY = -24; // above their head
+	const THOUGHTBUBBLEFRAMES = 100;
+	
 	this.arrayIndex = newAnimal.arrayIndex;
 	this.tileType = newAnimal.tileType;
 	this.home = newAnimal.home;
@@ -65,6 +71,12 @@ function animalClass (newAnimal) {
 	this.attackPower = newAnimal.attackPower;
 
 	this.draw = function () {
+
+		if (this.thoughtBubbleText != "" && this.thoughtBubbleFramesLeft > 0) {
+			this.thoughtBubbleFramesLeft--;
+			drawPixelfontCentered(this.thoughtBubbleText,this.x+THOUGHTBUBBLEX+Math.round(this.width / 2),this.y+THOUGHTBUBBLEY);
+		}
+
 		if (worldGrid[this.arrayIndex] != TILE_REPLACE_ANIMAL &&
 			worldGrid[this.arrayIndex] != TILE_REPLACE_WATER) {
 			return;
@@ -104,6 +116,12 @@ function animalClass (newAnimal) {
 		this.goalRadiusTrigger();
 		var closeToHome = this.speed;
 		if (this.playerDetected) { // chasing player
+			
+			if (this.playerDetectedSoundPlayed === false) { // just triggered?
+				this.thoughtBubbleText = "!"; // alert the player
+				this.thoughtBubbleFramesLeft = THOUGHTBUBBLEFRAMES;
+			}
+		
 			if (!playingChaseMusic) {
 				backgroundMusic.pause();
 				backgroundMusic.src = "music/animal_chase_v3" + sourceExtension;
