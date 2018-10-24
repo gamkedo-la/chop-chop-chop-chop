@@ -404,8 +404,10 @@ let resetGame = (levelIndex) => {
 	wordsToShow = "";
 	stringIndex = 0;
 	cutsceneDialogueIndex = 0;
+	displayTimer = 0;
 	currentScene = null;
 	needNewString = false;
+	skipCutscene = false;
 	cutsceneSound.pause();
 	cutsceneSound.currentTime = 0;
 	currentLevelIndex = levelIndex;

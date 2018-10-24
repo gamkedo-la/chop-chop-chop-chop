@@ -89,6 +89,7 @@ var displayTimerLength = 60; // time in frames before new string is typed (game 
 
 var currentScene = null;
 var skipCutscene = false;
+var gameOverEnded = false;
 
 var upgradeLevelTwoScene = {
 	displayLength: displayTimerLength,
@@ -158,7 +159,7 @@ function getNewFrustratedScene() { // called in PlayerClass.js this.gotHit();
 	randomFrustratedSayingsIndex();
 	if (player.hitAnAnimal) {
 		hitAnAnimalStringFirst = '"I don' + "'" + 't want to hurt any animal friends either..."';
-		hitAnAnimalStringSecond = "Why did I do that?...";
+		hitAnAnimalStringSecond = '"Why did I do that?..."';
 	}
 	// edits to this scene will display in the game
 	FrustratedScene = {
@@ -190,6 +191,10 @@ function playCutscene(data) {
 		if (data.isGameOver) {
 			gameOverOptions();
 		}
+		if (gameOverEnded) {
+			gameOverEnded = false;
+			return;
+		}
 		cutsceneDialogue(data);
 		if (needNewString) {
 			if (data.isGameOver && cutsceneDialogueIndex == data.stringToDisplay.length) {
@@ -199,8 +204,9 @@ function playCutscene(data) {
 			} else {
 				cutsceneDialogueIndex++;
 				needNewString = false;
-				if (cutsceneDialogueIndex <= data.stringToDisplay.length - 1)
-				wordsToShow = "";
+				if (cutsceneDialogueIndex <= data.stringToDisplay.length - 1) {
+					wordsToShow = "";
+				}
 			}
 		}
 		if (cutsceneDialogueIndex >= data.stringToDisplay.length ||
@@ -285,7 +291,6 @@ function upgradeCheck() {
 		walking: false,
 		waiting: false,
 		};
-		//console.log("level up!");
 	}
 	if (player.chopCount >= LEVEL_THREE_CHOPS && !upgradeLevelThree && 
 		player.chopTimer === 0) {
@@ -297,7 +302,6 @@ function upgradeCheck() {
 		walking: false,
 		waiting: false,
 		};
-		//console.log("level up!");
 	}
 }
 
@@ -338,8 +342,12 @@ let gameOverOptions = () => {
 	if (spacebarKeyHeld) {
 		if (selectorX == selectorXContinue) {
 			resetGame(currentLevelIndex);
+			gameOverEnded = true;
+			return;
 		} else if (selectorX == selectorXQuit) {
-			resetGame(0); // allLevels[0] = main menu
+			resetGame(0); // allLevels[0] = main menu;
+			gameOverEnded = true;
+			return;
 		}
 	}
 

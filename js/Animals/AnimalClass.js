@@ -1,8 +1,16 @@
 var animalList = [];
+
 var playingChaseMusic = false;
+
 function animalClass (newAnimal) {
 	this.animal = newAnimal;
-
+	
+	this.thoughtBubbleText = "";
+	this.thoughtBubbleFramesLeft = 5555;
+	const THOUGHTBUBBLEX = 0; // centered by default
+	const THOUGHTBUBBLEY = -24; // above their head
+	const THOUGHTBUBBLEFRAMES = 100;
+	
 	this.arrayIndex = newAnimal.arrayIndex;
 	this.tileType = newAnimal.tileType;
 	this.home = newAnimal.home;
@@ -64,6 +72,12 @@ function animalClass (newAnimal) {
 	this.attackPower = newAnimal.attackPower;
 
 	this.draw = function () {
+
+		if (this.thoughtBubbleText != "" && this.thoughtBubbleFramesLeft > 0) {
+			this.thoughtBubbleFramesLeft--;
+			drawPixelfontCentered(this.thoughtBubbleText,this.x+THOUGHTBUBBLEX/*+Math.round(this.width / 2)*/,this.y+THOUGHTBUBBLEY);
+		}
+
 		if (worldGrid[this.arrayIndex] != TILE_REPLACE_ANIMAL &&
 			worldGrid[this.arrayIndex] != TILE_REPLACE_WATER) {
 			return;
@@ -91,6 +105,10 @@ function animalClass (newAnimal) {
 		}
 	} // end of draw function
 
+	this.thinkAboutSomething = function(thought) {
+		this.thoughtBubbleText = thought; // alert the player
+		this.thoughtBubbleFramesLeft = THOUGHTBUBBLEFRAMES;
+	}
 
 	this.move = function() {
 		if (worldGrid[this.arrayIndex] != TILE_REPLACE_ANIMAL &&
@@ -102,6 +120,11 @@ function animalClass (newAnimal) {
 		this.goalRadiusTrigger();
 		var closeToHome = this.speed;
 		if (this.playerDetected) { // chasing player
+			
+			if (this.playerDetectedSoundPlayed === false) { // just triggered?
+				this.thinkAboutSomething("!");
+			}
+		
 			if (!playingChaseMusic) {
 				backgroundMusic.pause();
 				backgroundMusic.src = "music/animal_chase_v3" + sourceExtension;
@@ -194,7 +217,7 @@ function animalClass (newAnimal) {
 			    		this.x >= player.x - closeToHome ||
 			    		this.y <= player.y + closeToHome &&
 			  		 	this.y >= player.y - closeToHome) {
-						// lets not and say we didn't
+							// lets not and say we didn't
 						} else {
 							this.getUnstuck();
 						}
@@ -236,10 +259,17 @@ function animalClass (newAnimal) {
 				}
 		} else if (this.returning) { // else return home
 				if (playingChaseMusic && !isAnAnimalChasingPlayer()){
+
+					this.thinkAboutSomething("zzz");
+
 					playingChaseMusic = false;
 					if (!havingAMoment) {
 						backgroundMusic.pause();
-						backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+						if (allLevels[currentLevelIndex].name == "Moon") {
+							backgroundMusic.src = "music/dark_side_of_the_chop" + sourceExtension;
+						} else { // all other levels
+							backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+						}
 						backgroundMusic.play();
 					}
 				}
@@ -419,9 +449,16 @@ function animalClass (newAnimal) {
 				this.playerDetected = false;
 				this.img.framesUntilNext = 45;
 				if(!isAnAnimalChasingPlayer()){
+
+					this.thinkAboutSomething("!"); // FIXME: should this be a different thought?
+
 					playingChaseMusic = false;
 					backgroundMusic.pause();
-					backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+					if (allLevels[currentLevelIndex].name == "Moon") {
+						backgroundMusic.src = "music/dark_side_of_the_chop" + sourceExtension;
+					} else { // all other levels
+						backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
+					}
 					backgroundMusic.play();
 				}
 			}
