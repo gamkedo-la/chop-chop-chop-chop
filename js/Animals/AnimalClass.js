@@ -269,7 +269,7 @@ function animalClass(newAnimal) {
         } else if (this.returning) { // else return home
             if (playingChaseMusic && !isAnAnimalChasingPlayer()) {
                 this.chat.resetLetters();
-                this.thinkAboutSomething("zzz");
+                this.thinkAboutSomething("  zzz");
 
                 playingChaseMusic = false;
                 if (!havingAMoment) {
@@ -460,7 +460,7 @@ function animalClass(newAnimal) {
                 this.img.framesUntilNext = 45;
                 if (!isAnAnimalChasingPlayer()) {
                     this.chat.resetLetters();
-                    this.thinkAboutSomething("!"); // FIXME: should this be a different thought?
+                    this.thinkAboutSomething(" !"); // FIXME: should this be a different thought?
 
                     playingChaseMusic = false;
                     backgroundMusic.pause();
