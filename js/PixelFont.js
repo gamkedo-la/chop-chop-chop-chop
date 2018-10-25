@@ -231,7 +231,6 @@ function NpcText() {
     var textSpeed = 0.8;
     
     var textArrowBuffY = bubHeight;
-    var halfBubBorder = bubbleBorder * 0.5;
 
     this.printWords = function (str, x, y) {
         if (this.letterCount <= str.length) {
