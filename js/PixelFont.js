@@ -214,15 +214,16 @@ function stringWithoutEmotes(str) {
 function NpcText() {
     //smol text thing by kise 
     //does not support wrapping for now
+    //Characters that don't measure well in pixel font: m, w, !
     this.letterCount = 0;
     this.bubbleWidth = 0;
     
     var bubbleHeight = 40;
     var bubbleBorder = 10;
     var bubbleRadius = 5;
-    var bubbleBuffX = 10;
+    var bubbleBuffX = 15;
     var textBuffY = bubbleHeight - bubbleHeight/2 - 5;
-    var textBuffX = 15;
+    var textBuffX = 12.5;
     var textSpeed = 0.6;
     var bubbleSpeed = 0.5;
     var textArrowBuffY = bubbleHeight;
@@ -234,11 +235,14 @@ function NpcText() {
         var typewriterText = str.substr(0, this.letterCount);
         var measureText = canvasContext.measureText(typewriterText);
         var textWidth = measureText.width;
-        while (this.bubbleWidth < measureText.width + bubbleBorder) {
+        while (this.bubbleWidth < textWidth + bubbleBorder) {
             this.bubbleWidth += bubbleSpeed;
         }
-        roundRect(x - textBuffX, y, this.bubbleWidth + this.bubbleWidth + bubbleBuffX, bubbleHeight, bubbleRadius, true, true);
-        drawPixelfont(typewriterText, x, y + textBuffY, 10, 10);
+        
+        var halfBubWidth = this.bubbleWidth * 0.5;
+        var halfBubBorder = bubbleBorder * 0.5;
+        roundRect(x - halfBubWidth - textBuffX, y, (this.bubbleWidth + this.bubbleWidth) + bubbleBuffX, bubbleHeight, bubbleRadius, true, true);
+        drawPixelfont(typewriterText, x  - halfBubWidth + halfBubBorder, y + textBuffY, 10, 10);
         canvasContext.drawImage(gamePics["textTriangle"], x, y + textArrowBuffY);
     }
     

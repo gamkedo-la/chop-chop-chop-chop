@@ -30,7 +30,7 @@ function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
 }
 
 function roundRect(x, y, width, height, radius, fill, stroke) {
-    //round rectangle code from Juan Mendes 
+    //round rectangle code adapted from Juan Mendes 
     //http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html
     var strokeThickness = 2;
     var rectFill = "black";
