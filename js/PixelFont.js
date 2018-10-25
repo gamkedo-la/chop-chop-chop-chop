@@ -213,11 +213,11 @@ function stringWithoutEmotes(str) {
 
 function NpcText() {
     //smol text thing by kise 
-    //does not support wrapping
+    //does not support wrapping for now
     this.letterCount = 0;
     this.bubbleWidth = 0;
     
-    var bubbleHeight = 50;
+    var bubbleHeight = 40;
     var bubbleBorder = 10;
     var bubbleRadius = 5;
     var bubbleBuffX = 10;
@@ -225,7 +225,7 @@ function NpcText() {
     var textBuffX = 15;
     var textSpeed = 0.6;
     var bubbleSpeed = 0.5;
-    var textArrowBuffY = 50;
+    var textArrowBuffY = bubbleHeight;
    
     this.printWords = function (str, x, y) {
         if (this.letterCount <= str.length) {

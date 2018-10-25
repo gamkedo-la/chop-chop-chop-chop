@@ -80,7 +80,7 @@ function animalClass(newAnimal) {
 
         if (this.thoughtBubbleText != "" && this.thoughtBubbleFramesLeft > 0) {
             this.thoughtBubbleFramesLeft--;
-            var distFromAnimal = 55;
+            var distFromAnimal = 42;
             this.chat.printWords(this.thoughtBubbleText, this.x + THOUGHTBUBBLEX, this.y + THOUGHTBUBBLEY - distFromAnimal); //drawPixelfontCentered(this.thoughtBubbleText,this.x+THOUGHTBUBBLEX/*+Math.round(this.width / 2)*/,this.y+THOUGHTBUBBLEY);
         } 
             
