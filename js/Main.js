@@ -141,7 +141,7 @@ function drawAll() {
 				drawParticles();
 				endCameraPan();
 				drawGUI();
-			} else if (waitBuffer >= 15 && waitBuffer < 52) {
+			} else if (waitBuffer >= 15 && waitBuffer < 60) {
 				if (waitBuffer % 6 == 0) {
 					savedAlpha += 0.07;
 					if (savedAlpha >= 1) {
@@ -152,11 +152,40 @@ function drawAll() {
 				if (scrollingTextPaused) {
 					toggleScrollTextPause();
 				}
-			} else if (waitBuffer >= 52 && waitBuffer < 200) {
-				canvasContext.globalAlpha = waitBuffer/250;
-			} 
+				if (waitBuffer == 59) {
+					savedAlpha = 0;
+				}
+			} else if (waitBuffer >= 60 && waitBuffer < 122) {
+				if (waitBuffer % 6 == 0) {
+					savedAlpha += 0.07;
+					if (savedAlpha >= 1) {
+						savedAlpha = 1;
+					}
+					drawRect(0,0,1600,1600,"black",1);
+					canvasContext.globalAlpha = savedAlpha;
+					canvasContext.drawImage(gamePics["endScreen"],Math.round((canvas.width/2)-(gamePics["endScreen"].width/2)), 
+											Math.round((canvas.height/2)-(gamePics["endScreen"].height/2))-20);
+					canvasContext.globalAlpha = 1;	
+				}
+			} else if (waitBuffer >= 122 && waitBuffer < 392) {
+				drawRect(0,0,1600,1600,"black", 1);
+				canvasContext.drawImage(gamePics["endScreen"],Math.round((canvas.width/2)-(gamePics["endScreen"].width/2)), 
+											Math.round((canvas.height/2)-(gamePics["endScreen"].height/2))-20);
+				if (waitBuffer == 391) {
+					savedAlpha = 0;
+				}
+			} else if (waitBuffer >= 392 && waitBuffer < 452) {
+				if (waitBuffer % 6 == 0) {
+					savedAlpha += 0.07;
+					if (savedAlpha >= 1) {
+						savedAlpha = 1;
+					}	
+					drawRect(0,0,1600,1600,"black", savedAlpha);
+				}
+			}
 
-			if (waitBuffer >= 52) {
+			if (waitBuffer >= 452) {
+				countdownTimerPaused = true;
 				if (drawScrollingText(outroText)) {
 					openingMenuIsRunning = true;
 					creditsRunning = true;
