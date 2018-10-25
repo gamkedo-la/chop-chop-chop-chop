@@ -211,7 +211,7 @@ function stringWithoutEmotes(str) {
     return output;
 }
 
-function npcText() {
+function NpcText() {
     //smol text thing by kise 
     //does not support wrapping
     this.letterCount = 0;
@@ -219,7 +219,8 @@ function npcText() {
     
     var bubbleHeight = 50;
     var bubbleBorder = 10;
-    var rectBuffX = 10;
+    var bubbleRadius = 5;
+    var bubbleBuffX = 10;
     var textBuffY = bubbleHeight - bubbleHeight/2 - 5;
     var textBuffX = 15;
     var textSpeed = 0.6;
@@ -236,7 +237,7 @@ function npcText() {
         while (this.bubbleWidth < measureText.width + bubbleBorder) {
             this.bubbleWidth += bubbleSpeed;
         }
-        roundRect(x - textBuffX, y, this.bubbleWidth + this.bubbleWidth + rectBuffX, bubbleHeight, 5, true, true);
+        roundRect(x - textBuffX, y, this.bubbleWidth + this.bubbleWidth + bubbleBuffX, bubbleHeight, bubbleRadius, true, true);
         drawPixelfont(typewriterText, x, y + textBuffY, 10, 10);
         canvasContext.drawImage(gamePics["textTriangle"], x, y + textArrowBuffY);
     }

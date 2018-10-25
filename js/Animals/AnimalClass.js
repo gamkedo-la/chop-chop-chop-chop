@@ -74,7 +74,7 @@ function animalClass(newAnimal) {
         this.colliderWidth, this.colliderHeight, this.colliderOffsetX, this.colliderOffsetY);
     this.attackPower = newAnimal.attackPower;
 
-    this.chat = new npcText();
+    this.chat = new NpcText();
 
     this.draw = function () {
 
