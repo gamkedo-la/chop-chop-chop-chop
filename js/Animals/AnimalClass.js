@@ -130,8 +130,7 @@ function animalClass(newAnimal) {
         if (this.playerDetected) { // chasing player
             if (this.playerDetectedSoundPlayed === false) { // just triggered?
                 this.chat.resetLetters();
-                this.thinkAboutSomething("!");
-
+                this.thinkAboutSomething(" !");
             }
 
             if (!playingChaseMusic) {
@@ -411,19 +410,24 @@ function animalClass(newAnimal) {
     } // end of this.getUnstuck
 
     this.detectionRadiusTrigger = function () {
-        if (this.neutral) {
-            // don't detect the player
-        } else {
-            var radius = this.detectionRadius;
-            var distX = Math.abs((this.x) - player.x);
-            var distY = Math.abs((this.y) - player.y);
-            var diffX = distX - player.width / 4;
-            var diffY = distY - player.height / 2;
+		var radius = this.detectionRadius;
+        var distX = Math.abs((this.x) - player.x);
+        var distY = Math.abs((this.y) - player.y);
+        var diffX = distX - player.width / 4;
+        var diffY = distY - player.height / 2;
 
-            if ((diffX * diffX + diffY * diffY) <= (radius * radius)) {
-                this.playerDetected = true;
-                this.chasingPlayer = true;
-            }
+        if ((diffX * diffX + diffY * diffY) <= (radius * radius)) {
+        	if (this.neutral) {
+	        	if (this.atGoal) {
+	        		if (this.img.data.name === "bear") {
+	        			this.chat.resetLetters();
+	            		this.thinkAboutSomething("?!?");
+	        		}
+	        	}
+        	} else {
+            	this.playerDetected = true;
+            	this.chasingPlayer = true;
+        	}
         }
     }
 
@@ -460,7 +464,7 @@ function animalClass(newAnimal) {
                 this.img.framesUntilNext = 45;
                 if (!isAnAnimalChasingPlayer()) {
                     this.chat.resetLetters();
-                    this.thinkAboutSomething(" !"); // FIXME: should this be a different thought?
+                    this.thinkAboutSomething(" !!!"); // FIXME: should this be a different thought?
 
                     playingChaseMusic = false;
                     backgroundMusic.pause();
