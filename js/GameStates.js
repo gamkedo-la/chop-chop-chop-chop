@@ -65,7 +65,6 @@ function drawOpeningMenu() {
 			}
 		}
 	}
-    text.printWords("g", 120, 400)
 	drawPixelfont("New Game", newGameX, canvas.height / 2 + 40,16,16);
 	var newGameHitbox = new colliderClass(newGameX + ((measurePixelfont("New Game") * 1.38)/2),
 										canvas.height / 2 + 47,

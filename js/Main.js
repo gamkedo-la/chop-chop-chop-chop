@@ -14,8 +14,6 @@ var debug = false;
 var havingAMoment = false;
 var savedAlpha = 0;
 
-var text = new NpcText();
-
 window.onload = function () {
 	canvas = document.createElement("canvas");
 	canvasContext = canvas.getContext("2d");
