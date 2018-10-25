@@ -17,7 +17,7 @@ var pixelfont_y = 0; // current line
 var pixelfont_line_height = 10; // pixels
 
 // non-proportional 10px by 10px grid
-var pixelfont_h = 10; 
+var pixelfont_h = 10;
 var pixelfont_w = 10;
 
 function isNumeric(n) {
@@ -25,41 +25,42 @@ function isNumeric(n) {
 }
 
 function pixelfont_dx(char) {
-    var num = (''+char).charCodeAt(0)-65; // a-z
-    if (char==' ') num = 0;
-    if (char=='.') num = 26;
-    if (char==',') num = 27;
-    if (char=='?') num = 28;
-    if (char=='!') num = 29;
-    if (char=='-') num = 40;
-    if (char==':') num = 41;
-    if (char=='"') num = 42;
-    if (char=="'") num = 43;
-    if (char=='+') num = 44;
+    var num = ('' + char).charCodeAt(0) - 65; // a-z
+    if (char == ' ') num = 0;
+    if (char == '.') num = 26;
+    if (char == ',') num = 27;
+    if (char == '?') num = 28;
+    if (char == '!') num = 29;
+    if (char == '-') num = 40;
+    if (char == ':') num = 41;
+    if (char == '"') num = 42;
+    if (char == "'") num = 43;
+    if (char == '+') num = 44;
     if (isNumeric(char)) num += 47;
     var column = (num % 8);
     //console.log(char+' num:'+num+' col:'+column);
     return column * pixelfont_w;
 }
+
 function pixelfont_dy(char) {
-    var num = (''+char).charCodeAt(0)-65; // a-z
-    if (char==' ') num = 0;
-    if (char=='.') num = 26;
-    if (char==',') num = 27;
-    if (char=='?') num = 28;
-    if (char=='!') num = 29;
-    if (char=='-') num = 40;
-    if (char==':') num = 41;
-    if (char=='"') num = 42;
-    if (char=="'") num = 43;
-    if (char=='+') num = 44;
+    var num = ('' + char).charCodeAt(0) - 65; // a-z
+    if (char == ' ') num = 0;
+    if (char == '.') num = 26;
+    if (char == ',') num = 27;
+    if (char == '?') num = 28;
+    if (char == '!') num = 29;
+    if (char == '-') num = 40;
+    if (char == ':') num = 41;
+    if (char == '"') num = 42;
+    if (char == "'") num = 43;
+    if (char == '+') num = 44;
     if (isNumeric(char)) num += 47;
     var row = Math.floor((num / 8));
     //console.log(char+' num:'+num+' row:'+row);
     return row * pixelfont_h;
 }
 
-function measurePixelfont(str,pixelfont_w = 10) {
+function measurePixelfont(str, pixelfont_w = 10) {
     var w = 0;
     var index = 0;
     var max = 0; // multiple lines count from 0
@@ -86,10 +87,10 @@ function drawPixelfontCentered(str, x, y, pixelfont_new_w = 10, pixelfont_new_h 
 }
 
 function drawPixelfont(str, x, y, pixelfont_new_w = 10, pixelfont_new_h = 10) {
-    
+
     str = str.toUpperCase(); // we only have caps in this font
     //console.log("drawPixelfont " + str + "," + x + "," + y);
-    
+
     // sanity checks for globals init by the game engine
     if (!window.canvasContext) {
         console.log("pixelfont_draw: missing canvasContext");
@@ -112,7 +113,7 @@ function drawPixelfont(str, x, y, pixelfont_new_w = 10, pixelfont_new_h = 10) {
     var index = 0;
 
     var pfw = pixelfont_new_w;
-	var pfh = pixelfont_new_h;
+    var pfh = pixelfont_new_h;
 
     var insideEmote = false;
     var skipThisChar = false;
@@ -130,8 +131,7 @@ function drawPixelfont(str, x, y, pixelfont_new_w = 10, pixelfont_new_h = 10) {
             } else {
                 emoteCode = emoteCode + str[c];
             }
-        }
-        else if (str[c] == "$") {
+        } else if (str[c] == "$") {
             insideEmote = true;
             emoteCode = "";
         }
@@ -147,8 +147,7 @@ function drawPixelfont(str, x, y, pixelfont_new_w = 10, pixelfont_new_h = 10) {
             // space?
             else if (str[c] == " ") {
                 pixelfont_x += pixelfont_space_width;
-            }
-            else // normal letter
+            } else // normal letter
             {
                 sw = pixelfont_w;
                 sh = pixelfont_h;
@@ -198,8 +197,7 @@ function stringWithoutEmotes(str) {
                 insideEmote = false;
                 skipThisChar = true;
             }
-        }
-        else if (str[c] == "$") {
+        } else if (str[c] == "$") {
             insideEmote = true;
             emoteCode = "";
         }
@@ -213,125 +211,38 @@ function stringWithoutEmotes(str) {
     return output;
 }
 
-// animate the letters of a string if now is within range
-function npcText(message, x, y, starttime, endtime, faceImage) {
-
-    if (!message || !message.length) return; // sanity
-    x = Math.round(x);
-    y = Math.round(y);
-    var now = performance.now(); // timestamp
-    var count = 0; // how many characters to draw this frame
-    var percent = 1; // where are we in the animation
-    var bubbleWidth = measurePixelfont(message);
-
-    if (now < starttime) {
-        count = 0; // draw nothing and wait to start
+function npcText() {
+    //smol text thing by kise 
+    //does not support wrapping
+    this.letterCount = 0;
+    this.bubbleWidth = 0;
+    
+    var bubbleHeight = 50;
+    var bubbleBorder = 10;
+    var rectBuffX = 10;
+    var textBuffY = bubbleHeight - bubbleHeight/2 - 5;
+    var textBuffX = 15;
+    var textSpeed = 0.6;
+    var bubbleSpeed = 0.5;
+    var textArrowBuffY = 50;
+   
+    this.printWords = function (str, x, y) {
+        if (this.letterCount <= str.length) {
+            this.letterCount += textSpeed;
+        }
+        var typewriterText = str.substr(0, this.letterCount);
+        var measureText = canvasContext.measureText(typewriterText);
+        var textWidth = measureText.width;
+        while (this.bubbleWidth < measureText.width + bubbleBorder) {
+            this.bubbleWidth += bubbleSpeed;
+        }
+        roundRect(x - textBuffX, y, this.bubbleWidth + this.bubbleWidth + rectBuffX, bubbleHeight, 5, true, true);
+        drawPixelfont(typewriterText, x, y + textBuffY, 10, 10);
+        canvasContext.drawImage(gamePics["textTriangle"], x, y + textArrowBuffY);
     }
-    else if (now > endtime) {
-        count = message.length; // done animating, draw it all
+    
+    this.resetLetters = function() {
+        this.letterCount = 0;
+        this.bubbleWidth = 0;
     }
-    else if (now >= starttime && now <= endtime) // partway done
-    {
-        percent = (now - starttime) / (endtime - starttime);
-        count = Math.floor(message.length * percent);
-    }
-
-    // now render however many chars we want
-    message = message.substring(0, count); // FIXME: we need to SKIP (include all the) $emote chars
-
-
-    if (!faceImage) // word bubble mode
-    {
-        canvasContext.globalAlpha = 0.25;
-        // draw the word bubble left side
-        canvasContext.drawImage(sprites.UI.pixelFont, // see imgPayload.js
-            0, // sx
-            0, // sy
-            bubbleWidth, // sw
-            32, // sh
-            x - 6, // dx
-            y - 6, // dy
-            bubbleWidth, // dw
-            32); // dh
-
-        // draw the word bubble right side (for liquid layout to fit text)
-        canvasContext.drawImage(gamePics.fontSheet, // see ImageLoading.js
-            252, // sx
-            0, // sy
-            4, // sw
-            32, // sh
-            x - 6 + bubbleWidth, // dx
-            y - 6, // dy
-            4, // dw
-            32); // dh
-
-        //canvasContext.globalAlpha = 1.0;
-    }
-
-    //console.log("npc_text:["+message+"] pos:"+x+","+y+" "+~~starttime+" to "+~~endtime+" now="+~~now+" percent:"+~~percent*100);
-    drawPixelfont(message, x, y);
 }
-
-// a word bubble
-function npcWordBubble(message, x, y, starttime, endtime) {
-    npcText(message, x + (-1 * Math.round(measurePixelfont(message) / 2)), y, starttime, endtime);
-}
-
-const NPC_FOOTER_TEXT_X = 52; // pixels from the left of the screen
-const NPC_FOOTER_TEXT_Y = 48; // pixels from the *BOTTOM* of the screen
-const NPC_FOOTER_HEIGHT = 56; // height of entire footer bg image
-const NPC_FOOTER_FACEX = 8;
-const NPC_FOOTER_FACEY = 52; // from bottom
-
-// a jrpg subtitles footer bar
-function npcTextFooter(message, faceImage, starttime, endtime) {
-    //console.log('npcTextFooter!');
-
-    //canvasContext.globalAlpha = 0.25;
-
-    // draw the footer bar left side
-    canvasContext.drawImage(gamePics.fontSheet,
-        0, // sx
-        56, // sy of source pixels
-        8, // sw
-        NPC_FOOTER_HEIGHT, // sh
-        0, // dx
-        canvas.height - NPC_FOOTER_HEIGHT, // dy
-        8, // dw
-        NPC_FOOTER_HEIGHT); // dh
-
-    // stretch the footer bar middle
-    canvasContext.drawImage(gamePics.fontSheet, // see imgPayload.js
-        8, // sx
-        56, // sy of source pixels
-        240, // sw
-        NPC_FOOTER_HEIGHT, // sh
-        8, // dx
-        canvas.height - NPC_FOOTER_HEIGHT, // dy
-        canvas.width - 8 - 8, // dw
-        NPC_FOOTER_HEIGHT); // dh
-
-    // draw the footer bar right side
-    canvasContext.drawImage(gamePics.fontSheet, // see imgPayload.js
-        248, // sx
-        56, // sy of source pixels
-        8, // sw
-        NPC_FOOTER_HEIGHT, // sh
-        canvas.width - 8, // dx
-        canvas.height - NPC_FOOTER_HEIGHT, // dy
-        8, // dw
-        NPC_FOOTER_HEIGHT); // dh
-
-    //canvasContext.globalAlpha = 1.0;
-
-    // draw the face portrait
-    if (faceImage) {
-        canvasContext.drawImage(faceImage, NPC_FOOTER_FACEX, canvas.height - NPC_FOOTER_FACEY);
-    }
-    else {
-        console.log("Warning: missing faceImage in npcGUI")
-    }
-
-    npcText(message, NPC_FOOTER_TEXT_X, canvas.height - NPC_FOOTER_TEXT_Y, starttime, endtime, faceImage);
-}
-

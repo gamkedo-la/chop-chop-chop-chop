@@ -44,6 +44,7 @@ function loadImages() {
         //Font
         { varName: "logo", theFile: "logo_chopchopchopchop.png"},
         { varName: "fontSheet", theFile: "ChopChopFontFontv3.png"}, // v3 has a 1px black stroke
+        { varName: "textTriangle", theFile: "textTriangle.png"},
 
         //World Tile Pics
         { worldType: TILE_EXTEND_COLLISION, theFile: "clear.png" },
