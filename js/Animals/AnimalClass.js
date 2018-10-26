@@ -77,7 +77,7 @@ function animalClass(newAnimal) {
 
     this.chat = new NpcText();
 
-    this.detectedPlayerText = ["  Im gonna getcha!", "    come back my love", "  babe pls", " just one hug", " You're not getting away!"];
+    this.detectedPlayerText = ["  I'm gonna getcha!", "    come back my love", "  babe pls", " just one hug", " You're not getting away!"];
     this.returningHomeText = [" Next time...", "  sobs", "  hello darkness my old friend..."];
 
     this.draw = function () {
@@ -323,6 +323,7 @@ function animalClass(newAnimal) {
 
             this.x += moveXTowardHome;
             this.y += moveYTowardHome;
+            this.depthY = this.y;
             this.hitbox.update(this.x, this.y);
 
         } else { //animal is home, begin idling
@@ -366,6 +367,7 @@ function animalClass(newAnimal) {
             }
             this.x += moveXTowardHome;
             this.y += moveYTowardHome;
+            this.depthY = this.y;
             this.hitbox.update(this.x, this.y);
         } // end of else begin idling
     } // end of move funtion
@@ -394,6 +396,7 @@ function animalClass(newAnimal) {
                     //console.log("Stuck On Y axis");
                 } else {
                     this.y += moveYGetUnstuck;
+                    this.depthY = this.y;
                 }
             }
             if (this.checkTileCollision(this.x, this.y, moveXGetUnstuck, moveYGetUnstuck)) {
@@ -408,6 +411,7 @@ function animalClass(newAnimal) {
                     //console.log("Stuck On Y axis");
                 } else {
                     this.y += moveYGetUnstuck;
+                    this.depthY = this.y;
                 }
                 this.stuck = false;
                 console.log("Unstuck!");
@@ -426,7 +430,12 @@ function animalClass(newAnimal) {
             if (this.neutral) {
                 if (this.atGoal) {
                     if (this.img.data.name === "bear") {
-                        this.thinkAboutSomething("!!!");
+                    	this.chat.resetLetters();
+                        this.thinkAboutSomething("  Look at this fish jump!");
+                    }
+                    if (this.img.data.name === "stebsBird") {
+                    	this.chat.resetLetters();
+                        this.thinkAboutSomething(" make sure you get my good side!");
                     }
                 }
             } else {
