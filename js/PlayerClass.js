@@ -405,7 +405,7 @@ function playerClass() {
 						this.hitAnAnimal = true;
 						console.log("HIT AN ANIMAL! >:C");
 						animalHit.play();
-						this.gotHit(animal.attackPower)
+						this.gotHit(animal.attackPower);
 					} else {
 						spawnParticles(prefix + 'chop', this.axeHitbox.x, this.axeHitbox.y);
 						var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);

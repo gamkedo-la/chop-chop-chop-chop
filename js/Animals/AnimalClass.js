@@ -44,7 +44,10 @@ function animalClass(newAnimal) {
     this.direction = WEST;
     this.x = this.home.x;
     this.y = this.home.y;
-    this.depthY = this.y; 
+    this.depthY = this.y;
+    if (this.img.data.name === "stebsBird") {
+    	this.depthY = canvas.height * 2;
+    }
     this.centerX = this.x - this.width / 2; // 
     this.centerY = this.y - this.height / 2; // stationary, set here and never double checked
 
@@ -117,7 +120,6 @@ function animalClass(newAnimal) {
     } // end of draw function
 
     this.thinkAboutSomething = function (thought) {
-
         this.thoughtBubbleText = thought; // alert the player
         this.thoughtBubbleFramesLeft = THOUGHTBUBBLEFRAMES;
     }
@@ -244,6 +246,9 @@ function animalClass(newAnimal) {
                     }
                 }
                 this.depthY = this.y;
+                if (this.img.data.name === "stebsBird") {
+    				this.depthY = canvas.height * 2;
+    			}
                 this.hitbox.update(this.x, this.y);
                 if (this.hitbox.isCollidingWith(player.hitbox)) {
                     if (this.neutral) {
@@ -324,6 +329,9 @@ function animalClass(newAnimal) {
             this.x += moveXTowardHome;
             this.y += moveYTowardHome;
             this.depthY = this.y;
+            if (this.img.data.name === "stebsBird") {
+		    	this.depthY = canvas.height * 2;
+		    }
             this.hitbox.update(this.x, this.y);
 
         } else { //animal is home, begin idling
@@ -368,6 +376,9 @@ function animalClass(newAnimal) {
             this.x += moveXTowardHome;
             this.y += moveYTowardHome;
             this.depthY = this.y;
+            if (this.img.data.name === "stebsBird") {
+		    	this.depthY = canvas.height * 2;
+		    }
             this.hitbox.update(this.x, this.y);
         } // end of else begin idling
     } // end of move funtion
@@ -397,6 +408,9 @@ function animalClass(newAnimal) {
                 } else {
                     this.y += moveYGetUnstuck;
                     this.depthY = this.y;
+                    if (this.img.data.name === "stebsBird") {
+    					this.depthY = canvas.height * 2;
+    				}
                 }
             }
             if (this.checkTileCollision(this.x, this.y, moveXGetUnstuck, moveYGetUnstuck)) {
@@ -412,6 +426,9 @@ function animalClass(newAnimal) {
                 } else {
                     this.y += moveYGetUnstuck;
                     this.depthY = this.y;
+                    if (this.img.data.name === "stebsBird") {
+				    	this.depthY = canvas.height * 2;
+				    }
                 }
                 this.stuck = false;
                 console.log("Unstuck!");
@@ -430,12 +447,10 @@ function animalClass(newAnimal) {
             if (this.neutral) {
                 if (this.atGoal) {
                     if (this.img.data.name === "bear") {
-                    	this.chat.resetLetters();
-                        this.thinkAboutSomething("  Look at this fish jump!");
+                        this.thinkAboutSomething("  look at this fish jump!");
                     }
                     if (this.img.data.name === "stebsBird") {
-                    	this.chat.resetLetters();
-                        this.thinkAboutSomething(" make sure you get my good side!");
+                        this.thinkAboutSomething("  make sure you get my good side!");
                     }
                 }
             } else {
@@ -443,7 +458,8 @@ function animalClass(newAnimal) {
                 this.chasingPlayer = true;
             }
         } else {
-            if (this.img.data.name === "bear") {
+            if (this.img.data.name === "bear" ||
+            	this.img.data.name === "stebsBird" ) {
                 if (this.thoughtBubbleFramesLeft <= 0) {
                     this.chat.resetLetters();
                 } else {
@@ -451,17 +467,6 @@ function animalClass(newAnimal) {
                 }
             }
         }
-    }
-
-    this.calcDetectionRadius = function () {
-        var radius = this.detectionRadius;
-        var distX = Math.abs((this.x) - player.x);
-        var distY = Math.abs((this.y) - player.y);
-        var diffX = distX - player.width / 4;
-        var diffY = distY - player.height / 2;
-
-
-        return ((diffX * diffX + diffY * diffY) <= (radius * radius))
     }
 
     this.goalRadiusTrigger = function () {
@@ -496,8 +501,6 @@ function animalClass(newAnimal) {
                 this.chasingPlayer = false;
                 this.img.framesUntilNext = 45;
                 if (!isAnAnimalChasingPlayer()) {
-                    this.chat.resetLetters();
-                    this.thinkAboutSomething(" !!!"); // FIXME: should this be a different thought?
                     playingChaseMusic = false;
                     backgroundMusic.pause();
                     if (allLevels[currentLevelIndex].name == "Moon") {
