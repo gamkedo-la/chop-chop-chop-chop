@@ -217,7 +217,7 @@ function NpcText() {
     - does not support wrapping for now 
     - if not centred just add spaces to beginning/end of string lol someone can fix this if they want
     
-    ps: some chars. in pixel font are have different widths, so expect varying alignments when using: w, m OR w, m with letters t, i and !
+    ps: some chars. in pixel font are measured differently, so expect varying alignments when using: w, m OR w, m with letters t, i, o, !, and some others
     */
     this.counter = 0;
     this.bubWidth = 0;
@@ -226,10 +226,12 @@ function NpcText() {
     var bubBorder = 10;
     var bubRadius = 5;
     var bubBuffX = 5;
-    
+
     var textBuffY = bubHeight - bubHeight / 2 - 5;
     var textSpeed = 0.8;
     
+    var lineHeight = 15;
+
     var arrowBuffY = bubHeight;
 
     this.printWords = function (str, x, y) {
@@ -239,14 +241,15 @@ function NpcText() {
         var typewriterText = str.substr(0, this.counter);
         var measureText = canvasContext.measureText(typewriterText);
         var textWidth = measureText.width;
+        
         while (this.bubWidth < textWidth + bubBorder) {
             this.bubWidth++;
         }
-        var halfBubWidth = this.bubWidth * 0.5;  
+        var halfBubWidth = this.bubWidth * 0.5;
         var bubX = (x - halfBubWidth);
         var bubWidth = (this.bubWidth + halfBubWidth) + (halfBubWidth + bubBorder);
         roundRect(bubX - bubBuffX, y, bubWidth, bubHeight, bubRadius, true, true);
-        drawPixelfont(typewriterText, bubX + bubBuffX , y + textBuffY, 10, 10);
+        drawPixelfont(typewriterText, bubX + bubBuffX, y + textBuffY, 10, 10);
         canvasContext.drawImage(gamePics["textTriangle"], x, y + arrowBuffY);
     }
 
