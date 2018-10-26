@@ -1,5 +1,3 @@
-var animalList = [];
-
 var playingChaseMusic = false;
 
 function animalClass(newAnimal) {
@@ -46,6 +44,7 @@ function animalClass(newAnimal) {
     this.direction = WEST;
     this.x = this.home.x;
     this.y = this.home.y;
+    this.depthY = this.y; 
     this.centerX = this.x - this.width / 2; // 
     this.centerY = this.y - this.height / 2; // stationary, set here and never double checked
 
@@ -71,13 +70,14 @@ function animalClass(newAnimal) {
     this.colliderHeight = newAnimal.colliderHeight;
     this.colliderOffsetX = newAnimal.colliderOffsetX;
     this.colliderOffsetY = newAnimal.colliderOffsetY;
+    this.hasHitbox = true;
     this.hitbox = new colliderClass(this.x, this.y,
         this.colliderWidth, this.colliderHeight, this.colliderOffsetX, this.colliderOffsetY);
     this.attackPower = newAnimal.attackPower;
 
     this.chat = new NpcText();
 
-    this.detectedPlayerText = ["  Im gonna getcha!", "    come back my love", "  babe pls", " just one hug", " You're not getting away!"];
+    this.detectedPlayerText = ["  I'm gonna getcha!", "    come back my love", "  babe pls", " just one hug", " You're not getting away!"];
     this.returningHomeText = [" Next time...", "  sobs", "  hello darkness my old friend..."];
 
     this.draw = function () {
@@ -243,6 +243,7 @@ function animalClass(newAnimal) {
                         this.y -= moveYTowardPlayer;
                     }
                 }
+                this.depthY = this.y;
                 this.hitbox.update(this.x, this.y);
                 if (this.hitbox.isCollidingWith(player.hitbox)) {
                     if (this.neutral) {
@@ -255,8 +256,7 @@ function animalClass(newAnimal) {
 
         } else if (this.waiting) { // else wait
             if (this.waitingTimer == 0) {
-                //this.img.framesUntilNext = 25;
-                this.playerDetected = false;
+				this.playerDetected = false;
                 this.playerDetectedSoundPlayed = false;
                 this.waiting = false;
                 this.returning = true;
@@ -323,6 +323,7 @@ function animalClass(newAnimal) {
 
             this.x += moveXTowardHome;
             this.y += moveYTowardHome;
+            this.depthY = this.y;
             this.hitbox.update(this.x, this.y);
 
         } else { //animal is home, begin idling
@@ -366,6 +367,7 @@ function animalClass(newAnimal) {
             }
             this.x += moveXTowardHome;
             this.y += moveYTowardHome;
+            this.depthY = this.y;
             this.hitbox.update(this.x, this.y);
         } // end of else begin idling
     } // end of move funtion
@@ -394,6 +396,7 @@ function animalClass(newAnimal) {
                     //console.log("Stuck On Y axis");
                 } else {
                     this.y += moveYGetUnstuck;
+                    this.depthY = this.y;
                 }
             }
             if (this.checkTileCollision(this.x, this.y, moveXGetUnstuck, moveYGetUnstuck)) {
@@ -408,6 +411,7 @@ function animalClass(newAnimal) {
                     //console.log("Stuck On Y axis");
                 } else {
                     this.y += moveYGetUnstuck;
+                    this.depthY = this.y;
                 }
                 this.stuck = false;
                 console.log("Unstuck!");
@@ -426,7 +430,12 @@ function animalClass(newAnimal) {
             if (this.neutral) {
                 if (this.atGoal) {
                     if (this.img.data.name === "bear") {
-                        this.thinkAboutSomething("!!!");
+                    	this.chat.resetLetters();
+                        this.thinkAboutSomething("  Look at this fish jump!");
+                    }
+                    if (this.img.data.name === "stebsBird") {
+                    	this.chat.resetLetters();
+                        this.thinkAboutSomething(" make sure you get my good side!");
                     }
                 }
             } else {
@@ -462,7 +471,7 @@ function animalClass(newAnimal) {
             var goalArrayIndex = -1;
             if (this.goal === undefined && this.hasGoal) {
                 if (this.img.name === "bear") {
-                    var goalArrayIndex = getArrayIndexFromList(TILE_JUMPING_FISH, animalList);
+                    var goalArrayIndex = getArrayIndexFromList(TILE_JUMPING_FISH, objectList);
                     this.goal = indexToCenteredXY(goalArrayIndex);
                 } else if (this.img.name === "stebsBird") {
                     var goalArrayIndex = getArrayIndexFromList(TILE_CAMERA, animatedTileList);
@@ -557,65 +566,52 @@ function animalClass(newAnimal) {
 } // end of animal class
 
 function spawnAnimalBasedOnTile(tileType, arrayIndex) {
-    switch (tileType) {
-        case TILE_DEATH_CAT:
+	switch (tileType) {
+		case TILE_DEATH_CAT:
             animal = new deathCat(arrayIndex, tileType);
-            animalList.push(animal);
+            objectList.push(animal);
             worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
             break;
         case TILE_STEBS_BIRD:
             animal = new bigBird(arrayIndex, tileType);
-            animalList.push(animal);
+            objectList.push(animal);
             worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
             break;
         case TILE_RABBIT:
             var rabbitsToSpawn = [];
             rabbitsToSpawn = arrayWithRange(getRoundedRandomNumberBetweenMinMax(3, 4));
-            //console.log(rabbitsToSpawn);
             for (var r = 0; r < rabbitsToSpawn.length; r++) {
                 animal = new rabbitClass(arrayIndex, tileType);
-                animalList.push(animal);
+                objectList.push(animal);
             }
             worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
             break;
         case TILE_JUMPING_FISH:
             animal = new jumpingFish(arrayIndex, tileType);
-            animalList.push(animal);
+            objectList.push(animal);
             worldGrid[arrayIndex] = TILE_WATER;
             break;
         case TILE_ALLIGATOR:
             animal = new alligatorClass(arrayIndex, tileType);
-            animalList.push(animal);
+            objectList.push(animal);
             worldGrid[arrayIndex] = TILE_WATER;
             break;
         case TILE_PINCHER_BUG:
             animal = new pincherBug(arrayIndex, tileType);
-            animalList.push(animal);
+            objectList.push(animal);
             worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
             break;
         case TILE_BEAR:
             animal = new bearClass(arrayIndex, tileType);
-            animalList.push(animal);
+            objectList.push(animal);
             worldGrid[arrayIndex] = TILE_REPLACE_ANIMAL;
             break;
     }
 }
 
-function drawAllAnimals() {
-    for (var i = 0; i < animalList.length; i++) {
-        animalList[i].draw();
-    }
-}
-
-function moveAllAnimals() {
-    for (var i = 0; i < animalList.length; i++) {
-        animalList[i].move();
-    }
-}
-
 function isAnAnimalChasingPlayer() {
-    for (let i = 0; i < animalList.length; ++i) {
-        if (animalList[i].chasingPlayer) {
+    for (let i = 0; i < objectList.length; ++i) {
+        if (objectList[i].chasingPlayer) {
             return true;
         }
     }

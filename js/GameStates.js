@@ -414,7 +414,6 @@ let resetGame = (levelIndex) => {
 	worldGrid = Array.from(allLevels[currentLevelIndex].layout);
 	worldCols = allLevels[currentLevelIndex].columns;
 	worldRows = allLevels[currentLevelIndex].rows;
-	animalList = [];
 	objectList = [];
 	objectList.push(player);
 	particleList = [];

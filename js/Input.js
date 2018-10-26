@@ -163,7 +163,6 @@ function keyPressed(evt) {
 			if (!worldEditor) {
 				countdownTimerPaused = false;
 				worldGrid = [];
-				animalList = [];
 				particleList = [];
 				objectList = [];
 				objectList.push(player);

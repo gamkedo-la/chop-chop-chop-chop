@@ -596,7 +596,6 @@ function drawGridOfTiles(x, y) {
 }
 
 function advanceLevel() {
-	animalList = [];
 	objectList = [];
 	objectList.push(player);
 	animatedTileList = [];

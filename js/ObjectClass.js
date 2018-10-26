@@ -231,7 +231,7 @@ function spawnProperRemnants(tileType, arrayIndex, hiddenTile) {
 }
 
 function moveAllObjects() {
-	for (var i = 1; i < objectList.length; i++) {
+	for (var i = 0; i < objectList.length; i++) {
 		objectList[i].move();
 	}
 }
