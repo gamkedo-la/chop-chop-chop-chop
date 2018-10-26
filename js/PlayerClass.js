@@ -400,29 +400,28 @@ function playerClass() {
 					} else {
 						prefix = "";
 					}
-					spawnParticles(prefix + 'chop', this.axeHitbox.x, this.axeHitbox.y);
-					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
-					arrayOfChopSFXs[random].play();
-					object.gotHit(this.axePower);
-					this.chopCount++; // add to score on GUI
-					this.swingCount++; // a successful chop counts as a swing, too
-					if (object.tileType == TILE_LOLLIPOP && object.health <=0) {
-						this.powerupActive = true;
-						this.state.chopping = false;
+
+					if (object.animal) {
+						this.hitAnAnimal = true;
+						console.log("HIT AN ANIMAL! >:C");
+						animalHit.play();
+						this.gotHit(animal.attackPower)
+					} else {
+						spawnParticles(prefix + 'chop', this.axeHitbox.x, this.axeHitbox.y);
+						var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+						arrayOfChopSFXs[random].play();
+						object.gotHit(this.axePower);
+						this.chopCount++; // add to score on GUI
+						this.swingCount++; // a successful chop counts as a swing, too
+						if (object.tileType == TILE_LOLLIPOP && object.health <=0) {
+							this.powerupActive = true;
+							this.state.chopping = false;
+						}
 					}
 				}
 			}
 		}
-		for (var k = 0; k < animalList.length; k++) {
-			var animal = animalList[k];
-			if (this.axeHitbox.isCollidingWith(animal.hitbox)) {
-				this.hitAnAnimal = true;
-				hit = true; 
-				console.log("HIT AN ANIMAL! >:C");
-				animalHit.play();
-				this.gotHit(animal.attackPower)
-			}
-		}
+
 		var arrayIndexUnderAxe = getTileIndexAtPixelCoord(this.axeHitbox.x,this.axeHitbox.y);
 		if (worldGrid[arrayIndexUnderAxe] == TILE_PUMPKIN) {
 			var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);

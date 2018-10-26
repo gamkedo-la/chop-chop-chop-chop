@@ -70,9 +70,9 @@ function copyToClipboard() {
 			layoutString += "00" + allLevels[currentLevelIndex].layout[i].toString() + ",";
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_WATER) {
 			numberPrintOut = "400";
-			for (var n = 0; n < animalList.length; n++) {
-				if (animalList[n].arrayIndex == i) {
-					numberPrintOut = animalList[n].tileType;
+			for (var n = 0; n < objectList.length; n++) {
+				if (objectList[n].arrayIndex == i) {
+					numberPrintOut = objectList[n].tileType;
 				} 
 			}
 			layoutString += "" + numberPrintOut + ",";
@@ -84,9 +84,9 @@ function copyToClipboard() {
 			}
 			layoutString += "" + numberPrintOut + ",";
 		} else if (allLevels[currentLevelIndex].layout[i] == TILE_REPLACE_ANIMAL) {
-			for (var n = 0; n < animalList.length; n++) {
-				if (animalList[n].arrayIndex == i) {
-					numberPrintOut = animalList[n].tileType;
+			for (var n = 0; n < objectList.length; n++) {
+				if (objectList[n].arrayIndex == i) {
+					numberPrintOut = objectList[n].tileType;
 				}
 			}
 			layoutString += "" + numberPrintOut + ",";

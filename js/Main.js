@@ -125,7 +125,6 @@ function drawAll() {
 			cameraPan();
 			drawWorld();
 			drawAnimatedTiles();
-			drawAllAnimals();
 			drawAndRemoveAllObjects();
 			drawParticles();
 			endCameraPan();
@@ -136,7 +135,6 @@ function drawAll() {
 				cameraPan();
 				drawWorld();
 				drawAnimatedTiles();
-				drawAllAnimals();
 				drawAndRemoveAllObjects();
 				drawParticles();
 				endCameraPan();
@@ -203,10 +201,6 @@ function drawAll() {
 } //end of draw all
 
 function moveAll() {
-	if (!worldEditor && !havingAMoment) {
-		objectList[0].move();
-	}
 	moveAllObjects();
-	moveAllAnimals();
 	moveParticles();
 }
