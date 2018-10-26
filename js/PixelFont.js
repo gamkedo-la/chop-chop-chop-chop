@@ -229,27 +229,28 @@ function NpcText() {
 
     var textBuffY = bubHeight - bubHeight / 2 - 5;
     var textSpeed = 0.8;
+    
+    var lineHeight = 15;
 
     var arrowBuffY = bubHeight;
 
     this.printWords = function (str, x, y) {
-            if (this.counter <= str.length) {
-                this.counter += textSpeed;
-            }
-
-            var typewriterText = str.substr(0, this.counter);
-            var measureText = canvasContext.measureText(typewriterText);
-            var textWidth = measureText.width;
-            while (this.bubWidth < textWidth + bubBorder) {
-                this.bubWidth++;
-            }
-            var halfBubWidth = this.bubWidth * 0.5;
-            var bubX = (x - halfBubWidth);
-            var bubWidth = (this.bubWidth + halfBubWidth) + (halfBubWidth + bubBorder);
-            roundRect(bubX - bubBuffX, y, bubWidth, bubHeight, bubRadius, true, true);
-            drawPixelfont(typewriterText, bubX + bubBuffX, y + textBuffY, 10, 10);
-            canvasContext.drawImage(gamePics["textTriangle"], x, y + arrowBuffY);
+        if (this.counter <= str.length) {
+            this.counter += textSpeed;
+        }
+        var typewriterText = str.substr(0, this.counter);
+        var measureText = canvasContext.measureText(typewriterText);
+        var textWidth = measureText.width;
         
+        while (this.bubWidth < textWidth + bubBorder) {
+            this.bubWidth++;
+        }
+        var halfBubWidth = this.bubWidth * 0.5;
+        var bubX = (x - halfBubWidth);
+        var bubWidth = (this.bubWidth + halfBubWidth) + (halfBubWidth + bubBorder);
+        roundRect(bubX - bubBuffX, y, bubWidth, bubHeight, bubRadius, true, true);
+        drawPixelfont(typewriterText, bubX + bubBuffX, y + textBuffY, 10, 10);
+        canvasContext.drawImage(gamePics["textTriangle"], x, y + arrowBuffY);
     }
 
     this.resetLetters = function () {

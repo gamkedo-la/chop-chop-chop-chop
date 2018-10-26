@@ -10,6 +10,7 @@ function animalClass(newAnimal) {
     const THOUGHTBUBBLEX = 0; // centered by default
     const THOUGHTBUBBLEY = -24; // above their head
     const THOUGHTBUBBLEFRAMES = 100;
+    const RANDOM_CHAT_CHANCE = 0.1;
 
     this.arrayIndex = newAnimal.arrayIndex;
     this.tileType = newAnimal.tileType;
@@ -76,12 +77,15 @@ function animalClass(newAnimal) {
 
     this.chat = new NpcText();
 
+    this.detectedPlayerText = ["  Im gonna getcha!", "    come back my love", "  babe pls", " just one hug", " You're not getting away!"];
+    this.returningHomeText = [" Next time...", "  sobs", "  hello darkness my old friend..."];
+
     this.draw = function () {
 
         if (this.thoughtBubbleText != "" && this.thoughtBubbleFramesLeft > 0) {
             this.thoughtBubbleFramesLeft--;
             var distFromAnimal = 42;
-            this.chat.printWords(this.thoughtBubbleText, this.x + THOUGHTBUBBLEX, this.y + THOUGHTBUBBLEY - distFromAnimal); //drawPixelfontCentered(this.thoughtBubbleText,this.x+THOUGHTBUBBLEX/*+Math.round(this.width / 2)*/,this.y+THOUGHTBUBBLEY);
+            this.chat.printWords(this.thoughtBubbleText, this.x + THOUGHTBUBBLEX, this.y + THOUGHTBUBBLEY - distFromAnimal);
         }
 
 
@@ -129,8 +133,9 @@ function animalClass(newAnimal) {
         var closeToHome = this.speed;
         if (this.playerDetected) { // chasing player
             if (this.playerDetectedSoundPlayed === false) { // just triggered?
+                var chooseRandom = Math.floor(Math.random() * this.detectedPlayerText.length);
                 this.chat.resetLetters();
-                this.thinkAboutSomething(" !");
+                this.thinkAboutSomething(this.detectedPlayerText[chooseRandom]);
             }
 
             if (!playingChaseMusic) {
@@ -266,9 +271,10 @@ function animalClass(newAnimal) {
                 return;
             }
         } else if (this.returning) { // else return home
+            var randomChoice = Math.floor(Math.random() * this.returningHomeText.length);
             if (playingChaseMusic && !isAnAnimalChasingPlayer()) {
                 this.chat.resetLetters();
-                this.thinkAboutSomething("  zzz");
+                this.thinkAboutSomething(this.returningHomeText[randomChoice]);
 
                 playingChaseMusic = false;
                 if (!havingAMoment) {
@@ -420,7 +426,7 @@ function animalClass(newAnimal) {
             if (this.neutral) {
                 if (this.atGoal) {
                     if (this.img.data.name === "bear") {
-                        this.thinkAboutSomething(" !!!");
+                        this.thinkAboutSomething("!!!");
                     }
                 }
             } else {
