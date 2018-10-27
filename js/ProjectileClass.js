@@ -77,6 +77,19 @@ function projectileClass (x,y, direction) {
 						arrayOfChopSFXs[random].play();
 						object.gotHit(player.axePower);
 						player.chopCount++; // add to score on GUI
+						if (object.tileType == TILE_LOLLIPOP && object.health <=0) {
+							player.powerupActive = true;
+							player.state.chopping = false;
+							player.state.waiting = false;
+							playerSideChopMax.loops = true;
+							playerSideChopMax.currentFrameIndex = 0;
+							axeWhirl.pause();
+							axeWhirl.currentTime = 0;
+							this.returned = true;
+							this.remove = true;
+							spacebarKeyHeld = false;
+							break;
+						}
 					}
 				} // end of if axeHitbox connects with object hitbox
 			} // end of if object.hasHitbox (error would throw for non-hitbox having objects such as stumps)

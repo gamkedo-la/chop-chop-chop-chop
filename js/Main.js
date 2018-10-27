@@ -91,6 +91,7 @@ function drawAll() {
 					canvasContext.globalAlpha = 1.0;
 					countdownTimerPaused = false;
 					openingMenuIsRunning = false;
+					player.chopTimer = 0;
 					gameIsRunning = true;
 					advanceLevel();
 					backgroundMusic.pause();
@@ -201,6 +202,8 @@ function drawAll() {
 } //end of draw all
 
 function moveAll() {
-	moveAllObjects();
-	moveParticles();
+	if (!havingAMoment) {
+		moveAllObjects();
+		moveParticles();
+	}
 }

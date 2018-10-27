@@ -107,7 +107,9 @@ function playerClass() {
 			for (var i = 0; i < objectList.length; i++) {
 				var object = objectList[i];
 				if (object.hasHitbox) {
-					if (this.hitbox.isCollidingWith(object.hitbox)) {
+					if (object.animal) {
+						// do nothing
+					} else if (this.hitbox.isCollidingWith(object.hitbox)) {
 						var objectPosition = indexToCenteredXY(object.arrayIndex)
 						spawnParticles('chop', objectPosition.x, objectPosition.y);
 						object.gotHit(TORNADO_POWER);
@@ -135,12 +137,10 @@ function playerClass() {
 			}
 			if (upKeyHeld) {
 				movementY -= this.speed;
-				//this.direction = NORTH;
 				this.state.walking = true;
 			}
 			if (downKeyHeld) {
 				movementY += this.speed;
-				//this.direction = SOUTH;
 				this.state.walking = true;
 			}
 		} else {
@@ -235,13 +235,15 @@ function playerClass() {
 				this.x += boopedX;
 				this.y += boopedY;
 			}
+
+			this.hitbox.update(this.x, this.y);
+
 			if (this.axeLevel == MAX) {
 				this.invincibiltyTimer = this.invincibiltyTimerFull - framesPerSecond/2;
-				this.invincible = true;
 			} else {
 				this.invincibiltyTimer = this.invincibiltyTimerFull;
-				this.invincible = true;
 			}
+			this.invincible = true;
 		}
 	}
 
