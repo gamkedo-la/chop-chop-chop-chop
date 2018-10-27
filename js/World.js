@@ -150,6 +150,7 @@ const TILE_MOON_FLAG = 707;
 const TILE_MOON_HOME = 708;
 const TILE_MOON_WHEEL = 709;
 const TILE_MOON_CRASHED_SHIP = 710;
+const TILE_MOON_SURVEYOR = 711;
 
 // Animals
 const TILE_DEATH_CAT = 800;
@@ -180,6 +181,7 @@ var camera = 4;
 var campfire = 5;
 var dsBonfire = 6;
 var nextLevel = 7;
+var moonSurveryor = 8;
 var animatedTileList = [];
 
 function drawWorld() {
@@ -284,6 +286,7 @@ function isTileTypeAnimated(tileType) {
 		case TILE_CAMPFIRE:
 		case TILE_DS_BONFIRE:
 		case TILE_NEXT_LEVEL:
+		case TILE_MOON_SURVEYOR:
 			return true;
 			break;
 	}
@@ -314,6 +317,9 @@ function returnAnimatedTileSprites(tileKindHere) {
 		break;
 		case TILE_NEXT_LEVEL:
 			return nextLevel;
+		break;
+		case TILE_MOON_SURVEYOR:
+			return moonSurveryor;
 		break;
 	}
 }
@@ -439,6 +445,21 @@ function setupAnimatedTiles(tileType, drawTileX, drawTileY, arrayIndex) {
 			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
 			animatedTileList.push(newAnimatedTile);
 			break;
+		case moonSurveryor:
+			newAnimatedTile = new AnimatedSpriteClass({
+				name: "moonSurveryor",
+				spriteSheet: gamePics.moonSurveyorSpritesheet,
+				animationColFrames: 12,
+				framesUntilNext: 15,
+				x: drawTileX,
+				y: drawTileY,
+				framesBetweenLoops: 100,
+				arrayIndex: arrayIndex,
+				tileType: TILE_MOON_SURVEYOR,
+			});
+			worldGrid[arrayIndex] = TILE_REPLACE_ANIMATED_TILE;
+			animatedTileList.push(newAnimatedTile);
+			break;
 	}
 }
 
@@ -544,6 +565,13 @@ function drawAnimatedTiles() {
 				fromWhichRowToAnimate = determineWaterTileSurroundings(animatedTileList[i].arrayIndex);
 				opacity = canvasContext.globalAlpha;
 				animatedTileList[i].draw(animatedTileList[i].x,animatedTileList[i].y, fromWhichRowToAnimate,
+				false,false,
+				0,0,0,
+				opacity,false,1,1,
+				true);
+			} else if (animatedTileList[i].tileType == TILE_MOON_SURVEYOR) {
+				canvasContext.drawImage(worldPics[TILE_MOON_TERRAIN], animatedTileList[i].x, animatedTileList[i].y);
+				animatedTileList[i].draw(animatedTileList[i].x,animatedTileList[i].y, 1,
 				false,false,
 				0,0,0,
 				opacity,false,1,1,

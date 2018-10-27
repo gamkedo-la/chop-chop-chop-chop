@@ -104,7 +104,7 @@ function AnimatedSpriteClass(data) {
 			}
 		}
 		if (this.loops) {
-			if(this.currentPauseFramesLeft <= 0) {
+			if (this.currentPauseFramesLeft <= 0) {
                 if (framesFromGameStart % this.framesUntilNext == 0) {
                 	if (loopsToEndAndBack) {
                     	if (!this.reversing) {
@@ -122,6 +122,9 @@ function AnimatedSpriteClass(data) {
                     		this.currentFrameIndex--;
                     		if (this.currentFrameIndex == 0) {
                     			this.reversing = false;
+                    			if (this.framesBetweenLoops > 0) {
+                    				this.currentPauseFramesLeft = this.framesBetweenLoops;
+                    			}
                     		}
                     	}
                     } else {

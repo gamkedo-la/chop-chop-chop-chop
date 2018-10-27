@@ -23,6 +23,7 @@ function loadImages() {
         { varName: "cameraSpritesheet", theFile: "camera_spritesheet.png" },
         { varName: "campfireSpritesheet", theFile: "campfire_spritesheet.png" },
         { varName: "dsBonfireSpritesheet", theFile: "ds_bonfire_spritesheet.png" },
+        { varName: "moonSurveyorSpritesheet", theFile: "moon_surveyor_v2.png" },
         { varName: "nextLevelSpritesheet", theFile: "next_level_tile_sheet.png" },
 
         // Animated Animal Sheets
@@ -74,7 +75,6 @@ function loadImages() {
         { worldType: TILE_CAMERA, theFile: "camera.png" },
         { worldType: TILE_CAMPFIRE, theFile: "campfire.png" },
         { worldType: TILE_DS_BONFIRE, theFile: "ds_bonfire.png" },
-        { worldType: TILE_REPLACE_ANIMATED_TILE, theFile: "terrain.png" },
         { worldType: TILE_ROCK_PILE_ROUGH, theFile: "path_cobble_rough_01.png" },
         { worldType: TILE_ROCK_PILE_ROUGH_ALT, theFile: "path_cobble_rough_02.png" },
         { worldType: TILE_ROCK_PILE_SMOOTH, theFile: "path_cobble_smooth_01.png" },
@@ -89,6 +89,8 @@ function loadImages() {
         { worldType: TILE_BOULDER_BOTTOM, theFile: "boulder_bottom.png" },
         { worldType: TILE_BOULDER_BOTTOM_RIGHT, theFile: "boulder_bottom_right.png" },
 		{ worldType: TILE_BUSH, theFile: "bush.png"},
+
+		{ worldType: TILE_REPLACE_ANIMATED_TILE, theFile: "terrain.png" },
 
         { worldType: TILE_PATH_SIDE_LEFT, theFile: "path_dirt_side_left.png" },
         { worldType: TILE_PATH_SIDE_RIGHT, theFile: "path_dirt_side_right.png" },
@@ -113,6 +115,7 @@ function loadImages() {
         { worldType: TILE_MOON_FLAG, theFile: "moon_flag.png"},
         { worldType: TILE_MOON_HOME, theFile: "moon_home.png"},
         { worldType: TILE_MOON_WHEEL, theFile: "moon_wheel.png"},
+
         { worldType: TILE_REPLACE_MOON_OBJECT, theFile: "moon_terrain.png" },
         
         { worldType: TILE_SMALL_TREE, theFile: "tree1.png" },
@@ -129,6 +132,7 @@ function loadImages() {
         { worldType: TILE_MOON_TREE_3, theFile: "moon_tree_3.png" },
         { worldType: TILE_MOON_CHEESE_TREE, theFile: "stebs_moon_tree.png" },
         { worldType: TILE_MOON_CRASHED_SHIP, theFile: "crashed_wooden_ship.png" },
+        { worldType: TILE_MOON_SURVEYOR, theFile: "moon_surveyor_tile.png" },
 
         { worldType: TILE_REPLACE_MOON_TREE, theFile: "moon_terrain.png" }, 
         { worldType: TILE_REPLACE_TREE, theFile: "terrain.png" }, 
@@ -149,10 +153,11 @@ function loadImages() {
         { worldType: TILE_REPLACE_STUMP, theFile: "terrain.png" },
 
         { worldType: TILE_WATER, theFile: "water.png" },
-        { worldType: TILE_REPLACE_WATER, theFile: "terrain.png" },
         { worldType: TILE_WATERFALL_BOTTOM_LEFT, theFile: "waterfall_bottom_left.png" },
         { worldType: TILE_WATERFALL_BOTTOM_RIGHT, theFile: "waterfall_bottom_right.png" },
         { worldType: TILE_WATERFALL_BOTTOM_CENTER, theFile: "waterfall_bottom_center.png" },
+
+        { worldType: TILE_REPLACE_WATER, theFile: "terrain.png" },
         { worldType: TILE_REPLACE_WATERFALL, theFile: "clear.png" },
 
         { worldType: TILE_STEBS_BIRD, theFile: "stebsbird.png" },
@@ -162,6 +167,7 @@ function loadImages() {
         { worldType: TILE_ALLIGATOR, theFile: "alligator.png" },
         { worldType: TILE_PINCHER_BUG, theFile: "pincher_bug.png" },
         { worldType: TILE_BEAR, theFile: "bear.png" },
+
         { worldType: TILE_REPLACE_ANIMAL, theFile: "terrain.png" },
 
         { worldType: TILE_CLIFF_TOP_LEFT, theFile: "cliff_top_left.png" },
