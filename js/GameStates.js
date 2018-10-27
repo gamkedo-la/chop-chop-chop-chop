@@ -360,7 +360,7 @@ function drawMusicAndSfxOptions() {
 
 function drawCredits() {
 	drawRect(0,0,canvas.width,canvas.height, "black");
-	if (drawScrollingText(creditsText)) {
+	if (drawScrollingCreditsText(creditsText)) {
 		scrollingText = false;
 		creditsRunning = false;
 		endSequence = false;
