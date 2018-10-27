@@ -302,6 +302,10 @@ function playerClass() {
 				spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
 				var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
 				arrayOfChopSFXs[random].play();
+				if (scrollingTextPaused) {
+					toggleScrollTextPause();
+				}
+				resetScrollSpeed();
 				return;
 			}
 		} else if (optionsMenu) {

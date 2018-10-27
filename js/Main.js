@@ -105,6 +105,7 @@ function drawAll() {
 			}
 		} else {
 			if (creditsRunning) {
+				scrollingText = true;
 				drawCredits();
 				return;
 			}
@@ -131,6 +132,7 @@ function drawAll() {
 			endCameraPan();
 			drawGUI();
 		} else if (endSequence) {
+			countdownTimerPaused = true;
 			waitBuffer++;
 			if (waitBuffer < 15) {
 				cameraPan();
@@ -184,9 +186,13 @@ function drawAll() {
 			}
 
 			if (waitBuffer >= 452) {
-				countdownTimerPaused = true;
+				scrollingText = true;
 				if (drawScrollingText(outroText)) {
 					openingMenuIsRunning = true;
+					if (scrollingTextPaused) {
+						toggleScrollTextPause();
+					}
+					resetScrollSpeed();
 					creditsRunning = true;
 				}
 			}

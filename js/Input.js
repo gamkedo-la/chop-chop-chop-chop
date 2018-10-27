@@ -110,7 +110,9 @@ function keyPressed(evt) {
 		case UP_ARROW_KEY:
 		case W_KEY:
 			upKeyHeld = true;
-			fastForwardScrollText();
+			if (scrollingText) {
+				fastForwardScrollText();
+			}
 			break;
 		case DOWN_ARROW_KEY:
 		case S_KEY:
