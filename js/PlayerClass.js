@@ -16,7 +16,7 @@ const TORNADO_POWER = 10;
 var upgradeLevelTwo = false;
 var upgradeLevelThree = false;
 
-var contactFrame = 15;
+var contactFrame = 0;
 var treesCutThisLevel = 0;
 
 function playerClass() {
@@ -204,12 +204,18 @@ function playerClass() {
 			this.state.chopping = false;
 			this.currentFrustration += addedFrustration;
 			if (this.currentFrustration >= MAX_FRUSTATION) {
-				this.currentFrustration = 0;
-				this.state.walking = false;
-				this.state.waiting = false;
-				this.invincible = false;
-				this.invincibiltyTimer = 0;
+				for (var w = 0; w < objectList.length; w++) {
+					var object = objectList[w];
+					if (object.returned != undefined) {
+						objectList.splice(w,1);
+						playerSideChopMax.loops = true;
+						playerSideChopMax.currentFrameIndex = 0;
+					}
+				}
+				spacebarKeyHeld = false;
 				countdownTimerPaused = true;
+				axeWhirl.pause();
+				axeWhirl.currentTime = 0;
 				getNewFrustratedScene();
     			prepareCutscene(FrustratedScene);
     			return;
@@ -229,8 +235,13 @@ function playerClass() {
 				this.x += boopedX;
 				this.y += boopedY;
 			}
-			this.invincibiltyTimer = this.invincibiltyTimerFull;
-			this.invincible = true;
+			if (this.axeLevel == MAX) {
+				this.invincibiltyTimer = this.invincibiltyTimerFull - framesPerSecond/2;
+				this.invincible = true;
+			} else {
+				this.invincibiltyTimer = this.invincibiltyTimerFull;
+				this.invincible = true;
+			}
 		}
 	}
 
@@ -401,7 +412,6 @@ function playerClass() {
 					} else {
 						prefix = "";
 					}
-
 					if (object.animal) {
 						this.hitAnAnimal = true;
 						console.log("HIT AN ANIMAL! >:C");
@@ -498,12 +508,13 @@ function playerClass() {
 		if (spacebarKeyHeld && this.chopTimer <= 0 && !this.state.waiting) {
 			if (this.axeLevel == MAX) {
 				this.state.chopping = true;
-				contactFrame = playerSideChopMax.animationColFrames - 1;
 				this.chopTimer = playerSideChopMax.animationColFrames - 1;
+				contactFrame = playerSideChopMax.animationColFrames - 1;
 				playerSideChopMax.currentFrameIndex = 0;
 			} else {
 				this.state.chopping = true;
 				this.chopTimer = playerSideChop.animationColFrames - 1;
+				contactFrame = playerSideChop.animationColFrames - 1;
 				playerSideChop.currentFrameIndex = 2;
 			}
 		}

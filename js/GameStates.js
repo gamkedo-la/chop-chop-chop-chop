@@ -425,6 +425,7 @@ let resetGame = (levelIndex) => {
 		openingMenuIsRunning = true;
 		gameIsRunning = false;
 		player.axeLevel = LOW;
+		player.axeSharpness = 0;
 		player.swingCount = 0;
 		player.stepCount = 0;
 		player.treeCount = 0;
@@ -449,8 +450,11 @@ let resetGame = (levelIndex) => {
 	player.y = levelStartPosition.y;
 	player.currentFrustration = 0; 
 	player.invincible = false;
-	spacebarKeyHeld = false;
+	player.invincibiltyTimer = 0;
+	player.state.walking = false;
+	player.state.waiting = false;
 	player.chopTimer = 0;
+	spacebarKeyHeld = false;
 	scroll = 0;
 	savedAlpha = 0;
 	havingAMoment = false;

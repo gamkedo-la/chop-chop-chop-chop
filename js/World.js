@@ -605,7 +605,11 @@ function advanceLevel() {
 		player.direction = WEST;
 		backgroundMusic.pause();
 		backgroundMusic.src = "music/dark_side_of_the_chop" + sourceExtension;
-		backgroundMusic.play();
+		backgroundMusic.play(); 
+	} else if (allLevels[currentLevelIndex].name == "Mountain Base") {
+		player.direction = EAST;
+	} else if (allLevels[currentLevelIndex].name == "Mountain Top") {
+		player.direction = WEST;
 	}
 	worldGrid = Array.from(allLevels[currentLevelIndex].layout);
 	worldCols = allLevels[currentLevelIndex].columns; 

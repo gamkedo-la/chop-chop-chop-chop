@@ -294,6 +294,9 @@ function playCutscene(data) {
 			if (data.isGameOver) {
 				// do nothing - wait for input from player
 			} else {
+				cutsceneSound.pause();
+				cutsceneSound.currentTime = 0;
+				spacebarKeyHeld = false;
 				havingAMoment = false;
 				skipCutscene = false;
 				wordsToShow = "";
