@@ -206,6 +206,7 @@ function playerClass() {
 			if (this.currentFrustration >= MAX_FRUSTATION) {
 				this.currentFrustration = 0;
 				this.state.walking = false;
+				this.state.waiting = false;
 				this.invincible = false;
 				this.invincibiltyTimer = 0;
 				countdownTimerPaused = true;
