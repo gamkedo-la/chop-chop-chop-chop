@@ -151,6 +151,7 @@ const TILE_MOON_HOME = 708;
 const TILE_MOON_WHEEL = 709;
 const TILE_MOON_CRASHED_SHIP = 710;
 const TILE_MOON_SURVEYOR = 711;
+const TILE_MOON_BUGGY = 712;
 
 // Animals
 const TILE_DEATH_CAT = 800;
@@ -271,6 +272,7 @@ function isTileTypeAnObject(tileType) {
 		case TILE_MOON_CRASHED_SHIP:
 		case TILE_MOON_LARGE_CRATER_1:
 		case TILE_MOON_LARGE_CRATER_2:
+		case TILE_MOON_BUGGY:
 			return true;
 			break;
 	}
