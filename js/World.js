@@ -635,7 +635,8 @@ function advanceLevel() {
 		player.direction = WEST;
 		backgroundMusic.pause();
 		backgroundMusic.src = "music/dark_side_of_the_chop" + sourceExtension;
-		backgroundMusic.play(); 
+		backgroundMusic.play();
+		player.stepCount += 384400000;
 	} else if (allLevels[currentLevelIndex].name == "Mountain Base") {
 		player.direction = EAST;
 	} else if (allLevels[currentLevelIndex].name == "Mountain Top") {
