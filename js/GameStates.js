@@ -210,7 +210,7 @@ function drawOptionsMenu() {
 				currentTestMusicIndex = 0;
 			}
 			if (currentTestMusicIndex == 0) {
-				backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
+				backgroundMusic.src = "music/ChopChopMenu_v1" + sourceExtension;
 			}
 			if (currentTestMusicIndex == 1) {
 				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
@@ -420,7 +420,7 @@ let resetGame = (levelIndex) => {
 	animatedTileList = [];
 	backgroundMusic.pause();
 	if (allLevels[currentLevelIndex].name == "Main Menu") { 
-		backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
+		backgroundMusic.src = "music/ChopChopMenu_v1" + sourceExtension;
 		player.direction = EAST;
 		openingMenuIsRunning = true;
 		gameIsRunning = false;

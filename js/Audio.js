@@ -57,7 +57,7 @@ let assignAudioTypes = () => {
 };
 assignAudioTypes();
 
-backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
+backgroundMusic.src = "music/ChopChopMenu_v1" + sourceExtension;
 
 backgroundMusic.addEventListener('timeupdate', function(){
 	var buffer = .44;
