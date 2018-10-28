@@ -101,14 +101,17 @@ function keyPressed(evt) {
     switch (evt.keyCode) {
         case LEFT_ARROW_KEY:
         case A_KEY:
+        	evt.preventDefault();
 			leftKeyHeld = true;
 			break;
 		case RIGHT_ARROW_KEY:
 		case D_KEY:
+			evt.preventDefault();
             rightKeyHeld = true;
 			break;
 		case UP_ARROW_KEY:
 		case W_KEY:
+			evt.preventDefault();
 			upKeyHeld = true;
 			if (scrollingText) {
 				fastForwardScrollText();
@@ -116,6 +119,7 @@ function keyPressed(evt) {
 			break;
 		case DOWN_ARROW_KEY:
 		case S_KEY:
+			evt.preventDefault();
 			downKeyHeld = true;
 			rewindScrollText();
 			break;
