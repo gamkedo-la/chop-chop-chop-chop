@@ -98,6 +98,7 @@ function windowOnFocus() {
 }
 
 function keyPressed(evt) {
+	var validGameKey = true; // assume true, unless switch defaults
     switch (evt.keyCode) {
         case LEFT_ARROW_KEY:
         case A_KEY:
@@ -252,7 +253,12 @@ function keyPressed(evt) {
 		break;
 	    case E_KEY:
 	    break;
+		default:
+ 			validGameKey = false;
     }
+	if(validGameKey) {
+		evt.preventDefault(); // eat key to stop scroll etc.
+	}
 };
 
 function keyReleased(evt) {
