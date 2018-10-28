@@ -29,7 +29,6 @@ function standardTreeClass (worldTileType,arrayIndex,hiddenTile) {
 	}
 
 	if (worldTileType == TILE_MOON_TREE_1) {
-		//console.log("Tall tree detected!");
 		this.health = 4;
 		this.y -= 48;
 		this.colliderHeight = this.height/2;
@@ -50,6 +49,8 @@ function standardTreeClass (worldTileType,arrayIndex,hiddenTile) {
 	if (worldTileType == TILE_MOON_CHEESE_TREE) {
 		this.x = position.x - this.width/4;
 		this.y = position.y - this.height/2;
+		this.depthGap = 66;
+		this.depthY = this.y + this.depthGap;
 		this.hasLeaves = false;
 		this.health = 3;
 		this.colliderWidth = this.width/3;

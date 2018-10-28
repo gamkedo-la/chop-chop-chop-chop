@@ -36,6 +36,7 @@ function pixelfont_dx(char) {
     if (char == '"') num = 42;
     if (char == "'") num = 43;
     if (char == '+') num = 44;
+    if (char == '/') num = 45;
     if (isNumeric(char)) num += 47;
     var column = (num % 8);
     //console.log(char+' num:'+num+' col:'+column);
@@ -54,6 +55,7 @@ function pixelfont_dy(char) {
     if (char == '"') num = 42;
     if (char == "'") num = 43;
     if (char == '+') num = 44;
+    if (char == '/') num = 45;
     if (isNumeric(char)) num += 47;
     var row = Math.floor((num / 8));
     //console.log(char+' num:'+num+' row:'+row);
@@ -217,7 +219,7 @@ function NpcText() {
     - does not support wrapping for now 
     - if not centred just add spaces to beginning/end of string lol someone can fix this if they want
     
-    ps: some chars. in pixel font are measured differently, so expect varying alignments when using: w, m OR w, m with letters t, i, o, !, and some others
+    ps: some chars. in pixel font are measured differently, so expect varying left/right padding when using: w, m OR w, m with letters t, i, o, !, and some others
     */
     this.counter = 0;
     this.bubWidth = 0;
@@ -229,28 +231,33 @@ function NpcText() {
 
     var textBuffY = bubHeight - bubHeight / 2 - 5;
     var textSpeed = 0.8;
-    
+
     var lineHeight = 15;
 
     var arrowBuffY = bubHeight;
+    
+    this.drawBubble = function(bubbleX, bubbleY,  bubbleWidth, bubbleHeight, bubbleRadius, arrowX, arrowY) {
+         roundRect(bubbleX, bubbleY, bubbleWidth, bubbleHeight, bubbleRadius, true, true);
+         canvasContext.drawImage(gamePics["textTriangle"], arrowX, arrowY);
+    }
 
     this.printWords = function (str, x, y) {
+        var typewriterText, measureText, textWidth, halfBubWidth, bubX, bubWidth;
         if (this.counter <= str.length) {
             this.counter += textSpeed;
         }
-        var typewriterText = str.substr(0, this.counter);
-        var measureText = canvasContext.measureText(typewriterText);
-        var textWidth = measureText.width;
+        typewriterText = str.substr(0, this.counter);
+        measureText = canvasContext.measureText(typewriterText);
+        textWidth = measureText.width;
         
         while (this.bubWidth < textWidth + bubBorder) {
             this.bubWidth++;
         }
-        var halfBubWidth = this.bubWidth * 0.5;
-        var bubX = (x - halfBubWidth);
-        var bubWidth = (this.bubWidth + halfBubWidth) + (halfBubWidth + bubBorder);
-        roundRect(bubX - bubBuffX, y, bubWidth, bubHeight, bubRadius, true, true);
+        halfBubWidth = this.bubWidth * 0.5;
+        bubX = (x - halfBubWidth);
+        bubWidth = (this.bubWidth + halfBubWidth) + (halfBubWidth + bubBorder);
+        this.drawBubble(bubX - bubBuffX, y, bubWidth, bubHeight, bubRadius, x, y + arrowBuffY);
         drawPixelfont(typewriterText, bubX + bubBuffX, y + textBuffY, 10, 10);
-        canvasContext.drawImage(gamePics["textTriangle"], x, y + arrowBuffY);
     }
 
     this.resetLetters = function () {

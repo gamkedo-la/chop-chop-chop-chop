@@ -11,80 +11,158 @@ var introText = ["chop-chop, intrepid  lumberjack, has  decided", "to  make  it 
 var outroText = ["Wow!", "Look at all I've chopped.", "But now all the beautiful trees are missing.", "And no one else can have fun chopping...",
 "Time to plant-plant, plant-plant", "Coming soon... maybe" ];
 
-var creditsText = ["Terrence McDonnell:",
-       "project lead, main functionality, tile collision",
-       "tree interactions code, health code", 
-       "tile types rocks, water, thorns,", 
-       "art","pumpkin,lantern,twig,boulder,blob,","grass,lollipop,moon trees/stumps",
-       "collision code, sound integration,"," tile editor, axe projectile",
-        "rabbit and bear, tornado powerup",
-        "level designs, bug fixing, depth shadow draw",
-     "",
-"Jeff Hanlon:", 
-        " sounds"," chimes, chipmunk, chop variations, roar, snake",
-	    " swoosh, tornado, moon craters, moon surveyor",
-	    "art","mushrooms, leaves,leaves pile"," cobble path variations, dir corners",
-	    " audio format conversion, game over music",
-	    "chop animation timing improvements",
-	    " title concepts,font formatting", "empty handed sprite",
-	 "",
-"Stebs:",
-       "audio hookup improvements and looping, pause",
-       "animation and music fixes, animal attack sounds",
-       "refactoring, death cat art and code",
-       "trees, swiss cheese and cheese tree,", 
-       "moon art,moon music, crate, ",
-       "bird art and implementation",
-     "",
-"Christer(McFunkypants):",
-       "outro text writing",
-    "",   
-"Kaitila:",
-      "player sprite incl.animations, integreations",
-       "particle effects","dust trail, chop, leaves, light beams, tree shake",
-      "tree texture improvements, log debris,",
-       "GUI stats, countdown timer, tall tree,",
-      " pixel font, cutscene grinding animation,",
-       "black outlines,moon coral,logo,  ",
-      " exclamation animal thought bubble",
-    "",
- "Kise:",
-  "text scrolling code, animal speech bubbles Buddie",
-       "tree art (several variations)",
-     "",
- "Chapman:",
-       "idle/meandering AI, level transition, ",
-       " bush tile, tree respawn, timer pause support",
-       "editor scrolling, chase music code",
-       "cliff collision improvements,",
-     "",
- "Brandon Trumpold:",
-        "edge bounds checks,non-graphics utility script", 
-        "initial depth transparency effect","particle system",
-     "",
-"Joe C.S.:", 
+var creditsText = ["-Terrence McDonnell-",
+"project lead",
+"",
+"code:", "",       
+		"main functionality, tile collision,",
+    	"tree interactions, health code,",
+    	"collision code, animal navigation,",
+    	"tile editor, sound and music test",
+    	"depth sort drawing",
+    	"bug fixing,",
+"", 
+"art:","",
+		"pumpkin,jack-o-lantern",
+		"twig,boulder sheet,tiny rock,",
+		"grass,lollipop,",
+		"campfire, bonfire,thorns,", 
+		"water and waterfall sheet,",
+    	"rabbit,bear,bug", 
+    	"alligator, tornado,",
+    	"axe projectile,",
+		"moon and normal trees and stumps,",
+		"crate,wheel, and small craters,",
+		"level designs",
+"",
+"sound:", "",
+    	"sound integration, missed swing,",
+    	"bug buzz, axe whirl",
+"",
+"-Jeff Hanlon-", 
+"art:", "",
+		"mushrooms, leaves,leaves pile,",
+		" rocks and variations, dirt path tile/corners,",
+ 		"moon craters, moon surveyor and buggy,",
+ 		 "chop animation timing improvements,",
+	    " title concepts,font formatting,", 
+	    "empty handed sprite",
+"",
+"sound:","",
+		" player hits animal, fire,", 
+		" chop variations,",
+	    " tornado, early sfx,",
+	    " audio format conversion",
+"",
+"music:", "",
+		"game over music",
+"",
+"-Stebs-",
+"code:", "",
+		"game pause,bird and cat implementation,",
+		"outro text code, refactoring",
+"",
+"art:", "",
+		"bird and cat art,",
+		"swiss cheese moon tree and stump,",
+		"animation fixes", 
+"",
+"sound:", "",
+       "audio setup,format check,",
+       "volume control, looping,",
+       "bird and cat attack sounds,",
+       "swiss cheese moon tree and stump", 
+"",
+"music:", "",
+		"moon music and music fixes",  
+"", 
+"-Christer Kaitila-",
+"code:", "",
+		"player sprites integrations,",
+		"tree shake,GUI stats, countdown timer,",
+		"particle effects intergration,",
+		"pixel font renderer,",
+		"initial animal thought code",
+"",
+"art:","", 
+		"idle,walking, chopping and", 
+		"grinding player sprite animations,",
+		"dust trail, chop, log debris",
+		"and leaves particle effects",
+		"and refinements,",
+		"tall and short textured tree,",
+		"tree texture improvements",
+		"moon coral tree,",
+		"black outlines,",
+		"title screen logo",
+"",
+"-Kise-",
+"code:", "",
+		"text scrolling code, animal speech bubbles,",
+		"refactoring",
+"",
+"art:","",
+   		"tree art and variation,",
+   		"speech bubble wedge and dialogue",
+"",
+"-Buddie Chapman-",
+"code:", "",
+		"idle/meandering AI and refinements,",
+		"level transition and collision check,",
+		"tree respawn, timer pause support,",
+		"editor mouse scrolling, chase music code,",
+		"cliff collision improvements",
+"",
+"art:","",
+		"bush tile",
+"",
+"-Brandon Trumpold-",
+"code:", "",
+	    "edge bounds checks,non-graphics utility script,", 
+	    "particle system and initial intergration",
+"",
+"art:","",
+		"initial depth transparency effect",
+"",
+"-Joe C.S.-",
+"music:","", 
         "Forest and menu music",
-        "",
-        "Michelly Oliveira:", "Logo hitbox adjustment,added music",
-        "and sfx options in menu", 
-     "",
-"Jason Roberts",
-        "Willow tree (full and stump) ","art and integration",
-     "",
-"Asix Jin:",
-         "Animal Chase song",
-       "",
- "Renaud Marshall:",
-          "pause dither "," Menu & pause UI improvements,",
-       "",
- "Chris Markle:",
-          "3 bear roar sounds", 
-       "",
- "Marc Silva:", 
-          "End screen art",
-     "",
-"Vaan Hope Khani:", 
-       "Credits integration",];
+"",
+"-Michelly Oliveira-",
+"code:", "", 
+		"Logo hitbox adjustment,",
+        "music and sfx options menu", 
+"",
+"-Jason Roberts-",
+"art:","",
+        "Willow tree and stump art",
+        "and integration",
+"",
+"-Praneil Kamat-", 
+"code:", "",
+		"player state lock bug fix,",
+		"scrolling text instruction display",
+		"changes on context",
+"",
+"-Asix Jin-",
+"music:","",
+        "Animal Chase song",
+"",
+"-Renaud Marshall-",
+"code:", "",
+		"pause dither,"," Menu and Pause UI improvements",
+"",
+"-Chris Markle-",
+"sound:", "",
+        "3 bear roar sounds", 
+"",
+"-Marc Silva-",
+"art:","", 
+        "End screen art",
+"",
+"-Vaan Hope Khani-",
+"code:","", 
+    	"Credits integration",];
 
 function toggleScrollTextPause() {
     scrollingTextPaused = !scrollingTextPaused;
@@ -96,6 +174,18 @@ function toggleScrollTextPause() {
 }
 
 function drawScrollingText(textList) {
+	return drawScrollingText(textList, false);
+}
+
+function drawScrollingCreditsText(textList) {
+	return drawScrollingText(textList, true);
+}
+
+function drawScrollingText(textList, isCredits) {
+	var skipText = "-X-  skip";
+	if (isCredits) {
+		skipText = "-X-  main menu";
+	}
 	var scrollTextX = -55;
 	var bufferSpace = 64;
 	scroll -= scrollSpeed;
@@ -108,13 +198,13 @@ function drawScrollingText(textList) {
     		if (scroll < (canvas.height + i * pixelsSkipPerLine) * - 1 - bufferSpace) {
     			canvasContext.restore();
     			drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
-    			drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+    			drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      " + skipText, 32, canvas.height - canvas.height/20, 12,12);
     			scroll = 0;
     			return true;
     		} else if (scrollingTextSkipped) {
     			canvasContext.restore();
     			drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
-    			drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+    			drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      " + skipText, 32, canvas.height - canvas.height/20, 12,12);
     			scroll = 0;
     			scrollingTextSkipped = false;
     			scrollingTextPaused = false;
@@ -124,7 +214,7 @@ function drawScrollingText(textList) {
     }
     canvasContext.restore();
  	drawRect(0, canvas.height - canvas.height/16, canvas.width, canvas.height/16, "black");
-    drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      -X-  skip", 32, canvas.height - canvas.height/20, 12,12);
+    drawPixelfont("-W-  fast forward      -S-  rewind      -Space-  pause      " + skipText, 32, canvas.height - canvas.height/20, 12,12);
 }
 
 function rewindScrollText() {
@@ -284,6 +374,9 @@ function playCutscene(data) {
 			if (data.isGameOver) {
 				// do nothing - wait for input from player
 			} else {
+				cutsceneSound.pause();
+				cutsceneSound.currentTime = 0;
+				spacebarKeyHeld = false;
 				havingAMoment = false;
 				skipCutscene = false;
 				wordsToShow = "";

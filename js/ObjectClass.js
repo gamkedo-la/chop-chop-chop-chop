@@ -17,7 +17,8 @@ var moonTrees = [TILE_MOON_TREE_1,TILE_MOON_TREE_2,TILE_MOON_TREE_3,TILE_STALAGM
 
 var moonObjects = [TILE_MOON_LARGE_CRATER_1,TILE_MOON_LARGE_CRATER_2,
 					TILE_MOON_TREE_1_STUMP,TILE_MOON_TREE_2_STUMP,TILE_MOON_TREE_3_STUMP,
-					TILE_STALAGMITE_STUMP,TILE_MOON_CHEESE_STUMP,TILE_MOON_CRASHED_SHIP];
+					TILE_STALAGMITE_STUMP,TILE_MOON_CHEESE_STUMP,TILE_MOON_CRASHED_SHIP,
+					TILE_MOON_BUGGY];
 
 var replacements = [
 TILE_REPLACE_TREE,
@@ -81,18 +82,28 @@ function objectClass (newObject) {
 			//console.log("Tree falling!");
 			player.treeCount++; // add to stats for GUI
 			treesCutThisLevel++
-			if (treesCutThisLevel >= allLevels[currentLevelIndex].treesToCut) {
+			if (treesCutThisLevel >= allLevels[currentLevelIndex].treesToCut && !lastLevelLockout) {
 				if (allLevels[currentLevelIndex].name == "Moon") {
+					for (var w = 0; w < objectList.length; w++) {
+						var object = objectList[w];
+						if (object.returned != undefined) {
+							objectList.splice(w,1);
+							playerSideChopMax.loops = true;
+							playerSideChopMax.currentFrameIndex = 0;
+						}
+					}
+					lastLevelLockout = true;
 			        waitBuffer = 0;
 					scrollingText = true;
 			        endSequence = true;
 					if (scrollingTextPaused) {
 						toggleScrollTextPause();
 					}
-				}
-				for (var i = 0; i < worldGrid.length; i++) {
-					if (worldGrid[i] === TILE_THORN) {
-						worldGrid[i] = TILE_TERRAIN
+				} else {
+					for (var i = 0; i < worldGrid.length; i++) {
+						if (worldGrid[i] === TILE_THORN) {
+							worldGrid[i] = TILE_TERRAIN
+						}
 					}
 				}
 			}
@@ -155,6 +166,7 @@ function spawnObjectBasedOnTile(tileType, arrayIndex, hiddenTile) {
 		case TILE_PUFFY_STUMP:
 		case TILE_MOON_LARGE_CRATER_1:
 		case TILE_MOON_LARGE_CRATER_2:
+		case TILE_MOON_BUGGY:
 		case TILE_MOON_TREE_2_STUMP:
 		case TILE_MOON_TREE_3_STUMP:
 		case TILE_MOON_CHEESE_STUMP:

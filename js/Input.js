@@ -102,19 +102,25 @@ function keyPressed(evt) {
     switch (evt.keyCode) {
         case LEFT_ARROW_KEY:
         case A_KEY:
+        	evt.preventDefault();
 			leftKeyHeld = true;
 			break;
 		case RIGHT_ARROW_KEY:
 		case D_KEY:
+			evt.preventDefault();
             rightKeyHeld = true;
 			break;
 		case UP_ARROW_KEY:
 		case W_KEY:
+			evt.preventDefault();
 			upKeyHeld = true;
-			fastForwardScrollText();
+			if (scrollingText) {
+				fastForwardScrollText();
+			}
 			break;
 		case DOWN_ARROW_KEY:
 		case S_KEY:
+			evt.preventDefault();
 			downKeyHeld = true;
 			rewindScrollText();
 			break;
@@ -147,31 +153,33 @@ function keyPressed(evt) {
 			toggleDebug();
 		break;
 		case KEY_TILDE:
-			worldEditor = !worldEditor;
-			if (worldEditor) {
-				countdownTimerPaused = true;
-				console.log("worldEditor ON!");
-				console.log("Please select a set of tiles using:" + "\n"
-   				+ "0 for terrain tiles and goal tile" + "\n"
-   				+ "1 for ground tiles" + "\n"
-   				+ "2 for tree tiles" + "\n"
-   				+ "3 for cliff tiles" + "\n"
-   				+ "4 for water tiles" + "\n"
-   				+ "5 for path tiles" + "\n"
-   				+ "7 for moon tiles" + "\n"
-   				+ "8 for animal tiles" + "\n");
-			}
-			if (!worldEditor) {
-				countdownTimerPaused = false;
-				worldGrid = [];
-				particleList = [];
-				objectList = [];
-				objectList.push(player);
-				animatedTileList = [];
-				animatedTileSet = [];
-				worldGrid = Array.from(allLevels[currentLevelIndex].layout);
-				player.invincible = false;
-				console.log("worldEditor OFF...");
+			if (debug) {
+				worldEditor = !worldEditor;
+				if (worldEditor) {
+					countdownTimerPaused = true;
+					console.log("worldEditor ON!");
+					console.log("Please select a set of tiles using:" + "\n"
+	   				+ "0 for terrain tiles and goal tile" + "\n"
+	   				+ "1 for ground tiles" + "\n"
+	   				+ "2 for tree tiles" + "\n"
+	   				+ "3 for cliff tiles" + "\n"
+	   				+ "4 for water tiles" + "\n"
+	   				+ "5 for path tiles" + "\n"
+	   				+ "7 for moon tiles" + "\n"
+	   				+ "8 for animal tiles" + "\n");
+				}
+				if (!worldEditor) {
+					countdownTimerPaused = false;
+					worldGrid = [];
+					particleList = [];
+					objectList = [];
+					objectList.push(player);
+					animatedTileList = [];
+					animatedTileSet = [];
+					worldGrid = Array.from(allLevels[currentLevelIndex].layout);
+					player.invincible = false;
+					console.log("worldEditor OFF...");
+				}
 			}
 		break;
 		case X_KEY:

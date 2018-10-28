@@ -66,12 +66,31 @@ function projectileClass (x,y, direction) {
 			var object = objectList[i];
 			if (object.hasHitbox) {
 				if (this.axeHitbox.isCollidingWith(object.hitbox)) {
-					//console.log("hit an object!");
-					spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
-					var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
-					arrayOfChopSFXs[random].play();
-					object.gotHit(player.axePower);
-					player.chopCount++; // add to score on GUI
+					if (object.animal) {
+						player.hitAnAnimal = true;
+						console.log("HIT AN ANIMAL! >:C");
+						animalHit.play();
+						player.gotHit(animal.attackPower);
+					} else {
+						spawnParticles('chop', this.axeHitbox.x, this.axeHitbox.y);
+						var random = getRoundedRandomNumberBetweenMinMax(0, arrayOfChopSFXs.length - 1);
+						arrayOfChopSFXs[random].play();
+						object.gotHit(player.axePower);
+						player.chopCount++; // add to score on GUI
+						if (object.tileType == TILE_LOLLIPOP && object.health <=0) {
+							player.powerupActive = true;
+							player.state.chopping = false;
+							player.state.waiting = false;
+							playerSideChopMax.loops = true;
+							playerSideChopMax.currentFrameIndex = 0;
+							axeWhirl.pause();
+							axeWhirl.currentTime = 0;
+							this.returned = true;
+							this.remove = true;
+							spacebarKeyHeld = false;
+							break;
+						}
+					}
 				} // end of if axeHitbox connects with object hitbox
 			} // end of if object.hasHitbox (error would throw for non-hitbox having objects such as stumps)
 		} // end of for loop for incrementing array index

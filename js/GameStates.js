@@ -26,6 +26,8 @@ var hitMusicMinus = false;
 var hitSfxPlus = false;
 var hitSfxMinus = false;
 
+var lastLevelLockout = false;
+
 var pendingShakes = 0;
 var waitBuffer = 0;
 var currentTestSoundIndex = -1;
@@ -210,7 +212,7 @@ function drawOptionsMenu() {
 				currentTestMusicIndex = 0;
 			}
 			if (currentTestMusicIndex == 0) {
-				backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
+				backgroundMusic.src = "music/ChopChopMenu_v1" + sourceExtension;
 			}
 			if (currentTestMusicIndex == 1) {
 				backgroundMusic.src = "music/ChopChopForestV1" + sourceExtension;
@@ -360,7 +362,7 @@ function drawMusicAndSfxOptions() {
 
 function drawCredits() {
 	drawRect(0,0,canvas.width,canvas.height, "black");
-	if (drawScrollingText(creditsText)) {
+	if (drawScrollingCreditsText(creditsText)) {
 		scrollingText = false;
 		creditsRunning = false;
 		endSequence = false;
@@ -420,11 +422,12 @@ let resetGame = (levelIndex) => {
 	animatedTileList = [];
 	backgroundMusic.pause();
 	if (allLevels[currentLevelIndex].name == "Main Menu") { 
-		backgroundMusic.src = "music/ChopChopMenu_V1" + sourceExtension;
+		backgroundMusic.src = "music/ChopChopMenu_v1" + sourceExtension;
 		player.direction = EAST;
 		openingMenuIsRunning = true;
 		gameIsRunning = false;
 		player.axeLevel = LOW;
+		player.axeSharpness = 0;
 		player.swingCount = 0;
 		player.stepCount = 0;
 		player.treeCount = 0;
@@ -449,8 +452,12 @@ let resetGame = (levelIndex) => {
 	player.y = levelStartPosition.y;
 	player.currentFrustration = 0; 
 	player.invincible = false;
-	spacebarKeyHeld = false;
+	player.invincibiltyTimer = 0;
+	player.state.walking = false;
+	player.state.waiting = false;
 	player.chopTimer = 0;
+	spacebarKeyHeld = false;
+	lastLevelLockout = false;
 	scroll = 0;
 	savedAlpha = 0;
 	havingAMoment = false;
