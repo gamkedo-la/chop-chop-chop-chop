@@ -26,6 +26,8 @@ var hitMusicMinus = false;
 var hitSfxPlus = false;
 var hitSfxMinus = false;
 
+var lastLevelLockout = false;
+
 var pendingShakes = 0;
 var waitBuffer = 0;
 var currentTestSoundIndex = -1;
@@ -455,6 +457,7 @@ let resetGame = (levelIndex) => {
 	player.state.waiting = false;
 	player.chopTimer = 0;
 	spacebarKeyHeld = false;
+	lastLevelLockout = false;
 	scroll = 0;
 	savedAlpha = 0;
 	havingAMoment = false;

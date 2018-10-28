@@ -82,18 +82,28 @@ function objectClass (newObject) {
 			//console.log("Tree falling!");
 			player.treeCount++; // add to stats for GUI
 			treesCutThisLevel++
-			if (treesCutThisLevel >= allLevels[currentLevelIndex].treesToCut) {
+			if (treesCutThisLevel >= allLevels[currentLevelIndex].treesToCut && !lastLevelLockout) {
 				if (allLevels[currentLevelIndex].name == "Moon") {
+					for (var w = 0; w < objectList.length; w++) {
+						var object = objectList[w];
+						if (object.returned != undefined) {
+							objectList.splice(w,1);
+							playerSideChopMax.loops = true;
+							playerSideChopMax.currentFrameIndex = 0;
+						}
+					}
+					lastLevelLockout = true;
 			        waitBuffer = 0;
 					scrollingText = true;
 			        endSequence = true;
 					if (scrollingTextPaused) {
 						toggleScrollTextPause();
 					}
-				}
-				for (var i = 0; i < worldGrid.length; i++) {
-					if (worldGrid[i] === TILE_THORN) {
-						worldGrid[i] = TILE_TERRAIN
+				} else {
+					for (var i = 0; i < worldGrid.length; i++) {
+						if (worldGrid[i] === TILE_THORN) {
+							worldGrid[i] = TILE_TERRAIN
+						}
 					}
 				}
 			}

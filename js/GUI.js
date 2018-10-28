@@ -8,9 +8,9 @@ const FRUSTRATION_BAR_HEIGHT = 12;
 function drawGUI() {
 	drawRect(0,0, canvas.width, 20, "black");
     var statustxt = 
-    	"TREES TO CUT:" + treesCutThisLevel + "/" + allLevels[currentLevelIndex].treesToCut + "    " +
-        "CHOPS:" + player.chopCount + "    " +
-        "DISTANCE:" + player.stepCount + " M"
+    	"TREES TO CUT:" + treesCutThisLevel + "/" + allLevels[currentLevelIndex].treesToCut + "   " +
+        "CHOPS:" + player.chopCount + "   " +
+        "DISTANCE:" + player.stepCount + "M"
 
     drawPixelfont(statustxt,4,GUI_Y);
     var frustrationText = "FRUSTRATION";
