@@ -162,7 +162,11 @@ var creditsText = ["-Terrence McDonnell-",
 "",
 "-Vaan Hope Khani-",
 "code:","", 
-    	"Credits integration",];
+    	"Credits integration",
+"",
+"-Evan Reese-",
+"sound:","",
+		"public domain grinding sound"];
 
 function toggleScrollTextPause() {
     scrollingTextPaused = !scrollingTextPaused;
